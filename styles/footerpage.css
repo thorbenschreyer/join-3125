@@ -1,0 +1,44 @@
+.footer-pages {
+  max-width: 900px;
+  font-family: Arial, sans-serif;
+  }
+
+.footer-pages h1 {
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.footer-pages h2 {
+  margin-top: 32px;
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.footer-pages p {
+  line-height: 1.6;
+}
+
+.footer-pages span {
+  color: rgba(41, 171, 226, 1);
+  text-decoration: none;
+}
+
+.link{
+    color:#29abe2;
+    font-weight:500;
+}
+
+.step{
+    margin-top:16px;
+}
+
+.back-to-previous-page {
+    position: fixed;
+    top: 225px;
+    right: 96px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+}
+

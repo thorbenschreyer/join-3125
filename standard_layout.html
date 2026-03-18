@@ -1,0 +1,17 @@
+<div class="sidebar" id="sidebar"></div>
+
+<div class="main-area">
+  <div class="header" id="header">
+    <p>Kanban Project Management Tool</p>
+    <div class="help-and-logout">
+        <img onclick="loadHtmlPage('content','./footerpages/help.html')" src='./assets/icons/help.png' alt='Helppage'>
+        <button onclick="openCloseHeaderMenu()">TS</button> <!-- TODO ${initials} -->
+    </div>
+    <div class="header-menu-hide" id="header-menu">
+         <a onclick="loadHtmlPage('content','./footerpages/legal_notice.html'), openCloseHeaderMenu()">Legal Notice</a>
+         <a onclick="loadHtmlPage('content','./footerpages/privacy_policy.html'),openCloseHeaderMenu()">Privacy Policy</a>
+         <a onclick="logout(),openCloseHeaderMenu()">Log out</a>
+    </div>
+  </div>
+  <div class="page-content" id="content"></div>
+</div>
