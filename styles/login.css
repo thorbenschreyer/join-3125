@@ -1,0 +1,128 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 650px;
+    height: 450px;
+    background-color: white;
+    padding: 48px 115px;
+    gap: 32px;
+    border-radius: 16px;
+}
+
+.login-heading{
+    font-size: 61px;
+    font-weight: 700;
+    font-style: bold;
+}
+
+.underline-login-heading{
+    height: 0px;
+    width: 150px;
+    border: solid 3px #29ABE2;
+}
+
+.container-heading-and-underline{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.inputs-login{
+    width: 100%;
+    border-radius: 8px;
+    padding: 15px 24px;
+    border: solid 1px rgb(232, 232, 232);
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+}
+
+.inputs-login:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 48px white inset !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.inputs-login:valid{
+    background-color: white;
+}
+
+.inputs-login:invalid:not(:placeholder-shown){
+    border: solid 1px #b41a0f;
+}
+
+.inputs-login:focus{
+    border: solid 1px #29ABE2;
+}
+
+.container-login-inputs{
+    width: 422px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 8px;
+}
+
+.container-login-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.buttons-login{
+    padding: 15px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.login-button{
+    background-color:  #2A3647;
+    border: none;
+    color: white;
+    transition: background-color 100ms ease-in-out;
+}
+
+.login-button:hover{
+    background-color: #29ABE2;
+}
+
+.login-button:active{
+    background-color: #091931;
+}
+
+.guest-login-button{
+    background-color: white;
+    border: solid 1px black;
+}
+
+.guest-login-button:hover{
+    border: solid 2px #29ABE2;
+    padding: 14px 23px;
+    color: #29ABE2;
+}
+
+.guest-login-button:active{
+    border: solid 1px #091931;
+    color: #091931;
+    padding: 15px 24px;
+}
+
+.container-login-buttons{
+    display: flex;
+    gap: 35px;
+}
+
+
+
+
+
+
+body{
+    background-color: rgb(151, 149, 146);
+}
