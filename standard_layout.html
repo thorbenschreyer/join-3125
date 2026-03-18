@@ -8,12 +8,10 @@
         <button onclick="openCloseHeaderMenu()">TS</button> <!-- TODO ${initials} -->
     </div>
     <div class="header-menu-hide" id="header-menu">
-         <a onclick="loadHtmlPage('content','./footerpages/legal_notice.html')">Legal Notice</a>
-         <a onclick="loadHtmlPage('content','./footerpages/privacy_policy.html')">Privacy Policy</a>
-         <a onclick="logout()">Log out</a>
+         <a onclick="loadHtmlPage('content','./footerpages/legal_notice.html'), openCloseHeaderMenu()">Legal Notice</a>
+         <a onclick="loadHtmlPage('content','./footerpages/privacy_policy.html'),openCloseHeaderMenu()">Privacy Policy</a>
+         <a onclick="logout(),openCloseHeaderMenu()">Log out</a>
     </div>
-
-
   </div>
   <div class="page-content" id="content"></div>
 </div>
