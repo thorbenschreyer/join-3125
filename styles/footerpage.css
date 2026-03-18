@@ -1,0 +1,25 @@
+.legal-notice {
+  max-width: 900px;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+}
+
+.legal-notice h1 {
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.legal-notice h2 {
+  margin-top: 32px;
+  font-size: 22px;
+}
+
+.legal-notice p {
+  line-height: 1.6;
+}
+
+.legal-notice a {
+  color: #2a7de1;
+  text-decoration: none;
+}
