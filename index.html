@@ -1,31 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <!-- GENERAL -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
     <!-- FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./styles/add_task.css">
-    <link rel="stylesheet" href="./styles/board.css">
-    <link rel="stylesheet" href="./styles/contacts.css">
-    <link rel="stylesheet" href="./styles/login.css">
-    <link rel="stylesheet" href="./styles/summary.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./styles/add_task.css" />
+    <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/contacts.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/summary.css" />
+    <link rel="stylesheet" href="./styles/sidebar.css" />
     <!-- SCRIPTS -->
-     <script src="script.js"></script>
-     <script src="./scripts/add_tasks.js"></script>
-     <script src="./scripts/board.js"></script>
-     <script src="./scripts/contacts.js"></script>
-     <script src="./scripts/login.js"></script>
-     <script src="./scripts/summary.js"></script>
+    <script src="script.js"></script>
+    <script src="./scripts/add_tasks.js"></script>
+    <script src="./scripts/board.js"></script>
+    <script src="./scripts/contacts.js"></script>
+    <script src="./scripts/login.js"></script>
+    <script src="./scripts/summary.js"></script>
     <title>Join Kanban</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div class="all-content-area">
+      <div class="sidebar" id="sidebar"></div>
+      <div class="main-area">
+        <div class="header" id="header"></div>
+        <div class="page-content" id="content"></div>
+      </div>
+    </div>
+  </body>
 </html>
