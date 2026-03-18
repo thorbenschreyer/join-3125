@@ -1,4 +1,6 @@
 let menuIsOpen = false;
+let lastOpenPage;
+let lastOpenID;
 
 function init() {
     loadHtmlPage("all-content-area", "standard_layout.html")
@@ -12,6 +14,8 @@ function init() {
  * @param {The name or the folder and the name of the HTML file} pagefile 
  */
 async function loadHtmlPage(divID, pagefile) {
+    lastOpenID = divID
+    lastOpenPage = pagefile
     const response = await fetch(pagefile);
     html = await response.text();
     document.getElementById(divID).innerHTML = html
@@ -47,3 +51,7 @@ document.addEventListener("click", function(event) {
         menuIsOpen = false;
     }
 });
+
+function backToPreviousPage(lastOpenID, lastOpenPage) {
+    loadHtmlPage(lastOpenID, lastOpenPage)
+}

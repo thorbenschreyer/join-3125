@@ -32,3 +32,12 @@
 .step{
     margin-top:16px;
 }
+
+.back-to-previous-page {
+    position: fixed;
+    top: 225px;
+    right: 96px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+}
