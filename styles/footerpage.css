@@ -1,24 +1,25 @@
-.legal-notice {
+.footer-pages {
   max-width: 900px;
   font-family: Arial, sans-serif;
   }
 
-.legal-notice h1 {
+.footer-pages h1 {
   font-size: 64px;
   font-weight: 700;
   margin-bottom: 32px;
 }
 
-.legal-notice h2 {
+.footer-pages h2 {
   margin-top: 32px;
+  margin-bottom: 8px;
   font-size: 22px;
 }
 
-.legal-notice p {
+.footer-pages p {
   line-height: 1.6;
 }
 
-.legal-notice span {
+.footer-pages span {
   color: rgba(41, 171, 226, 1);
   text-decoration: none;
 }

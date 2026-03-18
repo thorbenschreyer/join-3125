@@ -2,7 +2,7 @@ let menuIsOpen = false;
 
 function init() {
     loadHtmlPage("all-content-area", "standard_layout.html")
-    loadHtmlPage("content", "./footerpages/legal_notice.html")
+    loadHtmlPage("content", "./footerpages/privacy_policy.html")
 }
 
 
