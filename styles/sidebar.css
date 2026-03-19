@@ -46,6 +46,7 @@
 .help-and-logout img {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
+  margin-left: 8px;
   height: 24px;
   width: 24px;
 }
@@ -78,6 +79,7 @@
   margin-top: 96px;
   margin-left: 96px;
   padding-top: 110px;
+  margin-right: 8px;
 }
 
 /* =============== Header-Menu ===============*/
@@ -186,4 +188,57 @@
 .isActive {
   color: rgba(255, 255, 255, 1);
   background-color: rgba(9, 25, 49, 1);
+}
+
+@media (max-width: 744px) {
+  .sidebar {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: unset
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  .menu-items {
+    flex-direction: unset;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .menu-hover {
+    padding: unset;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .header {
+    justify-content: end;
+    height: 80px;
+    left: 0;
+}
+
+.initials-menu {
+    background-color: unset;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin: 8px 16px 8px 8px;
+    border: 2px solid rgba(42, 54, 71, 1);
+    border-radius: 100%;
+    color: rgba(41, 171, 226, 1);
+    font-size: 16px;
+    font-weight: 600;
+}
 }
