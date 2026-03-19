@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- FORMULAR -->
-                <form class="signup-form">
+                <form class="signup-form" onsubmit="addUser(); return false;">
                     <input id="name-register" type="text" placeholder="Name" required>
                     <input id="email-register" type="email" placeholder="Email" required>
                     <input id="password-register" type="password" placeholder="Password" required>
@@ -50,7 +50,7 @@
                 <!-- FOOTER IM FORMULAR -->
                     <div class="signup-form-footer">
                         <label>
-                            <input type="checkbox" required />
+                            <input type="checkbox" required/>
                                 <span>
                                     I accept the <a href="#">Privacy policy</a>
                                 </span>
