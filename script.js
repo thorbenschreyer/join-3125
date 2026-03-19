@@ -1,12 +1,13 @@
 let menuIsOpen = false;
 let lastOpenPage;
 let lastOpenID;
-let currentToggleID = "summary"
+let currentToggleID = "summary";
+let currentImgID = "summary_img";
 
 async function init() {
   await loadHtmlPage("all-content-area", "standard_layout.html");
   await loadHtmlPage("content", "./templates/summary.html");
-  initialToggle()
+  initialToggle();
 }
 
 /**
@@ -59,14 +60,38 @@ function backToPreviousPage() {
   loadHtmlPage(lastOpenID, lastOpenPage);
 }
 
-function initialToggle () {
-  document.getElementById("summary").classList.toggle("isActive")
+/**
+ * Initial settings for background and text color
+ */
+function initialToggle() {
+  document.getElementById(currentToggleID).classList.toggle("isActive");
+  let img = document.getElementById(currentImgID);
+  img.src = img.src.replace("grey", "white");
 }
 
-function toggleIsActive(id) {
-  let newID = document.getElementById(id)
-  let oldID = document.getElementById(currentToggleID)
-  newID.classList.toggle("isActive")
-  oldID.classList.toggle("isActive")
-  currentToggleID = id
+/**
+ * This function sets “isActive” to change the background and text color.
+ * @param {passes the ID for the “isActive” setting} id 
+ * @param {passes the ID for the image to change it from gray to white} imgId
+ * The if statement checks whether an img element is available 
+ */
+function toggleIsActive(id, imgId) {
+  let newID = document.getElementById(id);
+  let oldID = document.getElementById(currentToggleID);
+  
+  newID.classList.add("isActive");
+  oldID.classList.remove("isActive");
+
+  currentToggleID = id;
+  
+  let img = document.getElementById(imgId);
+  if (img) {
+    currentImageID = imgId;
+    img.src = img.src.replace("grey", "white");
+  }
+}
+
+function removeActiveState() {
+  let id = document.getElementById(currentToggleID);
+  id.classList.remove("isActive");
 }
