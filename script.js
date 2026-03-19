@@ -4,6 +4,10 @@ let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
 
+/**
+ * Init loads the header, the sidebar, and the main content. isloggedIn checks here 
+ * whether the user is logged in. 
+ */
 async function init() {
   await loadHtmlPage("all-content-area", "standard_layout.html");
   if (!isloggedIn) {
@@ -65,6 +69,9 @@ document.addEventListener("click", function (event) {
   }
 });
 
+/**
+ * Return from the help page to the previously opened page. This includes setting “isActive”
+ */
 function backToPreviousPage() {
   loadHtmlPage(lastOpenID, lastOpenPage);
   let id = document.getElementById(currentToggleID);
@@ -99,6 +106,11 @@ function toggleIsActive(id, imgId) {
   }
 }
 
+/**
+ * Check if the ID is available
+ * @param {passes the ID for the “isActive” setting} id
+ * @param {passes the ID for the image to change it from gray to white} imgId
+ */
 function checkAvilableID (newID, oldID) {
   if (newID) {
     newID.classList.add("isActive");
@@ -108,6 +120,9 @@ function checkAvilableID (newID, oldID) {
   }
 }
 
+/**
+ * Removes “isActive” from the element when switching to the help page
+ */
 function removeActiveState() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
