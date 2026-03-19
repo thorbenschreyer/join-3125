@@ -46,15 +46,15 @@
 .help-and-logout img {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
 }
 
-.help-and-logout:hover img {
+.help-img:hover {
   content: url("../assets/icons/help_hover.png");
 }
 
-.help-and-logout button {
+.initials-menu{
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
   height: 56px;
@@ -68,7 +68,7 @@
 }
 
 
-.help-and-logout:hover button {
+.initials-menu:hover {
   background-color: rgba(12, 46, 98, 0.12)  
 }
 
@@ -148,13 +148,18 @@
   cursor: pointer;
   color: rgba(205, 205, 205, 1);
   padding: 8px;
+  padding-left: 56px;
   font-size: 16px;
   font-weight: 400;
 }
 
-.menu-items img {
+.menu-hover:hover {
+ background-color: rgba(42, 61, 89, 1);
+}
+
+.menu-hover img {
   padding: 8px;
-  background-color: rgba(42, 54, 71, 1);
+  background-color: unset;
 }
 
 .sidebar-content {
@@ -164,4 +169,10 @@
     margin: 64px;
     background-color: rgba(42, 54, 71, 1);
     height: 100%;
+    width: 100%;
+}
+
+.blue-hover:hover {
+  font-weight: 700;
+  color: rgba(41, 171, 226, 1);
 }
