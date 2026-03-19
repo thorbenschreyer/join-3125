@@ -54,7 +54,7 @@
   content: url("../assets/icons/help_hover.png");
 }
 
-.initials-menu{
+.initials-menu {
   background-color: rgba(255, 255, 255, 1);
   cursor: pointer;
   height: 56px;
@@ -67,9 +67,8 @@
   font-weight: 600;
 }
 
-
 .initials-menu:hover {
-  background-color: rgba(12, 46, 98, 0.12)  
+  background-color: rgba(12, 46, 98, 0.12);
 }
 
 .page-content {
@@ -141,7 +140,7 @@
   background-color: rgba(42, 54, 71, 1);
 }
 
-.menu-items a {
+.menu-hover {
   display: flex;
   align-items: center;
   background-color: unset;
@@ -154,7 +153,7 @@
 }
 
 .menu-hover:hover {
- background-color: rgba(42, 61, 89, 1);
+  background-color: rgba(42, 61, 89, 1);
 }
 
 .menu-hover img {
@@ -163,16 +162,28 @@
 }
 
 .sidebar-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 64px;
-    background-color: rgba(42, 54, 71, 1);
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 64px;
+  background-color: rgba(42, 54, 71, 1);
+  height: 100%;
+  width: 100%;
+}
+
+.blue-hover {
+  padding: 8px;
+  padding-left: 56px;
+  color: rgba(205, 205, 205, 1);
+  background-color: rgba(42, 54, 71, 1);
 }
 
 .blue-hover:hover {
   font-weight: 700;
   color: rgba(41, 171, 226, 1);
+}
+
+.isActive {
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(9, 25, 49, 1);
 }

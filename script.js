@@ -1,10 +1,12 @@
 let menuIsOpen = false;
 let lastOpenPage;
 let lastOpenID;
+let currentToggleID = "summary"
 
-function init() {
-  loadHtmlPage("all-content-area", "standard_layout.html");
-  loadHtmlPage("content", "./templates/summary.html");
+async function init() {
+  await loadHtmlPage("all-content-area", "standard_layout.html");
+  await loadHtmlPage("content", "./templates/summary.html");
+  initialToggle()
 }
 
 /**
@@ -55,4 +57,16 @@ document.addEventListener("click", function (event) {
 
 function backToPreviousPage() {
   loadHtmlPage(lastOpenID, lastOpenPage);
+}
+
+function initialToggle () {
+  document.getElementById("summary").classList.toggle("isActive")
+}
+
+function toggleIsActive(id) {
+  let newID = document.getElementById(id)
+  let oldID = document.getElementById(currentToggleID)
+  newID.classList.toggle("isActive")
+  oldID.classList.toggle("isActive")
+  currentToggleID = id
 }
