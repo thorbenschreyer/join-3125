@@ -42,3 +42,7 @@
     height: 32px;
 }
 
+.back-to-previous-page:hover {
+    content: url("../assets/icons/arrow_left_line_hover.png");
+    background-color: rgba(246, 247, 248);
+}
