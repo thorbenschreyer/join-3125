@@ -1,12 +1,13 @@
 /* === GLOBAL === */
 :root {
-  --bg-color: #F6F7F8;
-  --logo-dark-blue: #2A3647;
-  --logo-light-blue: #29ABE2;
-  --white: #FFFFFF;
+  --bg-color: #f6f7f8;
+  --logo-dark-blue: #2a3647;
+  --logo-light-blue: #29abe2;
+  --white: #ffffff;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -74,7 +75,7 @@ input {
 .signup-form-header h1 {
   padding: 0 0 4px;
   font-size: 44px;
-  font-weight: 700; 
+  font-weight: 700;
 }
 
 .signup-form-header h1 {
@@ -101,10 +102,10 @@ input {
   gap: 24px;
 }
 
-.signup-form input:nth-child(-n+4) {
+.signup-form input:nth-child(-n + 4) {
   width: 264px;
   padding: 8px 14px;
-  border: solid 1px #D1D1D1;
+  border: solid 1px #d1d1d1;
   border-radius: 6px;
 }
 
@@ -137,7 +138,7 @@ input:nth-child(4) {
 }
 
 .signup-form input::placeholder {
-  color: #D1D1D1;
+  color: #d1d1d1;
   font-size: 14px;
 }
 
@@ -160,7 +161,7 @@ input:nth-child(4) {
 }
 
 .signup-form-footer span {
-  color: #A8A8A8;
+  color: #a8a8a8;
   font-size: 12px;
 }
 
@@ -184,7 +185,9 @@ input:nth-child(4) {
   font-weight: 600;
   transform: scale(1);
   transform-origin: right center;
-  transition: color 0.5s ease, transform 0.5s ease;
+  transition:
+    color 0.5s ease,
+    transform 0.5s ease;
 }
 
 .signup-button:hover {
@@ -203,11 +206,13 @@ input:nth-child(4) {
 .signup-footer a {
   position: relative;
   display: inline-block;
-  color: #A8A8A8;
+  color: #a8a8a8;
   text-decoration: none;
   transform: scale(1);
   transform-origin: center;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .signup-footer a::after {

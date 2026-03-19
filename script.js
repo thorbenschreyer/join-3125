@@ -5,8 +5,8 @@ let currentToggleID = "summary";
 let currentImgID = "summary_img";
 
 /**
- * Init loads the header, the sidebar, and the main content. isloggedIn checks here 
- * whether the user is logged in. 
+ * Init loads the header, the sidebar, and the main content. isloggedIn checks here
+ * whether the user is logged in.
  */
 async function init() {
   await loadHtmlPage("all-content-area", "standard_layout.html");
@@ -16,8 +16,8 @@ async function init() {
   } else if (isloggedIn) {
     const mainNavigation = document.getElementById("navigation-items");
     mainNavigation.innerHTML = LoggedInNavigation();
-    const headerMenu = document.getElementById("help-and-logout")
-    headerMenu.innerHTML = helpAndLogout ()
+    const headerMenu = document.getElementById("help-and-logout");
+    headerMenu.innerHTML = helpAndLogout();
     await loadHtmlPage("content", "./templates/summary.html");
     initialToggle();
   }
@@ -96,7 +96,7 @@ function initialToggle() {
 function toggleIsActive(id, imgId) {
   let newID = document.getElementById(id);
   let oldID = document.getElementById(currentToggleID);
-  checkAvilableID (newID, oldID)
+  checkAvilableID(newID, oldID);
   currentToggleID = id;
 
   let img = document.getElementById(imgId);
@@ -111,7 +111,7 @@ function toggleIsActive(id, imgId) {
  * @param {passes the ID for the “isActive” setting} id
  * @param {passes the ID for the image to change it from gray to white} imgId
  */
-function checkAvilableID (newID, oldID) {
+function checkAvilableID(newID, oldID) {
   if (newID) {
     newID.classList.add("isActive");
   }
