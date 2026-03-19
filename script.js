@@ -4,8 +4,8 @@ let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
 /* Implementierung für die Login seite
-<a href="index.html?page=privacy">Privacy Policy</a>
-<a href="index.html?page=legal">Legal Notice</a>
+<a href="">Privacy Policy</a>
+<a href="">Legal Notice</a>
 */
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
