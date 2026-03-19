@@ -3,7 +3,10 @@ let lastOpenPage;
 let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
-
+/* Implementierung für die Login seite
+<a href="index.html?page=privacy">Privacy Policy</a>
+<a href="index.html?page=legal">Legal Notice</a>
+*/
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
  * whether the user is logged in.
@@ -13,6 +16,7 @@ async function init() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
+    await loadHtmlPage("content", "./templates/summary.html");
   } else if (isloggedIn) {
     const mainNavigation = document.getElementById("navigation-items");
     mainNavigation.innerHTML = LoggedInNavigation();
