@@ -6,8 +6,17 @@ let currentImgID = "summary_img";
 
 async function init() {
   await loadHtmlPage("all-content-area", "standard_layout.html");
-  await loadHtmlPage("content", "./templates/summary.html");
-  initialToggle();
+  if (!isloggedIn) {
+    const html = document.getElementById("navigation-items");
+    html.innerHTML = notLoggedInNavigation();
+  } else if (isloggedIn) {
+    const mainNavigation = document.getElementById("navigation-items");
+    mainNavigation.innerHTML = LoggedInNavigation();
+    const headerMenu = document.getElementById("help-and-logout")
+    headerMenu.innerHTML = helpAndLogout ()
+    await loadHtmlPage("content", "./templates/summary.html");
+    initialToggle();
+  }
 }
 
 /**
@@ -58,6 +67,8 @@ document.addEventListener("click", function (event) {
 
 function backToPreviousPage() {
   loadHtmlPage(lastOpenID, lastOpenPage);
+  let id = document.getElementById(currentToggleID);
+  id.classList.add("isActive");
 }
 
 /**
@@ -71,23 +82,29 @@ function initialToggle() {
 
 /**
  * This function sets “isActive” to change the background and text color.
- * @param {passes the ID for the “isActive” setting} id 
+ * @param {passes the ID for the “isActive” setting} id
  * @param {passes the ID for the image to change it from gray to white} imgId
- * The if statement checks whether an img element is available 
+ * The if statement checks whether an img element is available
  */
 function toggleIsActive(id, imgId) {
   let newID = document.getElementById(id);
   let oldID = document.getElementById(currentToggleID);
-  
-  newID.classList.add("isActive");
-  oldID.classList.remove("isActive");
-
+  checkAvilableID (newID, oldID)
   currentToggleID = id;
-  
+
   let img = document.getElementById(imgId);
   if (img) {
     currentImageID = imgId;
     img.src = img.src.replace("grey", "white");
+  }
+}
+
+function checkAvilableID (newID, oldID) {
+  if (newID) {
+    newID.classList.add("isActive");
+  }
+  if (oldID) {
+    oldID.classList.remove("isActive");
   }
 }
 
