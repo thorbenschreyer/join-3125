@@ -50,6 +50,10 @@
     width: 20px;
 }
 
+.help-and-logout:hover img {
+    content: url("../assets/icons/help_hover.png");
+}
+
 .help-and-logout button {
     background-color: rgba(255, 255, 255, 1);
     cursor: pointer;
@@ -105,7 +109,6 @@
     display: none;
     
 }
-
 
 /* =============== Sidebar ===============*/
 
