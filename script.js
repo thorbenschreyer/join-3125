@@ -4,7 +4,7 @@ let lastOpenID;
 
 function init() {
   loadHtmlPage("all-content-area", "standard_layout.html");
-  loadHtmlPage("content", "./footerpages/privacy_policy.html");
+  loadHtmlPage("content", "./templates/summary.html");
 }
 
 /**
