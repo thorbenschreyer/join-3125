@@ -20,7 +20,7 @@ async function init() {
   await loadHtmlPage("all-content-area", "standard_layout.html");
   console.log(isloggedIn);
   const params = new URLSearchParams(window.location.search);
-  const page = params.get("page");
+  page = params.get("page");
   checkLogin(page);
   loadSidbarAndContent();
 }

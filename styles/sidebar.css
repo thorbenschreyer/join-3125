@@ -199,6 +199,13 @@
 }
 
 @media (max-width: 744px) {
+
+  .isActive {
+    padding: 8px;
+    height: 100%;
+    align-content: center;
+  }
+
   .desktop-dysplay-none {
     display: block;
     background-color: unset;
@@ -206,8 +213,9 @@
   }
 
   .blue-hover {
-    padding: 0px;
-    padding-left: 32px;
+    margin-left: 32px;
+    padding: 0px 16px;
+    border-radius: 16px;
   }
 
   .mobile-navogation-items {
@@ -258,9 +266,11 @@
   }
 
   .menu-hover {
-    padding: unset;
     flex-direction: column;
     justify-content: center;
+    padding-left: 8px;
+    border-radius: 16px;
+    width: 90px;
   }
 
   .header {
