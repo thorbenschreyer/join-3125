@@ -15,8 +15,9 @@ let page
  * whether the user is logged in.
  */
 async function init() {
+  isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
-
+  console.log(isloggedIn);
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page");
 

@@ -1,5 +1,3 @@
-let isloggedIn = true;
-
 let contacts = [
     {
         name: "Heinzi",
@@ -26,6 +24,7 @@ function loginSubmit(event) {
             emailData.value = "";
             passwordData.value = "";
             isloggedIn = true
+            localStorage.setItem('loginState', JSON.stringify(isloggedIn))
             window.location.href = "../index.html"
     } else {
         buttonsContainer.classList.add("button-margin-top-if-error");
@@ -43,10 +42,12 @@ function hideErrorOnInput() {
 
 function guestLogin () {
     isloggedIn = true
+    localStorage.setItem('loginState', JSON.stringify(isloggedIn))
     window.location.href = "../index.html"
 }
 
 function logOut() {
     isloggedIn = false
+    localStorage.setItem('loginState', JSON.stringify(isloggedIn))
     window.location.href = "../login.html"
 }
