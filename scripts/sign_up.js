@@ -13,14 +13,16 @@ let users = [];
  * because the live validator below already highlights the mismatch in real time.
  */
 function addUser() {
-    let userName = USER_NAME.value;
-    let userEmail = USER_EMAIL.value;
-    let userPassword = USER_PASSWORD.value;
-    let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
-    if (userPassword !== userConfirmPassword) {
-        return;
-    }
-    users.push({ name: userName, email: userEmail, password: userPassword, confirmPassword: userConfirmPassword });
+  let userName = USER_NAME.value;
+  let userEmail = USER_EMAIL.value;
+  let userPassword = USER_PASSWORD.value;
+  let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+  users.push({
+    name: userName,
+    email: userEmail,
+    password: userPassword,
+    confirmPassword: userConfirmPassword,
+  });
 }
 
 /**

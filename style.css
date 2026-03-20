@@ -1,9 +1,20 @@
 * {
+  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
   font-family: "Inter", sans-serif;
 }
 
-html, body {
+html,
+body {
   background-color: rgba(246, 247, 248);
+}
+
+a {
+  text-decoration: none;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
 }
