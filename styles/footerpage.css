@@ -51,8 +51,18 @@
   background-color: rgba(246, 247, 248);
 }
 
+.back-to-previous-page-help {
+  position: fixed;
+  top: 225px;
+  right: 96px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
 @media (max-width: 744px) {
-  .back-to-previous-page {
+
+  .back-to-previous-page, .back-to-previous-page-help  {
     top: 136px;
     right: 16px;
   }
@@ -60,5 +70,7 @@
       .back-to-previous-page {
     display: block;
   }
+
+  
 
 }
