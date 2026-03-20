@@ -1,2 +1,61 @@
-<a href="index.html?page=privacy">Privacy Policy</a>
-<a href="index.html?page=legal">Legal Notice</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    
+    <div class="signup-content">
+        <p>Not a Join user?</p>
+        <button id="signup-button" class="signup-button dark-button">Sign up</button>
+    </div>
+    
+
+    <div class="intro-overlay" id="introOverlay"></div>
+
+    <div class="logo-container" id="logoContainer">
+        <img src="assets/icons/favicon.png" class="intro-logo" alt="Logo">
+    </div>
+   
+    <div class="container-login-form">
+        <form class="login-form" novalidate onsubmit="loginSubmit(event)">
+            <section id="container-heading-and-underline" class="container-heading-and-underline">
+                <h2 class="login-heading">Log in</h2>
+                <div class="underline-login-heading"></div>
+            </section>
+            <section id="container-login-inputs" class="container-login-inputs">
+                <div class="input-wrapper">
+                    <input type="email" class="inputs-login" id="email-input-login" oninput="hideErrorOnInput()" placeholder="Email" required>
+                    <img src="../assets/icons/mail.png" class="input-icon" alt="Mail Icon">
+                </div>
+
+                <div class="input-wrapper">
+                    <input type="password" class="inputs-login" id="password-input-login" oninput="hideErrorOnInput()" placeholder="Password" required>
+                    <img src="../assets/icons/lock.png" class="input-icon" alt="Lock Icon">
+                </div>
+                <div id="container-error-message" class="container-error-message d-none">
+                <p id="email-error" class="error-message">Check your email and password. Please try again.</p>
+                </div>
+            </section>
+            <section id="container-login-buttons" class="container-login-buttons">
+                <button type="submit" class="buttons-login dark-button" id="login">Log in</button>
+                <button type="button" class="buttons-login bright-login-button" id="guest-login">Guest Log in</button>
+            </section>
+        </form>
+    </div>
+
+    <div id="privacy-policy" class="privacy-policy-and-legal-notice-links-container">
+        <a id="privacy-policy-link" class="privacy-and-legal-links" href="#">Privacy Policy</a>
+        <a id="legal-notice-link" class="privacy-and-legal-links" href="#">Legal notice</a>
+    </div>    
+
+</body>
+    <script src="scripts/login.js"></script>
+</html>
+
+
