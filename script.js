@@ -11,7 +11,7 @@ let page;
  */
 async function init() {
   /* THIS IS ONLY FOR DEVELOPMENT */
-  isloggedIn = false;
+  isloggedIn = true;
   localStorage.setItem("loginState", JSON.stringify(isloggedIn));
 
   isloggedIn = localStorage.getItem("loginState") === "true";
