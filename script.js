@@ -27,15 +27,14 @@ async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
-    
+
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
-      toggleIsActive('privacy_policy') 
+      toggleIsActive("privacy_policy");
     } else if (page === "legal") {
       await loadHtmlPage("content", "./footerpages/legal_notice.html");
-      toggleIsActive('legal_notice')
+      toggleIsActive("legal_notice");
     }
-    
   } else {
     const mainNavigation = document.getElementById("navigation-items");
     mainNavigation.innerHTML = LoggedInNavigation();
@@ -44,6 +43,7 @@ async function loadSidbarAndContent() {
     headerMenu.innerHTML = helpAndLogout();
 
     await loadHtmlPage("content", "./templates/summary.html");
+    document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
   }
 }
@@ -110,9 +110,13 @@ document.addEventListener("click", function (event) {
  * Return from the help page to the previously opened page. This includes setting “isActive”
  */
 function backToPreviousPage() {
-  loadHtmlPage(lastOpenID, lastOpenPage);
-  let id = document.getElementById(currentToggleID);
-  id.classList.add("isActive");
+  if (isloggedIn) {
+    loadHtmlPage(lastOpenID, lastOpenPage);
+    let id = document.getElementById(currentToggleID);
+    id.classList.add("isActive");
+  } else {
+    window.location.href = "./login.html";
+  }
 }
 
 /**
@@ -163,8 +167,4 @@ function checkAvilableID(newID, oldID) {
 function removeActiveState() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
-}
-
-function backtoLoginScreen() {
-  window.location.href = "./login.html"
 }
