@@ -3,12 +3,11 @@ let lastOpenPage;
 let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
-let page
+let page;
 /* Implementierung für die Login seite
 <a href="">Privacy Policy</a>
 <a href="">Legal Notice</a>
 */
-
 
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
@@ -20,9 +19,11 @@ async function init() {
   console.log(isloggedIn);
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page");
-
   checkLogin(page);
+  loadSidbarAndContent();
+}
 
+async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
@@ -61,11 +62,14 @@ async function loadHtmlPage(divID, pagefile) {
   const response = await fetch(pagefile);
   const html = await response.text();
   document.getElementById(divID).innerHTML = html;
-  if (pagefile != "./footerpages/help.html" && pagefile != "./footerpages/privacy_policy.html" && pagefile != "./footerpages/legal_notice.html") {
+  if (
+    pagefile != "./footerpages/help.html" &&
+    pagefile != "./footerpages/privacy_policy.html" &&
+    pagefile != "./footerpages/legal_notice.html"
+  ) {
     lastOpenID = divID;
     lastOpenPage = pagefile;
   }
-
 }
 
 /**
