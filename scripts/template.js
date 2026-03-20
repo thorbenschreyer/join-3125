@@ -1,6 +1,33 @@
 function notLoggedInNavigation() {
   return `
-    <a class="menu-hover" href="login.html"><img class="menu-hover" src="./assets/icons/login.png" alt="Log In">Log In</a>`;
+          <a class="menu-hover" href="login.html"
+        ><img
+          class="menu-hover"
+          src="./assets/icons/login.png"
+          alt="Log In"
+        />Log In</a
+      >;
+
+      <div class="mobile-navogation-items">
+        <a
+          class="blue-hover"
+          id="privacy_policy"
+          onclick="
+            (loadHtmlPage('content', './footerpages/privacy_policy.html'),
+              toggleIsActive('privacy_policy'))
+          "
+          >Privacy Policy</a
+        >
+        <a
+          class="blue-hover"
+          id="legal_notice"
+          onclick="
+            (loadHtmlPage('content', './footerpages/legal_notice.html'),
+              toggleIsActive('legal_notice'))
+          "
+          >Legal notice</a
+        >
+      </div>`;
 }
 
 function LoggedInNavigation() {

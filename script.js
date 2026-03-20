@@ -4,10 +4,7 @@ let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
 let page;
-/* Implementierung für die Login seite
-<a href="">Privacy Policy</a>
-<a href="">Legal Notice</a>
-*/
+
 
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
@@ -15,7 +12,7 @@ let page;
  */
 async function init() {
         /* THIS IS ONLY FOR DEVELOPMENT */
-            isloggedIn = true
+            isloggedIn = false
             localStorage.setItem('loginState', JSON.stringify(isloggedIn))
 
 
