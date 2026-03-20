@@ -30,8 +30,10 @@ async function loadSidbarAndContent() {
     
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
+      toggleIsActive('privacy_policy') 
     } else if (page === "legal") {
       await loadHtmlPage("content", "./footerpages/legal_notice.html");
+      toggleIsActive('legal_notice')
     }
     
   } else {
