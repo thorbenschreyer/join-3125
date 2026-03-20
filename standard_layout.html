@@ -1,5 +1,9 @@
 <div class="sidebar" id="sidebar">
-  <img class="main-logo display-none" src="./assets/icons/main_logo_light.png" alt="" />
+  <img
+    class="main-logo display-none"
+    src="./assets/icons/main_logo_light.png"
+    alt=""
+  />
   <div class="sidebar-content">
     <div class="menu-items" id="navigation-items"></div>
 
@@ -29,23 +33,23 @@
 <div class="main-area">
   <div class="header" id="header">
     <p class="display-none">Kanban Project Management Tool</p>
-    <img class="main-img-mobile" src="./assets/icons/main_logo_dark.png" alt="">
+    <img
+      class="desktop-dysplay-none mobile-main-img"
+      src="./assets/icons/main_logo_dark.png"
+      alt=""
+    />
     <div class="help-and-logout" id="help-and-logout"></div>
     <div class="header-menu-hide" id="header-menu">
+      <div class="desktop-dysplay-none"><a onclick="(loadHtmlPage('content', './footerpages/help.html'),openCloseHeaderMenu(),toggleIsActive('privacy_policy'))">Help</a></div>
       <a
         onclick="
           (loadHtmlPage('content', './footerpages/legal_notice.html'),
-            openCloseHeaderMenu(), toggleIsActive('legal_notice'))
+            openCloseHeaderMenu(),
+            toggleIsActive('legal_notice'))
         "
         >Legal Notice</a
       >
-      <a
-        onclick="
-          (loadHtmlPage('content', './footerpages/privacy_policy.html'),
-            openCloseHeaderMenu(), toggleIsActive('privacy_policy'))
-        "
-        >Privacy Policy</a
-      >
+      <a onclick="(loadHtmlPage('content', './footerpages/privacy_policy.html'),openCloseHeaderMenu(),toggleIsActive('privacy_policy'))">Privacy Policy</a>
       <a onclick="(logout(), openCloseHeaderMenu())">Log out</a>
     </div>
   </div>

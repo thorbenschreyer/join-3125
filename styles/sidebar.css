@@ -190,16 +190,19 @@
   background-color: rgba(9, 25, 49, 1);
 }
 
-.main-img-mobile {
+.desktop-dysplay-none {
   display: none;
 }
 
 @media (max-width: 744px) {
-  .main-img-mobile {
+  .desktop-dysplay-none {
     display: block;
     background-color: unset;
-    margin-left: 16px;
     height: 40px;
+  }
+
+  .mobile-main-img {
+    margin-left: 16px;
   }
 
   .page-content {
@@ -207,7 +210,6 @@
     overflow-y: auto;
     margin: 16px
 }
-
 
   .sidebar {
     position: fixed;
