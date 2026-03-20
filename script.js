@@ -161,3 +161,7 @@ function removeActiveState() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
 }
+
+function backtoLoginScreen() {
+  window.location.href = "./login.html"
+}
