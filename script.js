@@ -5,16 +5,14 @@ let currentToggleID = "summary";
 let currentImgID = "summary_img";
 let page;
 
-
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
  * whether the user is logged in.
  */
 async function init() {
-        /* THIS IS ONLY FOR DEVELOPMENT */
-            isloggedIn = false
-            localStorage.setItem('loginState', JSON.stringify(isloggedIn))
-
+  /* THIS IS ONLY FOR DEVELOPMENT */
+  isloggedIn = false;
+  localStorage.setItem("loginState", JSON.stringify(isloggedIn));
 
   isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
@@ -29,12 +27,12 @@ async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
-
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
     } else if (page === "legal") {
       await loadHtmlPage("content", "./footerpages/legal_notice.html");
     }
+    
   } else {
     const mainNavigation = document.getElementById("navigation-items");
     mainNavigation.innerHTML = LoggedInNavigation();
