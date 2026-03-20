@@ -9,20 +9,32 @@ const PASSWORD_ERROR = document.getElementById("password-error");
 let users = [];
 
 /**
- * Silently returns instead of showing an error when passwords don't match,
- * because the live validator below already highlights the mismatch in real time.
+ * Attempts to add a new user to the local collection.
+ *
+ * Validation failures (e.g. password mismatch or duplicate user) are handled
+ * silently because the UI already provides real-time feedback. This prevents
+ * redundant error handling and avoids conflicting user messages.
  */
 function addUser() {
-  let userName = USER_NAME.value;
-  let userEmail = USER_EMAIL.value;
-  let userPassword = USER_PASSWORD.value;
-  let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+    let userName = USER_NAME.value;
+    let userEmail = USER_EMAIL.value;
+    let userPassword = USER_PASSWORD.value;
+    let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+    if (userPassword != userConfirmPassword) {
+        return;
+    }
+    const isDuplicateUser = users.some(user =>
+        user.name === userName || user.email === userEmail
+    );
+    if (isDuplicateUser) {
+        return;
+    }
   users.push({
     name: userName,
     email: userEmail,
-    password: userPassword,
-    confirmPassword: userConfirmPassword,
+    password: userPassword
   });
+  saveUserDataToLocalStorage();
 }
 
 /**
@@ -42,3 +54,32 @@ USER_CONFIRM_PASSWORD.addEventListener("input", function() {
         PASSWORD_ERROR.classList.remove("password-error");
     }
 });
+
+// Persists the current in-memory user list to localStorage.
+function saveUserDataToLocalStorage() {
+    localStorage.setItem("User_Data", JSON.stringify(users));
+}
+
+// Loads persisted user data from localStorage into the in-memory user array.
+function getUserDataFromLocalStorage() {
+    let storagedUserData = JSON.parse(localStorage.getItem("User_Data"));
+    if (storagedUserData != null) {
+    let userDataLength = storagedUserData.length
+        for (let userDataIndex = 0; userDataIndex < userDataLength; userDataIndex++) {
+            users.push({
+                name: storagedUserData[userDataIndex].name,
+                email: storagedUserData[userDataIndex].email,
+                password: storagedUserData[userDataIndex].password
+            })
+        }
+    }
+}
+
+/** Initializes the application state by restoring persisted user data.
+ */
+function init() {
+    getUserDataFromLocalStorage();
+}
+
+// Initialize the application init() when the window loads
+window.onload = init;

@@ -1,18 +1,9 @@
 /* === GLOBAL === */
-:root {
-  --bg-color: #F6F7F8;
-  --logo-dark-blue: #2A3647;
-  --logo-light-blue: #29ABE2;
-  --white: #FFFFFF;
-  --red: #E60026;
-}
-
 html,
 body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color);
 }
 
 button:hover {
@@ -38,12 +29,17 @@ input {
 }
 
 .logo {
-  height: 100%;
+  position: absolute;
+  top: 80px;
+  left: 72px;
+  width: auto;
+  height: 108px;
 }
 
 /* === MAIN === */
 .signup {
   flex: 1;
+  padding-top: 80px;
 }
 
 .signup-card {
@@ -130,7 +126,7 @@ input {
 .input-icon {
   position: absolute;
   top: 8px;
-  left: 262px;
+  left: 236px;
   width: 16px;
   height: auto;
 }

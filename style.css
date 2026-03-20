@@ -5,9 +5,17 @@
   font-family: "Inter", sans-serif;
 }
 
+:root {
+  --bg-color: #F6F7F8;
+  --logo-dark-blue: #2A3647;
+  --logo-light-blue: #29ABE2;
+  --white: #FFFFFF;
+  --red: #E60026;
+}
+
 html,
 body {
-  background-color: rgba(246, 247, 248);
+  background-color: var(--bg-color);
 }
 
 a {
