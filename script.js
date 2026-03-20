@@ -21,8 +21,8 @@ async function init() {
   const page = params.get("page");
 
   if (!isloggedIn) {
-    const html = document.getElementById("navigation-items");
-    html.innerHTML = notLoggedInNavigation();
+    /*const html = document.getElementById("navigation-items");
+    html.innerHTML = notLoggedInNavigation();*/
 
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
