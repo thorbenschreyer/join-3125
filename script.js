@@ -15,14 +15,17 @@ let page
  * whether the user is logged in.
  */
 async function init() {
+  isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
-
+  console.log(isloggedIn);
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page");
 
+  checkLogin(page);
+
   if (!isloggedIn) {
-    /*const html = document.getElementById("navigation-items");
-    html.innerHTML = notLoggedInNavigation();*/
+    const html = document.getElementById("navigation-items");
+    html.innerHTML = notLoggedInNavigation();
 
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
@@ -38,6 +41,14 @@ async function init() {
 
     await loadHtmlPage("content", "./templates/summary.html");
     initialToggle();
+  }
+}
+
+function checkLogin(page) {
+  const publicPages = ["privacy", "legal"];
+
+  if (!isloggedIn && !publicPages.includes(page)) {
+    window.location.replace("login.html");
   }
 }
 
