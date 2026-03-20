@@ -1,3 +1,5 @@
+let isloggedIn = true;
+
 let contacts = [
     {
         name: "Heinzi",
@@ -23,6 +25,8 @@ function loginSubmit(event) {
             errorContainer.classList.add("d-none");
             emailData.value = "";
             passwordData.value = "";
+            isloggedIn = true
+            window.location.href = "../index.html"
     } else {
         buttonsContainer.classList.add("button-margin-top-if-error");
         errorContainer.classList.remove("d-none");
@@ -37,5 +41,12 @@ function hideErrorOnInput() {
     buttonsContainer.classList.remove("button-margin-top-if-error");
 }
 
+function guestLogin () {
+    isloggedIn = true
+    window.location.href = "../index.html"
+}
 
-let isloggedIn = true;
+function logOut() {
+    isloggedIn = false
+    window.location.href = "../login.html"
+}

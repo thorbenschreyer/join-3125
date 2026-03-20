@@ -12,7 +12,7 @@
     
     <div class="signup-content">
         <p>Not a Join user?</p>
-        <button id="signup-button" class="signup-button dark-button">Sign up</button>
+        <a href="./sign_up.html"><button id="signup-button" class="signup-button dark-button">Sign up</button></a>
     </div>
     
 
@@ -44,14 +44,14 @@
             </section>
             <section id="container-login-buttons" class="container-login-buttons">
                 <button type="submit" class="buttons-login dark-button" id="login">Log in</button>
-                <button type="button" class="buttons-login bright-login-button" id="guest-login">Guest Log in</button>
+                <button type="button" onclick="guestLogin ()" class="buttons-login bright-login-button" id="guest-login">Guest Log in</button>
             </section>
         </form>
     </div>
 
     <div id="privacy-policy" class="privacy-policy-and-legal-notice-links-container">
-        <a id="privacy-policy-link" class="privacy-and-legal-links" href="#">Privacy Policy</a>
-        <a id="legal-notice-link" class="privacy-and-legal-links" href="#">Legal notice</a>
+        <a onclick="noLoginToShow()" id="privacy-policy-link" class="privacy-and-legal-links" href="index.html?page=privacy">Privacy Policy</a>
+        <a id="legal-notice-link" class="privacy-and-legal-links" href="index.html?page=legal">Legal notice</a>
     </div>    
 
 </body>
