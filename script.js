@@ -5,8 +5,8 @@ let currentToggleID = "summary";
 let currentImgID = "summary_img";
 let page
 /* Implementierung für die Login seite
-<a href="index.html?page=privacy">Privacy Policy</a>
-<a href="index.html?page=legal">Legal Notice</a>
+<a href="">Privacy Policy</a>
+<a href="">Legal Notice</a>
 */
 
 
