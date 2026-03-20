@@ -27,6 +27,7 @@ async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
+    
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
     } else if (page === "legal") {
@@ -135,7 +136,7 @@ function toggleIsActive(id, imgId) {
 
   let img = document.getElementById(imgId);
   if (img) {
-    currentImageID = imgId;
+    currentImgID = imgId;
     img.src = img.src.replace("grey", "white");
   }
 }
