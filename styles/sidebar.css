@@ -190,7 +190,25 @@
   background-color: rgba(9, 25, 49, 1);
 }
 
+.main-img-mobile {
+  display: none;
+}
+
 @media (max-width: 744px) {
+  .main-img-mobile {
+    display: block;
+    background-color: unset;
+    margin-left: 16px;
+    height: 40px;
+  }
+
+  .page-content {
+    flex: 1;
+    overflow-y: auto;
+    margin: 16px
+}
+
+
   .sidebar {
     position: fixed;
     width: 100%;
@@ -224,7 +242,7 @@
   }
 
   .header {
-    justify-content: end;
+    justify-content: space-between;
     height: 80px;
     left: 0;
 }
