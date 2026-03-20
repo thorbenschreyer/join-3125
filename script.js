@@ -14,6 +14,11 @@ let page;
  * whether the user is logged in.
  */
 async function init() {
+        /* THIS IS ONLY FOR DEVELOPMENT */
+            isloggedIn = true
+            localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+
+
   isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
   console.log(isloggedIn);
