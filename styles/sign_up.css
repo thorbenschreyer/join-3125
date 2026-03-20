@@ -1,9 +1,10 @@
 /* === GLOBAL === */
 :root {
-  --bg-color: #f6f7f8;
-  --logo-dark-blue: #2a3647;
-  --logo-light-blue: #29abe2;
-  --white: #ffffff;
+  --bg-color: #F6F7F8;
+  --logo-dark-blue: #2A3647;
+  --logo-light-blue: #29ABE2;
+  --white: #FFFFFF;
+  --red: #E60026;
 }
 
 html,
@@ -20,6 +21,14 @@ button:hover {
 
 input {
   cursor: pointer;
+}
+
+.red-border {
+  border: solid 1px var(--red) !important;
+}
+
+.dNone {
+  display: none;
 }
 
 /* === HEADER === */
@@ -40,7 +49,7 @@ input {
 .signup-card {
   position: relative;
   width: 400px;
-  height: 380px;
+  height: auto;
   padding: 40px 12px 32px;
   margin: 0 auto;
   border-radius: 20px;
@@ -90,7 +99,7 @@ input {
   width: 62%;
   height: 2px;
   content: "";
-  background: #29abe2;
+  background: var(--logo-light-blue);
 }
 
 /* === FORMULAR === */
@@ -109,37 +118,33 @@ input {
   border-radius: 6px;
 }
 
-input:nth-child(1) {
-  background-image: url(../assets/icons/person.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.signup-form input:nth-child(-n+4):focus {
+  border: solid 1px var(--logo-light-blue);
+  outline: none;
 }
 
-input:nth-child(2) {
-  background-image: url(../assets/icons/mail.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.input-wrapper {
+  position: relative;
 }
 
-input:nth-child(3) {
-  background-image: url(../assets/icons/lock.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
-}
-
-input:nth-child(4) {
-  background-image: url(../assets/icons/lock.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.input-icon {
+  position: absolute;
+  top: 8px;
+  left: 262px;
+  width: 16px;
+  height: auto;
 }
 
 .signup-form input::placeholder {
   color: #d1d1d1;
   font-size: 14px;
+}
+
+.password-error {
+  display: block;
+  margin-top: 6px;
+  color: var(--red);
+  font-size: 12px;
 }
 
 /* === FOOTER IM FORMULAR === */
@@ -158,6 +163,10 @@ input:nth-child(4) {
 
 .signup-form-footer input {
   width: 13px !important;
+}
+
+.signup-form-footer input[type="checkbox"]:not(:checked):hover {
+  accent-color: var(--logo-dark-blue);
 }
 
 .signup-form-footer span {

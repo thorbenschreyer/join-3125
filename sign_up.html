@@ -34,19 +34,35 @@
 
                 <!-- HEADER IM FORMULAR -->
                  <div class="signup-form-header">
-                    <a href="./login.html"><button class="signup-back" aria-label="go back to login">
+                    <a href="login.html" id="signup-back-button" class="signup-back" aria-label="go back to login">
                         <!-- arrow icon generated via CSS -->
-                    </button></a>
+                    </a>
                     <h1>Sign up</h1>
                 </div>
 
                 <!-- FORMULAR -->
                 <form class="signup-form" onsubmit="addUser(); return false;">
-                    <input id="name-register" type="text" placeholder="Name" required>
-                    <input id="email-register" type="email" placeholder="Email" required>
-                    <input id="password-register" type="password" placeholder="Password" required>
-                    <input id="confirm-password-register" type="password" placeholder="Confirm Password" required>
-
+                    <div class="input-wrapper">
+                        <input id="name-register" type="text" placeholder="Name" required>
+                        <img class="input-icon" src="./assets/icons/person.png" alt="">
+                    </div>
+                    <div class="input-wrapper">
+                        <input id="email-register" type="email" placeholder="Email" required>
+                        <img class="input-icon" src="./assets/icons/mail.png" alt="">
+                    </div>
+                    <div class="input-wrapper">
+                        <input id="password-register" type="password" minlength="8" placeholder="Password" required>
+                        <img id="password-lock" class="input-icon" src="./assets/icons/lock.png" alt="">
+                        <img id="password-visibility-on" class="input-icon dNone" src="./assets/icons/visibility_on.png" alt="">
+                        <img id="password-visibility-off" class="input-icon dNone" src="./assets/icons/visibility_off.png" alt="">
+                    </div>
+                    <div class="input-wrapper">
+                        <input id="confirm-password-register" type="password" minlength="8" placeholder="Confirm Password" required>
+                        <span id="password-error" class="dNone">Your passwords don't match. Please try again.</span>
+                        <img id="confirm-password-lock" class="input-icon" src="./assets/icons/lock.png" alt="">
+                        <img id="confirm-password-visibility-on" class="input-icon dNone" src="./assets/icons/visibility_on.png" alt="">
+                        <img id="confirm-password-visibility-off" class="input-icon dNone" src="./assets/icons/visibility_off.png" alt="">
+                    </div>
                 <!-- FOOTER IM FORMULAR -->
                     <div class="signup-form-footer">
                         <label>
