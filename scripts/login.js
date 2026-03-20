@@ -4,11 +4,6 @@ let contacts = [
         email: "heinzi.bicek@gmx.at",
         password: "123",
         telephone: "+1234567890"
-    },
-    {
-        name: "Laura",
-        email: "laura.karnberger@gmail.com",
-        password: "Lotta2000",
     }
 ];
 
@@ -43,3 +38,4 @@ function hideErrorOnInput() {
 }
 
 
+let isloggedIn = true;

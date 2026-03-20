@@ -1,7 +1,7 @@
 .footer-pages {
   max-width: 900px;
   font-family: Arial, sans-serif;
-  }
+}
 
 .footer-pages h1 {
   font-size: 64px;
@@ -24,21 +24,32 @@
   text-decoration: none;
 }
 
-.link{
-    color:#29abe2;
-    font-weight:500;
+.link {
+  color: #29abe2;
+  font-weight: 500;
 }
 
-.step{
-    margin-top:16px;
+.step {
+  margin-top: 16px;
 }
 
 .back-to-previous-page {
-    position: fixed;
-    top: 225px;
-    right: 96px;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
+  position: fixed;
+  top: 225px;
+  right: 96px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
 }
 
+.back-to-previous-page:hover {
+  content: url("../assets/icons/arrow_left_line_hover.png");
+  background-color: rgba(246, 247, 248);
+}
+
+@media (max-width: 744px) {
+  .back-to-previous-page {
+    top: 136px;
+    right: 16px;
+  }
+}

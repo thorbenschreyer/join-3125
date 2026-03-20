@@ -1,10 +1,44 @@
 let menuIsOpen = false;
 let lastOpenPage;
 let lastOpenID;
+let currentToggleID = "summary";
+let currentImgID = "summary_img";
+let page
+/* Implementierung für die Login seite
+<a href="">Privacy Policy</a>
+<a href="">Legal Notice</a>
+*/
 
-function init() {
-  loadHtmlPage("all-content-area", "standard_layout.html");
-  loadHtmlPage("content", "./footerpages/privacy_policy.html");
+
+/**
+ * Init loads the header, the sidebar, and the main content. isloggedIn checks here
+ * whether the user is logged in.
+ */
+async function init() {
+  await loadHtmlPage("all-content-area", "standard_layout.html");
+
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
+
+  if (!isloggedIn) {
+    /*const html = document.getElementById("navigation-items");
+    html.innerHTML = notLoggedInNavigation();*/
+
+    if (page === "privacy") {
+      await loadHtmlPage("content", "./footerpages/privacy_policy.html");
+    } else if (page === "legal") {
+      await loadHtmlPage("content", "./footerpages/legal_notice.html");
+    }
+  } else {
+    const mainNavigation = document.getElementById("navigation-items");
+    mainNavigation.innerHTML = LoggedInNavigation();
+
+    const headerMenu = document.getElementById("help-and-logout");
+    headerMenu.innerHTML = helpAndLogout();
+
+    await loadHtmlPage("content", "./templates/summary.html");
+    initialToggle();
+  }
 }
 
 /**
@@ -16,10 +50,11 @@ async function loadHtmlPage(divID, pagefile) {
   const response = await fetch(pagefile);
   const html = await response.text();
   document.getElementById(divID).innerHTML = html;
-  if (pagefile != "./footerpages/help.html") {
+  if (pagefile != "./footerpages/help.html" && pagefile != "./footerpages/privacy_policy.html" && pagefile != "./footerpages/legal_notice.html") {
     lastOpenID = divID;
     lastOpenPage = pagefile;
   }
+
 }
 
 /**
@@ -53,6 +88,61 @@ document.addEventListener("click", function (event) {
   }
 });
 
+/**
+ * Return from the help page to the previously opened page. This includes setting “isActive”
+ */
 function backToPreviousPage() {
   loadHtmlPage(lastOpenID, lastOpenPage);
+  let id = document.getElementById(currentToggleID);
+  id.classList.add("isActive");
+}
+
+/**
+ * Initial settings for background and text color
+ */
+function initialToggle() {
+  document.getElementById(currentToggleID).classList.toggle("isActive");
+  let img = document.getElementById(currentImgID);
+  img.src = img.src.replace("grey", "white");
+}
+
+/**
+ * This function sets “isActive” to change the background and text color.
+ * @param {passes the ID for the “isActive” setting} id
+ * @param {passes the ID for the image to change it from gray to white} imgId
+ * The if statement checks whether an img element is available
+ */
+function toggleIsActive(id, imgId) {
+  let newID = document.getElementById(id);
+  let oldID = document.getElementById(currentToggleID);
+  checkAvilableID(newID, oldID);
+  currentToggleID = id;
+
+  let img = document.getElementById(imgId);
+  if (img) {
+    currentImageID = imgId;
+    img.src = img.src.replace("grey", "white");
+  }
+}
+
+/**
+ * Check if the ID is available
+ * @param {passes the ID for the “isActive” setting} id
+ * @param {passes the ID for the image to change it from gray to white} imgId
+ */
+function checkAvilableID(newID, oldID) {
+  if (newID) {
+    newID.classList.add("isActive");
+  }
+  if (oldID) {
+    oldID.classList.remove("isActive");
+  }
+}
+
+/**
+ * Removes “isActive” from the element when switching to the help page
+ */
+function removeActiveState() {
+  let id = document.getElementById(currentToggleID);
+  id.classList.remove("isActive");
 }
