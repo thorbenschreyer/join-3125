@@ -255,10 +255,43 @@
   display: none;
 }
 
+  .welcomescrren-mobile {
+    display: none;
+  }
+
 @media (max-width: 1275px) {
   .welcome-section {
     display: none;
   }
+
+  .welcomescrren-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;  
+  background-color: white; 
+  animation: screenremove 1s ease-out forwards;
+  animation-delay: 1s;
+  }
+
+  /*identische funktion mir ease out für die schrift!*/
+
+  @keyframes screenremove {
+  0% {
+    background-color: var(--bg-color)
+  }
+
+  100%{
+    color: unset;
+    background-color: unset;
+    display: none;
+  }
+}
+
 }
 
 @media (max-width: 960px) {
