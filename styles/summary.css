@@ -54,8 +54,43 @@
 }
 
 .content-todo-done {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   width: 264px;
   height: 168px;
+}
+
+.content-todo-done div  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-todo-done div p {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.content-todo-done div span {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(42, 54, 71, 1);
+}
+
+.task-design:hover.content-todo-done div p,
+.task-design:hover.content-todo-done div span {
+  color: white;
+}
+
+.task-design:hover .to-edit-img{
+    content: url("../assets/icons/to_edit_light.png");
+}
+
+.task-design:hover .checked-img{
+    content: url("../assets/icons/checked_light.png");
 }
 
 .next-task {
