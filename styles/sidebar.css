@@ -199,6 +199,7 @@
   display: none;
 }
 
+
 @media (max-width: 960px) {
   .page-content {
     margin-top: 32px;
@@ -237,6 +238,7 @@
   .page-content {
     flex: 1;
     overflow-y: auto;
+    width: 100vw;
   }
 
   .sidebar {
