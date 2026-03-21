@@ -198,8 +198,14 @@
   display: none;
 }
 
-@media (max-width: 744px) {
+@media (max-width: 960px) {
+  .page-content {
+    margin-top: 32px;
+    padding-left: 16px;
+  }
+}
 
+@media (max-width: 744px) {
   .isActive {
     padding: 8px;
     height: 100%;
@@ -230,7 +236,6 @@
   .page-content {
     flex: 1;
     overflow-y: auto;
-    margin: 16px;
   }
 
   .sidebar {
@@ -255,7 +260,7 @@
 
   .menu-hover img {
     padding: 0px;
-}
+  }
 
   .menu-items {
     flex-direction: unset;
@@ -290,6 +295,4 @@
     font-size: 16px;
     font-weight: 600;
   }
-
-
 }
