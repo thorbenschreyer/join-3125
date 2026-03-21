@@ -1,3 +1,5 @@
+/* =============== GENERAL STYLE =============== */
+
 .task-design {
   background-color: var(--white);
   border-radius: 30px;
@@ -11,6 +13,19 @@
   transform: scale(1.05);
   z-index: 10;
 }
+
+.summary-section {
+  display: flex;
+  height: 560px;
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* =============== HEADER STYLE =============== */
 
 .task-header {
   display: flex;
@@ -36,16 +51,7 @@
   color: rgba(42, 54, 71, 1);
 }
 
-.summary-section {
-  display: flex;
-  height: 560px;
-}
-
-.summary-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+/* =============== First Section =============== */
 
 .todo-done {
   display: flex;
@@ -62,41 +68,131 @@
   height: 168px;
 }
 
-.content-todo-done div  {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.content-todo-done div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .content-todo-done div p {
-    font-size: 64px;
-    font-weight: 600;
+  font-size: 64px;
+  font-weight: 600;
 }
 
 .content-todo-done div span {
-    font-size: 20px;
-    font-weight: 400;
-    color: rgba(42, 54, 71, 1);
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
 }
+
+/* =============== First Section HOVER =============== */
 
 .task-design:hover.content-todo-done div p,
 .task-design:hover.content-todo-done div span {
   color: white;
 }
 
-.task-design:hover .to-edit-img{
-    content: url("../assets/icons/to_edit_light.png");
+.task-design:hover .to-edit-img {
+  content: url("../assets/icons/to_edit_light.png");
 }
 
-.task-design:hover .checked-img{
-    content: url("../assets/icons/checked_light.png");
+.task-design:hover .checked-img {
+  content: url("../assets/icons/checked_light.png");
 }
+
+/* =============== Second Section =============== */
 
 .next-task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 560px;
   height: 168px;
 }
+
+.prio-img {
+  width: 35px;
+}
+
+.img-high-prio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 61, 0, 1);
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.img-medium-prio {
+  background-color: rgba(255, 168, 0, 1);
+  height: 33px;
+  width: 33px;
+  border-radius: 100%;
+}
+
+.img-low-prio {
+  content: url("../assets/icons/low_prio_white.png");
+  background-color: rgba(122, 226, 41, 1);
+  height: 69px;
+  width: 69px;
+  border-radius: 100%;
+}
+
+.next-task-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.next-task-information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-task-detail div p {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.next-task-detail div span {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
+}
+
+.next-task hr {
+  border: 2px solid rgba(209, 209, 209, 1);
+  height: 102px;
+  margin: 0px 48px;
+}
+
+.date-next-task p {
+  font-size: 21px;
+  font-weight: 700;
+  padding-bottom: 8px;
+  color: rgba(42, 54, 71, 1);
+}
+
+.date-next-task span {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
+}
+
+/* =============== Second Section HOVER =============== */
+
+.task-design:hover .next-task-detail div p,
+.task-design:hover .next-task-detail div span,
+.task-design:hover .date-next-task p,
+.task-design:hover .date-next-task span {
+  color: white;
+}
+
+/* =============== Third Section =============== */
 
 .task-overview {
   display: flex;
