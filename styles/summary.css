@@ -200,8 +200,23 @@
 }
 
 .task-overview-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
   height: 168px;
   width: 168px;
+}
+
+.task-overview-content p {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.task-overview-content span {
+  font-size: 21px;
+  font-weight: 400;
 }
 
 .welcome-section {
@@ -210,6 +225,13 @@
   justify-content: center;
   flex: 1;
 }
+
+.task-design:hover.task-overview-content p,
+.task-design:hover.task-overview-content span {
+  color: white;
+}
+
+/* =============== Welcome Section =============== */
 
 .welcome-dialog {
   display: flex;
