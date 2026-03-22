@@ -131,6 +131,11 @@ input {
   height: auto;
 }
 
+.input-icon-visibility {
+  cursor: pointer;
+  top: 10px;
+}
+
 .signup-form input::placeholder {
   color: #d1d1d1;
   font-size: 14px;
