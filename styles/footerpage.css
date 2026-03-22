@@ -42,14 +42,35 @@
   height: 32px;
 }
 
+.back-to-previous-page {
+  display: none;
+}
+
 .back-to-previous-page:hover {
   content: url("../assets/icons/arrow_left_line_hover.png");
-  background-color: rgba(246, 247, 248);
+}
+
+.back-to-previous-page-help {
+  position: fixed;
+  top: 225px;
+  right: 96px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.back-to-previous-page-help:hover {
+  content: url("../assets/icons/arrow_left_line_hover.png");
 }
 
 @media (max-width: 744px) {
-  .back-to-previous-page {
+  .back-to-previous-page,
+  .back-to-previous-page-help {
     top: 136px;
     right: 16px;
+  }
+
+  .back-to-previous-page {
+    display: block;
   }
 }

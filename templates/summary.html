@@ -1,1 +1,121 @@
-<div>summary</div>
+<header class="task-header">
+  <p class="task-header-first-word">Join 360</p>
+  <hr class="task-header-hr" />
+  <p class="task-header-last-word">Key Metrics at a Glance</p>
+  <hr class="hr-summary-mobil" />
+</header>
+<div class="summary-section">
+  <div class="summary-details">
+    <div class="todo-done">
+      <div
+        onclick="loadHtmlPage('content', './templates/board.html')"
+        class="content-todo-done task-design"
+      >
+        <img
+          class="to-edit-img"
+          src="../assets/icons/to_edit_dark.png"
+          alt=""
+        />
+        <div>
+          <p>1</p>
+          <!--${array alle todo´s}-->
+          <span>To-do</span>
+        </div>
+      </div>
+
+      <div
+        onclick="loadHtmlPage('content', './templates/board.html')"
+        class="content-todo-done task-design"
+      >
+        <img
+          class="checked-img"
+          src="../assets/icons/checked_dark.png"
+          alt=""
+        />
+        <div>
+          <p>1</p>
+          <!--${array alle done}-->
+          <span>Done</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      onclick="loadHtmlPage('content', './templates/board.html')"
+      class="next-task task-design"
+    >
+      <div class="next-task-detail">
+        <div class="img-high-prio">
+          <img
+            class="prio-img"
+            alt=""
+            src="../assets/icons/high_prio_white.png"
+          />
+        </div>
+        <div class="next-task-information">
+          <p>1</p>
+          <!--${array next prio}-->
+          <span>Urgent</span>
+          <!--${array prio}-->
+        </div>
+      </div>
+      <hr />
+      <div class="date-next-task">
+        <p>October 16, 2022</p>
+        <!--TODO array date-->
+        <span>Upcoming Deadline</span>
+      </div>
+    </div>
+
+    <div class="task-overview">
+      <div
+        onclick="loadHtmlPage('content', './templates/board.html')"
+        class="task-overview-content task-design"
+      >
+        <p>5</p>
+        <!--${array tasks in board}-->
+        <span
+          >Tasks on <br />
+          Board</span
+        >
+      </div>
+      <div
+        onclick="loadHtmlPage('content', './templates/board.html')"
+        class="task-overview-content task-design"
+      >
+        <p>2</p>
+        <!--${array alle done}-->
+        <span
+          >Tasks In <br />
+          Progress</span
+        >
+      </div>
+      <div
+        onclick="loadHtmlPage('content', './templates/board.html')"
+        class="task-overview-content task-design"
+      >
+        <p>2</p>
+        <!--${array TODO}-->
+        <span
+          >Awaiting <br />
+          Feedback</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="welcome-section">
+    <div class="welcome-dialog">
+      <p class="welcome-text">Good morning,</p>
+      <p class="welcome-name">Sofia Müller</p>
+      <!--TODO ${name}-->
+    </div>
+  </div>
+</div>
+
+<div class="welcomescrren-mobile">
+     <div class="welcome-dialog-mobile">
+      <p class="welcome-text-mobile">Good morning,</p>
+      <p class="welcome-name-mobile">Sofia Müller</p>
+      <!--TODO ${name}-->
+    </div>
+</div>

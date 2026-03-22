@@ -3,31 +3,37 @@ let lastOpenPage;
 let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
-let page
-/* Implementierung für die Login seite
-<a href="">Privacy Policy</a>
-<a href="">Legal Notice</a>
-*/
-
+let page;
 
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
  * whether the user is logged in.
  */
 async function init() {
+  /* THIS IS ONLY FOR DEVELOPMENT */
+  isloggedIn = true;
+  localStorage.setItem("loginState", JSON.stringify(isloggedIn));
+
+  isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
-
+  console.log(isloggedIn);
   const params = new URLSearchParams(window.location.search);
-  const page = params.get("page");
+  page = params.get("page");
+  checkLogin(page);
+  loadSidbarAndContent();
+}
 
+async function loadSidbarAndContent() {
   if (!isloggedIn) {
-    /*const html = document.getElementById("navigation-items");
-    html.innerHTML = notLoggedInNavigation();*/
+    const html = document.getElementById("navigation-items");
+    html.innerHTML = notLoggedInNavigation();
 
     if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
+      toggleIsActive("privacy_policy");
     } else if (page === "legal") {
       await loadHtmlPage("content", "./footerpages/legal_notice.html");
+      toggleIsActive("legal_notice");
     }
   } else {
     const mainNavigation = document.getElementById("navigation-items");
@@ -37,7 +43,16 @@ async function init() {
     headerMenu.innerHTML = helpAndLogout();
 
     await loadHtmlPage("content", "./templates/summary.html");
+    document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
+  }
+}
+
+function checkLogin(page) {
+  const publicPages = ["privacy", "legal"];
+
+  if (!isloggedIn && !publicPages.includes(page)) {
+    window.location.replace("login.html");
   }
 }
 
@@ -50,11 +65,14 @@ async function loadHtmlPage(divID, pagefile) {
   const response = await fetch(pagefile);
   const html = await response.text();
   document.getElementById(divID).innerHTML = html;
-  if (pagefile != "./footerpages/help.html" && pagefile != "./footerpages/privacy_policy.html" && pagefile != "./footerpages/legal_notice.html") {
+  if (
+    pagefile != "./footerpages/help.html" &&
+    pagefile != "./footerpages/privacy_policy.html" &&
+    pagefile != "./footerpages/legal_notice.html"
+  ) {
     lastOpenID = divID;
     lastOpenPage = pagefile;
   }
-
 }
 
 /**
@@ -92,9 +110,13 @@ document.addEventListener("click", function (event) {
  * Return from the help page to the previously opened page. This includes setting “isActive”
  */
 function backToPreviousPage() {
-  loadHtmlPage(lastOpenID, lastOpenPage);
-  let id = document.getElementById(currentToggleID);
-  id.classList.add("isActive");
+  if (isloggedIn) {
+    loadHtmlPage(lastOpenID, lastOpenPage);
+    let id = document.getElementById(currentToggleID);
+    id.classList.add("isActive");
+  } else {
+    window.location.href = "./login.html";
+  }
 }
 
 /**
@@ -120,7 +142,7 @@ function toggleIsActive(id, imgId) {
 
   let img = document.getElementById(imgId);
   if (img) {
-    currentImageID = imgId;
+    currentImgID = imgId;
     img.src = img.src.replace("grey", "white");
   }
 }

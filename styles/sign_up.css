@@ -1,17 +1,9 @@
 /* === GLOBAL === */
-:root {
-  --bg-color: #f6f7f8;
-  --logo-dark-blue: #2a3647;
-  --logo-light-blue: #29abe2;
-  --white: #ffffff;
-}
-
 html,
 body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color);
 }
 
 button:hover {
@@ -22,6 +14,14 @@ input {
   cursor: pointer;
 }
 
+.red-border {
+  border: solid 1px var(--red) !important;
+}
+
+.dNone {
+  display: none;
+}
+
 /* === HEADER === */
 .signup-header {
   height: 108px;
@@ -29,18 +29,23 @@ input {
 }
 
 .logo {
-  height: 100%;
+  position: absolute;
+  top: 80px;
+  left: 72px;
+  width: auto;
+  height: 108px;
 }
 
 /* === MAIN === */
 .signup {
   flex: 1;
+  padding-top: 80px;
 }
 
 .signup-card {
   position: relative;
   width: 400px;
-  height: 380px;
+  height: auto;
   padding: 40px 12px 32px;
   margin: 0 auto;
   border-radius: 20px;
@@ -90,7 +95,7 @@ input {
   width: 62%;
   height: 2px;
   content: "";
-  background: #29abe2;
+  background: var(--logo-light-blue);
 }
 
 /* === FORMULAR === */
@@ -109,37 +114,38 @@ input {
   border-radius: 6px;
 }
 
-input:nth-child(1) {
-  background-image: url(../assets/icons/person.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.signup-form input:nth-child(-n+4):focus {
+  border: solid 1px var(--logo-light-blue);
+  outline: none;
 }
 
-input:nth-child(2) {
-  background-image: url(../assets/icons/mail.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.input-wrapper {
+  position: relative;
 }
 
-input:nth-child(3) {
-  background-image: url(../assets/icons/lock.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.input-icon {
+  position: absolute;
+  top: 8px;
+  left: 236px;
+  width: 16px;
+  height: auto;
 }
 
-input:nth-child(4) {
-  background-image: url(../assets/icons/lock.png);
-  background-repeat: no-repeat;
-  background-position: 262px center;
-  background-size: 16px;
+.input-icon-visibility {
+  cursor: pointer;
+  top: 10px;
 }
 
 .signup-form input::placeholder {
   color: #d1d1d1;
   font-size: 14px;
+}
+
+.password-error {
+  display: block;
+  margin-top: 6px;
+  color: var(--red);
+  font-size: 12px;
 }
 
 /* === FOOTER IM FORMULAR === */
@@ -158,6 +164,10 @@ input:nth-child(4) {
 
 .signup-form-footer input {
   width: 13px !important;
+}
+
+.signup-form-footer input[type="checkbox"]:not(:checked):hover {
+  accent-color: var(--logo-dark-blue);
 }
 
 .signup-form-footer span {
@@ -227,4 +237,52 @@ input:nth-child(4) {
 .signup-footer a:hover {
   transform: scale(1.06);
   color: var(--logo-light-blue);
+}
+
+/* === SIGNUP TOAST === */
+.signup-success-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.325s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+.signup-success-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.signup-success-toast {
+  position: fixed;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  background: #2f3e4d;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  opacity: 0;
+  transition: none;
+  z-index: 9999;
+  animation: none;
+}
+
+.signup-success-toast.show {
+  animation: toast-flyin 0.325s linear forwards;
+}
+
+@keyframes toast-flyin {
+  0% {
+    top: 100%;
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }

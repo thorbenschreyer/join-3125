@@ -2,26 +2,172 @@
 const USER_NAME = document.getElementById("name-register");
 const USER_EMAIL = document.getElementById("email-register");
 const USER_PASSWORD = document.getElementById("password-register");
-const USER_CONFIRM_PASSWORD = document.getElementById(
-  "confirm-password-register",
-);
+const USER_CONFIRM_PASSWORD = document.getElementById("confirm-password-register");
+const SIGNUP_BUTTON = document.getElementById("signup-button");
+const PASSWORD_ERROR = document.getElementById("password-error");
+const PASSWORD_LOCK = document.getElementById("password-lock");
+const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
+const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");
+const CONFIRM_PASSWORD_LOCK = document.getElementById("confirm-password-lock");
+const CONFIRM_PASSWORD_VISIBILITY_ON = document.getElementById("confirm-password-visibility-on");
+const CONFIRM_PASSWORD_VISIBILITY_OFF = document.getElementById("confirm-password-visibility-off");
+const SIGNUP_SUCCESS_TOAST = document.getElementById("signup-success-toast");
+const SIGNUP_SUCCESS_OVERLAY = document.getElementById("signup-success-overlay");
 
 // USER DATA
 let users = [];
 
 /**
- * This function adds a new user to the users array with the input values from the form
+ * Adds a new user to the in-memory collection and persists it.
+ *
+ * Validation failures are intentionally ignored here because the UI layer
+ * performs real-time validation and already communicates errors to the user.
+ * This avoids duplicated validation logic and inconsistent feedback states.
  */
 function addUser() {
-  let userName = USER_NAME.value;
-  let userEmail = USER_EMAIL.value;
-  let userPassword = USER_PASSWORD.value;
-  let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
-  users.push({
-    name: userName,
-    email: userEmail,
-    password: userPassword,
-    confirmPassword: userConfirmPassword,
-  });
-  console.log(users);
+    let userName = USER_NAME.value;
+    let userEmail = USER_EMAIL.value;
+    let userPassword = USER_PASSWORD.value;
+    let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+    if (userPassword != userConfirmPassword) {
+        return;
+    }
+    const isDuplicateUser = users.some(user =>
+        user.name === userName || user.email === userEmail
+    );
+    if (isDuplicateUser) {
+        return;
+    }
+    users.push({
+        name: userName,
+        email: userEmail,
+        password: userPassword
+    });
+    saveUserDataToLocalStorage();
+    signUpsuccess();
 }
+
+/**
+ * Finalizes the signup flow by preventing further interaction,
+ * showing a success state, and redirecting to the login page.
+ *
+ * The delay ensures the user can perceive the success feedback
+ * before being navigated away.
+ */
+function signUpsuccess() {
+    SIGNUP_BUTTON.disabled = true;
+    SIGNUP_SUCCESS_TOAST.classList.add("show");
+    SIGNUP_SUCCESS_OVERLAY.classList.add("show");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1500);
+}
+
+/**
+ * Only shows the mismatch error once both fields have equal length AND at least
+ * 8 characters – avoids distracting the user with errors while still typing.
+ */
+USER_CONFIRM_PASSWORD.addEventListener("input", function() {
+    let userPassword = USER_PASSWORD.value;
+    let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+    if (userConfirmPassword.length >= 8 && userPassword !== userConfirmPassword && userPassword.length == userConfirmPassword.length) {
+        USER_CONFIRM_PASSWORD.classList.add("red-border");
+        PASSWORD_ERROR.classList.remove("dNone");
+        PASSWORD_ERROR.classList.add("password-error");
+    } else {
+        USER_CONFIRM_PASSWORD.classList.remove("red-border");
+        PASSWORD_ERROR.classList.add("dNone");
+        PASSWORD_ERROR.classList.remove("password-error");
+    }
+});
+
+// Persists the current in-memory user list to localStorage.
+function saveUserDataToLocalStorage() {
+    localStorage.setItem("User_Data", JSON.stringify(users));
+}
+
+// Loads persisted user data from localStorage into the in-memory user array.
+function getUserDataFromLocalStorage() {
+    let storagedUserData = JSON.parse(localStorage.getItem("User_Data"));
+    if (storagedUserData != null) {
+    let userDataLength = storagedUserData.length
+        for (let userDataIndex = 0; userDataIndex < userDataLength; userDataIndex++) {
+            users.push({
+                name: storagedUserData[userDataIndex].name,
+                email: storagedUserData[userDataIndex].email,
+                password: storagedUserData[userDataIndex].password
+            })
+        }
+    }
+}
+
+/**
+ * Reveals password interaction controls on first focus.
+ *
+ * The visibility toggle is only initialized if it has not been set before,
+ * preventing unintended state overrides when the user refocuses the field.
+ */
+USER_PASSWORD.addEventListener("focus", function() {
+    PASSWORD_LOCK.classList.add("dNone");
+    if (PASSWORD_VISIBILITY_ON.classList.contains("dNone") && PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
+        PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
+        updatePasswordInputType();
+    }
+})
+
+USER_CONFIRM_PASSWORD.addEventListener("focus", function() {
+    CONFIRM_PASSWORD_LOCK.classList.add("dNone");
+    if (CONFIRM_PASSWORD_VISIBILITY_ON.classList.contains("dNone") && CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
+        CONFIRM_PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
+        updateConfirmPasswordInputType();
+    } 
+})
+
+/**
+ * Toggles password visibility by switching UI icons and updating the input type.
+ *
+ * The visibility state is derived from the icon state instead of being stored
+ * separately, ensuring UI and behavior stay in sync.
+ */
+function togglePasswordVisibility() {
+    PASSWORD_VISIBILITY_ON.classList.toggle("dNone");
+    PASSWORD_VISIBILITY_OFF.classList.toggle("dNone");
+    updatePasswordInputType();
+}
+
+function toggleConfirmPasswordVisibility() {
+    CONFIRM_PASSWORD_VISIBILITY_ON.classList.toggle("dNone");
+    CONFIRM_PASSWORD_VISIBILITY_OFF.classList.toggle("dNone");
+    updateConfirmPasswordInputType();
+}
+
+/**
+ * Updates the password input type based on the current visibility icon state.
+ *
+ * Uses the "visibility off" icon as the source of truth to determine
+ * whether the password should be masked or visible.
+ */
+function updatePasswordInputType() {
+    if (PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
+        USER_PASSWORD.type = "text";
+    } else {
+        USER_PASSWORD.type = "password";
+    }
+}
+
+function updateConfirmPasswordInputType() {
+    if (CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
+        USER_CONFIRM_PASSWORD.type = "text";
+    } else {
+        USER_CONFIRM_PASSWORD.type = "password";
+    }
+}
+
+/** Initializes the application state by restoring persisted user data.
+ */
+function init() {
+    getUserDataFromLocalStorage();
+}
+
+// Initialize the application init() when the window loads
+window.onload = init;

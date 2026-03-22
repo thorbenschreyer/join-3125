@@ -1,0 +1,403 @@
+/* =============== GENERAL STYLE =============== */
+
+.task-design {
+  cursor: pointer;
+  background-color: var(--white);
+  border-radius: 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  transition: ease-out 80ms;
+}
+
+.task-design:hover {
+  background-color: var(--logo-dark-blue);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.summary-section {
+  display: flex;
+  height: 560px;
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* =============== HEADER STYLE =============== */
+
+.task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 625px;
+  padding-bottom: 40px;
+}
+
+.task-header-first-word {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.task-header-hr {
+  height: 64px;
+  border: 3px solid var(--logo-light-blue);
+}
+
+.task-header-last-word {
+  font-size: 24px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
+}
+
+/* =============== First Section =============== */
+
+.todo-done {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.content-todo-done {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 264px;
+  height: 168px;
+}
+
+.content-todo-done div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-todo-done div p {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.content-todo-done div span {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
+}
+
+/* =============== First Section HOVER =============== */
+
+.task-design:hover.content-todo-done div p,
+.task-design:hover.content-todo-done div span {
+  color: white;
+}
+
+.task-design:hover .to-edit-img {
+  content: url("../assets/icons/to_edit_light.png");
+}
+
+.task-design:hover .checked-img {
+  content: url("../assets/icons/checked_light.png");
+}
+
+/* =============== Second Section =============== */
+
+.next-task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 560px;
+  height: 168px;
+}
+
+.prio-img {
+  width: 35px;
+}
+
+.img-high-prio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 61, 0, 1);
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.img-medium-prio {
+  background-color: rgba(255, 168, 0, 1);
+  height: 33px;
+  width: 33px;
+  border-radius: 100%;
+}
+
+.img-low-prio {
+  content: url("../assets/icons/low_prio_white.png");
+  background-color: rgba(122, 226, 41, 1);
+  height: 69px;
+  width: 69px;
+  border-radius: 100%;
+}
+
+.next-task-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.next-task-information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-task-detail div p {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.next-task-detail div span {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
+}
+
+.next-task hr {
+  border: 2px solid rgba(209, 209, 209, 1);
+  height: 102px;
+  margin: 0px 48px;
+}
+
+.date-next-task p {
+  font-size: 21px;
+  font-weight: 700;
+  padding-bottom: 8px;
+  color: rgba(42, 54, 71, 1);
+}
+
+.date-next-task span {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(42, 54, 71, 1);
+}
+
+/* =============== Second Section HOVER =============== */
+
+.task-design:hover .next-task-detail div p,
+.task-design:hover .next-task-detail div span,
+.task-design:hover .date-next-task p,
+.task-design:hover .date-next-task span {
+  color: white;
+}
+
+/* =============== Third Section =============== */
+
+.task-overview {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-overview-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 168px;
+  width: 168px;
+}
+
+.task-overview-content p {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.task-overview-content span {
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.task-design:hover.task-overview-content p,
+.task-design:hover.task-overview-content span {
+  color: white;
+}
+
+/* =============== Welcome Section =============== */
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.welcome-dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-text {
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--logo-dark-blue);
+}
+
+.welcome-name {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--logo-light-blue);
+}
+
+.hr-summary-mobils {
+  display: none;
+}
+
+.welcomescrren-mobile {
+  display: none;
+}
+
+@media (max-width: 1275px) {
+  .welcome-section {
+    display: none;
+  }
+
+  .welcomescrren-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    animation: screenremove 1s ease-out forwards;
+    animation-delay: 1s;
+  }
+
+  /*identische funktion mir ease out für die schrift!*/
+
+  @keyframes screenremove {
+    0% {
+      background-color: var(--bg-color);
+    }
+
+    100% {
+      color: unset;
+      background-color: unset;
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .summary-section {
+    height: 384px;
+    justify-content: center;
+  }
+
+  .task-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-header-hr {
+    display: none;
+  }
+
+  .task-header-first-word {
+    font-size: 48px;
+  }
+
+  .task-header-last-word {
+    font-size: 20px;
+  }
+
+  .summary-details {
+    width: 396px;
+  }
+
+  .content-todo-done {
+    width: 186px;
+    height: 110px;
+  }
+
+  .to-edit-img {
+    height: 40px;
+  }
+
+  .content-todo-done div p {
+    font-size: 48px;
+  }
+
+  .content-todo-done div span {
+    font-size: 16px;
+  }
+
+  .next-task {
+    width: 396px;
+    height: 110px;
+  }
+
+  .task-overview-content {
+    height: 116px;
+    width: 116px;
+  }
+
+  .task-overview-content p {
+    font-size: 48px;
+  }
+
+  .task-overview-content span {
+    font-size: 16px;
+  }
+
+  .date-next-task p {
+    font-size: 16px;
+  }
+
+  .date-next-task span {
+    font-size: 16px;
+  }
+
+  .next-task-detail div p {
+    font-size: 48px;
+  }
+
+  .next-task-detail div span {
+    font-size: 16px;
+  }
+
+  .img-high-prio {
+    width: 40px;
+    height: 40px;
+  }
+
+  .img-medium-prio {
+    width: 40px;
+    height: 40px;
+  }
+
+  .img-low-prio {
+    width: 40px;
+    height: 40px;
+  }
+
+  .prio-img {
+    width: 23px;
+  }
+
+  .next-task hr {
+    margin: 0px 24px;
+  }
+
+  .hr-summary-mobil {
+    display: block;
+    border: 2Ípx solid rgba(41, 171, 226, 1);
+    width: 90px;
+    margin-top: 8px;
+  }
+}

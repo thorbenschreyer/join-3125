@@ -77,7 +77,7 @@
   overflow-y: auto;
 
   margin-top: 96px;
-  margin-left: 96px;
+  padding-left: 96px;
   padding-top: 110px;
   margin-right: 8px;
 }
@@ -123,6 +123,7 @@
   flex-direction: column;
   width: 232px;
   background-color: rgba(42, 54, 71, 1);
+  z-index: 10;
 }
 
 .main-logo {
@@ -198,7 +199,21 @@
   display: none;
 }
 
+
+@media (max-width: 960px) {
+  .page-content {
+    margin-top: 32px;
+    padding-left: 16px;
+  }
+}
+
 @media (max-width: 744px) {
+  .isActive {
+    padding: 8px;
+    height: 100%;
+    align-content: center;
+  }
+
   .desktop-dysplay-none {
     display: block;
     background-color: unset;
@@ -206,8 +221,8 @@
   }
 
   .blue-hover {
-    padding: 0px;
-    padding-left: 0px;
+    padding: 0px 16px;
+    border-radius: 16px;
   }
 
   .mobile-navogation-items {
@@ -223,7 +238,7 @@
   .page-content {
     flex: 1;
     overflow-y: auto;
-    margin: 16px;
+    width: 100vw;
   }
 
   .sidebar {
@@ -237,7 +252,7 @@
 
   .sidebar-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     margin: unset;
   }
@@ -248,19 +263,21 @@
 
   .menu-hover img {
     padding: 0px;
-}
+  }
 
   .menu-items {
     flex-direction: unset;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
     height: 100%;
   }
 
   .menu-hover {
-    padding: unset;
     flex-direction: column;
     justify-content: center;
+    padding-left: 8px;
+    border-radius: 16px;
   }
 
   .header {

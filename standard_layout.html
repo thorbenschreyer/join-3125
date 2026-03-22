@@ -6,36 +6,10 @@
   />
   <div class="sidebar-content">
     <div class="menu-items" id="navigation-items">
-      <a class="menu-hover" href="login.html"
-        ><img
-          class="menu-hover"
-          src="./assets/icons/login.png"
-          alt="Log In"
-        />Log In</a
-      >`;
-      <div class="mobile-navogation-items">
-        <a
-          class="blue-hover"
-          id="privacy_policy"
-          onclick="
-            (loadHtmlPage('content', './footerpages/privacy_policy.html'),
-              toggleIsActive('privacy_policy'))
-          "
-          >Privacy Policy</a
-        >
-        <a
-          class="blue-hover"
-          id="legal_notice"
-          onclick="
-            (loadHtmlPage('content', './footerpages/legal_notice.html'),
-              toggleIsActive('legal_notice'))
-          "
-          >Legal notice</a
-        >
-      </div>
+
     </div>
 
-    <div class="menu-items display-none">
+    <div class="menu-items" id="privacy-legal">
       <a
         class="blue-hover"
         id="privacy_policy"
@@ -71,30 +45,30 @@
       <div class="desktop-dysplay-none">
         <a
           onclick="
-            (loadHtmlPage('content', './footerpages/help.html'),
+            loadHtmlPage('content', './footerpages/help.html'),
               openCloseHeaderMenu(),
-              toggleIsActive('privacy_policy'))
+              toggleIsActive('privacy_policy')
           "
           >Help</a
         >
       </div>
       <a
         onclick="
-          (loadHtmlPage('content', './footerpages/legal_notice.html'),
+          loadHtmlPage('content', './footerpages/legal_notice.html'),
             openCloseHeaderMenu(),
-            toggleIsActive('legal_notice'))
+            toggleIsActive('legal_notice')
         "
         >Legal Notice</a
       >
       <a
         onclick="
-          (loadHtmlPage('content', './footerpages/privacy_policy.html'),
+          loadHtmlPage('content', './footerpages/privacy_policy.html'),
             openCloseHeaderMenu(),
-            toggleIsActive('privacy_policy'))
+            toggleIsActive('privacy_policy')
         "
         >Privacy Policy</a
       >
-      <a onclick="(logout(), openCloseHeaderMenu())">Log out</a>
+      <a onclick="(logOut(), openCloseHeaderMenu())">Log out</a>
     </div>
   </div>
   <div class="page-content" id="content"></div>
