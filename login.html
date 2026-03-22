@@ -10,7 +10,7 @@
 <body>
 
     
-    <div class="signup-content">
+    <div id="signup-content" class="signup-content">
         <p>Not a Join user?</p>
         <a href="./sign_up.html"><button id="signup-button" class="signup-button dark-button">Sign up</button></a>
     </div>
@@ -18,8 +18,9 @@
 
     <div class="intro-overlay" id="introOverlay"></div>
 
-    <div class="logo-container" id="logoContainer">
-        <img src="assets/icons/favicon.png" class="intro-logo" alt="Logo">
+    <div class="logo-container" id="logo-container">
+        <img src="assets/icons/main_logo_light.png" alt="Join Logo" class="main-logo-mobile">
+        <img src="assets/icons/main_logo_dark.png" class="main-logo" alt="Join Logo">
     </div>
    
     <div class="container-login-form">
@@ -36,7 +37,7 @@
 
                 <div class="input-wrapper">
                     <input type="password" class="inputs-login" id="password-input-login" oninput="hideErrorOnInput()" placeholder="Password" required>
-                    <img src="../assets/icons/lock.png" class="input-icon" alt="Lock Icon">
+                    <img id="input-password-img" src="../assets/icons/lock.png" class="input-icon" alt="Lock Icon">
                 </div>
                 <div id="container-error-message" class="container-error-message d-none">
                 <p id="email-error" class="error-message">Check your email and password. Please try again.</p>
