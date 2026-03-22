@@ -396,7 +396,7 @@
 
   .hr-summary-mobil {
     display: block;
-    border: 2Ípx solid rgba(41, 171, 226, 1);
+    border: 3px solid rgba(41, 171, 226, 1);
     width: 90px;
     margin-top: 8px;
   }
