@@ -4,6 +4,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 button:hover {
@@ -285,4 +286,54 @@ input {
     opacity: 1;
     transform: translate(-50%, -50%);
   }
+}
+
+/* === TABLET === */
+@media (max-width: 744px){
+
+  /* === HEADER === */
+  .signup-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 180px 80px 0px;
+  }
+
+  .logo {
+    position: static;
+    height: 76px;
+  }
+
+  /* === MAIN === */
+  .signup {
+    padding: 0;
+  }
+
+  .signup-card {
+    width: 300px;
+  }
+
+  /* === HEADER IM FORMULAR === */
+  .signup-back {
+    left: 32px
+  }
+
+  .signup-form-header h1 {
+    font-size: 32px;
+  }
+
+  .signup-form-header h1::after {
+      height: 3px;
+  }
+
+  /* === FORMULAR === */
+  .signup-form {
+    padding-bottom: 0;
+  }
+
+  /* === FOOTER IM FORMULAR === */
+  .signup-form-footer {
+    padding-top: 20px;
+  }
+
 }
