@@ -14,6 +14,9 @@ const CONFIRM_PASSWORD_VISIBILITY_OFF = document.getElementById("confirm-passwor
 const SIGNUP_SUCCESS_TOAST = document.getElementById("signup-success-toast");
 const SIGNUP_SUCCESS_OVERLAY = document.getElementById("signup-success-overlay");
 
+// BASE URL
+const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
+
 // FORM INPUT FIELDS
 const FORM_INPUT_FIELDS = [
     USER_NAME,
@@ -53,7 +56,7 @@ function addUser() {
         email: userEmail,
         password: userPassword
     });
-    saveUserDataToLocalStorage();
+    saveUserData();
     signUpsuccess();
 }
 
@@ -113,6 +116,7 @@ function signUpsuccess() {
 function resetEmailInputStyles() {
     for (let inputIndex = 0; inputIndex < FORM_INPUT_FIELDS.length; inputIndex++) {
         FORM_INPUT_FIELDS[inputIndex].addEventListener("focus", function() {
+            getUserData();
             USER_EMAIL.classList.remove("red-border");
             INPUT_ERROR.classList.add("dNone");
         if (INPUT_ERROR.textContent === "This email address is already registered.") {
@@ -145,24 +149,38 @@ function handleConfirmPasswordInput() {
     });
 }
 
-
-// Persists the current in-memory user list to localStorage.
-function saveUserDataToLocalStorage() {
-    localStorage.setItem("User_Data", JSON.stringify(users));
+// Persists the most recently added user by sending it to the backend API.
+async function saveUserData() {
+    let lastUser = users.length - 1;
+    await fetch(`${BASE_URL}users.json`, {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(users[lastUser])
+    });
 }
 
-// Loads persisted user data from localStorage into the in-memory user array.
-function getUserDataFromLocalStorage() {
-    let storagedUserData = JSON.parse(localStorage.getItem("User_Data"));
-    if (storagedUserData != null) {
-    let userDataLength = storagedUserData.length
-        for (let userDataIndex = 0; userDataIndex < userDataLength; userDataIndex++) {
-            users.push({
-                name: storagedUserData[userDataIndex].name,
-                email: storagedUserData[userDataIndex].email,
-                password: storagedUserData[userDataIndex].password
-            })
-        }
+/**
+ * Retrieves all persisted users from the backend and maps them into the local `users` array.
+ *
+ * The backend returns an object keyed by user IDs, which is transformed into
+ * an array to match the structure used throughout the application.
+ */
+async function getUserData() {
+    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserDataToJson = await allUserData.json(); 
+    let UserKeysArray = Object.keys(allUserDataToJson);
+
+    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+        users.push(
+            {
+                id : UserKeysArray[userIndex],
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                email : allUserDataToJson[UserKeysArray[userIndex]].email,
+                password : allUserDataToJson[UserKeysArray[userIndex]].password
+            }
+        )
     }
 }
 
@@ -188,7 +206,6 @@ USER_CONFIRM_PASSWORD.addEventListener("focus", function() {
         } 
     }) 
 }
-
 
 /**
  * Toggles password visibility by switching UI icons and updating the input type.
@@ -238,7 +255,7 @@ function updateConfirmPasswordInputType() {
  * password controls, and error handling) are fully initialized on load.
  */
 function init() {
-    getUserDataFromLocalStorage();
+    getUserData();
     handleConfirmPasswordInput();
     setupPasswordVisibilityControls();
     resetEmailInputStyles();
