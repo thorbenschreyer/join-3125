@@ -4,7 +4,7 @@ const USER_EMAIL = document.getElementById("email-register");
 const USER_PASSWORD = document.getElementById("password-register");
 const USER_CONFIRM_PASSWORD = document.getElementById("confirm-password-register");
 const SIGNUP_BUTTON = document.getElementById("signup-button");
-const PASSWORD_ERROR = document.getElementById("password-error");
+const INPUT_ERROR = document.getElementById("input-error");
 const PASSWORD_LOCK = document.getElementById("password-lock");
 const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
 const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");
@@ -13,6 +13,14 @@ const CONFIRM_PASSWORD_VISIBILITY_ON = document.getElementById("confirm-password
 const CONFIRM_PASSWORD_VISIBILITY_OFF = document.getElementById("confirm-password-visibility-off");
 const SIGNUP_SUCCESS_TOAST = document.getElementById("signup-success-toast");
 const SIGNUP_SUCCESS_OVERLAY = document.getElementById("signup-success-overlay");
+
+// FORM INPUT FIELDS
+const FORM_INPUT_FIELDS = [
+    USER_NAME,
+    USER_EMAIL,
+    USER_PASSWORD,
+    USER_CONFIRM_PASSWORD
+];
 
 // USER DATA
 let users = [];
@@ -30,12 +38,14 @@ function addUser() {
     let userPassword = USER_PASSWORD.value;
     let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
     if (userPassword != userConfirmPassword) {
+        showPasswordMismatchError();
         return;
     }
     const isDuplicateUser = users.some(user =>
-        user.name === userName || user.email === userEmail
+        user.email === userEmail
     );
     if (isDuplicateUser) {
+        duplicateUserFeedback();
         return;
     }
     users.push({
@@ -45,6 +55,32 @@ function addUser() {
     });
     saveUserDataToLocalStorage();
     signUpsuccess();
+}
+
+/**
+ * Displays a validation error after form submission if the passwords do not match.
+ *
+ * This acts as a fallback validation in case the mismatch was not already caught
+ * by real-time input validation, ensuring the user cannot proceed with inconsistent data.
+ */
+function showPasswordMismatchError() {
+    USER_CONFIRM_PASSWORD.classList.add("red-border");
+    INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
+    INPUT_ERROR.classList.remove("dNone");
+    INPUT_ERROR.classList.add("input-error");
+}
+
+/**
+ * Displays a validation error after form submission if the email is already in use.
+ *
+ * This prevents duplicate account creation and ensures data integrity
+ * by enforcing unique email addresses at the final validation step.
+ */
+function duplicateUserFeedback() {
+    USER_EMAIL.classList.add("red-border");
+    INPUT_ERROR.textContent = "This email address is already registered."
+    INPUT_ERROR.classList.remove("dNone");
+    INPUT_ERROR.classList.add("input-error");
 }
 
 /**
@@ -63,23 +99,52 @@ function signUpsuccess() {
     }, 1500);
 }
 
+
+/**
+ * Clears email-related error styling when the user focuses any input field.
+ *
+ * This ensures that server-side validation feedback (e.g. duplicate email)
+ * is reset as soon as the user starts correcting their input, preventing
+ * stale error states from persisting in the UI.
+ *
+ * Note: The error class is only removed if the message corresponds to the
+ * duplicate email case to avoid interfering with unrelated validation errors.
+ */
+function resetEmailInputStyles() {
+    for (let inputIndex = 0; inputIndex < FORM_INPUT_FIELDS.length; inputIndex++) {
+        FORM_INPUT_FIELDS[inputIndex].addEventListener("focus", function() {
+            USER_EMAIL.classList.remove("red-border");
+            INPUT_ERROR.classList.add("dNone");
+        if (INPUT_ERROR.textContent === "This email address is already registered.") {
+            INPUT_ERROR.classList.remove("input-error");
+        }
+        })
+    }
+}
+
 /**
  * Only shows the mismatch error once both fields have equal length AND at least
  * 8 characters – avoids distracting the user with errors while still typing.
  */
-USER_CONFIRM_PASSWORD.addEventListener("input", function() {
-    let userPassword = USER_PASSWORD.value;
-    let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
-    if (userConfirmPassword.length >= 8 && userPassword !== userConfirmPassword && userPassword.length == userConfirmPassword.length) {
-        USER_CONFIRM_PASSWORD.classList.add("red-border");
-        PASSWORD_ERROR.classList.remove("dNone");
-        PASSWORD_ERROR.classList.add("password-error");
-    } else {
-        USER_CONFIRM_PASSWORD.classList.remove("red-border");
-        PASSWORD_ERROR.classList.add("dNone");
-        PASSWORD_ERROR.classList.remove("password-error");
-    }
-});
+function handleConfirmPasswordInput() {
+    USER_CONFIRM_PASSWORD.addEventListener("input", function() {
+        let userPassword = USER_PASSWORD.value;
+        let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+        SIGNUP_BUTTON
+        if (userConfirmPassword.length >= 8 && userPassword !== userConfirmPassword && userPassword.length == userConfirmPassword.length) {
+            USER_CONFIRM_PASSWORD.classList.add("red-border");
+            INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
+            INPUT_ERROR.classList.remove("dNone");
+            INPUT_ERROR.classList.add("input-error");
+        } else {
+            USER_CONFIRM_PASSWORD.classList.remove("red-border");
+            INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
+            INPUT_ERROR.classList.add("dNone");
+            INPUT_ERROR.classList.remove("input-error");
+        }
+    });
+}
+
 
 // Persists the current in-memory user list to localStorage.
 function saveUserDataToLocalStorage() {
@@ -107,21 +172,23 @@ function getUserDataFromLocalStorage() {
  * The visibility toggle is only initialized if it has not been set before,
  * preventing unintended state overrides when the user refocuses the field.
  */
-USER_PASSWORD.addEventListener("focus", function() {
-    PASSWORD_LOCK.classList.add("dNone");
-    if (PASSWORD_VISIBILITY_ON.classList.contains("dNone") && PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-        PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
-        updatePasswordInputType();
-    }
-})
-
+function setupPasswordVisibilityControls() {
+    USER_PASSWORD.addEventListener("focus", function() {
+        PASSWORD_LOCK.classList.add("dNone");
+        if (PASSWORD_VISIBILITY_ON.classList.contains("dNone") && PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
+            PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
+            updatePasswordInputType();
+        }
+    })
 USER_CONFIRM_PASSWORD.addEventListener("focus", function() {
     CONFIRM_PASSWORD_LOCK.classList.add("dNone");
-    if (CONFIRM_PASSWORD_VISIBILITY_ON.classList.contains("dNone") && CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-        CONFIRM_PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
-        updateConfirmPasswordInputType();
-    } 
-})
+        if (CONFIRM_PASSWORD_VISIBILITY_ON.classList.contains("dNone") && CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
+            CONFIRM_PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
+            updateConfirmPasswordInputType();
+        } 
+    }) 
+}
+
 
 /**
  * Toggles password visibility by switching UI icons and updating the input type.
@@ -163,10 +230,18 @@ function updateConfirmPasswordInputType() {
     }
 }
 
-/** Initializes the application state by restoring persisted user data.
+/**
+ * Bootstraps the application by restoring persisted user data
+ * and registering all input-related event handlers.
+ *
+ * This ensures that both the data state and UI behavior (validation,
+ * password controls, and error handling) are fully initialized on load.
  */
 function init() {
     getUserDataFromLocalStorage();
+    handleConfirmPasswordInput();
+    setupPasswordVisibilityControls();
+    resetEmailInputStyles();
 }
 
 // Initialize the application init() when the window loads
