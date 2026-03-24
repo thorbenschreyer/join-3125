@@ -1,1 +1,127 @@
-<div>add tasks</div>
+<!-- ADD-TASKS-CONTENT -->
+<div class="add-tasks-page">
+
+    <!-- HEADER -->
+    <div class="add-task-header">
+        <h1>
+            Add Task
+        </h1>
+    </div>
+
+    <!-- FORMULAR -->
+    <form class="add-task-form">
+
+        <!-- LEFT COLUMN -->
+        <div class="task-column left-column">
+
+            <!-- TITLE -->
+            <div class="form-group">
+                <label for="task-title">
+                    Title<span class="required">*</span>
+                </label>
+                <input id="task-title" class="task-title form-input" type="text" placeholder="Enter a title">
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-group">
+                <label for="task-description">
+                    Description
+                </label>
+                <textarea id="task-description" class="task-description form-input" rows="4" placeholder="Enter a Description"></textarea>
+            </div>
+
+            <!-- DUE DATE -->   
+            <div class="form-group">
+                <label for="task-due-date">
+                    Due date<span class="required">*</span>
+                </label>
+                <input id="task-due-date" class="task-due-date form-input" type="text" placeholder="dd/mm/yyyy">
+                <img src="../assets/icons/calendar.png" class="task-input-icon" alt="calendar image">
+            </div>
+
+        </div>
+
+        <!-- VERTICAL DIVIDER -->
+        <div class="vertical-divider"></div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="task-column right-column">
+
+            <!-- PRIORITY-BUTTONS -->
+            <div class="form-group">
+                <label>Priority</label>
+                <div class="priority-buttons">
+
+                    <!-- PRIORITY-URGENT -->
+                    <button type="button" class="priority-btn">
+                        <span class="prio-text">Urgent</span>
+                        <img class="task-prio-img" src="../assets/icons/high_prio_color.svg" alt="">
+                        <img class="task-prio-img dNone" src="../assets/icons/high_prio_white.svg" alt="">
+                    </button>
+
+                    <!-- PRIORITY-MEDIUM -->
+                    <button type="button" class="priority-btn">
+                        <span class="prio-text">Medium</span> 
+                        <img class="task-prio-img" src="../assets/icons/medium_prio_color.svg" alt="">
+                        <img class="task-prio-img dNone" src="../assets/icons/medium_prio_white.svg" alt="">
+                    </button>
+
+                    <!-- PRIORITY-LOW -->
+                    <button type="button" class="priority-btn">
+                        <span class="prio-text">Low</span>
+                        <img class="task-prio-img" src="../assets/icons/low_prio_color.svg" alt="">
+                        <img class="task-prio-img dNone" src="../assets/icons/low_prio_white.svg" alt="">
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ASSIGNED TO -->
+            <div class="form-group">
+                <label for="task-assigned">Assigned to</label>
+                <select id="task-assigned" class="form-input">
+                    <option>Select contacts to assign</option>
+                </select>
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="form-group">
+                <label for="task-category">Category<span class="required">*</span></label>
+                <select id="task-category" class="form-input">
+                    <option>Select task category</option>
+                </select>
+            </div>
+
+            <!-- SUBTASKS -->
+            <div class="form-group">
+                <label for="task-subtasks">Subtasks</label>
+                <input id="task-subtasks" class="form-input" type="text" placeholder="Add new subtask">
+            </div>
+
+        </div>
+
+    </form>
+
+    <!-- FOOTER -->
+    <div class="add-task-footer">
+
+        <!-- FOOTER LEFT -->
+        <div class="footer-left">
+            <span class="required">*</span><span>This field is required</span>
+        </div>
+
+        <!-- FOOTER RIGHT -->
+        <div class="footer-right">
+            <button class="clear-task-btn">
+                <span>Clear &times</span>
+            </button>
+            <button class="add-task-btn">
+                <span>Create Task</span>
+                <img src="../assets/icons/check_light.svg" alt="">
+            </button>
+        </div>
+
+    </div>
+
+</div>
