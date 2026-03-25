@@ -9,7 +9,7 @@
     </div>
 
     <!-- FORMULAR -->
-    <form class="add-task-form">
+    <form id="add-task-form" class="add-task-form" onsubmit="addTask(); return false;">
 
         <!-- LEFT COLUMN -->
         <div class="task-column left-column">
@@ -92,6 +92,8 @@
                 <label for="task-category">Category<span class="required">*</span></label>
                 <select id="task-category" class="form-input">
                     <option>Select task category</option>
+                    <option>Technical Task</option>
+                    <option>User Story</option>
                 </select>
             </div>
 
@@ -118,7 +120,7 @@
             <button class="clear-task-btn">
                 <span>Clear &times</span>
             </button>
-            <button class="add-task-btn">
+            <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit">
                 <span>Create Task</span>
                 <img src="../assets/icons/check_light.svg" alt="">
             </button>

@@ -16,8 +16,21 @@ let TITLE_INPUT_ERROR;
 let DUE_DATE_INPUT_ERROR;
 let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
+let ASSIGNED_TO_SELECT;
+let CATEGORY_SELECT;
+let SUBTASKS;
+let ADDTASK_BTN;
 
-function initAddTaskElements() {
+// BASE URL
+const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
+
+// TASK DATA
+let tasks = [];
+
+// USER NAMES
+let userNames = [];
+
+async function initAddTaskElements() {
     TITLE_INPUT = document.getElementById("task-title");
     DESC_INPUT = document.getElementById("task-description");
     DUE_DATE_INPUT = document.getElementById("task-due-date");
@@ -35,7 +48,14 @@ function initAddTaskElements() {
     DUE_DATE_INPUT_ERROR = document.getElementById("due-date-input-error");
     PRIORITY_COLOR_IMAGES = [URGENT_COLOR_IMG, MEDIUM_COLOR_IMG, LOW_COLOR_IMG];
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
+    ASSIGNED_TO_SELECT = document.getElementById("task-assigned");
+    CATEGORY_SELECT = document.getElementById("task-category");
+    SUBTASKS = document.getElementById("task-subtasks");
+    ADDTASK_BTN = document.getElementById("add-task-btn");
     feedbackOnRequiredInput();
+    higlightSelectedPriority();
+    await getUserNames();
+    pushUserNames();
 }
 
 function feedbackOnRequiredInput() {
@@ -112,4 +132,65 @@ function highlightLowPriority() {
     LOW_BTN.classList.add("prio-low");
     LOW_COLOR_IMG.classList.add("dNone");
     LOW_WHITE_IMG.classList.remove("dNone");
+}
+
+function addTask() {
+    let taskTitle = TITLE_INPUT.value;
+    let taskDescription = DESC_INPUT.value;
+    let taskDueDate = DUE_DATE_INPUT.value;
+    let taskPriority;
+    if (URGENT_BTN.classList.contains("prio-urgent")) {
+        taskPriority = "urgent";
+    } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
+        taskPriority = "medium";
+    } else if (LOW_BTN.classList.contains("prio-low")) {
+        taskPriority = "low";
+    }
+    let taskAssignedTo = ASSIGNED_TO_SELECT.value;
+    let taskCategory = CATEGORY_SELECT.value;
+    let taskSubtasks = SUBTASKS.value;
+
+    tasks.push({
+        title: taskTitle,
+        description: taskDescription,
+        dueDate: taskDueDate,
+        priority: taskPriority,
+        assignedTo: taskAssignedTo,
+        category: taskCategory,
+        subtasks: taskSubtasks
+    });
+    saveTaskData();
+}
+
+async function saveTaskData() {
+    let lastTask = tasks.length - 1;
+    await fetch(`${BASE_URL}tasks.json`, {
+        method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tasks[lastTask])
+    });
+}
+
+async function getUserNames() {
+    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserDataToJson = await allUserData.json(); 
+    let UserKeysArray = Object.keys(allUserDataToJson);
+
+    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+        userNames.push(allUserDataToJson[UserKeysArray[userIndex]].name)
+    }    
+}
+
+function pushUserNames() {
+    for (let userIndex = 0; userIndex < userNames.length; userIndex++) {
+        ASSIGNED_TO_SELECT.insertAdjacentHTML("beforeend", pushUserNamesTemplate(userNames[userIndex]))
+    }
+}
+
+function pushUserNamesTemplate(user) {
+  return `
+           <option>${user}</option>
+         `
 }
