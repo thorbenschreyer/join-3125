@@ -8,6 +8,16 @@ body {
   color: var(--red);
 }
 
+.red-border {
+  border: solid 1px var(--red) !important;
+}
+
+.input-error {
+  display: block;
+  color: var(--red);
+  font-size: 12px;
+}
+
 .dNone {
   display: none;
 }
@@ -136,15 +146,18 @@ label {
 }
 
 .prio-urgent{
-    background-color: #FF3D00;
+  background-color: #FF3D00;
+  color: var(--white);
 }
 
 .prio-medium {
-    background-color: #FFA800;
+  background-color: #FFA800;
+  color: var(--white);
 }
 
 .prio-low {
-    background-color: #7AE229;
+  background-color: #7AE229;
+  color: var(--white);
 }
 
 /* === FOOTER === */

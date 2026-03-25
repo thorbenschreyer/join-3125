@@ -43,6 +43,7 @@ async function loadSidbarAndContent() {
     headerMenu.innerHTML = helpAndLogout();
 
     await loadHtmlPage("content", "./templates/add_tasks.html");
+    initAddTaskElements();
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
   }
