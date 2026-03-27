@@ -19,10 +19,6 @@ body {
   background-color: var(--bg-color);
 }
 
-a {
-  text-decoration: none;
-}
-
 a{
     text-decoration: none;
     cursor: pointer;
