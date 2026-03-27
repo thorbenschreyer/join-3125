@@ -169,3 +169,15 @@ function removeActiveState() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
 }
+
+function removeActiveStatefromSummary() {
+  let id = document.getElementById(currentToggleID);
+  id.classList.remove("isActive");
+}
+
+function clickInSummaryBoard() {
+  loadHtmlPage('content', './templates/add_tasks.html')
+  removeActiveState()
+  toggleIsActive('add_task', 'add_task_img')
+
+}
