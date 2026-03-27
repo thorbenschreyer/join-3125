@@ -1,3 +1,5 @@
+/* =============== Header Content =============== */
+
 .only-mobile {
     display: none;
 }
@@ -26,3 +28,41 @@
     font-weight: 400;
 }
 
+/* =============== Summary Content =============== */
+.summary-content-area {
+   display: flex;
+   border: 1px solid red; /* Remove after */
+   width: 100%;
+   margin-right: 16px;
+}
+
+.summary-content {
+ border: 1px solid greenyellow; /* Remove after */
+    width: 560px;
+    height: 100px;
+    margin: 3px; /* Remove after */
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    
+
+    border: 1px solid blue; /* Remove after */
+    margin: 3px; /* Remove after */
+}
+
+.welcome-time {
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--logo-dark-blue);
+}
+
+.welcome-name {
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--logo-light-blue);
+}
