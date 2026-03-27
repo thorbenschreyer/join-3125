@@ -40,6 +40,8 @@
 
 @media (max-width: 818px) {
 .welcome-content {
+    display: none; /* Remove*/
+    /*
     position: fixed;
     top: 0;
     left: 0;
@@ -53,7 +55,7 @@
     align-items: center;
 
     animation: removeWelcomeScreen 1s ease forwards;
-    animation-delay: 2s;
+    animation-delay: 2s; */
   }
 
   @keyframes removeWelcomeScreen {
@@ -72,8 +74,6 @@
 
 @media (max-width: 610px) {
   .summary-content {
-    border: 3px solid green;
-    width: 99%;
-    height: 100px;
+    width: 100%;
   }
 }
