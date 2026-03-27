@@ -1,7 +1,6 @@
 @media (max-width: 1350px) {
   .summary-content-area {
     flex-direction: column-reverse;
-    align-items: center;
   }
 
   .welcome-content {
@@ -67,6 +66,10 @@
       opacity: 0;
       visibility: hidden;
     }
+  }
+
+  .summary-content-area {
+    align-items: center;
   }
 }
 .summary-content {
