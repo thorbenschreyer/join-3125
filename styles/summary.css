@@ -73,6 +73,12 @@
     justify-content: center;
 }
 
+.task-display hr {
+    height: 104px;
+    border: 2px solid rgba(209, 209, 209, 1);
+    margin: 0px 64px;
+}
+
 .task-content {
     display: flex;
     flex-direction: column;
@@ -131,4 +137,52 @@
 
 .task-summary-style:hover .checked-img {
   content: url("../assets/icons/checked_light.png");
+}
+
+.high-prio {
+    content: url("../assets/icons/high_prio_white.svg");
+    background-color: rgba(255, 61, 0, 1);
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    padding: 16px;
+}
+
+.medium-prio {
+    content: url("../assets/icons/medium_prio_white.svg");
+    background-color: rgba(255, 168, 0, 1);
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    padding: 16px;
+}
+
+.low-prio {
+    content: url("../assets/icons/low_prio_white.svg");
+    background-color: rgba(122, 226, 41, 1);
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    padding: 16px;
+}
+
+.task-date {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--logo-dark-blue)
+}
+
+.task-date-text {
+   font-size: 16px;
+    font-weight: 400;
+    padding-top: 8px;
+    color: var(--logo-dark-blue);
+}
+
+.task-summary-style:hover .task-date {
+  color: white;
+}
+
+.task-summary-style:hover .task-date-text {
+  color: white;
 }
