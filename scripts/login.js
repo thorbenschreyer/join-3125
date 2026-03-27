@@ -1,46 +1,61 @@
-let emailData = document.getElementById("email-input-login");
-let passwordData = document.getElementById("password-input-login");
-
+const emailData = document.getElementById("email-input-login");
+const passwordData = document.getElementById("password-input-login");
+const inputImg = document.getElementById("input-password-img");
+let initialViewportHeight = window.visualViewport.height;
+let wasEmpty = true;
 let contacts = [
     {
         email: "test.email@example.com",
         name: "Heinzi",
         password: "123",
-        phone: "+1234567890"
-    },
-    {
-        email: "senel.tunc@gmail.com",
-        name: "Tunc Senel",
-        password: "senelsenel",
-        phone: "+49 1776514789",
-    },
-    {
-        email: "anna.mueller@gmail.com",
-        name: "Anna Müller",
-        password: "annamueller123",
-        phone: "+49 17612345678",
-    },
-    {
-        email: "max.schneider@gmail.com",
-        name: "Max Schneider",
-        password: "maxschneider123",
-        phone: "+49 17598765432",
-    },
-    {
-        email: "lisa.weber@gmail.com",
-        name: "Lisa Weber",
-        password: "lisaweber123",
-        phone: "+49 17455667788",
-    },
-    {
-        email: "tom.fischer@gmail.com",
-        name: "Tom Fischer",
-        password: "tomfischer123",
-        phone: "+49 17333445566",
-    }];
+        telephone: "+1234567890"
+    }
+];
+
+window.visualViewport.addEventListener('resize', detectKeyboard);
+passwordData.addEventListener('input', checkFirstInput);
+window.addEventListener('load', removeMobileLogo);
+
+/**
+ * Detects if the virtual keyboard is open by comparing the current viewport height
+ * to the initial height. Hides or shows elements based on keyboard state.
+ */
+function detectKeyboard() {
+    const currentHeight = window.visualViewport.height;
+    const heightDifference = initialViewportHeight - currentHeight;
+    
+    if (heightDifference > 100) {
+        hideWhileKeyboardIsOpen();
+    } else {
+        showElementsWhenKeyboardIsClosed();
+    }
+}
+
+
+/**
+ * Hides specific elements (signup content and privacy policy) when the keyboard is open
+ * to improve mobile usability.
+ */
+function hideWhileKeyboardIsOpen() {
+    let signupContent = document.getElementById("signup-content")
+    let privacyPolicy = document.getElementById("privacy-policy");
+    signupContent.classList.add("d-none");
+    privacyPolicy.classList.add("d-none");
+}
+
+/**
+ * Shows the previously hidden elements (signup content and privacy policy) when the keyboard is closed.
+ */
+function showElementsWhenKeyboardIsClosed() {
+    let signupContent = document.getElementById("signup-content")
+    let privacyPolicy = document.getElementById("privacy-policy");
+    signupContent.classList.remove("d-none");
+    privacyPolicy.classList.remove("d-none");
+}
 
 /**
  * Handles the login form submission, checks user credentials, and manages UI feedback.
+ * Redirects to the main page on successful login, or shows an error message on failure.
  * @param {Event} event - The form submit event.
  */
 function loginSubmit(event) {
@@ -65,8 +80,9 @@ function loginSubmit(event) {
     }
 }
 
+
 /**
- * Hides the error message and resets the login button margin when user starts typing.
+ * Hides the error message and resets the login button margin when the user starts typing in the input fields.
  */
 function hideErrorOnInput() {
     const errorContainer = document.getElementById("container-error-message");
@@ -77,7 +93,7 @@ function hideErrorOnInput() {
 }
 
 /**
- * Logs in as a guest user and redirects to the main page.
+ * Logs in as a guest user, sets the login state, and redirects to the main page.
  */
 function guestLogin () {
     isloggedIn = true
@@ -89,7 +105,7 @@ function guestLogin () {
 }
 
 /**
- * Logs out the current user and redirects to the login page.
+ * Logs out the current user, updates the login state, and redirects to the login page.
  */
 function logOut() {
     isloggedIn = false
@@ -98,3 +114,63 @@ function logOut() {
     localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../login.html"
 }
+
+/**
+ * Handles the input event for the password field. Shows or hides the password visibility icon
+ * depending on whether the field is empty, and attaches the toggle event on first input.
+ * @param {Event} event - The input event from the password field.
+ */
+function checkFirstInput(event) {
+    const isEmptyNow = event.target.value.length === 0;
+    if (isEmptyNow) {
+        removePasswordVisibility();
+    } else if (wasEmpty && !isEmptyNow) {
+        inputImg.src = "../assets/icons/visibility_off.png";
+        inputImg.alt = "Visibility Off Icon";
+        inputImg.classList.add("cursor-pointer");
+        inputImg.addEventListener("click", togglePasswordVisibility);
+    }
+    wasEmpty = isEmptyNow;
+}
+
+/**
+ * Toggles the visibility of the password input between plain text and password.
+ * Changes the icon accordingly.
+ */
+function togglePasswordVisibility() {
+    const inputImg = document.getElementById("input-password-img");
+    if (passwordData.type === "password") {
+        passwordData.type = "text";
+        inputImg.src = "../assets/icons/visibility_on.png";
+        inputImg.alt = "Visibility On Icon";
+    } else {
+        passwordData.type = "password";
+        inputImg.src = "../assets/icons/visibility_off.png";
+        inputImg.alt = "Visibility Off Icon";
+    }
+}
+
+/**
+ * Resets the password input to type 'password', restores the lock icon,
+ * and removes the visibility toggle event and pointer cursor.
+ */
+function removePasswordVisibility(){
+    passwordData.type = "password";
+    inputImg.src = "../assets/icons/lock.png";
+    inputImg.alt = "Lock Icon";
+    inputImg.classList.remove("cursor-pointer");
+    inputImg.removeEventListener("click", togglePasswordVisibility);
+}
+/**
+ * Removes the mobile logo element from the DOM after a short delay.
+ * This is used to hide the logo on mobile devices after the page loads.
+ */
+function removeMobileLogo() {
+    setTimeout(() => {
+        const mobileLogo = document.querySelector('.main-logo-mobile');
+        if (mobileLogo) {
+            mobileLogo.remove();
+        }
+    }, 1200);
+}
+
