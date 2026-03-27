@@ -50,8 +50,11 @@ function hideErrorOnInput() {
  */
 function guestLogin () {
     isloggedIn = true
+    isGuestLogin = true
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+    localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../index.html"
+  
 }
 
 /**
@@ -59,6 +62,8 @@ function guestLogin () {
  */
 function logOut() {
     isloggedIn = false
+    isGuestLogin = false
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+    localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../login.html"
 }
