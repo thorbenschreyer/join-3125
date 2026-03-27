@@ -8,9 +8,38 @@ let contacts = [
         email: "test.email@example.com",
         name: "Heinzi",
         password: "123",
-        telephone: "+1234567890"
-    }
-];
+       phone: "+1234567890"
+    },
+    {
+        email: "senel.tunc@gmail.com",
+        name: "Tunc Senel",
+        password: "senelsenel",
+        phone: "+49 1776514789",
+    },
+    {
+        email: "anna.mueller@gmail.com",
+        name: "Anna Müller",
+        password: "annamueller123",
+        phone: "+49 17612345678",
+    },
+    {
+        email: "max.schneider@gmail.com",
+        name: "Max Schneider",
+        password: "maxschneider123",
+        phone: "+49 17598765432",
+    },
+    {
+        email: "lisa.weber@gmail.com",
+        name: "Lisa Weber",
+        password: "lisaweber123",
+        phone: "+49 17455667788",
+    },
+    {
+        email: "tom.fischer@gmail.com",
+        name: "Tom Fischer",
+        password: "tomfischer123",
+        phone: "+49 17333445566",
+    }];
 
 window.visualViewport.addEventListener('resize', detectKeyboard);
 passwordData.addEventListener('input', checkFirstInput);
