@@ -1,6 +1,7 @@
 @media (max-width: 1350px) {
   .summary-content-area {
     flex-direction: column-reverse;
+    align-items: center;
   }
 
   .welcome-content {
@@ -39,7 +40,7 @@
 }
 
 @media (max-width: 818px) {
-.welcome-content {
+  .welcome-content {
     display: none; /* Remove*/
     /*
     position: fixed;
@@ -76,4 +77,37 @@
   .summary-content {
     width: 100%;
   }
+}
+
+@media (max-width: 550px) {
+  .task-display hr {
+    margin: 0px 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .task-display hr {
+    margin: 0px 8px;
+  }
+
+.task-text {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.task-number {
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.task-date{
+    font-size: 16px;
+
+}
+
+.task-summary-style {
+    height: 120px;
+}
+
 }

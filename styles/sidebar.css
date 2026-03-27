@@ -247,6 +247,7 @@
     flex: 1;
     overflow-y: auto;
     width: 100vw;
+    padding: 16px;
   }
 
   .sidebar {
