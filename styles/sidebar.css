@@ -131,7 +131,7 @@
   z-index: 10;
 }
 
-.main-logo {
+.main-logo-sidabar {
   background-color: rgba(42, 54, 71, 1);
   margin-top: 72px;
 }
@@ -291,7 +291,7 @@
 
   .header {
     justify-content: space-between;
-    height: 80px;
+    height: 96px;
     left: 0;
   }
 

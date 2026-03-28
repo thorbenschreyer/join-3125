@@ -29,7 +29,7 @@ let tasks = [];
 
 // USER NAMES
 let userNames = [];
-
+/*
 async function initAddTaskElements() {
     TITLE_INPUT = document.getElementById("task-title");
     DESC_INPUT = document.getElementById("task-description");
@@ -56,8 +56,8 @@ async function initAddTaskElements() {
     higlightSelectedPriority();
     await getUserNames();
     pushUserNames();
-}
-
+} 
+/*
 function feedbackOnRequiredInput() {
     TITLE_INPUT.addEventListener("focus", function() {
         let titleInput = TITLE_INPUT.value;
@@ -65,7 +65,7 @@ function feedbackOnRequiredInput() {
             TITLE_INPUT.classList.add("red-border")
             TITLE_INPUT_ERROR.classList.remove("dNone")
         }
-    });
+    }); 
     TITLE_INPUT.addEventListener("input", function() {
         let titleInput = TITLE_INPUT.value;
         if (titleInput.length == 0) {
@@ -94,7 +94,7 @@ function feedbackOnRequiredInput() {
         }
     })
 }
-
+*/
 function higlightSelectedPriority(priority) {
     PRIORITY_BUTTONS.forEach(btn => btn.classList.remove("selected-priority"));
     resetPriorityImages();

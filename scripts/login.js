@@ -5,12 +5,41 @@ let initialViewportHeight = window.visualViewport.height;
 let wasEmpty = true;
 let contacts = [
     {
-        name: "Heinzi",
         email: "test.email@example.com",
+        name: "Heinzi",
         password: "123",
-        telephone: "+1234567890"
-    }
-];
+       phone: "+1234567890"
+    },
+    {
+        email: "senel.tunc@gmail.com",
+        name: "Tunc Senel",
+        password: "senelsenel",
+        phone: "+49 1776514789",
+    },
+    {
+        email: "anna.mueller@gmail.com",
+        name: "Anna Müller",
+        password: "annamueller123",
+        phone: "+49 17612345678",
+    },
+    {
+        email: "max.schneider@gmail.com",
+        name: "Max Schneider",
+        password: "maxschneider123",
+        phone: "+49 17598765432",
+    },
+    {
+        email: "lisa.weber@gmail.com",
+        name: "Lisa Weber",
+        password: "lisaweber123",
+        phone: "+49 17455667788",
+    },
+    {
+        email: "tom.fischer@gmail.com",
+        name: "Tom Fischer",
+        password: "tomfischer123",
+        phone: "+49 17333445566",
+    }];
 
 passwordData.addEventListener('input', checkFirstInput);
 window.addEventListener('load', removeMobileLogo);
@@ -39,10 +68,10 @@ function detectKeyboard() {
  */
 function loginSubmit(event) {
     event.preventDefault();
-    const user = contacts.find(u => u.email === emailData.value);
+    let user = contacts.find(u => u.email === emailData.value);
+    console.log(user);
     const errorContainer = document.getElementById("container-error-message");
     const buttonsContainer = document.getElementById("container-login-buttons");
-
     if (user && user.password === passwordData.value) {
         console.log("Login erfolgreich!!");
             buttonsContainer.classList.remove("button-margin-top-if-error");    
@@ -51,6 +80,7 @@ function loginSubmit(event) {
             passwordData.value = "";
             isloggedIn = true
             localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+            localStorage.setItem("currentUser", JSON.stringify(user));
             window.location.href = "../index.html"
     } else {
         buttonsContainer.classList.add("button-margin-top-if-error");
@@ -76,8 +106,11 @@ function hideErrorOnInput() {
  */
 function guestLogin () {
     isloggedIn = true
+    isGuestLogin = true
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+    localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../index.html"
+  
 }
 
 
@@ -86,7 +119,9 @@ function guestLogin () {
  */
 function logOut() {
     isloggedIn = false
+    isGuestLogin = false
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+    localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../login.html"
 }
 
