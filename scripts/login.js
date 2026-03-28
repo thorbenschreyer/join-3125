@@ -5,16 +5,45 @@ let initialViewportHeight = window.visualViewport.height;
 let wasEmpty = true;
 let contacts = [
     {
-        name: "Heinzi",
         email: "test.email@example.com",
+        name: "Heinzi",
         password: "123",
-        telephone: "+1234567890"
-    }
-];
+       phone: "+1234567890"
+    },
+    {
+        email: "senel.tunc@gmail.com",
+        name: "Tunc Senel",
+        password: "senelsenel",
+        phone: "+49 1776514789",
+    },
+    {
+        email: "anna.mueller@gmail.com",
+        name: "Anna Müller",
+        password: "annamueller123",
+        phone: "+49 17612345678",
+    },
+    {
+        email: "max.schneider@gmail.com",
+        name: "Max Schneider",
+        password: "maxschneider123",
+        phone: "+49 17598765432",
+    },
+    {
+        email: "lisa.weber@gmail.com",
+        name: "Lisa Weber",
+        password: "lisaweber123",
+        phone: "+49 17455667788",
+    },
+    {
+        email: "tom.fischer@gmail.com",
+        name: "Tom Fischer",
+        password: "tomfischer123",
+        phone: "+49 17333445566",
+    }];
 
-window.visualViewport.addEventListener('resize', detectKeyboard);
 passwordData.addEventListener('input', checkFirstInput);
 window.addEventListener('load', removeMobileLogo);
+
 
 /**
  * Detects if the virtual keyboard is open by comparing the current viewport height
@@ -33,37 +62,16 @@ function detectKeyboard() {
 
 
 /**
- * Hides specific elements (signup content and privacy policy) when the keyboard is open
- * to improve mobile usability.
- */
-function hideWhileKeyboardIsOpen() {
-    let signupContent = document.getElementById("signup-content")
-    let privacyPolicy = document.getElementById("privacy-policy");
-    signupContent.classList.add("d-none");
-    privacyPolicy.classList.add("d-none");
-}
-
-/**
- * Shows the previously hidden elements (signup content and privacy policy) when the keyboard is closed.
- */
-function showElementsWhenKeyboardIsClosed() {
-    let signupContent = document.getElementById("signup-content")
-    let privacyPolicy = document.getElementById("privacy-policy");
-    signupContent.classList.remove("d-none");
-    privacyPolicy.classList.remove("d-none");
-}
-
-/**
  * Handles the login form submission, checks user credentials, and manages UI feedback.
  * Redirects to the main page on successful login, or shows an error message on failure.
  * @param {Event} event - The form submit event.
  */
 function loginSubmit(event) {
     event.preventDefault();
-    const user = contacts.find(u => u.email === emailData.value);
+    let user = contacts.find(u => u.email === emailData.value);
+    console.log(user);
     const errorContainer = document.getElementById("container-error-message");
     const buttonsContainer = document.getElementById("container-login-buttons");
-
     if (user && user.password === passwordData.value) {
         console.log("Login erfolgreich!!");
             buttonsContainer.classList.remove("button-margin-top-if-error");    
@@ -72,6 +80,7 @@ function loginSubmit(event) {
             passwordData.value = "";
             isloggedIn = true
             localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+            localStorage.setItem("currentUser", JSON.stringify(user));
             window.location.href = "../index.html"
     } else {
         buttonsContainer.classList.add("button-margin-top-if-error");
@@ -91,23 +100,31 @@ function hideErrorOnInput() {
     buttonsContainer.classList.remove("button-margin-top-if-error");
 }
 
+
 /**
  * Logs in as a guest user, sets the login state, and redirects to the main page.
  */
 function guestLogin () {
     isloggedIn = true
+    isGuestLogin = true
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+    localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../index.html"
+  
 }
+
 
 /**
  * Logs out the current user, updates the login state, and redirects to the login page.
  */
 function logOut() {
     isloggedIn = false
+    isGuestLogin = false
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
+    localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
     window.location.href = "../login.html"
 }
+
 
 /**
  * Handles the input event for the password field. Shows or hides the password visibility icon
@@ -127,6 +144,7 @@ function checkFirstInput(event) {
     wasEmpty = isEmptyNow;
 }
 
+
 /**
  * Toggles the visibility of the password input between plain text and password.
  * Changes the icon accordingly.
@@ -144,6 +162,7 @@ function togglePasswordVisibility() {
     }
 }
 
+
 /**
  * Resets the password input to type 'password', restores the lock icon,
  * and removes the visibility toggle event and pointer cursor.
@@ -155,6 +174,8 @@ function removePasswordVisibility(){
     inputImg.classList.remove("cursor-pointer");
     inputImg.removeEventListener("click", togglePasswordVisibility);
 }
+
+
 /**
  * Removes the mobile logo element from the DOM after a short delay.
  * This is used to hide the logo on mobile devices after the page loads.

@@ -4,23 +4,25 @@ let lastOpenID;
 let currentToggleID = "summary";
 let currentImgID = "summary_img";
 let page;
+let isloggedIn;
+let isGuestLogin;
 
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
  * whether the user is logged in.
  */
 async function init() {
-  /* THIS IS ONLY FOR DEVELOPMENT */
-  isloggedIn = true;
-  localStorage.setItem("loginState", JSON.stringify(isloggedIn));
+  /* THIS IS ONLY FOR DEVELOPMENT 
+  isloggedIn = false;
+  localStorage.setItem("loginState", JSON.stringify(isloggedIn));*/
 
   isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
-  console.log(isloggedIn);
   const params = new URLSearchParams(window.location.search);
   page = params.get("page");
   checkLogin(page);
   loadSidbarAndContent();
+  
 }
 
 async function loadSidbarAndContent() {
@@ -41,9 +43,9 @@ async function loadSidbarAndContent() {
 
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
-
+    setInitials()
     await loadHtmlPage("content", "./templates/summary.html");
-    initAddTaskElements();
+   /* initAddTaskElements(); */
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
   }
@@ -168,4 +170,27 @@ function checkAvilableID(newID, oldID) {
 function removeActiveState() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
+}
+
+function removeActiveStatefromSummary() {
+  let id = document.getElementById(currentToggleID);
+  id.classList.remove("isActive");
+}
+
+function clickInSummaryBoard() {
+  loadHtmlPage('content', './templates/add_tasks.html')
+  removeActiveState()
+  toggleIsActive('add_task', 'add_task_img')
+}
+
+function setInitials () {
+  isGuestLogin = localStorage.getItem("isGuestLogin") === "true";
+  const initialsText = document.getElementById("initials-menu");
+  console.log(initialsText);  
+  if (isGuestLogin === true) {
+    console.log("Test");
+    initialsText.innerText = "G"
+  } else {
+    initialsText.innerText = "SM"
+  }
 }
