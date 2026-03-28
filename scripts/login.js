@@ -12,9 +12,9 @@ let contacts = [
     }
 ];
 
-window.visualViewport.addEventListener('resize', detectKeyboard);
 passwordData.addEventListener('input', checkFirstInput);
 window.addEventListener('load', removeMobileLogo);
+
 
 /**
  * Detects if the virtual keyboard is open by comparing the current viewport height
@@ -31,27 +31,6 @@ function detectKeyboard() {
     }
 }
 
-
-/**
- * Hides specific elements (signup content and privacy policy) when the keyboard is open
- * to improve mobile usability.
- */
-function hideWhileKeyboardIsOpen() {
-    let signupContent = document.getElementById("signup-content")
-    let privacyPolicy = document.getElementById("privacy-policy");
-    signupContent.classList.add("d-none");
-    privacyPolicy.classList.add("d-none");
-}
-
-/**
- * Shows the previously hidden elements (signup content and privacy policy) when the keyboard is closed.
- */
-function showElementsWhenKeyboardIsClosed() {
-    let signupContent = document.getElementById("signup-content")
-    let privacyPolicy = document.getElementById("privacy-policy");
-    signupContent.classList.remove("d-none");
-    privacyPolicy.classList.remove("d-none");
-}
 
 /**
  * Handles the login form submission, checks user credentials, and manages UI feedback.
@@ -91,6 +70,7 @@ function hideErrorOnInput() {
     buttonsContainer.classList.remove("button-margin-top-if-error");
 }
 
+
 /**
  * Logs in as a guest user, sets the login state, and redirects to the main page.
  */
@@ -100,6 +80,7 @@ function guestLogin () {
     window.location.href = "../index.html"
 }
 
+
 /**
  * Logs out the current user, updates the login state, and redirects to the login page.
  */
@@ -108,6 +89,7 @@ function logOut() {
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
     window.location.href = "../login.html"
 }
+
 
 /**
  * Handles the input event for the password field. Shows or hides the password visibility icon
@@ -127,6 +109,7 @@ function checkFirstInput(event) {
     wasEmpty = isEmptyNow;
 }
 
+
 /**
  * Toggles the visibility of the password input between plain text and password.
  * Changes the icon accordingly.
@@ -144,6 +127,7 @@ function togglePasswordVisibility() {
     }
 }
 
+
 /**
  * Resets the password input to type 'password', restores the lock icon,
  * and removes the visibility toggle event and pointer cursor.
@@ -155,6 +139,8 @@ function removePasswordVisibility(){
     inputImg.classList.remove("cursor-pointer");
     inputImg.removeEventListener("click", togglePasswordVisibility);
 }
+
+
 /**
  * Removes the mobile logo element from the DOM after a short delay.
  * This is used to hide the logo on mobile devices after the page loads.
