@@ -26,7 +26,7 @@ async function init() {
   checkLogin(page);
   getNameAndInitials();
   loadSidbarAndContent();
-  time = getTheTimeForWelcomeMassage();
+  time = getTheTimeForWelcomeMassage()
 }
 
 /**
@@ -261,4 +261,10 @@ function getTheTimeForWelcomeMassage() {
   if (time >= 12 && time <= 14) return "Guten Mittag";
   if (time >= 15 && time <= 18) return "Guten Nachmittag";
   if (time >= 19 && time <= 22) return "Guten Abend";
+}
+
+async function loadSummaryPage() {
+  await loadHtmlPage("content", "./templates/summary.html");
+  setTaskSummaryInformation();
+  toggleIsActive("summary", "summary_img");
 }
