@@ -44,8 +44,12 @@ async function loadSidbarAndContent() {
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
     setInitials()
-    await loadHtmlPage("content", "./templates/summary.html");
-   /* initAddTaskElements(); */
+
+    // summary.html
+    await loadHtmlPage("content", "./templates/board.html"); 
+   
+   
+    /* initAddTaskElements(); */
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
   }
