@@ -29,7 +29,7 @@ const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.a
 
 // USER NAMES
 let userNames = [];
-/*
+
 async function initAddTaskElements() {
     TITLE_INPUT = document.getElementById("task-title");
     DESC_INPUT = document.getElementById("task-description");
@@ -57,7 +57,7 @@ async function initAddTaskElements() {
     await getUserNames();
     pushUserNames();
 } 
-/*
+
 function feedbackOnRequiredInput() {
     TITLE_INPUT.addEventListener("focus", function() {
         let titleInput = TITLE_INPUT.value;
@@ -94,7 +94,7 @@ function feedbackOnRequiredInput() {
         }
     })
 }
-*/
+
 function higlightSelectedPriority(priority) {
     PRIORITY_BUTTONS.forEach(btn => btn.classList.remove("selected-priority"));
     resetPriorityImages();

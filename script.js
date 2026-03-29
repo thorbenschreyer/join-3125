@@ -68,7 +68,7 @@ async function setLoggedinNavigation() {
     headerMenu.innerHTML = helpAndLogout();
 
     await loadHtmlPage("content", "./templates/summary.html");
-    /* initAddTaskElements(); */
+    initAddTaskElements();
     
     setInitials();
     setTaskSummaryInformation ()

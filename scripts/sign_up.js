@@ -26,7 +26,7 @@ const FORM_INPUT_FIELDS = [
 ];
 
 // USER DATA
-let users = [];
+let contacs = [];
 
 /**
  * Adds a new user to the in-memory collection and persists it.
