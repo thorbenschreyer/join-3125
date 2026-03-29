@@ -215,6 +215,10 @@
 }
 
 @media (max-width: 818px) {
+  .legal-mobile {
+    display: none;
+  }
+
   .isActive {
     padding: 8px;
     height: 100%;
