@@ -93,24 +93,22 @@
     margin: 0px 8px;
   }
 
-.task-text {
+  .task-text {
     text-align: center;
     font-size: 16px;
     font-weight: 400;
-}
+  }
 
-.task-number {
+  .task-number {
     font-size: 48px;
     font-weight: 600;
-}
+  }
 
-.task-date{
+  .task-date {
     font-size: 16px;
+  }
 
-}
-
-.task-summary-style {
+  .task-summary-style {
     height: 120px;
-}
-
+  }
 }
