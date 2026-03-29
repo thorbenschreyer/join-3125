@@ -6,7 +6,9 @@ let currentImgID = "summary_img";
 let page;
 let isloggedIn;
 let isGuestLogin;
-
+let userName = " ";
+let userInitials = "G";
+let time
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
  * whether the user is logged in.
@@ -21,8 +23,9 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   page = params.get("page");
   checkLogin(page);
+  getNameAndInitials();
   loadSidbarAndContent();
-  
+  time = getTheTimeForWelcomeMassage()
 }
 
 async function loadSidbarAndContent() {
@@ -43,9 +46,9 @@ async function loadSidbarAndContent() {
 
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
-    setInitials()
     await loadHtmlPage("content", "./templates/summary.html");
-   /* initAddTaskElements(); */
+    /* initAddTaskElements(); */
+    setInitials();
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
   }
@@ -172,25 +175,60 @@ function removeActiveState() {
   id.classList.remove("isActive");
 }
 
+/**
+ * Set “isActive” to the element when switching to a page
+ */
 function removeActiveStatefromSummary() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
 }
 
+/**
+ * This function removes the "Active" status from the Summary section and sets it to "Active" when a task is added, provided you click on one of the fields in the Summary section
+ */
 function clickInSummaryBoard() {
-  loadHtmlPage('content', './templates/add_tasks.html')
-  removeActiveState()
-  toggleIsActive('add_task', 'add_task_img')
+  loadHtmlPage("content", "./templates/add_tasks.html");
+  removeActiveState();
+  toggleIsActive("add_task", "add_task_img");
 }
 
-function setInitials () {
+/**
+ * This function generates the name and initials of the logged-in user and returns them
+ */
+function getNameAndInitials() {
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  userName = currentUser.name;
+
+  userInitials = userName
+    .split(" ")
+    .map((word) => word[0])
+    .join("");
+}
+
+/**
+ * This function sets the initials and the name after a successful login. If the login was performed as a "Guest," a "G" is displayed.
+ */
+function setInitials() {
   isGuestLogin = localStorage.getItem("isGuestLogin") === "true";
   const initialsText = document.getElementById("initials-menu");
-  console.log(initialsText);  
+  const nameFromUser = document.getElementById("welcome-name");
+  const welcomeTime = document.getElementById("welcome-time");
   if (isGuestLogin === true) {
-    console.log("Test");
-    initialsText.innerText = "G"
+    initialsText.innerText = "G";
+    nameFromUser.innerText = " "
+    welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!"
   } else {
-    initialsText.innerText = "SM"
+    initialsText.innerText = userInitials;
+    nameFromUser.innerText = userName;
+    welcomeTime.innerText = getTheTimeForWelcomeMassage() + ","
   }
+}
+
+function getTheTimeForWelcomeMassage () {
+  time = new Date().getHours();
+  if (time >= 23 || time <= 5) return "Hallo Nachteule";
+  if (time >= 6 && time <= 11) return "Guten Morgen"
+  if (time >= 12 && time <= 14) return "Guten Mittag"
+  if (time >= 15 && time <= 18) return "Guten Nachmittag"
+  if (time >= 19 && time <= 22) return "Guten Abend"
 }

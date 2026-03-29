@@ -18,10 +18,9 @@ function LoggedInNavigation() {
     `;
 }
 
-/** <!-- TODO ${initials} anstelle TS --> */
-function helpAndLogout(initials) {
+function helpAndLogout() {
   return `
         <img class="help-img display-none" onclick="loadHtmlPage('content','./footerpages/help.html'), removeActiveState()" src='./assets/icons/help.png' alt='Helppage'>
-        <button id="initials-menu" class="initials-menu" onclick="openCloseHeaderMenu()">${initials}</button> 
+        <button id="initials-menu" class="initials-menu" onclick="openCloseHeaderMenu()"> </button> 
     `;
 }
