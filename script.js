@@ -50,6 +50,7 @@ async function loadSidbarAndContent() {
     await loadHtmlPage("content", "./templates/summary.html");
     /* initAddTaskElements(); */
     setInitials();
+    setTaskSummaryInformation ()
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
   }
