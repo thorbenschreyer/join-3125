@@ -67,7 +67,7 @@ async function setLoggedinNavigation() {
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
 
-    await loadHtmlPage("content", "./templates/summary.html");
+    await loadHtmlPage("content", "./templates/contacts.html");
     /* initAddTaskElements(); */
     
     setInitials();
@@ -239,9 +239,12 @@ function setInitials() {
   const initialsText = document.getElementById("initials-menu");
   const nameFromUser = document.getElementById("welcome-name");
   const welcomeTime = document.getElementById("welcome-time");
+
+   
+
   if (isGuestLogin === true) {
     initialsText.innerText = "G";
-    nameFromUser.innerText = " ";
+    nameFromUser.innerText = "";
     welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!";
   } else {
     initialsText.innerText = userInitials;
@@ -266,5 +269,6 @@ function getTheTimeForWelcomeMassage() {
 async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
   setTaskSummaryInformation();
+  setInitials()
   toggleIsActive("summary", "summary_img");
 }

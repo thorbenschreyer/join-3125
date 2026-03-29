@@ -35,21 +35,22 @@ function setTaskSummaryInformation() {
 function sortTodoforDate() {
   let toDoArray = tasks.filter((task) => task.state === "To do");
 
-  toDoSOrted = toDoArray.sort(
-    (a, b) => new Date(a.dueDate) - new Date(b.dueDate),
-  );
+  if (toDoArray.length === 0) {
+    formattedDate = "-";
+    numberofSameDate = 0;
+    nexttoDoPriority = null;
+    return;
+  }
+
+
+  toDoSOrted = toDoArray.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate),);
   nexttoDoPriority = toDoArray[0].priority;
 
-  numberofSameDate = toDoArray.filter(
-    (sameDayToDo) => sameDayToDo.dueDate === toDoArray[0].dueDate,
-  ).length;
+  numberofSameDate = toDoArray.filter((sameDayToDo) => sameDayToDo.dueDate === toDoArray[0].dueDate,).length;
   nextToDoDate = toDoArray[0].dueDate;
 
   const date = new Date(nextToDoDate);
-  formattedDate =
-    date.toLocaleDateString("de-DE", { day: "2-digit", month: "long" }) +
-    ", " +
-    date.getFullYear();
+  formattedDate = date.toLocaleDateString("de-DE", { day: "2-digit", month: "long" }) + ", " + date.getFullYear();
 }
 
 function setOpticalPriority() {
