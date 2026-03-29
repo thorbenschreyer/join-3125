@@ -229,7 +229,7 @@ title: "Optimize Database",
 description: "Improve performance of slow queries",
 assignedTo: "Max Weber",
 category: "Technical Task",
-dueDate: "2026-04-03",
+dueDate: "2026-04-01",
 priority: "low",
 subtasks: "Analyze queries;Add indexes",
 state: "To do"

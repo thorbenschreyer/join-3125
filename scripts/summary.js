@@ -3,8 +3,8 @@ let tasksInProgress = findNumberOfTask("In Progress");
 let awaitingFeedback = findNumberOfTask("Await Feedback");
 let todo = findNumberOfTask("To do");
 let done = findNumberOfTask("Done");
-let todoNextTime = "20";
-let nextDate = "März 18, 2026";
+let formattedDate;
+let numberofSameDate;
 
 /**
  * This function iterates through the `tasks` array. It searches for the corresponding status
@@ -23,17 +23,24 @@ function setTaskSummaryInformation() {
   document.getElementById("task-done").innerText = done;
 
   /* Hier muss ebenfalls der Status gesetzt werden welche Prio!*/
-  document.getElementById("todo-date").innerText = todoNextTime;
-  document.getElementById("date-in-Summary").innerText = nextDate;
+  document.getElementById("todo-date").innerText = numberofSameDate;
+  document.getElementById("date-in-Summary").innerText = formattedDate;
+}
+
+function sortTodoforDate() {
+  let toDoArray = tasks.filter((task) => task.state === "To do");
+
+  toDoArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  numberofSameDate = toDoArray.filter((sameDayToDo) => sameDayToDo.dueDate === toDoArray[0].dueDate,).length;
+  nextToDoDate = toDoArray[0].dueDate;
+
+  const date = new Date(nextToDoDate);
+  formattedDate = date.toLocaleDateString("de-DE", { day: "2-digit", month: "long" }) + ", " + date.getFullYear();
 }
 
 /**
- *  Nehmen der Array todo
- *  Sortieren des Array nach datum
+ 
  *  Das erste Array nehmen und den "Wichtigkeitsstauts ermitteln"
  *  wichtigkeit dann speichern und als Classe setzen
- *  Prüfen wie viele Arrays auch das gleiche enddatum haben
- *  in ein neues Array packen und length ermitteln
- *  Zahl als todoNextTIme Setzen
- *  Datum in entsprechendes format bringen und dann in next Date speichern
  * */
