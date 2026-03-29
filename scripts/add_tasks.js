@@ -25,7 +25,7 @@ let ADDTASK_BTN;
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
 // TASK DATA
-let tasks = [];
+/* let tasks = []; */
 
 // USER NAMES
 let userNames = [];
@@ -194,3 +194,231 @@ function pushUserNamesTemplate(user) {
            <option>${user}</option>
          `
 }
+
+/**
+ * Testdaten zum enwickeln! Wenn diese gelöscht werden, müssen die Daten im Local Storage mit dem KEY: "tasks" gespeichert werden!
+ */
+
+/* TESTDATA DELETE IF FIREBASE WORKS */
+const tasks = [
+{
+id: "1",
+title: "Fix Login Bug",
+description: "Fix authentication issue on login page",
+assignedTo: "Tunc Senel",
+category: "Technical Task",
+dueDate: "2026-04-01",
+priority: "urgent",
+subtasks: "Check API;Fix token validation",
+state: "To do"
+},
+{
+id: "2",
+title: "Create User Profile Page",
+description: "Implement UI and backend connection",
+assignedTo: "Anna Müller",
+category: "User Story",
+dueDate: "2026-04-02",
+priority: "medium",
+subtasks: "Design layout;Connect API",
+state: "In Progress"
+},
+{
+id: "3",
+title: "Optimize Database",
+description: "Improve performance of slow queries",
+assignedTo: "Max Weber",
+category: "Technical Task",
+dueDate: "2026-04-03",
+priority: "low",
+subtasks: "Analyze queries;Add indexes",
+state: "To do"
+},
+{
+id: "4",
+title: "Fix Navbar Responsive",
+description: "Navbar breaks on small screens",
+assignedTo: "Lisa Schneider",
+category: "Bugfix",
+dueDate: "2026-04-04",
+priority: "medium",
+subtasks: "Check breakpoints;Fix CSS",
+state: "Done"
+},
+{
+id: "5",
+title: "Dark Mode Toggle",
+description: "Add dark mode feature",
+assignedTo: "Tunc Senel",
+category: "User Story",
+dueDate: "2026-04-05",
+priority: "low",
+subtasks: "Create toggle;Save preference",
+state: "Await Feedback"
+},
+{
+id: "6",
+title: "Auth Refactor",
+description: "Clean up authentication logic",
+assignedTo: "Sarah Klein",
+category: "Technical Task",
+dueDate: "2026-04-06",
+priority: "urgent",
+subtasks: "Split modules;Improve security",
+state: "In Progress"
+},
+{
+id: "7",
+title: "Calendar Bug",
+description: "Calendar shows wrong dates",
+assignedTo: "Max Weber",
+category: "Bugfix",
+dueDate: "2026-04-07",
+priority: "medium",
+subtasks: "Fix parsing;Update UI",
+state: "To do"
+},
+{
+id: "8",
+title: "Notification System",
+description: "Create notifications for tasks",
+assignedTo: "Anna Müller",
+category: "User Story",
+dueDate: "2026-04-08",
+priority: "urgent",
+subtasks: "Create UI;Backend event",
+state: "In Progress"
+},
+{
+id: "9",
+title: "Improve Performance",
+description: "Reduce loading time",
+assignedTo: "Lisa Schneider",
+category: "Technical Task",
+dueDate: "2026-04-09",
+priority: "medium",
+subtasks: "Lazy loading;Optimize images",
+state: "Done"
+},
+{
+id: "10",
+title: "Task Search",
+description: "Add search bar for tasks",
+assignedTo: "Tunc Senel",
+category: "User Story",
+dueDate: "2026-04-10",
+priority: "medium",
+subtasks: "Search input;Filter tasks",
+state: "Await Feedback"
+},
+{
+id: "11",
+title: "Caching System",
+description: "Implement caching layer",
+assignedTo: "Max Weber",
+category: "Technical Task",
+dueDate: "2026-04-11",
+priority: "low",
+subtasks: "Add cache;Test speed",
+state: "To do"
+},
+{
+id: "12",
+title: "Avatar Upload Fix",
+description: "Fix file upload issue",
+assignedTo: "Sarah Klein",
+category: "Bugfix",
+dueDate: "2026-04-12",
+priority: "urgent",
+subtasks: "Validate type;Preview image",
+state: "In Progress"
+},
+{
+id: "13",
+title: "Dashboard Overview",
+description: "Create dashboard statistics",
+assignedTo: "Anna Müller",
+category: "User Story",
+dueDate: "2026-04-13",
+priority: "medium",
+subtasks: "Widgets;Charts",
+state: "Done"
+},
+{
+id: "14",
+title: "CSS Refactor",
+description: "Improve CSS structure",
+assignedTo: "Lisa Schneider",
+category: "Technical Task",
+dueDate: "2026-04-14",
+priority: "low",
+subtasks: "Variables;Class cleanup",
+state: "To do"
+},
+{
+id: "15",
+title: "Logout Redirect",
+description: "Fix redirect after logout",
+assignedTo: "Tunc Senel",
+category: "Bugfix",
+dueDate: "2026-04-15",
+priority: "medium",
+subtasks: "Check session;Fix route",
+state: "Done"
+},
+{
+id: "16",
+title: "Activity Log",
+description: "Track user actions",
+assignedTo: "Max Weber",
+category: "User Story",
+dueDate: "2026-04-16",
+priority: "low",
+subtasks: "Track events;Show history",
+state: "Await Feedback"
+},
+{
+id: "17",
+title: "API Rate Limit",
+description: "Prevent API abuse",
+assignedTo: "Sarah Klein",
+category: "Technical Task",
+dueDate: "2026-04-17",
+priority: "urgent",
+subtasks: "Limiter;Test endpoints",
+state: "In Progress"
+},
+{
+id: "18",
+title: "Drag and Drop Fix",
+description: "Fix drag issue in board",
+assignedTo: "Anna Müller",
+category: "Bugfix",
+dueDate: "2026-04-18",
+priority: "medium",
+subtasks: "Check events;Fix UI",
+state: "To do"
+},
+{
+id: "19",
+title: "Export Tasks",
+description: "Allow exporting tasks as CSV",
+assignedTo: "Lisa Schneider",
+category: "User Story",
+dueDate: "2026-04-19",
+priority: "low",
+subtasks: "Export button;Generate CSV",
+state: "Await Feedback"
+},
+{
+id: "20",
+title: "Error Logging",
+description: "Improve error monitoring",
+assignedTo: "Tunc Senel",
+category: "Technical Task",
+dueDate: "2026-04-20",
+priority: "medium",
+subtasks: "Add logger;Send to backend",
+state: "In Progress"
+}
+];
