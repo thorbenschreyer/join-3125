@@ -26,6 +26,7 @@ function setTaskSummaryInformation() {
   /* Hier muss ebenfalls der Status gesetzt werden welche Prio!*/
   document.getElementById("todo-date").innerText = numberofSameDate;
   document.getElementById("date-in-Summary").innerText = formattedDate;
+  setOpticalPriority()
 }
 
 function sortTodoforDate() {
