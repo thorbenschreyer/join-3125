@@ -13,3 +13,4 @@ tasksInProgress = findNumberOfTask("In Progress")
 awaitingFeedback = findNumberOfTask("Await Feedback")
 todo = findNumberOfTask("To do")
 done = findNumberOfTask("Done")
+
