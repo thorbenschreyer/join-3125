@@ -21,3 +21,14 @@ function setTaskSummaryInformation () {
     document.getElementById("todo-date").innerText = todoNextTime
     document.getElementById("date-in-Summary").innerText = nextDate
 }
+
+/**
+ *  Nehmen der Array todo
+ *  Sortieren des Array nach datum 
+ *  Das erste Array nehmen und den "Wichtigkeitsstauts ermitteln"
+ *  wichtigkeit dann speichern und als Classe setzen
+ *  Prüfen wie viele Arrays auch das gleiche enddatum haben
+ *  in ein neues Array packen und length ermitteln 
+ *  Zahl als todoNextTIme Setzen 
+ *  Datum in entsprechendes format bringen und dann in next Date speichern 
+ * */ 

@@ -29,32 +29,56 @@ async function init() {
   time = getTheTimeForWelcomeMassage();
 }
 
+/**
+ * This function loads the sidebar and the content. It checks whether the user is logged in or not! 
+ * If NO, the corresponding sidebar is loaded and it checks whether "Privacy" or "Legal" was clicked -> loadPrivacyOrLegal() 
+ * If the user is logged in, they are greeted with the normal menu and the corresponding page is loaded -> setLoggedinNavigation()
+ */
 async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
+    loadPrivacyOrLegal ()
+    } else {
+    setLoggedinNavigation()
+  }
+}
 
-    if (page === "privacy") {
+/**
+ * This function is triggered when the user is not logged in and has clicked either "Privacy" or "Legal" in the login menu. 
+ */
+async function loadPrivacyOrLegal() {
+  if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
       toggleIsActive("privacy_policy");
     } else if (page === "legal") {
       await loadHtmlPage("content", "./footerpages/legal_notice.html");
       toggleIsActive("legal_notice");
     }
-  } else {
-    const mainNavigation = document.getElementById("navigation-items");
+}
+
+/**
+ * If the user is logged in, the standard navigation applies. In this function, setInitials() is also used to load the initials, as well as the name and a greeting based on the time.
+ */
+async function setLoggedinNavigation() {
+  const mainNavigation = document.getElementById("navigation-items");
     mainNavigation.innerHTML = LoggedInNavigation();
 
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
+
     await loadHtmlPage("content", "./templates/summary.html");
     /* initAddTaskElements(); */
+    
     setInitials();
     setTaskSummaryInformation ()
+    
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
-  }
 }
+
+
+
 
 function checkLogin(page) {
   const publicPages = ["privacy", "legal"];
@@ -226,6 +250,10 @@ function setInitials() {
   }
 }
 
+/**
+ * Checks the current time
+ * @returns the appropriate greeting based on the time of day
+ */
 function getTheTimeForWelcomeMassage() {
   time = new Date().getHours();
   if (time >= 23 || time <= 5) return "Hallo Nachteule";
