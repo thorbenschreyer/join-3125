@@ -5,7 +5,8 @@ let todo = findNumberOfTask("To do");
 let done = findNumberOfTask("Done");
 let formattedDate;
 let numberofSameDate;
-
+let nexttoDoPriority;
+let toDoSOrted
 /**
  * This function iterates through the `tasks` array. It searches for the corresponding status
  * @param {To do, Done, In Progress, Await Feedback} taskdefinition
@@ -30,7 +31,8 @@ function setTaskSummaryInformation() {
 function sortTodoforDate() {
   let toDoArray = tasks.filter((task) => task.state === "To do");
 
-  toDoArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+  toDoSOrted = toDoArray.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  nexttoDoPriority = toDoArray[0].priority
 
   numberofSameDate = toDoArray.filter((sameDayToDo) => sameDayToDo.dueDate === toDoArray[0].dueDate,).length;
   nextToDoDate = toDoArray[0].dueDate;
@@ -39,8 +41,11 @@ function sortTodoforDate() {
   formattedDate = date.toLocaleDateString("de-DE", { day: "2-digit", month: "long" }) + ", " + date.getFullYear();
 }
 
-/**
- 
- *  Das erste Array nehmen und den "Wichtigkeitsstauts ermitteln"
- *  wichtigkeit dann speichern und als Classe setzen
- * */
+function setOpticalPriority() {
+  let prio = document.getElementById("prio-img")
+  prio.classList.remove(document.getElementById("prio-img").classList)
+
+  if(nexttoDoPriority === "urgent") {prio.classList.add("high-prio")}
+  if(nexttoDoPriority === "medium") {prio.classList.add("medium-prio")}
+  if(nexttoDoPriority === "low") {prio.classList.add("low-prio")}
+}
