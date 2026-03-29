@@ -8,7 +8,8 @@ let isloggedIn;
 let isGuestLogin;
 let userName = " ";
 let userInitials = "G";
-let time
+let time;
+
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
  * whether the user is logged in.
@@ -25,7 +26,7 @@ async function init() {
   checkLogin(page);
   getNameAndInitials();
   loadSidbarAndContent();
-  time = getTheTimeForWelcomeMassage()
+  time = getTheTimeForWelcomeMassage();
 }
 
 async function loadSidbarAndContent() {
@@ -215,20 +216,20 @@ function setInitials() {
   const welcomeTime = document.getElementById("welcome-time");
   if (isGuestLogin === true) {
     initialsText.innerText = "G";
-    nameFromUser.innerText = " "
-    welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!"
+    nameFromUser.innerText = " ";
+    welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!";
   } else {
     initialsText.innerText = userInitials;
     nameFromUser.innerText = userName;
-    welcomeTime.innerText = getTheTimeForWelcomeMassage() + ","
+    welcomeTime.innerText = getTheTimeForWelcomeMassage() + ",";
   }
 }
 
-function getTheTimeForWelcomeMassage () {
+function getTheTimeForWelcomeMassage() {
   time = new Date().getHours();
   if (time >= 23 || time <= 5) return "Hallo Nachteule";
-  if (time >= 6 && time <= 11) return "Guten Morgen"
-  if (time >= 12 && time <= 14) return "Guten Mittag"
-  if (time >= 15 && time <= 18) return "Guten Nachmittag"
-  if (time >= 19 && time <= 22) return "Guten Abend"
+  if (time >= 6 && time <= 11) return "Guten Morgen";
+  if (time >= 12 && time <= 14) return "Guten Mittag";
+  if (time >= 15 && time <= 18) return "Guten Nachmittag";
+  if (time >= 19 && time <= 22) return "Guten Abend";
 }
