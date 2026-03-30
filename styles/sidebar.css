@@ -80,7 +80,7 @@
 
 .page-content {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: hidden;
 
   padding-left: 96px;
   padding-top: 110px;

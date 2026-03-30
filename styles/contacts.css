@@ -1,0 +1,85 @@
+.contact-main-area {
+  flex: 1;
+  height: 100vh;
+  margin-left: -96px;
+  margin-top: -110px;
+  display: flex;
+}
+
+.displayed-contacts {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
+  width: 456px;
+  overflow-y: auto;
+}
+
+.contact-detail-area {
+  width: 100%;
+}
+
+.contact-haeder-area {
+  height: 100px;
+  flex: 1;
+}
+
+.contact-details {
+  flex: 1;
+  background-color: greenyellow;
+}
+
+/* ==================== Haeder Area ==================== */
+
+.contact-haeder-area {
+  display: flex;
+  align-items: center;
+  margin-left: 56px;
+  margin-top: 110px;
+}
+
+.contact-haeder-area p {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.contact-haeder-area hr {
+  height: 58px;
+  margin: 0px 32px;
+  border: 3px solid var(--logo-light-blue);
+}
+
+.contact-haeder-area span {
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--logo-dark-blue);
+}
+
+/* ==================== Contact Area ==================== */
+
+.add-contact-btn {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-top: 24px;
+  font-size: 24px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--logo-dark-blue);
+  color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-contact-btn-img {
+  height: 32px;
+  width: 32px;
+  margin-left: 16px;
+}
+
+.add-contact-btn:hover {
+  background-color: var(--logo-light-blue);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
