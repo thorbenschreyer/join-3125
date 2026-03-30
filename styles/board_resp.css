@@ -1,0 +1,22 @@
+@media (max-width: 1420px) {
+    .all-task-bars {
+        flex-direction: column;
+    }
+
+    .tasks-container {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .task-bar {
+        width: 100%;
+    }
+
+    .tasks-header-and-plus {
+        width: 246px;
+    }
+
+    .placeholder-task {
+        width: 246px;
+    }
+}
