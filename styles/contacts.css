@@ -10,9 +10,6 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-  width: 456px;
   overflow-y: auto;
 }
 
@@ -28,6 +25,16 @@
 .contact-details {
   flex: 1;
   background-color: greenyellow;
+}
+
+.contact-and-button-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+    background-color: rgba(255, 255, 255, 1);
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
+  width: 456px;
 }
 
 /* ==================== Haeder Area ==================== */
@@ -100,5 +107,34 @@
 }
 
 .contact {
+  width: 100%;
   display: flex;
+  align-items: center;
+  padding: 24px 40px;
+}
+
+.contact-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: orange;
+  border-radius: 100%;
+  width: 42px;
+  height: 42px;
+  margin-right: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+.contact-name-email p {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+
+.contact-name-email a {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(0, 124, 238, 1);
 }
