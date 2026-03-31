@@ -8,7 +8,8 @@
 
 .displayed-contacts {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
   width: 456px;
@@ -82,4 +83,22 @@
 .add-contact-btn:hover {
   background-color: var(--logo-light-blue);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.contact-breaker {
+  width: 100%;
+  padding: 0px 32px;
+}
+
+.contact-breaker p{
+  font-size: 20px;
+  padding: 20px;
+}
+
+.contact-breaker hr{
+  border: 1px solid rgba(209, 209, 209, 1);
+}
+
+.contact {
+  display: flex;
 }
