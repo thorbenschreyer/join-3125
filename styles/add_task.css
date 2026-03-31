@@ -183,6 +183,22 @@ label {
   transform: rotate(180deg);
 }
 
+.dropdown-search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 300;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dropdown-search-input::placeholder {
+  color: var(--light-gray);
+  font-size: 14px;
+  font-weight: 300;
+}
+
 .custom-dropdown-users {
   position: absolute;
   top: 100%;

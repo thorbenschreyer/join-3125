@@ -184,7 +184,7 @@ function addTask() {
     } else if (LOW_BTN.classList.contains("prio-low")) {
         taskPriority = "low";
     }
-    let taskAssignedTo = ASSIGNED_TO_USERS.value;
+    let taskAssignedTo = selectedUsers.map(u => u.name)
     let taskCategory = CATEGORY_SELECT.value;
     let taskSubtasks = SUBTASKS.value;
 
@@ -228,6 +228,7 @@ function openAssignedDropdown() {
         users.classList.remove("dNone");
         arrow.classList.add("open");
     }
+    document.getElementById("task-assigned-to-input").focus();
 }
 
 function toggleAssignedDropdown(event) {
@@ -243,6 +244,8 @@ function closeAssignedDropdown() {
     let arrow = document.getElementById("dropdown-arrow");
     users.classList.add("dNone");
     arrow.classList.remove("open");
+    document.getElementById("task-assigned-to-input").value = "";
+    filterAssignedUsers();
 }
 
 
@@ -261,7 +264,7 @@ function pushUserNames() {
 
 function pushUserNamesTemplate(user, initials, color) {
     return `
-        <div class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
+        <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
             <span class="dropdown-user-name">${user}</span>
             <div class="dropdown-user-checkbox"></div>
@@ -294,6 +297,15 @@ function renderAssignedBadges() {
         badgeContainer.insertAdjacentHTML("beforeend",
             `<div class="assigned-badge" style="background-color: ${u.color}">${u.initials}</div>`
         );
+    }
+}
+
+function filterAssignedUsers() {
+    let searchText = document.getElementById("task-assigned-to-input").value.toLowerCase();
+    let users = ASSIGNED_TO_USERS.querySelectorAll("#dropdown-user");
+    for (let i = 0; i < users.length; i++) {
+        let name = users[i].querySelector(".dropdown-user-name").textContent.toLowerCase();
+        users[i].style.display = name.startsWith(searchText) ? "flex" : "none";
     }
 }
 
