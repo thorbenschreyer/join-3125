@@ -16,8 +16,8 @@ let TITLE_INPUT_ERROR;
 let DUE_DATE_INPUT_ERROR;
 let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
-let ASSIGNED_TO_SELECT;
 let ASSIGNED_TO_WRAPPER;
+let ASSIGNED_TO_USERS;
 let CATEGORY_SELECT;
 let SUBTASKS;
 let ADDTASK_BTN;
@@ -49,11 +49,16 @@ async function initAddTaskElements() {
     DUE_DATE_INPUT_ERROR = document.getElementById("due-date-input-error");
     PRIORITY_COLOR_IMAGES = [URGENT_COLOR_IMG, MEDIUM_COLOR_IMG, LOW_COLOR_IMG];
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
-    ASSIGNED_TO_SELECT = document.getElementById("task-assigned-options");
-    ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-wrapper");
+    ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-to-wrapper");
+    ASSIGNED_TO_USERS = document.getElementById("task-assigned-to-users");
     CATEGORY_SELECT = document.getElementById("task-category");
     SUBTASKS = document.getElementById("task-subtasks");
     ADDTASK_BTN = document.getElementById("add-task-btn");
+    document.addEventListener("click", function(event) {
+    if (!ASSIGNED_TO_WRAPPER.contains(event.target)) {
+        closeAssignedDropdown();
+    }
+    });
     feedbackOnRequiredInput();
     higlightSelectedPriority();
     await getUserNames();
@@ -106,6 +111,7 @@ function feedbackOnRequiredInput() {
             DUE_DATE_INPUT.classList.add("red-border");
             DUE_DATE_INPUT_ERROR.classList.remove("dNone");
         }
+
             
     });
 }
@@ -178,7 +184,7 @@ function addTask() {
     } else if (LOW_BTN.classList.contains("prio-low")) {
         taskPriority = "low";
     }
-    let taskAssignedTo = ASSIGNED_TO_SELECT.value;
+    let taskAssignedTo = ASSIGNED_TO_USERS.value;
     let taskCategory = CATEGORY_SELECT.value;
     let taskSubtasks = SUBTASKS.value;
 
@@ -216,50 +222,81 @@ async function getUserNames() {
 }
 
 function openAssignedDropdown() {
-    let options = document.getElementById("task-assigned-options");
+    let users = document.getElementById("task-assigned-to-users");
     let arrow = document.getElementById("dropdown-arrow");
-    if (options.classList.contains("dNone")) {
-        options.classList.remove("dNone");
+    if (users.classList.contains("dNone")) {
+        users.classList.remove("dNone");
         arrow.classList.add("open");
     }
-    document.getElementById("task-assigned-input").focus();
 }
 
 function toggleAssignedDropdown(event) {
     event.stopPropagation();
-    let options = document.getElementById("task-assigned-options");
+    let users = document.getElementById("task-assigned-to-users");
     let arrow = document.getElementById("dropdown-arrow");
-    options.classList.toggle("dNone");
+    users.classList.toggle("dNone");
     arrow.classList.toggle("open");
 }
 
 function closeAssignedDropdown() {
-    let options = document.getElementById("task-assigned-options");
+    let users = document.getElementById("task-assigned-to-users");
     let arrow = document.getElementById("dropdown-arrow");
-    options.classList.add("dNone");
+    users.classList.add("dNone");
     arrow.classList.remove("open");
-    document.getElementById("task-assigned-input").value = "";
-    filterAssignedUsers();
 }
 
-document.addEventListener("click", function(event) {
-    if (!ASSIGNED_TO_WRAPPER.contains(event.target)) {
-        closeAssignedDropdown();
-    }
-});
 
+
+let selectedUsers = [];
+const BADGE_COLORS = ["#FF7A00", "#6E52FF", "#00BEE8", "#9327FF", "#FC71FF", "#FF4646", "#FFC701", "#0038FF", "#1FD7C1", "#C3FF2B"];
 
 function pushUserNames() {
-    for (let userIndex = 0; userIndex < userNames.length; userIndex++) {
-        ASSIGNED_TO_SELECT.insertAdjacentHTML("beforeend", pushUserNamesTemplate(userNames[userIndex]))
+    ASSIGNED_TO_USERS.innerHTML = "";
+    for (let i = 0; i < userNames.length; i++) {
+        let initials = getInitials(userNames[i]);
+        let color = BADGE_COLORS[i % BADGE_COLORS.length];
+        ASSIGNED_TO_USERS.insertAdjacentHTML("beforeend", pushUserNamesTemplate(userNames[i], initials, color));
     }
 }
 
-function pushUserNamesTemplate(user) {
-  return `
-           <option>${user}</option>
-         `
+function pushUserNamesTemplate(user, initials, color) {
+    return `
+        <div class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
+            <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
+            <span class="dropdown-user-name">${user}</span>
+            <div class="dropdown-user-checkbox"></div>
+        </div>
+    `;
 }
+
+function getInitials(name) {
+    return name.split(" ").map(part => part.charAt(0).toUpperCase()).join("");
+}
+
+
+function toggleUserSelection(event, user, initials, color) {
+    let element = event.currentTarget;
+    element.classList.toggle("selected");
+    let index = selectedUsers.findIndex(u => u.name === user);
+    if (index > -1) {
+        selectedUsers.splice(index, 1);
+    } else {
+        selectedUsers.push({ name: user, initials: initials, color: color });
+    }
+    renderAssignedBadges();
+}
+
+function renderAssignedBadges() {
+    let badgeContainer = document.getElementById("assigned-badges");
+    badgeContainer.innerHTML = "";
+    for (let i = 0; i < selectedUsers.length; i++) {
+        let u = selectedUsers[i];
+        badgeContainer.insertAdjacentHTML("beforeend",
+            `<div class="assigned-badge" style="background-color: ${u.color}">${u.initials}</div>`
+        );
+    }
+}
+
 
 /**
  * Testdaten zum enwickeln! Wenn diese gelöscht werden, müssen die Daten im Local Storage mit dem KEY: "tasks" gespeichert werden!
