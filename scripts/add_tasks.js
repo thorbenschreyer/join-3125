@@ -17,6 +17,7 @@ let DUE_DATE_INPUT_ERROR;
 let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
 let ASSIGNED_TO_SELECT;
+let ASSIGNED_TO_WRAPPER;
 let CATEGORY_SELECT;
 let SUBTASKS;
 let ADDTASK_BTN;
@@ -48,7 +49,8 @@ async function initAddTaskElements() {
     DUE_DATE_INPUT_ERROR = document.getElementById("due-date-input-error");
     PRIORITY_COLOR_IMAGES = [URGENT_COLOR_IMG, MEDIUM_COLOR_IMG, LOW_COLOR_IMG];
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
-    ASSIGNED_TO_SELECT = document.getElementById("task-assigned");
+    ASSIGNED_TO_SELECT = document.getElementById("task-assigned-options");
+    ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-wrapper");
     CATEGORY_SELECT = document.getElementById("task-category");
     SUBTASKS = document.getElementById("task-subtasks");
     ADDTASK_BTN = document.getElementById("add-task-btn");
@@ -107,9 +109,6 @@ function feedbackOnRequiredInput() {
             
     });
 }
-
-
-
 
 function isValidDate() {
   const parts = DUE_DATE_INPUT.value.split("/");
@@ -215,6 +214,40 @@ async function getUserNames() {
         userNames.push(allUserDataToJson[UserKeysArray[userIndex]].name)
     }    
 }
+
+function openAssignedDropdown() {
+    let options = document.getElementById("task-assigned-options");
+    let arrow = document.getElementById("dropdown-arrow");
+    if (options.classList.contains("dNone")) {
+        options.classList.remove("dNone");
+        arrow.classList.add("open");
+    }
+    document.getElementById("task-assigned-input").focus();
+}
+
+function toggleAssignedDropdown(event) {
+    event.stopPropagation();
+    let options = document.getElementById("task-assigned-options");
+    let arrow = document.getElementById("dropdown-arrow");
+    options.classList.toggle("dNone");
+    arrow.classList.toggle("open");
+}
+
+function closeAssignedDropdown() {
+    let options = document.getElementById("task-assigned-options");
+    let arrow = document.getElementById("dropdown-arrow");
+    options.classList.add("dNone");
+    arrow.classList.remove("open");
+    document.getElementById("task-assigned-input").value = "";
+    filterAssignedUsers();
+}
+
+document.addEventListener("click", function(event) {
+    if (!ASSIGNED_TO_WRAPPER.contains(event.target)) {
+        closeAssignedDropdown();
+    }
+});
+
 
 function pushUserNames() {
     for (let userIndex = 0; userIndex < userNames.length; userIndex++) {
