@@ -68,7 +68,6 @@ async function setLoggedinNavigation() {
     headerMenu.innerHTML = helpAndLogout();
 
     await loadHtmlPage("content", "./templates/summary.html");
-    initAddTaskElements();
     
     setInitials();
     setTaskSummaryInformation ()
@@ -267,4 +266,10 @@ async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
   setTaskSummaryInformation();
   toggleIsActive("summary", "summary_img");
+}
+
+async function loadAddTaskPage() {
+  await loadHtmlPage("content", "./templates/add_tasks.html");
+  initAddTaskElements();
+  toggleIsActive("add_task", "add_task_img");
 }

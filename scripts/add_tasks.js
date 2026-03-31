@@ -85,14 +85,47 @@ function feedbackOnRequiredInput() {
     }); 
     DUE_DATE_INPUT.addEventListener("input", function() {
         let dueDateInput = DUE_DATE_INPUT.value;
-        if (dueDateInput.length != 10) {
-            DUE_DATE_INPUT.classList.add("red-border");
-            DUE_DATE_INPUT_ERROR.classList.remove("dNone");
-        } else if (dueDateInput.length == 10) {
+        const parts = dueDateInput.split("/");
+
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const year = parseInt(parts[2], 10);
+
+        const date = new Date(year, month, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day &&
+            dueDateInput.length === 10 &&
+            date >= today) {
             DUE_DATE_INPUT.classList.remove("red-border");
             DUE_DATE_INPUT_ERROR.classList.add("dNone");
+        } else {
+            DUE_DATE_INPUT.classList.add("red-border");
+            DUE_DATE_INPUT_ERROR.classList.remove("dNone");
         }
-    })
+            
+    });
+}
+
+
+
+
+function isValidDate() {
+  const parts = DUE_DATE_INPUT.value.split("/");
+  if (parts.length !== 3) return false;
+
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1; // JS Monate 0–11
+  const year = parseInt(parts[2], 10);
+
+  const date = new Date(year, month, day);
+
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month &&
+    date.getDate() === day
+  );
 }
 
 function higlightSelectedPriority(priority) {
