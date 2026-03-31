@@ -11,6 +11,7 @@
   align-items: center;
   flex-direction: column;
   overflow-y: auto;
+  width: 100%;
 }
 
 .contact-detail-area {
@@ -32,7 +33,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 1);
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
   width: 456px;
 }
@@ -66,8 +67,10 @@
 /* ==================== Contact Area ==================== */
 
 .add-contact-btn {
+  width: 352px;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 12px 16px;
   margin-top: 24px;
   font-size: 24px;
@@ -97,20 +100,23 @@
   padding: 0px 32px;
 }
 
-.contact-breaker p{
+.contact-breaker p {
   font-size: 20px;
   padding: 20px;
 }
 
-.contact-breaker hr{
+.contact-breaker hr {
+  width: 352px;
   border: 1px solid rgba(209, 209, 209, 1);
 }
 
 .contact {
-  width: 100%;
+  width: 352px;
   display: flex;
   align-items: center;
-  padding: 24px 40px;
+  padding: 16px;
+  margin: 8px;
+  border-radius: 10px;
 }
 
 .contact-initials {
@@ -132,9 +138,43 @@
   font-weight: 400;
 }
 
-
 .contact-name-email a {
   font-size: 16px;
   font-weight: 400;
   color: rgba(0, 124, 238, 1);
+}
+
+.contact:hover {
+  background-image: linear-gradient(
+    rgba(249, 249, 249, 1),
+    rgba(240, 240, 240, 1)
+  );
+}
+
+/* 1. Scrollbar Container (Breite festlegen) */
+.displayed-contacts::-webkit-scrollbar {
+  width: 8px; /* Breite der vertikalen Scrollbar */
+  height: 1px; /* Höhe der horizontalen Scrollbar */
+}
+
+/* 3. Der verschiebbare Griff (Thumb) */
+.displayed-contacts::-webkit-scrollbar-thumb {
+  background: rgba(168, 168, 168, 1);
+  border-radius: 3px;
+}
+
+.displayed-contacts::-webkit-scrollbar {
+  height: 8px;
+}
+
+.contact-is-active {
+  width: 352px;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  margin: 8px;
+  border-radius: 10px;
+
+  background-color: rgba(42, 54, 71, 1);
+  color: rgba(255, 255, 255, 1);
 }
