@@ -17,6 +17,7 @@ let DUE_DATE_INPUT_ERROR;
 let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
 let ASSIGNED_TO_SELECT;
+let ASSIGNED_TO_WRAPPER;
 let CATEGORY_SELECT;
 let SUBTASKS;
 let ADDTASK_BTN;
@@ -29,7 +30,7 @@ const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.a
 
 // USER NAMES
 let userNames = [];
-/*
+
 async function initAddTaskElements() {
     TITLE_INPUT = document.getElementById("task-title");
     DESC_INPUT = document.getElementById("task-description");
@@ -48,7 +49,8 @@ async function initAddTaskElements() {
     DUE_DATE_INPUT_ERROR = document.getElementById("due-date-input-error");
     PRIORITY_COLOR_IMAGES = [URGENT_COLOR_IMG, MEDIUM_COLOR_IMG, LOW_COLOR_IMG];
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
-    ASSIGNED_TO_SELECT = document.getElementById("task-assigned");
+    ASSIGNED_TO_SELECT = document.getElementById("task-assigned-options");
+    ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-wrapper");
     CATEGORY_SELECT = document.getElementById("task-category");
     SUBTASKS = document.getElementById("task-subtasks");
     ADDTASK_BTN = document.getElementById("add-task-btn");
@@ -57,7 +59,7 @@ async function initAddTaskElements() {
     await getUserNames();
     pushUserNames();
 } 
-/*
+
 function feedbackOnRequiredInput() {
     TITLE_INPUT.addEventListener("focus", function() {
         let titleInput = TITLE_INPUT.value;
@@ -85,16 +87,46 @@ function feedbackOnRequiredInput() {
     }); 
     DUE_DATE_INPUT.addEventListener("input", function() {
         let dueDateInput = DUE_DATE_INPUT.value;
-        if (dueDateInput.length != 10) {
-            DUE_DATE_INPUT.classList.add("red-border");
-            DUE_DATE_INPUT_ERROR.classList.remove("dNone");
-        } else if (dueDateInput.length == 10) {
+        const parts = dueDateInput.split("/");
+
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const year = parseInt(parts[2], 10);
+
+        const date = new Date(year, month, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day &&
+            dueDateInput.length === 10 &&
+            date >= today) {
             DUE_DATE_INPUT.classList.remove("red-border");
             DUE_DATE_INPUT_ERROR.classList.add("dNone");
+        } else {
+            DUE_DATE_INPUT.classList.add("red-border");
+            DUE_DATE_INPUT_ERROR.classList.remove("dNone");
         }
-    })
+            
+    });
 }
-*/
+
+function isValidDate() {
+  const parts = DUE_DATE_INPUT.value.split("/");
+  if (parts.length !== 3) return false;
+
+  const day = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1; // JS Monate 0–11
+  const year = parseInt(parts[2], 10);
+
+  const date = new Date(year, month, day);
+
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month &&
+    date.getDate() === day
+  );
+}
+
 function higlightSelectedPriority(priority) {
     PRIORITY_BUTTONS.forEach(btn => btn.classList.remove("selected-priority"));
     resetPriorityImages();
@@ -182,6 +214,40 @@ async function getUserNames() {
         userNames.push(allUserDataToJson[UserKeysArray[userIndex]].name)
     }    
 }
+
+function openAssignedDropdown() {
+    let options = document.getElementById("task-assigned-options");
+    let arrow = document.getElementById("dropdown-arrow");
+    if (options.classList.contains("dNone")) {
+        options.classList.remove("dNone");
+        arrow.classList.add("open");
+    }
+    document.getElementById("task-assigned-input").focus();
+}
+
+function toggleAssignedDropdown(event) {
+    event.stopPropagation();
+    let options = document.getElementById("task-assigned-options");
+    let arrow = document.getElementById("dropdown-arrow");
+    options.classList.toggle("dNone");
+    arrow.classList.toggle("open");
+}
+
+function closeAssignedDropdown() {
+    let options = document.getElementById("task-assigned-options");
+    let arrow = document.getElementById("dropdown-arrow");
+    options.classList.add("dNone");
+    arrow.classList.remove("open");
+    document.getElementById("task-assigned-input").value = "";
+    filterAssignedUsers();
+}
+
+document.addEventListener("click", function(event) {
+    if (!ASSIGNED_TO_WRAPPER.contains(event.target)) {
+        closeAssignedDropdown();
+    }
+});
+
 
 function pushUserNames() {
     for (let userIndex = 0; userIndex < userNames.length; userIndex++) {

@@ -160,6 +160,51 @@ label {
   color: var(--white);
 }
 
+/* === ASSIGNED TO === */
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-arrow {
+  width: 12px;
+  height: auto;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 0 0 6px 6px;
+  z-index: 10;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
 /* === FOOTER === */
 .add-task-footer {
   display: flex;

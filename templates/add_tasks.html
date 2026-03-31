@@ -81,10 +81,14 @@
 
             <!-- ASSIGNED TO -->
             <div class="form-group">
-                <label for="task-assigned">Assigned to</label>
-                <select id="task-assigned" class="form-input">
-                    <option>Select contacts to assign</option>
-                </select>
+                <label>Assigned to</label>
+                <div id="task-assigned-wrapper" class="custom-dropdown">
+                    <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
+                        <span id="dropdown-arrow" class="dropdown-arrow" onclick="toggleAssignedDropdown(event)">&#9662;</span>
+                    </div>
+                    <div id="task-assigned-options" class="custom-dropdown-options dNone">
+                    </div>
+                </div>
             </div>
 
             <!-- CATEGORY -->

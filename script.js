@@ -69,6 +69,7 @@ async function setLoggedinNavigation() {
 
     await loadHtmlPage("content", "./templates/contacts.html");
     /* initAddTaskElements(); */
+
     
     setInitials();
     setTaskSummaryInformation ()
@@ -270,4 +271,11 @@ async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
   setTaskSummaryInformation();
   setInitials()
+  toggleIsActive("summary", "summary_img");
+}
+
+async function loadAddTaskPage() {
+  await loadHtmlPage("content", "./templates/add_tasks.html");
+  initAddTaskElements();
+  toggleIsActive("add_task", "add_task_img");
 }
