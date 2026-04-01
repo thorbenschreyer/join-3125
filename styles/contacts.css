@@ -268,24 +268,23 @@
   }
 
   .contact-hr-mobile {
-  width: 90px;
-  margin: 8px 0px;
-  border: 3px solid var(--logo-light-blue)
+    width: 90px;
+    margin: 8px 0px;
+    border: 3px solid var(--logo-light-blue);
   }
 
   .contact-details {
     margin-top: 80px;
-}
+  }
 
-.contact-details {
-  margin-left: 16PX;
-}
+  .contact-details {
+    margin-left: 16px;
+  }
 
-.contact-detail-initials p {
- margin-right: 16px;
-}
+  .contact-detail-initials p {
+    margin-right: 16px;
+  }
 }
 
 @media (max-width: 960px) {
-  
 }
