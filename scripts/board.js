@@ -1,6 +1,9 @@
-function openAddTaskOverlay() {
+let currentTaskBar = "todo-task-bar";
+
+function openAddTaskOverlay(selectedTaskBar) {
     const overlay = document.getElementById('add-task-overlay');
-    overlay.classList.remove('d-none')    
+    overlay.classList.remove('d-none')  
+    currentTaskBar = selectedTaskBar + '-task-bar';
 }
 
 function closeAddTaskOverlay() {

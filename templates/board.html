@@ -10,18 +10,26 @@
                     <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
                 </div>
             </div>
-            <button class="add-task-button dark-button" id="add-task" onclick="openAddTaskOverlay(), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
-                Add Task <img class="add-plus-img" src="./assets/icons/add_light.png" alt="Add Task Plus Image">
+            <button class="add-task-button dark-button" id="add-task" onclick="openAddTaskOverlay('todo'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
+                <p>Add Task</p> <img class="add-plus-img" src="./assets/icons/add_light.png" alt="Add Task Plus Image">
             </button>
-        </div>
-
+        </div>       
     </header>
-
+    <div class="search-task-container-mobile" id="search-task-container-mobile">
+        <div id="search-task-input-container-mobile" class="search-task-input-container-mobile">
+                    <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
+                    <div class="search-icon-wrapper">
+                        <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
+                        <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
+                        <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
+                    </div>
+        </div>
+    </div>
         <div id="all-task-bars" class="all-task-bars">
             <div id="todo-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">To Do</h3>
-                    <div id="add-todo-task" class="add-task-plus-wrapper">
+                    <div id="add-todo-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('todo'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
@@ -39,7 +47,7 @@
             <div id="in-progress-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">In Progress</h3>
-                    <div id="add-in-progress-task" class="add-task-plus-wrapper">
+                    <div id="add-in-progress-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('in-progress'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
@@ -54,7 +62,7 @@
             <div id="await-feedback-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">Await Feedback</h3>
-                    <div id="add-await-feedback-task" class="add-task-plus-wrapper">
+                    <div id="add-await-feedback-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('await-feedback'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
