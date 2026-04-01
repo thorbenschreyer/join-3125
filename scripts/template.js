@@ -35,6 +35,6 @@ function renderContact(index, initails, name, email) {
             <p>${name}</p>
             <a href="mailto:${email}">${email}</a>
           </div>
-        </div>;
+        </div>
         `;
 }

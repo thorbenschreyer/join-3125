@@ -1,10 +1,10 @@
 const BASEURL =
   "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/users.json";
-let contacts = [];
+let users1 = [];
 
 async function initContacts() {
-  contacts = await getContacts();
-  console.log(contacts[0].name);
+  users1 = await getContacts();
+  console.log(users1[0].name);
   renderContacts();
 }
 
@@ -21,17 +21,17 @@ async function getContacts() {
 }
 
 function renderContacts() {
-  const contacts = document.getElementById("displayed-contacts");
+  let contacts = document.getElementById("displayed-contacts");
 
-  for (let index = 0; index < contacts.length; index++) {
-    const initails = contacts[index].name
+  for (let index = 0; index < users1.length; index++) {
+    const initails = users1[index].name
       .split(" ")
       .map((word) => word[0])
       .join("");
-    const name = contacts[index].name;
-    const email = contacts[index].email;
+    const name = users1[index].name;
+    const email = users1[index].email;
 
-    renderContact(index, initails, name, email);
+    contacts.innerHTML += renderContact(index, initails, name, email);
   }
 }
 
