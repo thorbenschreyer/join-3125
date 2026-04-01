@@ -9,6 +9,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 232px);
 }
 
 /* =============== Header Design ===============*/
@@ -82,7 +83,7 @@
   flex: 1;
   overflow-y: auto;
 
-  padding-left: 96px;
+  padding-left: 64px;
   padding-top: 110px;
   max-width: calc(1440px - 232px);
 }

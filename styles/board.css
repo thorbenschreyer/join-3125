@@ -8,15 +8,13 @@
   align-items: center;
   gap: 4px;
   padding: 12px 16px;
-  background-color: #2a3647;
-  color: white;
-  border: none;
   border-radius: 10px;
   font-size: 21px;
   cursor: pointer;
   font-weight: 700;
   line-height: 120%;
   letter-spacing: 0%;
+  height: 48px;
 }
 
 .header-board {
@@ -25,6 +23,7 @@
   align-items: center;
   max-width: 1056px;
   min-width: 0;
+  margin-right: 64px;
 }
 
 .board-heading {
@@ -33,3 +32,205 @@
   line-height: 120%;
   letter-spacing: 0%;
 }
+
+.find-task-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.find-task-input {
+  border: none;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 120%;
+  letter-spacing: 0%;
+  background: none;
+  padding: 8px 0 8px 16px;
+}
+
+.find-task-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 48px white inset !important;
+  -webkit-text-fill-color: black !important;
+  border-radius: 10px;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.find-task-input:focus {
+  outline: none;
+}
+
+.search-task-input-container {
+  display: flex;
+  width: 312px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #A8A8A8;
+  border-radius: 10px;
+  background-color: white;
+  padding-right: 16px;
+  height: 48px;
+}
+
+.search-task-input-container:focus-within {
+  border-color: #29abe2;
+}
+
+.search-icon {
+  box-sizing: content-box;
+  width: 32px;
+  height: 32px;
+  
+}
+
+.search-icon-wrapper {
+  display: flex;
+  cursor: pointer;
+  border-left: 1px solid #A8A8A8;
+  padding-left: 16px;
+}
+
+.search-icon-hover,
+.search-icon-active {
+    display: none;
+}
+
+.search-icon-wrapper:hover .search-icon-default {
+    display: none;
+}
+
+.search-icon-wrapper:hover .search-icon-hover {
+    display: block;
+}
+
+.search-icon-wrapper:active .search-icon-default,
+.search-icon-wrapper:active .search-icon-hover {
+    display: none;
+}
+
+.search-icon-wrapper:active .search-icon-active {
+    display: block;
+}
+
+.all-task-bars {
+  display: flex;
+  gap: 26px;
+  margin-top: 24px;
+}
+
+.task-bar {
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  width: 246px;
+}
+
+.task-bar-heading{
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #42526E;
+}
+
+.tasks-header-and-plus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-task-plus-wrapper {
+  display: flex;
+  cursor: pointer;
+}
+
+.add-task-plus-hover,
+.add-task-plus-active {
+    display: none;
+}
+
+.add-task-plus-wrapper:hover .add-task-plus {
+    display: none;
+}
+
+.add-task-plus-wrapper:hover .add-task-plus-hover {
+    display: block;
+}
+
+.add-task-plus-wrapper:active .add-task-plus,
+.add-task-plus-wrapper:active .add-task-plus-hover {
+    display: none;
+}
+
+.add-task-plus-wrapper:active .add-task-plus-active {
+    display: block;
+}
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.placeholder-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  border: dashed 1px #A8A8A8;
+  background-color: #E7E7E7;
+  box-shadow: 0 0 4px 0 #000000 16%;
+  border-radius: 10px;  
+}
+
+.placeholder-task p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: #A8A8A8;
+}
+
+.add-task-overlay{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(168, 168, 168, 0.4);
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.add-task-dialog {
+  background-color: white;
+  border-radius: 30px;
+  padding: 24px;
+  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  animation: slideInFromRight 0.2s ease-out forwards;
+}
+
+.add-task-dialog.slide-out {
+  animation: slideOutToRight 0.2s ease-in forwards;
+}
+
+.add-task-dialog-footer {
+  padding: 0;
+  margin-top: 64px;
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutToRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100vw); }
+}
+
