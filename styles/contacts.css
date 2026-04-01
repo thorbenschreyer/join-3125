@@ -178,3 +178,40 @@
   background-color: rgba(42, 54, 71, 1);
   color: rgba(255, 255, 255, 1);
 }
+
+/* ==================== Contact Detail ==================== */
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 56px;
+}
+
+.contact-edit {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.contact-edit-btn {
+  display: flex;
+}
+
+.contact-detail-initials p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: orange;
+  margin-right: 40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  font-size: 48px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.contact-detail-name {
+  font-size: 48px;
+  font-weight: 500;
+}

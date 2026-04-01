@@ -271,7 +271,6 @@ async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
   setTaskSummaryInformation();
   setInitials()
-  toggleIsActive("summary", "summary_img");
 }
 
 async function loadAddTaskPage() {
