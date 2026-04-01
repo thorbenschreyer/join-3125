@@ -51,7 +51,7 @@
   font-weight: 700;
 }
 
-.contact-haeder-area hr {
+.contact-hr-desktop {
   height: 58px;
   margin: 0px 32px;
   border: 3px solid var(--logo-light-blue);
@@ -255,4 +255,38 @@
   font-size: 16px;
   padding: 16px 0px;
   font-weight: bold;
+}
+
+@media (max-width: 1250px) {
+  .contact-haeder-area {
+    flex-direction: column;
+    align-items: unset;
+    margin-left: 16px;
+  }
+
+  .contact-hr-desktop {
+    display: none;
+  }
+
+  .contact-hr-mobile {
+  width: 90px;
+  margin: 8px 0px;
+  border: 3px solid var(--logo-light-blue)
+  }
+
+  .contact-details {
+    margin-top: 80px;
+}
+
+.contact-details {
+  margin-left: 16PX;
+}
+
+.contact-detail-initials p {
+ margin-right: 16px;
+}
+}
+
+@media (max-width: 960px) {
+  
 }
