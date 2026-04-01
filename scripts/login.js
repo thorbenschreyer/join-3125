@@ -1,63 +1,22 @@
+const fireBaseUrl = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 const emailData = document.getElementById("email-input-login");
 const passwordData = document.getElementById("password-input-login");
 const inputImg = document.getElementById("input-password-img");
 let initialViewportHeight = window.visualViewport.height;
+
 let wasEmpty = true;
-let contacts = [
-    {
-        email: "test.email@example.com",
-        name: "Heinzi",
-        password: "123",
-       phone: "+1234567890"
-    },
-    {
-        email: "senel.tunc@gmail.com",
-        name: "Tunc Senel",
-        password: "senelsenel",
-        phone: "+49 1776514789",
-    },
-    {
-        email: "anna.mueller@gmail.com",
-        name: "Anna Müller",
-        password: "annamueller123",
-        phone: "+49 17612345678",
-    },
-    {
-        email: "max.schneider@gmail.com",
-        name: "Max Schneider",
-        password: "maxschneider123",
-        phone: "+49 17598765432",
-    },
-    {
-        email: "lisa.weber@gmail.com",
-        name: "Lisa Weber",
-        password: "lisaweber123",
-        phone: "+49 17455667788",
-    },
-    {
-        email: "tom.fischer@gmail.com",
-        name: "Tom Fischer",
-        password: "tomfischer123",
-        phone: "+49 17333445566",
-    }];
-
-passwordData.addEventListener('input', checkFirstInput);
-window.addEventListener('load', removeMobileLogo);
+let users = [];
 
 
-/**
- * Detects if the virtual keyboard is open by comparing the current viewport height
- * to the initial height. Hides or shows elements based on keyboard state.
- */
-function detectKeyboard() {
-    const currentHeight = window.visualViewport.height;
-    const heightDifference = initialViewportHeight - currentHeight;
-    
-    if (heightDifference > 100) {
-        hideWhileKeyboardIsOpen();
-    } else {
-        showElementsWhenKeyboardIsClosed();
+// Initialization of event listeners after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+function initializeApp() {
+    const passInput = document.getElementById("password-input-login");
+    if (passInput) {
+        passInput.addEventListener('input', checkFirstInput);
     }
+    window.addEventListener('load', removeMobileLogo);
 }
 
 
@@ -68,11 +27,11 @@ function detectKeyboard() {
  */
 function loginSubmit(event) {
     event.preventDefault();
-    let user = contacts.find(u => u.email === emailData.value);
-    console.log(user);
+    let user = users.find(u => u.email === emailData.value);
+    console.log(user.password);
     const errorContainer = document.getElementById("container-error-message");
     const buttonsContainer = document.getElementById("container-login-buttons");
-    if (user && user.password === passwordData.value) {
+    if (user && user.password == passwordData.value) {
         console.log("Login erfolgreich!!");
             buttonsContainer.classList.remove("button-margin-top-if-error");    
             errorContainer.classList.add("d-none");
@@ -189,3 +148,26 @@ function removeMobileLogo() {
     }, 1200);
 }
 
+/**
+ * Retrieves all persisted users from the backend and maps them into the local `users` array.
+ *
+ * The backend returns an object keyed by user IDs, which is transformed into
+ * an array to match the structure used throughout the application.
+ */
+async function getUserDataForLogin() {
+    users = [];
+    let allUserData = await fetch(`${fireBaseUrl}users.json`);
+    let allUserDataToJson = await allUserData.json(); 
+    let UserKeysArray = Object.keys(allUserDataToJson);
+
+    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+        users.push(
+            {
+                id : UserKeysArray[userIndex],
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                email : allUserDataToJson[UserKeysArray[userIndex]].email,
+                password : allUserDataToJson[UserKeysArray[userIndex]].password
+            }
+        )
+    }
+}
