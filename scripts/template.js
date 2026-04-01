@@ -25,7 +25,7 @@ function helpAndLogout() {
     `;
 }
 
-function renderContact(index, initails, name, email) {
+function renderContactTemplate(index, initails, name, email) {
   return `
         <div id="contact-${index}" class="contact">
           <div class="contact-initials">
@@ -37,4 +37,13 @@ function renderContact(index, initails, name, email) {
           </div>
         </div>
         `;
+}
+
+function contactBrakerTemplate(letter) {
+  return`
+        <div class="contact-breaker">
+            <p>${letter}</p>
+            <hr />
+        </div>
+  `
 }
