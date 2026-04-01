@@ -25,7 +25,6 @@
 
 .contact-details {
   flex: 1;
-  background-color: greenyellow;
 }
 
 .contact-and-button-area {
@@ -185,6 +184,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 56px;
+  margin-top: 24px;
 }
 
 .contact-edit {
@@ -193,9 +193,35 @@
   margin-bottom: 32px;
 }
 
-.contact-edit-btn {
+.contact-btn {
   display: flex;
+  align-items: center;
+  margin-right: 16px;
 }
+
+.contact-btn-edit:hover {
+  font-weight: bold;
+  color: var(--logo-light-blue);
+}
+
+.contact-btn-delete:hover {
+  font-weight: bold;
+  color: var(--logo-light-blue);
+}
+
+.contact-btn-edit:hover img {
+  content: url("../assets/icons/edit_blue.png");
+}
+
+.contact-btn-delete:hover img {
+  content: url("../assets/icons/delete_blue.png");
+}
+
+
+.contact-btn img {
+  margin-right: 8px;
+}
+
 
 .contact-detail-initials p {
   display: flex;
@@ -211,7 +237,24 @@
   color: rgba(255, 255, 255, 1);
 }
 
+.contact-btn {
+  display: flex;
+  width: 159px;
+}
+
 .contact-detail-name {
   font-size: 48px;
   font-weight: 500;
+}
+
+.contact-detail-inforamtion {
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 32px;
+}
+
+.contact-detail-haeder {
+  font-size: 16px;
+  padding: 16px 0px;
+  font-weight: bold;
 }
