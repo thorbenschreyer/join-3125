@@ -3,21 +3,27 @@ const BASEURL =
 let users1 = [];
 
 async function initContacts() {
-  users1 = await getContacts();
+  await getUserData();
   console.log(users1[0].name);
   renderContacts();
 }
 
-async function getContacts() {
-  const response = await fetch(BASEURL);
-  const responseJson = await response.json();
 
-  if (!responseJson) return [];
+async function getUserData() {
+    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserDataToJson = await allUserData.json(); 
+    let UserKeysArray = Object.keys(allUserDataToJson);
 
-  return Object.entries(responseJson).map(([id, contact]) => ({
-    id,
-    ...contact,
-  }));
+    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+        users1.push(
+            {
+                id : UserKeysArray[userIndex],
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                email : allUserDataToJson[UserKeysArray[userIndex]].email,
+                password : allUserDataToJson[UserKeysArray[userIndex]].password
+            }
+        )
+    }
 }
 
 function renderContacts() {
