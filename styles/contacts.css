@@ -1,7 +1,7 @@
 .contact-main-area {
   flex: 1;
   height: 100vh;
-  margin-left: -96px;
+  margin-left: -64px;
   margin-top: -110px;
   display: flex;
 }
@@ -217,11 +217,9 @@
   content: url("../assets/icons/delete_blue.png");
 }
 
-
 .contact-btn img {
   margin-right: 8px;
 }
-
 
 .contact-detail-initials p {
   display: flex;
