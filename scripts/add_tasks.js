@@ -55,7 +55,7 @@ async function initAddTaskElements() {
     SUBTASKS = document.getElementById("task-subtasks");
     ADDTASK_BTN = document.getElementById("add-task-btn");
     document.addEventListener("click", function(event) {
-    if (!ASSIGNED_TO_WRAPPER.contains(event.target)) {
+    if (ASSIGNED_TO_WRAPPER && !ASSIGNED_TO_WRAPPER.contains(event.target)) {
         closeAssignedDropdown();
     }
     });
@@ -223,27 +223,34 @@ async function getUserNames() {
 
 function openAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
-    let arrow = document.getElementById("dropdown-arrow");
-    if (users.classList.contains("dNone")) {
-        users.classList.remove("dNone");
-        arrow.classList.add("open");
-    }
+    let arrowdown = document.getElementById("dropdown-arrow");
+    let arrowup = document.getElementById("dropup-arrow");
+    users.classList.toggle("dNone");
+    users.classList.toggle("dFlex");
+    arrowdown.classList.toggle("dNone");
+    arrowup.classList.toggle("dNone");
     document.getElementById("task-assigned-to-input").focus();
 }
 
 function toggleAssignedDropdown(event) {
     event.stopPropagation();
     let users = document.getElementById("task-assigned-to-users");
-    let arrow = document.getElementById("dropdown-arrow");
+    let arrowdown = document.getElementById("dropdown-arrow");
+    let arrowup = document.getElementById("dropup-arrow");
     users.classList.toggle("dNone");
-    arrow.classList.toggle("open");
+    users.classList.toggle("dFlex");
+    arrowdown.classList.toggle("dNone");
+    arrowup.classList.toggle("dNone");
 }
 
 function closeAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
-    let arrow = document.getElementById("dropdown-arrow");
+    let arrowdown = document.getElementById("dropdown-arrow");
+    let arrowup = document.getElementById("dropup-arrow");
     users.classList.add("dNone");
-    arrow.classList.remove("open");
+    users.classList.remove("dFlex");
+    arrowdown.classList.remove("dNone");
+    arrowup.classList.add("dNone");
     document.getElementById("task-assigned-to-input").value = "";
     filterAssignedUsers();
 }
@@ -257,7 +264,7 @@ function pushUserNames() {
     ASSIGNED_TO_USERS.innerHTML = "";
     for (let i = 0; i < userNames.length; i++) {
         let initials = getInitials(userNames[i]);
-        let color = BADGE_COLORS[i % BADGE_COLORS.length];
+        let color = BADGE_COLORS[i];
         ASSIGNED_TO_USERS.insertAdjacentHTML("beforeend", pushUserNamesTemplate(userNames[i], initials, color));
     }
 }
@@ -267,7 +274,9 @@ function pushUserNamesTemplate(user, initials, color) {
         <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
             <span class="dropdown-user-name">${user}</span>
-            <div class="dropdown-user-checkbox"></div>
+            <img class="dropdown-user-checkbox" src="../assets/icons/checkbox_default.svg" alt="">
+            <img class="dropdown-user-checkbox dNone" src="../assets/icons/checkbox_checked.svg" alt="">
+            <img class="dropdown-user-checkbox dNone" src="../assets/icons/checkbox_checked_sign.svg" alt="">
         </div>
     `;
 }
@@ -280,12 +289,14 @@ function getInitials(name) {
 function toggleUserSelection(event, user, initials, color) {
     let element = event.currentTarget;
     element.classList.toggle("selected");
+    element.querySelectorAll(".dropdown-user-checkbox").forEach(img => img.classList.toggle("dNone"));
     let index = selectedUsers.findIndex(u => u.name === user);
     if (index > -1) {
         selectedUsers.splice(index, 1);
     } else {
         selectedUsers.push({ name: user, initials: initials, color: color });
     }
+
     renderAssignedBadges();
 }
 
