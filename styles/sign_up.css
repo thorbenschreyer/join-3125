@@ -115,7 +115,7 @@ input {
   border-radius: 6px;
 }
 
-.signup-form input:nth-child(-n+4):focus {
+.signup-form input:nth-child(-n + 4):focus {
   border: solid 1px var(--logo-light-blue);
   outline: none;
 }
@@ -289,8 +289,7 @@ input {
 }
 
 /* === TABLET === */
-@media (max-width: 744px){
-
+@media (max-width: 744px) {
   /* === HEADER === */
   .signup-header {
     display: flex;
@@ -315,7 +314,7 @@ input {
 
   /* === HEADER IM FORMULAR === */
   .signup-back {
-    left: 32px
+    left: 32px;
   }
 
   .signup-form-header h1 {
@@ -323,7 +322,7 @@ input {
   }
 
   .signup-form-header h1::after {
-      height: 3px;
+    height: 3px;
   }
 
   /* === FORMULAR === */
@@ -335,5 +334,4 @@ input {
   .signup-form-footer {
     padding-top: 20px;
   }
-
 }

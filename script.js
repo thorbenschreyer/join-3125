@@ -6,6 +6,9 @@ let currentImgID = "summary_img";
 let page;
 let isloggedIn;
 let isGuestLogin;
+let userName = " ";
+let userInitials = "G";
+let time;
 
 /**
  * Init loads the header, the sidebar, and the main content. isloggedIn checks here
@@ -21,39 +24,60 @@ async function init() {
   const params = new URLSearchParams(window.location.search);
   page = params.get("page");
   checkLogin(page);
+  getNameAndInitials();
   loadSidbarAndContent();
-  
+  time = getTheTimeForWelcomeMassage()
 }
 
+/**
+ * This function loads the sidebar and the content. It checks whether the user is logged in or not! 
+ * If NO, the corresponding sidebar is loaded and it checks whether "Privacy" or "Legal" was clicked -> loadPrivacyOrLegal() 
+ * If the user is logged in, they are greeted with the normal menu and the corresponding page is loaded -> setLoggedinNavigation()
+ */
 async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
+    loadPrivacyOrLegal ()
+    } else {
+    setLoggedinNavigation()
+  }
+}
 
-    if (page === "privacy") {
+/**
+ * This function is triggered when the user is not logged in and has clicked either "Privacy" or "Legal" in the login menu. 
+ */
+async function loadPrivacyOrLegal() {
+  if (page === "privacy") {
       await loadHtmlPage("content", "./footerpages/privacy_policy.html");
       toggleIsActive("privacy_policy");
     } else if (page === "legal") {
       await loadHtmlPage("content", "./footerpages/legal_notice.html");
       toggleIsActive("legal_notice");
     }
-  } else {
-    const mainNavigation = document.getElementById("navigation-items");
+}
+
+/**
+ * If the user is logged in, the standard navigation applies. In this function, setInitials() is also used to load the initials, as well as the name and a greeting based on the time.
+ */
+async function setLoggedinNavigation() {
+  const mainNavigation = document.getElementById("navigation-items");
     mainNavigation.innerHTML = LoggedInNavigation();
 
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
-    setInitials()
 
-    // summary.html
-    await loadHtmlPage("content", "./templates/board.html"); 
-   
-   
-    /* initAddTaskElements(); */
+    await loadHtmlPage("content", "./templates/summary.html");
+    
+    setInitials();
+    setTaskSummaryInformation ()
+    
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
-  }
 }
+
+
+
 
 function checkLogin(page) {
   const publicPages = ["privacy", "legal"];
@@ -176,25 +200,76 @@ function removeActiveState() {
   id.classList.remove("isActive");
 }
 
+/**
+ * Set “isActive” to the element when switching to a page
+ */
 function removeActiveStatefromSummary() {
   let id = document.getElementById(currentToggleID);
   id.classList.remove("isActive");
 }
 
+/**
+ * This function removes the "Active" status from the Summary section and sets it to "Active" when a task is added, provided you click on one of the fields in the Summary section
+ */
 function clickInSummaryBoard() {
-  loadHtmlPage('content', './templates/add_tasks.html')
-  removeActiveState()
-  toggleIsActive('add_task', 'add_task_img')
+  loadHtmlPage("content", "./templates/add_tasks.html");
+  removeActiveState();
+  toggleIsActive("add_task", "add_task_img");
 }
 
-function setInitials () {
+/**
+ * This function generates the name and initials of the logged-in user and returns them
+ */
+function getNameAndInitials() {
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  userName = currentUser.name;
+
+  userInitials = userName
+    .split(" ")
+    .map((word) => word[0])
+    .join("");
+}
+
+/**
+ * This function sets the initials and the name after a successful login. If the login was performed as a "Guest," a "G" is displayed.
+ */
+function setInitials() {
   isGuestLogin = localStorage.getItem("isGuestLogin") === "true";
   const initialsText = document.getElementById("initials-menu");
-  console.log(initialsText);  
+  const nameFromUser = document.getElementById("welcome-name");
+  const welcomeTime = document.getElementById("welcome-time");
   if (isGuestLogin === true) {
-    console.log("Test");
-    initialsText.innerText = "G"
+    initialsText.innerText = "G";
+    nameFromUser.innerText = " ";
+    welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!";
   } else {
-    initialsText.innerText = "SM"
+    initialsText.innerText = userInitials;
+    nameFromUser.innerText = userName;
+    welcomeTime.innerText = getTheTimeForWelcomeMassage() + ",";
   }
+}
+
+/**
+ * Checks the current time
+ * @returns the appropriate greeting based on the time of day
+ */
+function getTheTimeForWelcomeMassage() {
+  time = new Date().getHours();
+  if (time >= 23 || time <= 5) return "Hallo Nachteule";
+  if (time >= 6 && time <= 11) return "Guten Morgen";
+  if (time >= 12 && time <= 14) return "Guten Mittag";
+  if (time >= 15 && time <= 18) return "Guten Nachmittag";
+  if (time >= 19 && time <= 22) return "Guten Abend";
+}
+
+async function loadSummaryPage() {
+  await loadHtmlPage("content", "./templates/summary.html");
+  setTaskSummaryInformation();
+  toggleIsActive("summary", "summary_img");
+}
+
+async function loadAddTaskPage() {
+  await loadHtmlPage("content", "./templates/add_tasks.html");
+  initAddTaskElements();
+  toggleIsActive("add_task", "add_task_img");
 }
