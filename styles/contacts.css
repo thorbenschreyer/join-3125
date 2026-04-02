@@ -1,8 +1,6 @@
 .contact-main-area {
   flex: 1;
   height: 100vh;
-  margin-left: -64px;
-  margin-top: -110px;
   display: flex;
 }
 
@@ -11,7 +9,7 @@
   align-items: center;
   flex-direction: column;
   overflow-y: auto;
-  width: 100%;
+  padding: 0px 32px;
 }
 
 .contact-detail-area {
@@ -33,7 +31,6 @@
   align-items: center;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-  width: 456px;
 }
 
 /* ==================== Haeder Area ==================== */
@@ -63,6 +60,10 @@
 }
 
 /* ==================== Contact Area ==================== */
+.new-contact-area{
+  width: 100%;
+  padding: 0px 32px;
+}
 
 .add-contact-btn {
   width: 352px;
@@ -93,11 +94,6 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-.contact-breaker {
-  width: 100%;
-  padding: 0px 32px;
-}
-
 .contact-breaker p {
   font-size: 20px;
   padding: 20px;
@@ -112,9 +108,8 @@
   width: 352px;
   display: flex;
   align-items: center;
-  padding: 16px;
-  margin: 8px;
   border-radius: 10px;
+  padding: 24px 0px;
 }
 
 .contact-initials {

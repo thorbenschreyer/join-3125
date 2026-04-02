@@ -83,8 +83,6 @@
   flex: 1;
   overflow-y: hidden;
 
-  padding-left: 64px;
-  padding-top: 110px;
   max-width: calc(1440px - 232px);
 }
 
@@ -209,8 +207,6 @@
 
 @media (max-width: 940px) {
   .page-content {
-    padding-left: 16px;
-    padding-top: 40px;
     max-width: 100vw;
   }
 }
@@ -251,7 +247,6 @@
     flex: 1;
     overflow-y: auto;
     width: 100vw;
-    padding: 16px;
   }
 
   .sidebar {
