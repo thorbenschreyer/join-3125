@@ -69,17 +69,14 @@ async function setLoggedinNavigation() {
 
     await loadHtmlPage("content", "./templates/contacts.html");
     /* initAddTaskElements(); */
-
     
     setInitials();
     setTaskSummaryInformation ()
-    
+
+
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
 }
-
-
-
 
 function checkLogin(page) {
   const publicPages = ["privacy", "legal"];
@@ -98,6 +95,11 @@ async function loadHtmlPage(divID, pagefile) {
   const response = await fetch(pagefile);
   const html = await response.text();
   document.getElementById(divID).innerHTML = html;
+
+  if (pagefile.includes("contacts.html")) {
+    initContacts();
+  }
+  
   if (
     pagefile != "./footerpages/help.html" &&
     pagefile != "./footerpages/privacy_policy.html" &&

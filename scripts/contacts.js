@@ -1,5 +1,6 @@
 let users1 = [];
 let currentBrakpointLetter = "";
+let lastActiveDetailViewContact;
 let addDialog
 let editDialog
 
@@ -17,18 +18,8 @@ async function initContacts() {
   editDialog = registerDialog("edit-contact-dialog")
 }
 
-function registerDialog(dialogID) {
-  const dialog = document.getElementById(dialogID);
-
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) {
-      dialog.close();
-    }
-  });
-  return dialog
-}
-
 async function getUserData() {
+  users1 = [];
   let allUserData = await fetch(`${BASE_URL}users.json`);
   let allUserDataToJson = await allUserData.json();
   let UserKeysArray = Object.keys(allUserDataToJson);
@@ -95,6 +86,21 @@ function renderContact(index) {
   contacts.innerHTML += renderContactTemplate(index, initails, name, email);
 }
 
+/**
+ * This function registers a dialog so that it can be closed by clicking outside of it. 
+ * @param {The ID of the desired dialog window} dialogID 
+ * @returns The dialog, which can then be manipulated (e.g., opened and closed) 
+ */
+function registerDialog(dialogID) {
+  const dialog = document.getElementById(dialogID);
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
+  return dialog
+}
 
 function openDialog(dialogName) {
   dialogName.showModal()
