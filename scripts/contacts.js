@@ -18,8 +18,9 @@ async function initContacts() {
   editDialog = registerDialog("edit-contact-dialog");
 }
 
-function openContactDetailview(contactID) {
+function openContactDetailview(contactID, index) {
   setDetailViewActiveColor(contactID)
+  renderDetailContactInformation(index)
 }
 
 /**
@@ -38,6 +39,18 @@ function setDetailViewActiveColor(contactID) {
     lastActiveUser.classList.add("contact");
   }
   lastActiveDetailViewContact = contactID;
+}
+
+function renderDetailContactInformation(index) {
+  detailContact = document.getElementById("contact-details")
+  const initials = users1[index].name
+    .split(" ")
+    .map((word) => word[0])
+    .join("");
+  const name = users1[index].name;
+  const email = users1[index].email;
+  const phoneNumber = +49123456789
+  detailContact.innerHTML = renderDetailedContactsTemplate(initials, name, email, phoneNumber)
 }
 
 /**

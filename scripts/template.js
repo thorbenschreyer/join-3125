@@ -27,7 +27,7 @@ function helpAndLogout() {
 
 function renderContactTemplate(index, initails, name, email) {
   return `
-        <div onclick="openContactDetailview('contact-${index}')" id="contact-${index}" class="contact">
+        <div onclick="openContactDetailview('contact-${index}', ${index})" id="contact-${index}" class="contact">
           <div class="contact-initials">
             <p>${initails}</p>
           </div>
@@ -37,6 +37,37 @@ function renderContactTemplate(index, initails, name, email) {
           </div>
         </div>
         `;
+}
+
+function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
+  return`
+  <div>
+        <div class="contact-edit">
+          <div class="contact-detail-initials">
+            <p>${initials}</p>
+          </div>
+          <div>
+            <p class="contact-detail-name">${name}</p>
+            <div class="contact-btn">
+              <p onclick="openDialog(editDialog)" class="contact-btn contact-btn-edit">
+                <img src="../assets/icons/edit.png" alt="" />Edit
+              </p>
+              <p class="contact-btn contact-btn-delete">
+                <img src="../assets/icons/delete.png" alt="" />Delete
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="contact-detail-inforamtion">Contact Information</p>
+          <p class="contact-detail-haeder">Email</p>
+          <a href="mailto:${email}">${email}</a>
+          <p class="contact-detail-haeder">Phone</p>
+          <p>${phoneNumber}</p>
+        </div>
+      </div>
+  `
 }
 
 function contactBrakerTemplate(letter) {
