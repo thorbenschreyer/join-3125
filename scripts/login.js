@@ -68,6 +68,13 @@ function guestLogin () {
     isGuestLogin = true
     localStorage.setItem('loginState', JSON.stringify(isloggedIn))
     localStorage.setItem('isGuestLogin', JSON.stringify(isGuestLogin));
+    localStorage.setItem('currentUser', JSON.stringify(
+    {   email: "guestUser",
+        id: "guestUserID",
+        initials: "G",
+        name: "Guest",
+        password: "123"
+    }))
     window.location.href = "../index.html"
   
 }
