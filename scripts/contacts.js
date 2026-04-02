@@ -1,6 +1,7 @@
 let users1 = [];
 let currentBrakpointLetter = "";
-let contactDialog;
+let addDialog
+let editDialog
 
 /**
  * Initializes the contact set
@@ -12,13 +13,19 @@ async function initContacts() {
   await getUserData();
   sortContachts();
   renderContactList();
-  contactDialog = document.getElementById("add-contact-dialog")
+  addDialog = registerDialog("add-contact-dialog")
+  editDialog = registerDialog("edit-contact-dialog")
+}
 
-  contactDialog.addEventListener("click", (event) => {
-    if (event.target === contactDialog) {
-      contactDialog.close();
+function registerDialog(dialogID) {
+  const dialog = document.getElementById(dialogID);
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) {
+      dialog.close();
     }
   });
+  return dialog
 }
 
 async function getUserData() {
@@ -89,12 +96,10 @@ function renderContact(index) {
 }
 
 
-function addNewContact() {
-  contactDialog.showModal()
+function openDialog(dialogName) {
+  dialogName.showModal()
 }
 
-contactDialog.addEventListener("click", (event) => {
-  if (event.target === contactDialog) {
-    contactDialog.close();
-  }
-});
+function closeContactDialog() {
+
+}

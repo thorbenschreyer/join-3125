@@ -1,7 +1,7 @@
 <div class="contact-main-area">
   <div class="contact-and-button-area">
     <div class="new-contact-area">
-      <button onclick="addNewContact()" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
+      <button onclick="openDialog(addDialog)" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
     </div>
 
     <div class="displayed-contacts" id="displayed-contacts"></div>
@@ -23,7 +23,7 @@
         <div>
           <p class="contact-detail-name">Anton Mayer</p>
           <div class="contact-btn">
-            <p class="contact-btn contact-btn-edit">
+            <p onclick="openDialog(editDialog)" class="contact-btn contact-btn-edit">
               <img src="../assets/icons/edit.png" alt="" />Edit
             </p>
             <p class="contact-btn contact-btn-delete">
@@ -50,3 +50,8 @@
 <dialog class="add-contact-dialog" id="add-contact-dialog">
   Add Contact 
 </dialog>
+
+<dialog class="edit-contact-dialog" id="edit-contact-dialog">
+  Add Contact 
+</dialog>
+
