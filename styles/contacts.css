@@ -288,3 +288,9 @@
 
 @media (max-width: 960px) {
 }
+
+.add-contact-dialog {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}

@@ -1,7 +1,7 @@
 <div class="contact-main-area">
   <div class="contact-and-button-area">
     <div class="new-contact-area">
-      <button class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
+      <button onclick="addNewContact()" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
     </div>
 
     <div class="displayed-contacts" id="displayed-contacts"></div>
@@ -46,3 +46,7 @@
   </div>
   
 </div>
+
+<dialog class="add-contact-dialog" id="add-contact-dialog">
+  Add Contact 
+</dialog>
