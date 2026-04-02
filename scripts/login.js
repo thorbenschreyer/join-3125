@@ -165,9 +165,12 @@ async function getUserDataForLogin() {
             {
                 id : UserKeysArray[userIndex],
                 name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                initials: allUserDataToJson[UserKeysArray[userIndex]].name.split(" ").map((word) => word[0]).join(""),
                 email : allUserDataToJson[UserKeysArray[userIndex]].email,
-                password : allUserDataToJson[UserKeysArray[userIndex]].password
+                password : allUserDataToJson[UserKeysArray[userIndex]].password,
+                
             }
         )
     }
+    localStorage.setItem("users", JSON.stringify(users))
 }
