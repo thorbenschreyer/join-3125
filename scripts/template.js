@@ -27,7 +27,7 @@ function helpAndLogout() {
 
 function renderContactTemplate(index, initails, name, email) {
   return `
-        <div id="contact-${index}" class="contact">
+        <div onclick="openContactDetailview('contact-${index}')" id="contact-${index}" class="contact">
           <div class="contact-initials">
             <p>${initails}</p>
           </div>

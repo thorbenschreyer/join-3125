@@ -1,8 +1,8 @@
 let users1 = [];
 let currentBrakpointLetter = "";
 let lastActiveDetailViewContact;
-let addDialog
-let editDialog
+let addDialog;
+let editDialog;
 
 /**
  * Initializes the contact set
@@ -14,24 +14,30 @@ async function initContacts() {
   await getUserData();
   sortContachts();
   renderContactList();
-  addDialog = registerDialog("add-contact-dialog")
-  editDialog = registerDialog("edit-contact-dialog")
+  addDialog = registerDialog("add-contact-dialog");
+  editDialog = registerDialog("edit-contact-dialog");
 }
 
-async function getUserData() {
-  users1 = [];
-  let allUserData = await fetch(`${BASE_URL}users.json`);
-  let allUserDataToJson = await allUserData.json();
-  let UserKeysArray = Object.keys(allUserDataToJson);
+function openContactDetailview(contactID) {
+  setDetailViewActiveColor(contactID)
+}
 
-  for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-    users1.push({
-      id: UserKeysArray[userIndex],
-      name: allUserDataToJson[UserKeysArray[userIndex]].name,
-      email: allUserDataToJson[UserKeysArray[userIndex]].email,
-      password: allUserDataToJson[UserKeysArray[userIndex]].password,
-    });
+/**
+ * This function removes the normal class and replaces it with the active class. 
+ * It also saves the ID of the user who was previously clicked, then removes the active class and adds the normal class.
+ * @param {The ID of the user who was clicked} contactID 
+ */
+function setDetailViewActiveColor(contactID) {
+  detailedUser = document.getElementById(contactID);
+  detailedUser.classList.remove("contact");
+  detailedUser.classList.add("contact-is-active");
+
+  if (lastActiveDetailViewContact) {
+    lastActiveUser = document.getElementById(lastActiveDetailViewContact);
+    lastActiveUser.classList.remove("contact-is-active");
+    lastActiveUser.classList.add("contact");
   }
+  lastActiveDetailViewContact = contactID;
 }
 
 /**
@@ -87,9 +93,9 @@ function renderContact(index) {
 }
 
 /**
- * This function registers a dialog so that it can be closed by clicking outside of it. 
- * @param {The ID of the desired dialog window} dialogID 
- * @returns The dialog, which can then be manipulated (e.g., opened and closed) 
+ * This function registers a dialog so that it can be closed by clicking outside of it.
+ * @param {The ID of the desired dialog window} dialogID
+ * @returns The dialog, which can then be manipulated (e.g., opened and closed)
  */
 function registerDialog(dialogID) {
   const dialog = document.getElementById(dialogID);
@@ -99,13 +105,29 @@ function registerDialog(dialogID) {
       dialog.close();
     }
   });
-  return dialog
+  return dialog;
 }
 
 function openDialog(dialogName) {
-  dialogName.showModal()
+  dialogName.showModal();
 }
 
-function closeContactDialog() {
+function closeDialog(dialogName) {
+  dialogName.close();
+}
 
+async function getUserData() {
+  users1 = [];
+  let allUserData = await fetch(`${BASE_URL}users.json`);
+  let allUserDataToJson = await allUserData.json();
+  let UserKeysArray = Object.keys(allUserDataToJson);
+
+  for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+    users1.push({
+      id: UserKeysArray[userIndex],
+      name: allUserDataToJson[UserKeysArray[userIndex]].name,
+      email: allUserDataToJson[UserKeysArray[userIndex]].email,
+      password: allUserDataToJson[UserKeysArray[userIndex]].password,
+    });
+  }
 }
