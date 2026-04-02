@@ -51,6 +51,10 @@ function renderDetailContactInformation(index) {
   const email = users1[index].email;
   const phoneNumber = +49123456789
   detailContact.innerHTML = renderDetailedContactsTemplate(initials, name, email, phoneNumber)
+
+  detailContact.classList.remove("animate-in"); // reset
+  void detailContact.offsetWidth; // force reflow
+  detailContact.classList.add("animate-in"); // animation starten
 }
 
 /**

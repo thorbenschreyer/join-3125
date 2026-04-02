@@ -178,6 +178,23 @@
   flex-direction: column;
   margin-left: 56px;
   margin-top: 24px;
+  transform: translateX(100%);
+}
+
+.contact-details.animate-in {
+  animation: slideInContact 300ms ease-out forwards;
+}
+
+@keyframes slideInContact {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .contact-edit {
