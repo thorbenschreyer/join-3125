@@ -281,3 +281,8 @@ async function loadAddTaskPage() {
   initAddTaskElements();
   toggleIsActive("add_task", "add_task_img");
 }
+
+async function openContactsPage() {
+  await loadHtmlPage("content", "./templates/contacts.html");
+  initContacts();
+}

@@ -1,4 +1,4 @@
-let users = [];
+let ContactUsers = [];
 let currentBrakpointLetter = "";
 let lastActiveDetailViewContact;
 let addDialog;
@@ -11,7 +11,7 @@ let editDialog;
  * Renders the list
  */
 async function initContacts() {
-  users = JSON.parse(localStorage.getItem("users"));
+  ContactUsers = JSON.parse(localStorage.getItem("users"));
   sortContacts();
   renderContactList();
   addDialog = registerDialog("add-contact-dialog");
@@ -43,12 +43,9 @@ function setDetailViewActiveColor(contactID) {
 
 function renderDetailContactInformation(index) {
   detailContact = document.getElementById("contact-details")
-  const initials = users[index].name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
-  const name = users[index].name;
-  const email = users[index].email;
+  const initials = ContactUsers[index].initials
+  const name = ContactUsers[index].name;
+  const email = ContactUsers[index].email;
   const phoneNumber = +49123456789
   detailContact.innerHTML = renderDetailedContactsTemplate(initials, name, email, phoneNumber)
 
@@ -61,7 +58,7 @@ function renderDetailContactInformation(index) {
  * Sorts the user array by first name
  */
 function sortContacts() {
-  users.sort((a, b) => a.name.localeCompare(b.name));
+  ContactUsers.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
@@ -70,8 +67,8 @@ function sortContacts() {
  * If YES, it renders only the contact until a new first letter appears
  */
 function renderContactList() {
-  for (let index = 0; index < users.length; index++) {
-    let firstLetter = users[index].name.split(" ")[0][0];
+  for (let index = 0; index < ContactUsers.length; index++) {
+    let firstLetter = ContactUsers[index].name.split(" ")[0][0];
 
     if (firstLetter != currentBrakpointLetter) {
       contactBraker(firstLetter);
@@ -99,14 +96,11 @@ function contactBraker(firstLetter) {
 function renderContact(index) {
   let contacts = document.getElementById("displayed-contacts");
 
-  const initails = users[index].name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
-  const name = users[index].name;
-  const email = users[index].email;
+  const initials = ContactUsers[index].initials
+  const name = ContactUsers[index].name;
+  const email = ContactUsers[index].email;
 
-  contacts.innerHTML += renderContactTemplate(index, initails, name, email);
+  contacts.innerHTML += renderContactTemplate(index, initials, name, email);
 }
 
 /**
@@ -131,20 +125,4 @@ function openDialog(dialogName) {
 
 function closeDialog(dialogName) {
   dialogName.close();
-}
-
-async function getUserData() {
-  users = [];
-  let allUserData = await fetch(`${BASE_URL}users.json`);
-  let allUserDataToJson = await allUserData.json();
-  let UserKeysArray = Object.keys(allUserDataToJson);
-
-  for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-    users.push({
-      id: UserKeysArray[userIndex],
-      name: allUserDataToJson[UserKeysArray[userIndex]].name,
-      email: allUserDataToJson[UserKeysArray[userIndex]].email,
-      password: allUserDataToJson[UserKeysArray[userIndex]].password,
-    });
-  }
 }
