@@ -60,7 +60,7 @@
 }
 
 /* ==================== Contact Area ==================== */
-.new-contact-area{
+.new-contact-area {
   width: 100%;
   padding: 0px 32px;
 }
@@ -297,7 +297,19 @@
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 975px) {
+  .contact-detail-area {
+    display: none;
+  }
+  .contact-and-button-area {
+    width: 100%;
+  }
+.new-contact-area {
+    width: unset
+    
+}
+
+
 }
 
 .add-contact-dialog {
