@@ -19,6 +19,11 @@ let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
 let ASSIGNED_TO_WRAPPER;
 let ASSIGNED_TO_USERS;
+let CATEGORY_WRAPPER;
+let CATEGORY_INPUT;
+let CATEGORY_TASKS;
+let TECHNICAL_TASK;
+let USER_STORY;
 let CATEGORY_SELECT;
 let SUBTASKS;
 let ADDTASK_BTN;
@@ -52,13 +57,20 @@ async function initAddTaskElements() {
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
     ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-to-wrapper");
     ASSIGNED_TO_USERS = document.getElementById("task-assigned-to-users");
-    CATEGORY_SELECT = document.getElementById("task-category");
+    CATEGORY_WRAPPER = document.getElementById("task-category-wrapper");
+    CATEGORY_INPUT = document.getElementById("task-category-input");
+    CATEGORY_TASKS = document.getElementById("task-category-tasks");
+    TECHNICAL_TASK = document.getElementById("technical-task");
+    USER_STORY = document.getElementById("user-story");
     SUBTASKS = document.getElementById("task-subtasks");
     ADDTASK_BTN = document.getElementById("add-task-btn");
     CALENDAR_ICON = document.getElementById("calendar-icon");
     document.addEventListener("click", function(event) {
     if (ASSIGNED_TO_WRAPPER && !ASSIGNED_TO_WRAPPER.contains(event.target)) {
         closeAssignedDropdown();
+    }  
+    if (CATEGORY_WRAPPER && !CATEGORY_WRAPPER.contains(event.target)) {
+        closeCategoryDropdown()
     }
     });
     setMinDate();
@@ -137,6 +149,12 @@ function feedbackOnRequiredInput() {
     CALENDAR_ICON.addEventListener("click", function() {
         DUE_DATE_INPUT.showPicker();
     });
+    TECHNICAL_TASK.addEventListener("click", function() {
+        CATEGORY_INPUT.value = "Technical Task";
+    })
+    USER_STORY.addEventListener("click", function() {
+        CATEGORY_INPUT.value = "User Story";
+    })
 }
 
 //* DUE DATE type[text] variant
@@ -349,6 +367,23 @@ function filterAssignedUsers() {
     }
 }
 
+function openCategoryDropdown() {
+    CATEGORY_TASKS.classList.toggle("dNone");
+    CATEGORY_TASKS.classList.toggle("dFlex");
+    document.getElementById("task-category-input").focus();
+}
+
+function closeCategoryDropdown() {
+    CATEGORY_TASKS.classList.add("dNone");
+    CATEGORY_TASKS.classList.remove("dFlex");
+}
+
+function toggleCategoryDropdown(event) {
+    event.stopPropagation();
+    CATEGORY_TASKS.classList.toggle("dNone");
+    CATEGORY_TASKS.classList.toggle("dFlex");
+    document.getElementById("task-category-input").focus();
+}
 
 /**
  * Testdaten zum enwickeln! Wenn diese gelöscht werden, müssen die Daten im Local Storage mit dem KEY: "tasks" gespeichert werden!
