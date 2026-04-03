@@ -67,7 +67,7 @@ async function setLoggedinNavigation() {
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
 
-    await loadHtmlPage("content", "./templates/summary.html");
+    await loadHtmlPage("content", "./templates/board.html");
     
     setInitials();
     setTaskSummaryInformation ()
@@ -105,6 +105,7 @@ async function loadHtmlPage(divID, pagefile) {
     lastOpenPage = pagefile;
   }
 }
+
 
 /**
  * This function opens and closes the menu by replacing classes

@@ -82,7 +82,8 @@
 .page-content {
   flex: 1;
   overflow-y: auto;
-
+  display: flex;
+  flex-direction: column;
   padding-left: 64px;
   padding-top: 110px;
   max-width: calc(1440px - 232px);
@@ -175,7 +176,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 64px;
+  margin: 64px 0;
   background-color: rgba(42, 54, 71, 1);
   height: 100%;
   width: 100%;
