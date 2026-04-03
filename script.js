@@ -27,6 +27,7 @@ async function init() {
   getNameAndInitials();
   loadSidbarAndContent();
   time = getTheTimeForWelcomeMassage()
+  getUserDataForLogin()
 }
 
 /**
@@ -279,4 +280,9 @@ async function loadAddTaskPage() {
   await loadHtmlPage("content", "./templates/add_tasks.html");
   initAddTaskElements();
   toggleIsActive("add_task", "add_task_img");
+}
+
+async function openContactsPage() {
+  await loadHtmlPage("content", "./templates/contacts.html");
+  initContacts();
 }
