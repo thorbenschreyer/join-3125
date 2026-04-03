@@ -3,6 +3,7 @@ let currentBrakpointLetter = "";
 let lastActiveDetailViewContact;
 let addDialog;
 let editDialog;
+let mobileEdtMenu;
 
 /**
  * Initializes the contact set
@@ -16,6 +17,7 @@ async function initContacts() {
   renderContactList();
   addDialog = registerDialog("add-contact-dialog");
   editDialog = registerDialog("edit-contact-dialog");
+  mobileEdtMenu = registerDialog("mobile-edit-delete-menu");
 }
 
 function openContactDetailview(contactID, index) {
@@ -154,7 +156,7 @@ async function getUserData() {
 function backToContacts() {
   let detailesContactView = document.getElementById("contact-detail-area")
   detailesContactView.classList.add("back-to-contacts-unset")
-  
+
   lastActiveUser = document.getElementById(lastActiveDetailViewContact);
   lastActiveUser.classList.remove("contact-is-active");
   lastActiveUser.classList.add("contact");

@@ -20,7 +20,7 @@
     </div>
 
     <button class="back-to-contacts" onclick="backToContacts()"><img src="../assets/icons/arrow-left-line.png" alt=""></button>
-    <button class="mobile-edit-delete"><img src="./assets/icons/more_vert.png" alt=""></button>
+    <button class="mobile-edit-delete" onclick="openDialog(mobileEdtMenu)"><img src="./assets/icons/more_vert.png" alt=""></button>
   </div>
   
 </div>
@@ -29,10 +29,10 @@
 
 
 
-<div class="mobile-edit-delete-menu">
-  <p onclick="" class="contact-btn contact-btn-edit"><img src="../assets/icons/edit.png" alt="" />Edit</p>
-  <p onclick="" class="contact-btn contact-btn-delete"><img src="../assets/icons/delete.png" alt="" />Delete</p>
-</div>
+<dialog class="mobile-edit-delete-menu" id="mobile-edit-delete-menu">
+  <p onclick="" class="contact-btn-mobile contact-btn-edit-mobile"><img src="../assets/icons/edit.png" alt="" />Edit</p>
+  <p onclick="" class="contact-btn-mobile contact-btn-delete-mobile"><img src="../assets/icons/delete.png" alt="" />Delete</p>
+</dialog>
 
 
 <dialog class="add-contact-dialog" id="add-contact-dialog">

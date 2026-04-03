@@ -133,15 +133,59 @@
     height: 32px;
   }
 
-  .mobile-edit-delete-menu {
-    position: fixed;
-    right: 8px;
-    bottom: 96px;
-    width: 116px;
-    height: 100px;
-    background-color: white;
-    z-index: 999;
-  }
+.mobile-edit-delete-menu {
+  position: fixed;
+  top: auto;
+  left: auto;
+  bottom: 96px;
+  right: 8px;
+  margin: 0;
+
+  width: 116px;
+  height: 100px;
+  background-color: white;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 20px 20px 0px 20px;
+  border: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.mobile-edit-delete-menu::backdrop {
+  background-color: transparent;
+}
+
+.contact-btn-mobile {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.contact-btn-edit-mobile:hover {
+  font-weight: bold;
+  color: var(--logo-light-blue);
+}
+
+.contact-btn-delete-mobile:hover {
+  font-weight: bold;
+  color: var(--logo-light-blue);
+}
+
+.contact-btn-edit-mobile:hover img {
+  content: url("../assets/icons/edit_blue.png");
+}
+
+.contact-btn-delete-mobile:hover img {
+  content: url("../assets/icons/delete_blue.png");
+}
+
+.contact-btn-mobile img {
+  margin-right: 8px;
+}
+
 }
 
 @media (max-width: 820px) {
