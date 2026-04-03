@@ -1,16 +1,17 @@
+    
 <div class="board-page">
     <header id="header-board" class="header-board">
         <h2 class="board-heading">Board</h2>
         <div id="find-task-container" class="find-task-container">
             <div id="search-task-input-container" class="search-task-input-container">
                 <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
-                <div class="search-icon-wrapper">
+                <div class="search-icon-wrapper" onclick="renderSmallTask()">
                     <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                     <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
                     <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
                 </div>
             </div>
-            <button class="add-task-button dark-button" id="add-task" onclick="openAddTaskOverlay('todo'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
+            <button class="add-task-button dark-button" id="add-task" onclick="openAddTaskOverlay('todo')">
                 <p>Add Task</p> <img class="add-plus-img" src="./assets/icons/add_light.png" alt="Add Task Plus Image">
             </button>
         </div>       
@@ -18,7 +19,7 @@
     <div class="search-task-container-mobile" id="search-task-container-mobile">
         <div id="search-task-input-container-mobile" class="search-task-input-container-mobile">
                     <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
-                    <div class="search-icon-wrapper">
+                    <div class="search-icon-wrapper" onclick="renderSmallTask()">
                         <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                         <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
                         <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
@@ -29,32 +30,30 @@
             <div id="todo-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">To Do</h3>
-                    <div id="add-todo-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('todo'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
+                    <div id="add-todo-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('todo')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
                 <div id="todo-tasks" class="tasks-container">
-                    <div id="placeholder-task" class="placeholder-task">
-                        <p>No Tasks To do</p>
+                    <div id="placeholder-todo-task" class="placeholder-task">
+                        <p>no Tasks to do</p>
                     </div>
-                    <div id="placeholder-task" class="placeholder-task">
-                        <p>No Tasks To do</p>
-                    </div>
+                    
                 </div>
             </div>
             <div id="in-progress-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">In Progress</h3>
-                    <div id="add-in-progress-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('in-progress'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
+                    <div id="add-in-progress-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('in-progress')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
                 <div id="in-progress-tasks" class="tasks-container">
-                    <div id="placeholder-task" class="placeholder-task">
+                    <div id="placeholder-in-progress-task" class="placeholder-task">
                         <p>No Tasks In Progress</p>
                     </div>
                 </div>
@@ -62,14 +61,14 @@
             <div id="await-feedback-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">Await Feedback</h3>
-                    <div id="add-await-feedback-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('await-feedback'), loadHtmlPage('add-task-dialog', './templates/add_tasks.html')">
+                    <div id="add-await-feedback-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('await-feedback')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
                 <div id="await-feedback-tasks" class="tasks-container">
-                    <div id="placeholder-task" class="placeholder-task">
+                    <div id="placeholder-await-feedback-task" class="placeholder-task">
                         <p>No Tasks Awaiting Feedback</p>
                     </div>
                 </div>
@@ -77,9 +76,12 @@
             <div id="done-task-bar" class="task-bar">
                 <h3 class="task-bar-heading">Done</h3>
                 <div id="done-tasks" class="tasks-container">
-                    <div id="placeholder-task" class="placeholder-task">
+                    <div id="placeholder-done-task" class="placeholder-task">
                         <p>No Tasks Done</p>
                     </div>
                 </div>
-        </div>  
+            </div>
+        </div>
 </div>
+        
+        

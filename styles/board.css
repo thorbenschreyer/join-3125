@@ -1,6 +1,7 @@
 .board-page {
-  margin-top: 110px;
-  margin-left: 64px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-plus-img {
@@ -121,14 +122,20 @@
   display: flex;
   gap: 26px;
   margin-top: 24px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .task-bar {
   display: flex;
   flex-direction: column;
-  background-color: #F5F5F5;
+  background-color: #F6F7F8;
   border-radius: 10px;
-  width: 246px;
+  width: 252px;
+  height: 100%;
+  max-height: 100%;
+  padding-bottom: 64px;
 }
 
 .task-bar-heading{
@@ -177,6 +184,7 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 16px;
+  overflow: auto;
 }
 
 .placeholder-task {
@@ -215,7 +223,7 @@
 .add-task-dialog {
   background-color: white;
   border-radius: 30px;
-  padding: 24px;
+  padding: 64px;
   box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
   animation: slideInFromRight 0.2s ease-out forwards;
 }
@@ -227,6 +235,10 @@
 .add-task-dialog-footer {
   padding: 0;
   margin-top: 64px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @keyframes slideInFromRight {
@@ -239,3 +251,185 @@
   to { transform: translateX(100vw); }
 }
 
+/* Task Design */
+
+.board-small-task {
+  width: 252px;
+  min-width: 252px;
+  background-color: white;
+  padding: 16px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.small-task-category {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  background-color: #0038FF;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+.small-task-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2A3647;
+}
+
+.small-task-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: #A8A8A8;
+}
+
+.subtasks-with-subtasks-bar-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subtasks-bar-container {
+  width: 110px;
+  height: 8px;
+  border-radius: 8px;
+  border: solid 1px #4589FF;
+}
+
+.subtasks-bar {
+  width: 50%;
+  background-color: #4589FF;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.small-task-user-badge-and-priority-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.small-task-user-badges-container {
+  display: flex;
+  align-items: center;
+}
+
+.small-task-dropdown-user-badge {
+  border: solid 1px white;
+}
+
+.small-task-dropdown-user-badge:not(:first-child) {
+  margin-left: -10px;
+}
+
+/* Dialog Task Design */
+
+.dialog-board-task {
+  display: flex;
+  width: 525px;
+  flex-direction: column;
+  gap: 16px;
+  padding: 48px 40px;
+  background-color: white;
+  border-radius: 30px;
+}
+
+.dialog-task-category-and-close-x-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-task-category {
+  font-size: 23px;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  background-color: #0038FF;
+  padding: 4px 16px;
+  border-radius: 8px;
+  width: max-content;
+}
+
+.close-dialog-x-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 10px;
+}
+
+.close-dialog-x-hover,
+.close-dialog-x-active {
+    display: none;
+}
+
+.close-dialog-x-wrapper:hover .close-dialog-x-default {
+    display: none;
+}
+
+.close-dialog-x-wrapper:hover .close-dialog-x-hover {
+    display: block;
+}
+
+.close-dialog-x-wrapper:active .close-dialog-x-default,
+.close-dialog-x-wrapper:active .close-dialog-x-hover {
+    display: none;
+}
+
+.close-dialog-x-wrapper:active .close-dialog-x-active {
+    display: block;
+}
+
+.dialog-task-title {
+  font-size: 61px;
+  font-weight: 700;
+}
+
+.dialog-task-description {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.dialog-due-date {
+  display: flex;
+  gap: 32px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.fix-width-100px {
+  width: 100px;
+}
+
+.dialog-priority-container {
+  display: flex;
+  gap: 10px;
+}
+
+.dialog-task-priority {
+  display: flex;
+  gap: 32px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.dialog-task-user-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dialog-dropdown-user-badge-with-name-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+}

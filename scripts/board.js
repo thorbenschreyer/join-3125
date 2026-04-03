@@ -1,10 +1,21 @@
-let currentTaskBar = "todo-task-bar";
+let currentTaskBar = "todo-tasks";
 
-function openAddTaskOverlay(selectedTaskBar) {
-    const overlay = document.getElementById('add-task-overlay');
-    overlay.classList.remove('d-none')  
-    currentTaskBar = selectedTaskBar + '-task-bar';
+function boardInit() {
+    renderSmallTask();
 }
+
+async function openAddTaskOverlay(selectedTaskBar) {
+    await loadHtmlPage('add-task-dialog', './templates/add_tasks.html');
+    const overlay = document.getElementById('add-task-overlay');
+    const addTaskFooter = document.getElementById('add-task-footer');
+    const dialogTaskFooter = document.getElementById('add-task-dialog-footer');
+    addTaskFooter.classList.add('d-none');
+    dialogTaskFooter.classList.remove('d-none');
+    currentTaskBar = selectedTaskBar + '-tasks';
+    console.log('Dialog gerendert');
+    overlay.classList.remove('d-none');
+}
+
 
 function closeAddTaskOverlay() {
     const overlay = document.getElementById('add-task-overlay');
@@ -20,4 +31,18 @@ function closeAddTaskOverlay() {
 
 function stopEventBubbling(event) {
     event.stopPropagation();
+}
+
+function renderSmallTask() {
+    const taskContainer = document.getElementById(currentTaskBar);
+    removePlaceholder(taskContainer);
+    taskContainer.insertAdjacentHTML('beforeend', smallTask());
+    console.log(currentTaskBar);
+}
+
+function removePlaceholder(container) {
+    const placeholder = container.querySelector('.placeholder-task');
+    if (placeholder) {
+        placeholder.classList.add('d-none');
+    }
 }

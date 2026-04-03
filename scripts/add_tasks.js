@@ -344,35 +344,33 @@ function highlightLowPriority() {
     LOW_WHITE_IMG.classList.remove("dNone");
 }
 
-function addTask() {
-    let Subtasks = Array.from(document.querySelectorAll(".subtask-text"));
+// function addTask() {
+//     let taskTitle = TITLE_INPUT.value;
+//     let taskDescription = DESC_INPUT.value;
+//     let taskDueDate = DUE_DATE_INPUT.value;
+//     let taskPriority;
+//     if (URGENT_BTN.classList.contains("prio-urgent")) {
+//         taskPriority = "urgent";
+//     } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
+//         taskPriority = "medium";
+//     } else if (LOW_BTN.classList.contains("prio-low")) {
+//         taskPriority = "low";
+//     }
+//     let taskAssignedTo = selectedUsers.map(u => u.name)
+//     let taskCategory = CATEGORY_SELECT.value;
+//     let taskSubtasks = SUBTASKS.value;
 
-    let taskTitle = TITLE_INPUT.value;
-    let taskDescription = DESC_INPUT.value;
-    let taskDueDate = DUE_DATE_INPUT.value;
-    let taskPriority;
-    if (URGENT_BTN.classList.contains("prio-urgent")) {
-        taskPriority = "urgent";
-    } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
-        taskPriority = "medium";
-    } else if (LOW_BTN.classList.contains("prio-low")) {
-        taskPriority = "low";
-    }
-    let taskAssignedTo = selectedUsers.map(u => u.name)
-    let taskCategory = CATEGORY_INPUT.value;
-    let taskSubtasks = Subtasks.map(s => s.textContent);
-
-    tasks.push({
-        title: taskTitle,
-        description: taskDescription,
-        dueDate: taskDueDate,
-        priority: taskPriority,
-        assignedTo: taskAssignedTo,
-        category: taskCategory,
-        subtasks: taskSubtasks
-    });
-    saveTaskData();
-}
+//     tasks.push({
+//         title: taskTitle,
+//         description: taskDescription,
+//         dueDate: taskDueDate,
+//         priority: taskPriority,
+//         assignedTo: taskAssignedTo,
+//         category: taskCategory,
+//         subtasks: taskSubtasks
+//     });
+//     saveTaskData();
+// }
 
 async function saveTaskData() {
     let lastTask = tasks.length - 1;

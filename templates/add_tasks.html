@@ -6,6 +6,11 @@
         <h1>
             Add Task
         </h1>
+        <div id="close-dialog-x-wrapper" class="close-dialog-x-wrapper d-none">
+            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+          </div>
     </div>
 
     <!-- FORMULAR -->
@@ -113,6 +118,7 @@
                         </div>
 
                     </div>
+                </div>
             </div>
 
             <!-- SUBTASKS -->
@@ -145,6 +151,28 @@
                 <span>Clear &times</span>
             </button>
             <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit" disabled>
+                <span>Create Task</span>
+                <img src="../assets/icons/check_light.svg" alt="">
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Footer for Dialog Add Task -->
+
+    <div id="add-task-dialog-footer" class="add-task-dialog-footer d-none">
+
+        <!-- FOOTER LEFT -->
+        <div class="dialog-footer-left">
+            <span class="required">*</span><span>This field is required</span>
+        </div>
+
+        <!-- FOOTER RIGHT -->
+        <div class="dialog-footer-right">
+            <button class="clear-task-btn" onclick="renderSmallTask()">
+                <span>Clear &times</span>
+            </button>
+            <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit">
                 <span>Create Task</span>
                 <img src="../assets/icons/check_light.svg" alt="">
             </button>

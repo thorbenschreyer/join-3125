@@ -24,6 +24,31 @@ function helpAndLogout() {
         <button id="initials-menu" class="initials-menu" onclick="openCloseHeaderMenu()"> </button> 
     `;
 }
+  
+function smallTask() {
+  return `
+    <div id="board-small-task" class="board-small-task">
+        <p id="small-task-category" class="small-task-category">User Story</p>
+        <h3  id="small-task-title" class="small-task-title">Kochwelt Page & Recipe Recommender</h3>
+        <p id="small-task-description" class="small-task-description">Build start page with recipe recommendation...</p>
+        <div id="subtasks-with-subtasks-bar-container" class="subtasks-with-subtasks-bar-container">
+            <div id="subtasks-bar-container" class="subtasks-bar-container">
+                <div id="subtasks-bar" class="subtasks-bar">
+                </div>
+            </div>
+            <p>1/2 Subtasks</p>
+        </div>
+        <div id="small-task-user-badge-and-priority-container" class="small-task-user-badge-and-priority-container">
+            <div id="small-task-user-badges-container" class="small-task-user-badges-container">
+                <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #6E52FF">MS</div>
+                <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #d07513">MS</div>
+                <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #1fc22a">MS</div>
+            </div>
+            <img id="task-prio-medium-color" class="task-prio-img" src="../assets/icons/medium_prio_color.svg" alt="">
+        </div>
+    </div>
+    `
+}
 
 function renderContactTemplate(index, initails, name, email) {
   return `
