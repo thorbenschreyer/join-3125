@@ -40,7 +40,7 @@ function renderContactTemplate(index, initails, name, email) {
 }
 
 function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
-  return`
+  return `
   <div>
         <div class="contact-edit">
           <div class="contact-detail-initials">
@@ -67,14 +67,14 @@ function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
           <p>${phoneNumber}</p>
         </div>
       </div>
-  `
+  `;
 }
 
 function contactBrakerTemplate(letter) {
-  return`
+  return `
         <div class="contact-breaker">
             <p>${letter}</p>
             <hr />
         </div>
-  `
+  `;
 }

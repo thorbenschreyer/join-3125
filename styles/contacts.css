@@ -277,7 +277,7 @@
 }
 
 .mobile-edit-delete {
- display: none;
+  display: none;
 }
 
 .add-contact-btn-mobile {
@@ -327,8 +327,8 @@
 
 @media (max-width: 820px) {
   .contact-main-area {
-  height: calc(100vh - 178px);
-}
+    height: calc(100vh - 178px);
+  }
 }
 
 @media (max-width: 415px) {
@@ -349,7 +349,7 @@
   }
 
   .add-contact-btn-mobile {
-    display:block;
+    display: block;
     position: fixed;
     align-content: center;
     cursor: pointer;

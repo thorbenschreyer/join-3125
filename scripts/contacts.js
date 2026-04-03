@@ -21,7 +21,7 @@ async function initContacts() {
 }
 
 function openContactDetailview(contactID, index) {
-  currentID = index
+  currentID = index;
   setDetailViewActiveColor(contactID);
   renderDetailContactInformation(index);
   let detailesContactView = document.getElementById("contact-detail-area");
@@ -142,7 +142,7 @@ function openDialog(dialogName) {
   dialogName.showModal();
 }
 
-function closeDialog( delay = 5000) {
+function closeDialog(delay = 5000) {
   setTimeout(() => dialog.close(), delay);
 }
 
@@ -160,13 +160,13 @@ function deleteUser() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
   detailContact = document.getElementById("contact-details");
-  detailContact.innerHTML = ""
+  detailContact.innerHTML = "";
   initContacts();
 }
 
 function deleteUserMobile() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
-  backToContacts()
+  backToContacts();
   initContacts();
 }
