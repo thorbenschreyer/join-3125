@@ -123,10 +123,16 @@
 
             <!-- SUBTASKS -->
             <div class="form-group">
-                <label for="task-subtasks">Subtasks</label>
-                <input id="task-subtasks" class="form-input" type="text" placeholder="Add new subtask">
-            </div>
+                <label for="subtasks">Subtasks</label>
+                <input id="subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask">
+                <img id="clear-input-btn" class="clear-input-icon" src="../assets/icons/subtask_close.svg" alt="">
+                <span class="subtasks-vertical-divider">|</span>
+                <img id="add-subtask-btn" class="add-subtask-icon" src="../assets/icons/subtask_check.svg" alt="">
+                <ul id="subtasks-list" class="subtasks-list">
 
+                </ul>
+            </div>
+            <div on></div>
         </div>
 
     </form>
@@ -144,7 +150,7 @@
             <button class="clear-task-btn">
                 <span>Clear &times</span>
             </button>
-            <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit">
+            <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit" disabled>
                 <span>Create Task</span>
                 <img src="../assets/icons/check_light.svg" alt="">
             </button>

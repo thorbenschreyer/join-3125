@@ -1,8 +1,9 @@
-let users1 = [];
+let ContactUsers = [];
 let currentBrakpointLetter = "";
 let lastActiveDetailViewContact;
 let addDialog;
 let editDialog;
+let mobileEdtMenu;
 
 /**
  * Initializes the contact set
@@ -11,16 +12,19 @@ let editDialog;
  * Renders the list
  */
 async function initContacts() {
-  await getUserData();
-  sortContachts();
+  ContactUsers = JSON.parse(localStorage.getItem("users"));
+  sortContacts();
   renderContactList();
   addDialog = registerDialog("add-contact-dialog");
   editDialog = registerDialog("edit-contact-dialog");
+  mobileEdtMenu = registerDialog("mobile-edit-delete-menu");
 }
 
 function openContactDetailview(contactID, index) {
   setDetailViewActiveColor(contactID)
   renderDetailContactInformation(index)
+  let detailesContactView = document.getElementById("contact-detail-area")
+  detailesContactView.classList.remove("back-to-contacts-unset")
 }
 
 /**
@@ -43,12 +47,9 @@ function setDetailViewActiveColor(contactID) {
 
 function renderDetailContactInformation(index) {
   detailContact = document.getElementById("contact-details")
-  const initials = users1[index].name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
-  const name = users1[index].name;
-  const email = users1[index].email;
+  const initials = ContactUsers[index].initials
+  const name = ContactUsers[index].name;
+  const email = ContactUsers[index].email;
   const phoneNumber = +49123456789
   detailContact.innerHTML = renderDetailedContactsTemplate(initials, name, email, phoneNumber)
 
@@ -60,8 +61,8 @@ function renderDetailContactInformation(index) {
 /**
  * Sorts the user array by first name
  */
-function sortContachts() {
-  users1.sort((a, b) => a.name.localeCompare(b.name));
+function sortContacts() {
+  ContactUsers.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
@@ -70,8 +71,8 @@ function sortContachts() {
  * If YES, it renders only the contact until a new first letter appears
  */
 function renderContactList() {
-  for (let index = 0; index < users1.length; index++) {
-    let firstLetter = users1[index].name.split(" ")[0][0];
+  for (let index = 0; index < ContactUsers.length; index++) {
+    let firstLetter = ContactUsers[index].name.split(" ")[0][0];
 
     if (firstLetter != currentBrakpointLetter) {
       contactBraker(firstLetter);
@@ -99,14 +100,11 @@ function contactBraker(firstLetter) {
 function renderContact(index) {
   let contacts = document.getElementById("displayed-contacts");
 
-  const initails = users1[index].name
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
-  const name = users1[index].name;
-  const email = users1[index].email;
+  const initials = ContactUsers[index].initials
+  const name = ContactUsers[index].name;
+  const email = ContactUsers[index].email;
 
-  contacts.innerHTML += renderContactTemplate(index, initails, name, email);
+  contacts.innerHTML += renderContactTemplate(index, initials, name, email);
 }
 
 /**
@@ -147,4 +145,14 @@ async function getUserData() {
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
     });
   }
+}
+
+function backToContacts() {
+  let detailesContactView = document.getElementById("contact-detail-area")
+  detailesContactView.classList.add("back-to-contacts-unset")
+  document.getElementById("mobile-edit-delete-menu").close();
+
+  lastActiveUser = document.getElementById(lastActiveDetailViewContact);
+  lastActiveUser.classList.remove("contact-is-active");
+  lastActiveUser.classList.add("contact");
 }
