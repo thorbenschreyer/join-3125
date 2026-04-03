@@ -1,6 +1,7 @@
-let ContactUsers = [];
+let contactUsers = [];
 let currentBrakpointLetter = "";
 let lastActiveDetailViewContact;
+let currentID;
 let addDialog;
 let editDialog;
 let mobileEdtMenu;
@@ -12,8 +13,7 @@ let mobileEdtMenu;
  * Renders the list
  */
 async function initContacts() {
-  ContactUsers = JSON.parse(localStorage.getItem("users"));
-  sortContacts();
+  contactUsers = JSON.parse(localStorage.getItem("users"));
   renderContactList();
   addDialog = registerDialog("add-contact-dialog");
   editDialog = registerDialog("edit-contact-dialog");
@@ -21,16 +21,17 @@ async function initContacts() {
 }
 
 function openContactDetailview(contactID, index) {
-  setDetailViewActiveColor(contactID)
-  renderDetailContactInformation(index)
-  let detailesContactView = document.getElementById("contact-detail-area")
-  detailesContactView.classList.remove("back-to-contacts-unset")
+  currentID = index
+  setDetailViewActiveColor(contactID);
+  renderDetailContactInformation(index);
+  let detailesContactView = document.getElementById("contact-detail-area");
+  detailesContactView.classList.remove("back-to-contacts-unset");
 }
 
 /**
- * This function removes the normal class and replaces it with the active class. 
+ * This function removes the normal class and replaces it with the active class.
  * It also saves the ID of the user who was previously clicked, then removes the active class and adds the normal class.
- * @param {The ID of the user who was clicked} contactID 
+ * @param {The ID of the user who was clicked} contactID
  */
 function setDetailViewActiveColor(contactID) {
   detailedUser = document.getElementById(contactID);
@@ -46,12 +47,17 @@ function setDetailViewActiveColor(contactID) {
 }
 
 function renderDetailContactInformation(index) {
-  detailContact = document.getElementById("contact-details")
-  const initials = ContactUsers[index].initials
-  const name = ContactUsers[index].name;
-  const email = ContactUsers[index].email;
-  const phoneNumber = +49123456789
-  detailContact.innerHTML = renderDetailedContactsTemplate(initials, name, email, phoneNumber)
+  detailContact = document.getElementById("contact-details");
+  const initials = contactUsers[index].initials;
+  const name = contactUsers[index].name;
+  const email = contactUsers[index].email;
+  const phoneNumber = +49123456789;
+  detailContact.innerHTML = renderDetailedContactsTemplate(
+    initials,
+    name,
+    email,
+    phoneNumber,
+  );
 
   detailContact.classList.remove("animate-in"); // reset
   void detailContact.offsetWidth; // force reflow
@@ -61,8 +67,8 @@ function renderDetailContactInformation(index) {
 /**
  * Sorts the user array by first name
  */
-function sortContacts() {
-  ContactUsers.sort((a, b) => a.name.localeCompare(b.name));
+function sortContacts(contacts) {
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
@@ -71,8 +77,12 @@ function sortContacts() {
  * If YES, it renders only the contact until a new first letter appears
  */
 function renderContactList() {
-  for (let index = 0; index < ContactUsers.length; index++) {
-    let firstLetter = ContactUsers[index].name.split(" ")[0][0];
+  let contacts = document.getElementById("displayed-contacts");
+  contacts.innerHTML = "";
+  currentBrakpointLetter = "";
+
+  for (let index = 0; index < contactUsers.length; index++) {
+    let firstLetter = contactUsers[index].name.split(" ")[0][0];
 
     if (firstLetter != currentBrakpointLetter) {
       contactBraker(firstLetter);
@@ -100,10 +110,9 @@ function contactBraker(firstLetter) {
 function renderContact(index) {
   let contacts = document.getElementById("displayed-contacts");
 
-  const initials = ContactUsers[index].initials
-  const name = ContactUsers[index].name;
-  const email = ContactUsers[index].email;
-
+  const initials = contactUsers[index].initials;
+  const name = contactUsers[index].name;
+  const email = contactUsers[index].email;
   contacts.innerHTML += renderContactTemplate(index, initials, name, email);
 }
 
@@ -117,9 +126,15 @@ function registerDialog(dialogID) {
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
-      dialog.close();
+      dialog.classList.add("closing");
+
+      setTimeout(() => {
+        dialog.close();
+        dialog.classList.remove("closing");
+      }, 1000);
     }
   });
+
   return dialog;
 }
 
@@ -127,32 +142,31 @@ function openDialog(dialogName) {
   dialogName.showModal();
 }
 
-function closeDialog(dialogName) {
-  dialogName.close();
-}
-
-async function getUserData() {
-  users1 = [];
-  let allUserData = await fetch(`${BASE_URL}users.json`);
-  let allUserDataToJson = await allUserData.json();
-  let UserKeysArray = Object.keys(allUserDataToJson);
-
-  for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-    users1.push({
-      id: UserKeysArray[userIndex],
-      name: allUserDataToJson[UserKeysArray[userIndex]].name,
-      email: allUserDataToJson[UserKeysArray[userIndex]].email,
-      password: allUserDataToJson[UserKeysArray[userIndex]].password,
-    });
-  }
+function closeDialog( delay = 5000) {
+  setTimeout(() => dialog.close(), delay);
 }
 
 function backToContacts() {
-  let detailesContactView = document.getElementById("contact-detail-area")
-  detailesContactView.classList.add("back-to-contacts-unset")
+  let detailesContactView = document.getElementById("contact-detail-area");
+  detailesContactView.classList.add("back-to-contacts-unset");
   document.getElementById("mobile-edit-delete-menu").close();
 
   lastActiveUser = document.getElementById(lastActiveDetailViewContact);
   lastActiveUser.classList.remove("contact-is-active");
   lastActiveUser.classList.add("contact");
+}
+
+function deleteUser() {
+  contactUsers.splice(currentID, 1);
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  detailContact = document.getElementById("contact-details");
+  detailContact.innerHTML = ""
+  initContacts();
+}
+
+function deleteUserMobile() {
+  contactUsers.splice(currentID, 1);
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  backToContacts()
+  initContacts();
 }

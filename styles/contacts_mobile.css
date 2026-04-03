@@ -151,6 +151,44 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    animation: slideInContactMenu 300ms ease-in-out forwards;
+  }
+
+  @keyframes slideInContactMenu {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  dialog.closing {
+  animation: slideOut 1s forwards;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}
+
+  dialog {
+    transform: translateX(100%);
+    transition: transform 300ms ease;
+  }
+
+  dialog.dialog-open {
+    transform: translateX(0);
   }
 
   .mobile-edit-delete-menu::backdrop {
@@ -158,8 +196,8 @@
   }
 
   .mobile-edit-delete-menu:not([open]) {
-  display: none;
-}
+    display: none;
+  }
 
   .contact-btn-mobile {
     display: flex;

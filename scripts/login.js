@@ -173,6 +173,7 @@ async function getUserDataForLogin() {
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
     });
   }
+  sortContacts(users)
   localStorage.setItem("users", JSON.stringify(users));
 }
 
