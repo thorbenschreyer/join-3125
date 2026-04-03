@@ -21,6 +21,8 @@ async function initContacts() {
 function openContactDetailview(contactID, index) {
   setDetailViewActiveColor(contactID)
   renderDetailContactInformation(index)
+  let detailesContactView = document.getElementById("contact-detail-area")
+  detailesContactView.classList.remove("back-to-contacts-unset")
 }
 
 /**
@@ -147,4 +149,13 @@ async function getUserData() {
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
     });
   }
+}
+
+function backToContacts() {
+  let detailesContactView = document.getElementById("contact-detail-area")
+  detailesContactView.classList.add("back-to-contacts-unset")
+  
+  lastActiveUser = document.getElementById(lastActiveDetailViewContact);
+  lastActiveUser.classList.remove("contact-is-active");
+  lastActiveUser.classList.add("contact");
 }

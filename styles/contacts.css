@@ -271,3 +271,11 @@
 .add-contact-btn-mobile {
   display: none;
 }
+
+.back-to-contacts {
+  display: none;
+}
+
+.mobile-edit-delete {
+ display: none;
+}

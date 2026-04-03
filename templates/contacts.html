@@ -7,7 +7,7 @@
     <div class="displayed-contacts" id="displayed-contacts"></div>
   </div>
 
-  <div class="contact-detail-area">
+  <div class="contact-detail-area back-to-contacts-unset" id="contact-detail-area">
     <div class="contact-haeder-area">
       <p>Contacts</p>
       <hr class="contact-hr-desktop" />
@@ -19,14 +19,17 @@
       
     </div>
 
+    <button class="back-to-contacts" onclick="backToContacts()"><img src="../assets/icons/arrow-left-line.png" alt=""></button>
+    <button class="mobile-edit-delete"><img src="./assets/icons/more_vert.png" alt=""></button>
   </div>
   
 </div>
 
 <button onclick="openDialog(addDialog)" class="add-contact-btn-mobile"><img class="add-contact-btn-img-mobile" src="../assets/icons/person_add.png" alt=""/></button>
 
-<button class="back-to-contacts"><img src="" alt=""></button>
-<div class="mobile-edeit-delete">
+
+
+<div class="mobile-edit-delete-menu">
   <p onclick="" class="contact-btn contact-btn-edit"><img src="../assets/icons/edit.png" alt="" />Edit</p>
   <p onclick="" class="contact-btn contact-btn-delete"><img src="../assets/icons/delete.png" alt="" />Delete</p>
 </div>

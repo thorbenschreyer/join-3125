@@ -31,12 +31,12 @@
 @media (max-width: 975px) {
   .contact-detail-area {
     position: fixed;
-    background-color: aquamarine;
-    z-index: 1000;
+    background-color: rgba(246, 247, 248);
+    z-index: 900;
     display: flex;
     flex-direction: column;
     align-items: unset;
-    height: 100vh;
+    height: calc(100vh - 96px);
     top: 96px;
     padding: 16px;
   }
@@ -69,12 +69,14 @@
   }
 
   .contact-main-area {
-    height: calc(100vh - 178px);
+    height: calc(100vh - 82px);
   }
+
   .contact-haeder-area {
     margin: unset;
     justify-content: center;
-    max-height: 230px;
+    max-height: 0px;
+    margin-top: 80px;
   }
 
   .contact-haeder-area span {
@@ -83,6 +85,68 @@
 
   .contact-details {
     margin: unset;
+    margin-top: 80px;
+  }
+
+  .mobile-edit-delete {
+    display: block;
+    position: fixed;
+    border: none;
+    cursor: pointer;
+    right: 16px;
+    bottom: 96px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--logo-dark-blue);
+    border-radius: 100%;
+    z-index: 999;
+  }
+
+  .mobile-edit-delete:hover {
+    background-color: var(--logo-light-blue);
+  }
+
+  .back-to-contacts {
+    display: block;
+    position: fixed;
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+    right: 16px;
+    top: 136px;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    z-index: 999;
+  }
+
+  .back-to-contacts:hover img {
+    content: url("../assets/icons/arrow_left_line_hover.png");
+  }
+
+  .back-to-contacts-unset {
+    display: none;
+  }
+
+  .back-to-contacts img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mobile-edit-delete-menu {
+    position: fixed;
+    right: 8px;
+    bottom: 96px;
+    width: 116px;
+    height: 100px;
+    background-color: white;
+    z-index: 999;
+  }
+}
+
+@media (max-width: 820px) {
+  .contact-main-area {
+    height: calc(100vh - 176px);
   }
 }
 
