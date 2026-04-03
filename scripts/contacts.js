@@ -156,6 +156,7 @@ async function getUserData() {
 function backToContacts() {
   let detailesContactView = document.getElementById("contact-detail-area")
   detailesContactView.classList.add("back-to-contacts-unset")
+  document.getElementById("mobile-edit-delete-menu").close();
 
   lastActiveUser = document.getElementById(lastActiveDetailViewContact);
   lastActiveUser.classList.remove("contact-is-active");
