@@ -39,7 +39,7 @@ function renderContactTemplate(index, initails, name, email) {
         `;
 }
 
-function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
+function renderDetailedContactsTemplate(initials, name, email, phoneNumber, index) {
   return`
   <div>
         <div class="contact-edit">
@@ -52,7 +52,7 @@ function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
               <p onclick="openDialog(editDialog)" class="contact-btn contact-btn-edit">
                 <img src="../assets/icons/edit.png" alt="" />Edit
               </p>
-              <p onclick="" class="contact-btn contact-btn-delete">
+              <p onclick="deleteUser(${index})" class="contact-btn contact-btn-delete">
                 <img src="../assets/icons/delete.png" alt="" />Delete
               </p>
             </div>
