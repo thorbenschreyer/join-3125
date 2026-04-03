@@ -12,7 +12,6 @@ let editDialog;
  */
 async function initContacts() {
   ContactUsers = JSON.parse(localStorage.getItem("users"));
-  sortContacts();
   renderContactList();
   addDialog = registerDialog("add-contact-dialog");
   editDialog = registerDialog("edit-contact-dialog");
@@ -57,8 +56,8 @@ function renderDetailContactInformation(index) {
 /**
  * Sorts the user array by first name
  */
-function sortContacts() {
-  ContactUsers.sort((a, b) => a.name.localeCompare(b.name));
+function sortContacts(contacts) {
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /**
