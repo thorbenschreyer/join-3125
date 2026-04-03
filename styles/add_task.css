@@ -376,8 +376,160 @@ height: 10px;
   font-size: 14px;
 }
 
+/* === SUBTASKS === */
+.task-input {
+  position: relative;
+}
 
+.clear-input-icon {
+  position: absolute;
+  top: 32px;
+  left: 268px;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  object-fit: contain;
+}
 
+.clear-input-icon:hover {
+  background-color: #eeeeee;
+}
+.subtasks-vertical-divider {
+  position: absolute;
+  top: 33px;
+  left: 288px;
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.add-subtask-icon {
+  position: absolute;
+  top: 32px;
+  left: 296px;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  object-fit: contain;
+}
+
+.add-subtask-icon:hover {
+  background-color: #eeeeee;
+}
+
+.subtasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 0;
+  font-size: 12px;
+  list-style: none;
+}
+
+.subtask-item-wrapper {
+  padding: 4px 10px 4px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.subtask-item-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtask-item-content::before {
+  content: "\2022";
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.edit-subtask-btn {
+  width: auto;
+  height: 14px;
+  cursor: pointer;
+}
+
+.subtask-edit-divider {
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.delete-subtask-btn {
+  width: auto;
+  height: 14px;
+  cursor: pointer;
+}
+
+.subtask-item-btns {
+  margin-left: auto;  
+  gap: 6px;
+}
+
+.subtask-item-edit {
+  position: relative;
+  align-items: center;
+  margin: 0 -10px 0 -18px;
+  border-bottom: 1px solid var(--logo-light-blue);
+}
+
+.subtask-edit-input {
+  width: 100%;
+  padding: 4px 60px 4px 8px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.subtask-edit-btns {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-input-delete-btn {
+  width: 20px;
+  height: auto;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.edit-input-delete-btn:hover {
+  background-color: #eeeeee;
+}
+
+.subtask-edit-input-divider {
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.edit-input-check-btn {
+  width: 20px;
+  height: auto;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.edit-input-check-btn:hover {
+  background-color: #eeeeee;
+}
 
 /* === FOOTER === */
 .add-task-footer {
