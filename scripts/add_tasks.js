@@ -2,6 +2,7 @@
 let TITLE_INPUT;
 let DESC_INPUT;
 let DUE_DATE_INPUT;
+let CALENDAR_ICON;
 let URGENT_BTN;
 let MEDIUM_BTN;
 let LOW_BTN;
@@ -18,6 +19,11 @@ let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
 let ASSIGNED_TO_WRAPPER;
 let ASSIGNED_TO_USERS;
+let CATEGORY_WRAPPER;
+let CATEGORY_INPUT;
+let CATEGORY_TASKS;
+let TECHNICAL_TASK;
+let USER_STORY;
 let CATEGORY_SELECT;
 let SUBTASKS;
 let ADDTASK_BTN;
@@ -51,14 +57,23 @@ async function initAddTaskElements() {
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
     ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-to-wrapper");
     ASSIGNED_TO_USERS = document.getElementById("task-assigned-to-users");
-    CATEGORY_SELECT = document.getElementById("task-category");
+    CATEGORY_WRAPPER = document.getElementById("task-category-wrapper");
+    CATEGORY_INPUT = document.getElementById("task-category-input");
+    CATEGORY_TASKS = document.getElementById("task-category-tasks");
+    TECHNICAL_TASK = document.getElementById("technical-task");
+    USER_STORY = document.getElementById("user-story");
     SUBTASKS = document.getElementById("task-subtasks");
     ADDTASK_BTN = document.getElementById("add-task-btn");
+    CALENDAR_ICON = document.getElementById("calendar-icon");
     document.addEventListener("click", function(event) {
     if (ASSIGNED_TO_WRAPPER && !ASSIGNED_TO_WRAPPER.contains(event.target)) {
         closeAssignedDropdown();
+    }  
+    if (CATEGORY_WRAPPER && !CATEGORY_WRAPPER.contains(event.target)) {
+        closeCategoryDropdown()
     }
     });
+    setMinDate();
     feedbackOnRequiredInput();
     higlightSelectedPriority();
     await getUserNames();
@@ -86,51 +101,83 @@ function feedbackOnRequiredInput() {
     DUE_DATE_INPUT.addEventListener("focus", function() {
         let dueDateInput = DUE_DATE_INPUT.value;
         if (dueDateInput.length != 10) {
+            DUE_DATE_INPUT_ERROR.textContent = "This field is required";
             DUE_DATE_INPUT.classList.add("red-border");
             DUE_DATE_INPUT_ERROR.classList.remove("dNone");
         }
     }); 
+    //* DUE DATE type[text] variant
+    // DUE_DATE_INPUT.addEventListener("input", function() {
+    //     let dueDateInput = DUE_DATE_INPUT.value;
+    //     const parts = dueDateInput.split("/");
+
+    //     const day = parseInt(parts[0], 10);
+    //     const month = parseInt(parts[1], 10) - 1;
+    //     const year = parseInt(parts[2], 10);
+
+    //     const date = new Date(year, month, day);
+    //     const today = new Date();
+    //     today.setHours(0, 0, 0, 0);
+
+    //     if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day &&
+    //         dueDateInput.length === 10 &&
+    //         date >= today) {
+    //         DUE_DATE_INPUT.classList.remove("red-border");
+    //         DUE_DATE_INPUT_ERROR.classList.add("dNone");
+    //     } else {
+    //         DUE_DATE_INPUT.classList.add("red-border");
+    //         DUE_DATE_INPUT_ERROR.classList.remove("dNone");
+    //     }            
+    // });
     DUE_DATE_INPUT.addEventListener("input", function() {
         let dueDateInput = DUE_DATE_INPUT.value;
-        const parts = dueDateInput.split("/");
-
-        const day = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1;
-        const year = parseInt(parts[2], 10);
-
-        const date = new Date(year, month, day);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-
-        if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day &&
-            dueDateInput.length === 10 &&
-            date >= today) {
+        if (dueDateInput.length == 10 && new Date(dueDateInput) >= today) {
             DUE_DATE_INPUT.classList.remove("red-border");
             DUE_DATE_INPUT_ERROR.classList.add("dNone");
+        } else if (dueDateInput.length == 10 && new Date(dueDateInput) < today) {
+            DUE_DATE_INPUT_ERROR.textContent = "Due date cannot be in the past";
+            DUE_DATE_INPUT.classList.add("red-border");
+            DUE_DATE_INPUT_ERROR.classList.remove("dNone");
         } else {
+            DUE_DATE_INPUT_ERROR.textContent = "This field is required";
             DUE_DATE_INPUT.classList.add("red-border");
             DUE_DATE_INPUT_ERROR.classList.remove("dNone");
         }
-
-            
     });
+    CALENDAR_ICON.addEventListener("click", function() {
+        DUE_DATE_INPUT.showPicker();
+    });
+    TECHNICAL_TASK.addEventListener("click", function() {
+        CATEGORY_INPUT.value = "Technical Task";
+    })
+    USER_STORY.addEventListener("click", function() {
+        CATEGORY_INPUT.value = "User Story";
+    })
 }
 
-function isValidDate() {
-  const parts = DUE_DATE_INPUT.value.split("/");
-  if (parts.length !== 3) return false;
+//* DUE DATE type[text] variant
+// function isValidDate() {
+//   const parts = DUE_DATE_INPUT.value.split("/");
+//   if (parts.length !== 3) return false;
 
-  const day = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10) - 1; // JS Monate 0–11
-  const year = parseInt(parts[2], 10);
+//   const day = parseInt(parts[0], 10);
+//   const month = parseInt(parts[1], 10) - 1; // JS Monate 0–11
+//   const year = parseInt(parts[2], 10);
 
-  const date = new Date(year, month, day);
+//   const date = new Date(year, month, day);
 
-  return (
-    date.getFullYear() === year &&
-    date.getMonth() === month &&
-    date.getDate() === day
-  );
+//   return (
+//     date.getFullYear() === year &&
+//     date.getMonth() === month &&
+//     date.getDate() === day
+//   );
+// }
+
+function setMinDate() {
+    const TODAY = new Date().toISOString().split("T")[0];
+    DUE_DATE_INPUT.min = TODAY;
 }
 
 function higlightSelectedPriority(priority) {
@@ -320,6 +367,23 @@ function filterAssignedUsers() {
     }
 }
 
+function openCategoryDropdown() {
+    CATEGORY_TASKS.classList.toggle("dNone");
+    CATEGORY_TASKS.classList.toggle("dFlex");
+    document.getElementById("task-category-input").focus();
+}
+
+function closeCategoryDropdown() {
+    CATEGORY_TASKS.classList.add("dNone");
+    CATEGORY_TASKS.classList.remove("dFlex");
+}
+
+function toggleCategoryDropdown(event) {
+    event.stopPropagation();
+    CATEGORY_TASKS.classList.toggle("dNone");
+    CATEGORY_TASKS.classList.toggle("dFlex");
+    document.getElementById("task-category-input").focus();
+}
 
 /**
  * Testdaten zum enwickeln! Wenn diese gelöscht werden, müssen die Daten im Local Storage mit dem KEY: "tasks" gespeichert werden!

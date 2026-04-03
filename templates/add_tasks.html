@@ -36,9 +36,9 @@
                 <label for="task-due-date">
                     Due date<span class="required">*</span>
                 </label>
-                <input id="task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy">
-                <img src="../assets/icons/calendar.png" class="task-input-icon" alt="calendar image">
-                <span id="due-date-input-error" class="input-error dNone">This Field is required</span>
+                <input id="task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10">
+                <img id="calendar-icon" src="../assets/icons/calendar.png" class="task-input-icon" alt="calendar image">
+                <span id="due-date-input-error" class="input-error dNone"></span>
             </div>
 
         </div>
@@ -98,11 +98,21 @@
             <!-- CATEGORY -->
             <div class="form-group">
                 <label for="task-category">Category<span class="required">*</span></label>
-                <select id="task-category" class="form-input">
-                    <option>Select task category</option>
-                    <option>Technical Task</option>
-                    <option>User Story</option>
-                </select>
+                <div id="task-category-wrapper" class="custom-dropdown">
+                    <div class="custom-dropdown-toggle form-input" onclick="openCategoryDropdown()">
+                        <input id="task-category-input" class="dropdown-input" type="text" placeholder="Select task category" readonly>
+                        <img id="category-dropdown-arrow" class="dropdown-arrow" src="../assets/icons/arrow_drop_down.svg" onclick="toggleCategoryDropdown(event)" alt="">
+                        <img id="category-dropup-arrow" src="../assets/icons/arrow_drop_up.svg" class="dropdown-arrow dNone" onclick="toggleCategoryDropdown(event)" alt="">
+                    </div>
+                    <div id="task-category-tasks" class="custom-dropdown-tasks dNone">
+                        <div id="dropdown-tasks" class="dropdown-tasks">
+                            <span id="technical-task" class="dropdown-user-name">Technical Task</span>
+                        </div>
+                        <div id="dropdown-tasks" class="dropdown-tasks">
+                            <span id="user-story" class="dropdown-user-name">User Story</span>
+                        </div>
+
+                    </div>
             </div>
 
             <!-- SUBTASKS -->

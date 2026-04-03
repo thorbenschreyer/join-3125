@@ -36,6 +36,8 @@ body {
   flex-direction: column;
   max-width: 1440px;
   height: 100%;
+  margin-top: 110px;
+  margin-left: 64px;
 }
 
 /* === HEADER === */
@@ -100,6 +102,8 @@ label {
   outline: none;
 }
 
+
+/* === DUE DATE INPUT === */
 .task-due-date {
   position: relative;
 }
@@ -110,6 +114,12 @@ label {
   left: 296px;
   width: 12px;
   height: auto;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
 }
 
 /* === VERTICAL DIVIDER === */
@@ -332,6 +342,42 @@ height: 10px;
   font-size: 12px;
   font-weight: 600;
 }
+
+/* === CATEGORY === */
+.dropdown-input {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-dropdown-tasks {
+  flex-direction: column;
+  background-color: var(--white);
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown-tasks {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dropdown-tasks:hover {
+  border-radius: 10px;
+  background-color: #eeeeee;
+}
+
+.dropdown-task {
+  flex: 1;
+  font-size: 14px;
+}
+
+
+
 
 /* === FOOTER === */
 .add-task-footer {

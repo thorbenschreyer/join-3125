@@ -71,13 +71,11 @@ async function setLoggedinNavigation() {
     
     setInitials();
     setTaskSummaryInformation ()
-    
+
+
     document.getElementById("privacy-legal").classList.add("display-none");
     initialToggle();
 }
-
-
-
 
 function checkLogin(page) {
   const publicPages = ["privacy", "legal"];
@@ -96,6 +94,11 @@ async function loadHtmlPage(divID, pagefile) {
   const response = await fetch(pagefile);
   const html = await response.text();
   document.getElementById(divID).innerHTML = html;
+
+  if (pagefile.includes("contacts.html")) {
+    initContacts();
+  }
+  
   if (
     pagefile != "./footerpages/help.html" &&
     pagefile != "./footerpages/privacy_policy.html" &&
@@ -239,9 +242,12 @@ function setInitials() {
   const initialsText = document.getElementById("initials-menu");
   const nameFromUser = document.getElementById("welcome-name");
   const welcomeTime = document.getElementById("welcome-time");
+
+   
+
   if (isGuestLogin === true) {
     initialsText.innerText = "G";
-    nameFromUser.innerText = " ";
+    nameFromUser.innerText = "";
     welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!";
   } else {
     initialsText.innerText = userInitials;
@@ -266,7 +272,7 @@ function getTheTimeForWelcomeMassage() {
 async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
   setTaskSummaryInformation();
-  toggleIsActive("summary", "summary_img");
+  setInitials()
 }
 
 async function loadAddTaskPage() {

@@ -1,1 +1,34 @@
-<div>contacts</div>
+<div class="contact-main-area">
+  <div class="contact-and-button-area">
+    <div class="new-contact-area">
+      <button onclick="openDialog(addDialog)" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
+    </div>
+
+    <div class="displayed-contacts" id="displayed-contacts"></div>
+  </div>
+
+  <div class="contact-detail-area">
+    <div class="contact-haeder-area">
+      <p>Contacts</p>
+      <hr class="contact-hr-desktop" />
+      <span>Better with a team</span>
+      <hr class="contact-hr-mobile" />
+    </div>
+
+    <div class="contact-details" id="contact-details">
+    </div>
+
+  </div>
+  
+</div>
+
+<button onclick="openDialog(addDialog)" class="add-contact-btn-mobile"><img class="add-contact-btn-img-mobile" src="../assets/icons/person_add.png" alt=""/></button>
+
+<dialog class="add-contact-dialog" id="add-contact-dialog">
+  Add Contact 
+</dialog>
+
+<dialog class="edit-contact-dialog" id="edit-contact-dialog">
+  Add Contact 
+</dialog>
+
