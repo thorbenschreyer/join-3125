@@ -14,7 +14,7 @@ function LoggedInNavigation() {
       <a class="menu-hover" id="summary" onclick="loadSummaryPage(), toggleIsActive('summary', 'summary_img')"><img id="summary_img" src="./assets/icons/summary_grey.png" alt="Summary">Summary</a>
   <a class="menu-hover" id="add_task" onclick="loadAddTaskPage()"><img id="add_task_img" src="./assets/icons/add_task_grey.png" alt="Add Task">Add Task</a>
   <a class="menu-hover" id="board" onclick="loadHtmlPage('content', './templates/board.html'), toggleIsActive('board', 'board_img')"><img id="board_img" src="./assets/icons/board_grey.png" alt="Board">Board</a>
-  <a class="menu-hover" id="contacts" onclick="loadHtmlPage('content', './templates/contacts.html'), initContacts(), toggleIsActive('contacts', 'contacts_img')"><img id="contacts_img" src="./assets/icons/contacts_grey.png" alt="Contacts">Contacts</a>
+  <a class="menu-hover" id="contacts" onclick="openContactsPage(), toggleIsActive('contacts', 'contacts_img')"><img id="contacts_img" src="./assets/icons/contacts_grey.png" alt="Contacts">Contacts</a>
     `;
 }
 
@@ -52,7 +52,7 @@ function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
               <p onclick="openDialog(editDialog)" class="contact-btn contact-btn-edit">
                 <img src="../assets/icons/edit.png" alt="" />Edit
               </p>
-              <p class="contact-btn contact-btn-delete">
+              <p onclick="" class="contact-btn contact-btn-delete">
                 <img src="../assets/icons/delete.png" alt="" />Delete
               </p>
             </div>
