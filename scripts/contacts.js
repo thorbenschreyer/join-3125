@@ -1,6 +1,7 @@
 let contactUsers = [];
 let currentBrakpointLetter = "";
 let lastActiveDetailViewContact;
+let currentID;
 let addDialog;
 let editDialog;
 let mobileEdtMenu;
@@ -20,16 +21,17 @@ async function initContacts() {
 }
 
 function openContactDetailview(contactID, index) {
-  setDetailViewActiveColor(contactID)
-  renderDetailContactInformation(index)
-  let detailesContactView = document.getElementById("contact-detail-area")
-  detailesContactView.classList.remove("back-to-contacts-unset")
+  currentID = index
+  setDetailViewActiveColor(contactID);
+  renderDetailContactInformation(index);
+  let detailesContactView = document.getElementById("contact-detail-area");
+  detailesContactView.classList.remove("back-to-contacts-unset");
 }
 
 /**
- * This function removes the normal class and replaces it with the active class. 
+ * This function removes the normal class and replaces it with the active class.
  * It also saves the ID of the user who was previously clicked, then removes the active class and adds the normal class.
- * @param {The ID of the user who was clicked} contactID 
+ * @param {The ID of the user who was clicked} contactID
  */
 function setDetailViewActiveColor(contactID) {
   detailedUser = document.getElementById(contactID);
@@ -45,12 +47,17 @@ function setDetailViewActiveColor(contactID) {
 }
 
 function renderDetailContactInformation(index) {
-  detailContact = document.getElementById("contact-details")
-  const initials = contactUsers[index].initials
+  detailContact = document.getElementById("contact-details");
+  const initials = contactUsers[index].initials;
   const name = contactUsers[index].name;
   const email = contactUsers[index].email;
-  const phoneNumber = +49123456789
-  detailContact.innerHTML = renderDetailedContactsTemplate(initials, name, email, phoneNumber)
+  const phoneNumber = +49123456789;
+  detailContact.innerHTML = renderDetailedContactsTemplate(
+    initials,
+    name,
+    email,
+    phoneNumber,
+  );
 
   detailContact.classList.remove("animate-in"); // reset
   void detailContact.offsetWidth; // force reflow
@@ -70,6 +77,10 @@ function sortContacts(contacts) {
  * If YES, it renders only the contact until a new first letter appears
  */
 function renderContactList() {
+  let contacts = document.getElementById("displayed-contacts");
+  contacts.innerHTML = "";
+  currentBrakpointLetter = "";
+
   for (let index = 0; index < contactUsers.length; index++) {
     let firstLetter = contactUsers[index].name.split(" ")[0][0];
 
@@ -99,10 +110,9 @@ function contactBraker(firstLetter) {
 function renderContact(index) {
   let contacts = document.getElementById("displayed-contacts");
 
-  const initials = contactUsers[index].initials
+  const initials = contactUsers[index].initials;
   const name = contactUsers[index].name;
   const email = contactUsers[index].email;
-
   contacts.innerHTML += renderContactTemplate(index, initials, name, email);
 }
 
@@ -116,9 +126,15 @@ function registerDialog(dialogID) {
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
-      dialog.close();
+      dialog.classList.add("closing");
+
+      setTimeout(() => {
+        dialog.close();
+        dialog.classList.remove("closing");
+      }, 1000);
     }
   });
+
   return dialog;
 }
 
@@ -126,13 +142,13 @@ function openDialog(dialogName) {
   dialogName.showModal();
 }
 
-function closeDialog(dialogName) {
-  dialogName.close();
+function closeDialog( delay = 5000) {
+  setTimeout(() => dialog.close(), delay);
 }
 
 function backToContacts() {
-  let detailesContactView = document.getElementById("contact-detail-area")
-  detailesContactView.classList.add("back-to-contacts-unset")
+  let detailesContactView = document.getElementById("contact-detail-area");
+  detailesContactView.classList.add("back-to-contacts-unset");
   document.getElementById("mobile-edit-delete-menu").close();
 
   lastActiveUser = document.getElementById(lastActiveDetailViewContact);
@@ -140,7 +156,17 @@ function backToContacts() {
   lastActiveUser.classList.add("contact");
 }
 
-function deleteUser (index) {
-  contactUsers.splice(index, 1)
-  localStorage.setItem("users", contactUsers)
+function deleteUser() {
+  contactUsers.splice(currentID, 1);
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  detailContact = document.getElementById("contact-details");
+  detailContact.innerHTML = ""
+  initContacts();
+}
+
+function deleteUserMobile() {
+  contactUsers.splice(currentID, 1);
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  backToContacts()
+  initContacts();
 }
