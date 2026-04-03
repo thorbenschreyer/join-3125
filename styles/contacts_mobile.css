@@ -263,7 +263,12 @@
     width: 56px;
     height: 56px;
     border-radius: 100%;
+    border: none;
     background-color: var(--logo-dark-blue);
+  }
+
+  .add-contact-btn-mobile:hover {
+    background-color: var(--logo-light-blue);
   }
 }
 
