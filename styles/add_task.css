@@ -343,6 +343,42 @@ height: 10px;
   font-weight: 600;
 }
 
+/* === CATEGORY === */
+.dropdown-input {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-dropdown-tasks {
+  flex-direction: column;
+  background-color: var(--white);
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown-tasks {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dropdown-tasks:hover {
+  border-radius: 10px;
+  background-color: #eeeeee;
+}
+
+.dropdown-task {
+  flex: 1;
+  font-size: 14px;
+}
+
+
+
+
 /* === FOOTER === */
 .add-task-footer {
   display: flex;
