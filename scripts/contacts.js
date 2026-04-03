@@ -15,9 +15,9 @@ let mobileEdtMenu;
 async function initContacts() {
   contactUsers = JSON.parse(localStorage.getItem("users"));
   renderContactList();
-  addDialog = registerDialog("add-contact-dialog");
-  editDialog = registerDialog("edit-contact-dialog");
-  mobileEdtMenu = registerDialog("mobile-edit-delete-menu");
+  addDialog = registerDialog("add-contact-dialog", 0);
+  editDialog = registerDialog("edit-contact-dialog", 0);
+  mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
 }
 
 function openContactDetailview(contactID, index) {
@@ -121,17 +121,17 @@ function renderContact(index) {
  * @param {The ID of the desired dialog window} dialogID
  * @returns The dialog, which can then be manipulated (e.g., opened and closed)
  */
-function registerDialog(dialogID) {
+function registerDialog(dialogID, delay, classforSlide) {
   const dialog = document.getElementById(dialogID);
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
-      dialog.classList.add("closing");
+      dialog.classList.add(classforSlide);
 
       setTimeout(() => {
         dialog.close();
-        dialog.classList.remove("closing");
-      }, 1000);
+        dialog.classList.remove(classforSlide);
+      }, delay);
     }
   });
 
