@@ -1,6 +1,7 @@
 .board-page {
-  margin-top: 110px;
-  margin-left: 64px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-plus-img {
@@ -340,6 +341,12 @@
   border-radius: 30px;
 }
 
+.dialog-task-category-and-close-x-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .dialog-task-category {
   font-size: 23px;
   font-weight: 400;
@@ -349,6 +356,36 @@
   padding: 4px 16px;
   border-radius: 8px;
   width: max-content;
+}
+
+.close-dialog-x-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 10px;
+}
+
+.close-dialog-x-hover,
+.close-dialog-x-active {
+    display: none;
+}
+
+.close-dialog-x-wrapper:hover .close-dialog-x-default {
+    display: none;
+}
+
+.close-dialog-x-wrapper:hover .close-dialog-x-hover {
+    display: block;
+}
+
+.close-dialog-x-wrapper:active .close-dialog-x-default,
+.close-dialog-x-wrapper:active .close-dialog-x-hover {
+    display: none;
+}
+
+.close-dialog-x-wrapper:active .close-dialog-x-active {
+    display: block;
 }
 
 .dialog-task-title {

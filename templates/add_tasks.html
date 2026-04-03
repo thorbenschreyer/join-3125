@@ -6,6 +6,11 @@
         <h1>
             Add Task
         </h1>
+        <div id="close-dialog-x-wrapper" class="close-dialog-x-wrapper d-none">
+            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+          </div>
     </div>
 
     <!-- FORMULAR -->
@@ -113,6 +118,7 @@
                         </div>
 
                     </div>
+                </div>
             </div>
 
             <!-- SUBTASKS -->
@@ -146,7 +152,9 @@
 
     </div>
 
-    <div id="add-task-dialog-footer" class="add-task-dialog-footer">
+    <!-- Footer for Dialog Add Task -->
+
+    <div id="add-task-dialog-footer" class="add-task-dialog-footer d-none">
 
         <!-- FOOTER LEFT -->
         <div class="dialog-footer-left">

@@ -8,7 +8,9 @@ async function openAddTaskOverlay(selectedTaskBar) {
     await loadHtmlPage('add-task-dialog', './templates/add_tasks.html');
     const overlay = document.getElementById('add-task-overlay');
     const addTaskFooter = document.getElementById('add-task-footer');
+    const dialogTaskFooter = document.getElementById('add-task-dialog-footer');
     addTaskFooter.classList.add('d-none');
+    dialogTaskFooter.classList.remove('d-none');
     currentTaskBar = selectedTaskBar + '-tasks';
     console.log('Dialog gerendert');
     overlay.classList.remove('d-none');

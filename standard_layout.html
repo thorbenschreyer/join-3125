@@ -80,11 +80,18 @@
   <div class="page-content" id="content"></div>
 </div>
 
-<div id="add-task-overlay" class="add-task-overlay" onclick="closeAddTaskOverlay()">
-  <div id="add-task-dialog" onclick="stopEventBubbling(event)">
+<div id="add-task-overlay" class="add-task-overlay d-none" onclick="closeAddTaskOverlay()">
+  <div id="add-task-dialog" class="add-task-dialog" onclick="stopEventBubbling(event)">
     <!-- The add task dialog will be loaded here dynamically -->
-     <div id="dialog-board-task" class="dialog-board-task">
-        <p id="dialog-task-category" class="dialog-task-category">User Story</p>
+     <div id="dialog-board-task" class="dialog-board-task d-none">
+        <div id="dialog-task-category-and-close-x-container" class="dialog-task-category-and-close-x-container">
+          <p id="dialog-task-category" class="dialog-task-category">User Story</p>
+          <div id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
+            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+          </div>
+        </div>
         <h3  id="dialog-task-title" class="dialog-task-title">Kochwelt Page & Recipe Recommender</h3>
         <p id="dialog-task-description" class="dialog-task-description">Build start page with recipe recommendation.</p>
         <div id="dialog-due-date" class="dialog-due-date">

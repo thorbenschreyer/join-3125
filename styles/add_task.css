@@ -34,10 +34,8 @@ body {
 .add-tasks-page {
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
+  /* max-width: 1440px; */
   height: 100%;
-  margin-top: 110px;
-  margin-left: 64px;
 }
 
 /* === HEADER === */
