@@ -120,11 +120,16 @@
 
 .all-task-bars {
   display: flex;
-  gap: 26px;
   margin-top: 24px;
   flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   min-height: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.all-task-bars::-webkit-scrollbar {
+  display: none;
 }
 
 .task-bar {
@@ -132,10 +137,11 @@
   flex-direction: column;
   background-color: #F6F7F8;
   border-radius: 10px;
-  width: 252px;
+  width: 278px;
   height: 100%;
   max-height: 100%;
   padding-bottom: 64px;
+  align-items: center;
 }
 
 .task-bar-heading{
@@ -150,6 +156,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 248px;
 }
 
 .add-task-plus-wrapper {
@@ -182,9 +189,15 @@
 .tasks-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 16px;
+  align-items: center;
   overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.width-248px {
+  width: 248px;
 }
 
 .placeholder-task {
@@ -196,6 +209,8 @@
   background-color: #E7E7E7;
   box-shadow: 0 0 4px 0 #000000 16%;
   border-radius: 10px;  
+  width: 248px;
+  margin-top: 16px;
 }
 
 .placeholder-task p {
@@ -256,6 +271,7 @@
 .board-small-task {
   width: 252px;
   min-width: 252px;
+  margin: 13px 0;
   background-color: white;
   padding: 16px;
   border-radius: 30px;

@@ -17,8 +17,7 @@ let time;
 async function init() {
   /* THIS IS ONLY FOR DEVELOPMENT 
   isloggedIn = false;
-  localStorage.setItem("loginState", JSON.stringify(isloggedIn));*/
-
+  localStorage.setItem("loginState", JSON.stringify(isloggedIn)); */
   isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
   const params = new URLSearchParams(window.location.search);
