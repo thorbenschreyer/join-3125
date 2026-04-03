@@ -52,21 +52,21 @@
     display: none;
   }
 
- .contact-detail-initials p {
+  .contact-detail-initials p {
     height: 80px;
     width: 80px;
     font-size: 24px;
     font-weight: 400px;
- }
+  }
 
- .contact-detail-name {
+  .contact-detail-name {
     font-size: 32px;
     font-weight: 500;
-}
+  }
 
-.contact-haeder-area p {
+  .contact-haeder-area p {
     font-size: 48px;
-}
+  }
 
   .contact-main-area {
     height: calc(100vh - 178px);
@@ -77,9 +77,9 @@
     max-height: 230px;
   }
 
-.contact-haeder-area span {
+  .contact-haeder-area span {
     font-size: 20px;
-}
+  }
 
   .contact-details {
     margin: unset;
