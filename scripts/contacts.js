@@ -18,7 +18,7 @@ async function initContacts() {
   addDialog = registerDialog("add-contact-dialog", 1000, "closing");
   editDialog = registerDialog("edit-contact-dialog", 0);
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
-  editDialog.showModal()
+  addDialog.showModal()
 }
 
 function openContactDetailview(contactID, index) {
@@ -187,5 +187,24 @@ function deleteUserInEditDialog() {
   detailContact = document.getElementById("contact-details");
   detailContact.innerHTML = "";
   closeDialog(editDialog, 400)
+  initContacts();
+}
+
+function addNewContact() {
+  let name = document.getElementById("contact-name").value;
+  let email = document.getElementById("contact-email").value;
+  let phone = document.getElementById("contact-phone").value;
+  contactUsers.push(
+    {
+      id: "Random ID",
+      name: name,
+      initials: name.split(" ").map((word) => word[0]).join(""),
+      email: email,
+      password: "password"
+    }
+  )
+  sortContacts(contactUsers)
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  closeDialog(addDialog, 400)
   initContacts();
 }
