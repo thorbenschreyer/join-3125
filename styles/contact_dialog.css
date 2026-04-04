@@ -1,6 +1,11 @@
 /*=============== ADD CONTACT DIALOG ===============*/
 /*=============== LEFT SIDE ===============*/
+
 .add-contact-dialog {
+  display: none;
+}
+
+.add-contact-dialog[open] {
   display: flex;
   margin: auto;
   width: 1212px;
@@ -59,30 +64,46 @@
   flex: 1;
 }
 
+.dialoge-close-img-handler {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
 .add-contact-dialog-right-close {
-    display: flex;
-    justify-content: end;    
-    width: 100%;
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.add-contact-dialog-right-close:hover {
+  content: url("../assets/icons/cancel_dark_hover.png");
 }
 
 .add-contact-dialog-right-content {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
 }
 
 .add-contact-dialog-right-img {
-    width: 120px;
-    height: 120px;
-    margin-left: 32px;
-    margin-right: 64px;
+  width: 120px;
+  height: 120px;
+  margin-left: 32px;
+  margin-right: 64px;
 }
 
 .add-contact-dialog-form {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.add-contact-dialog-right-inputfield {
+  margin: 8px;
 }
 
 /*=============== EDIT CONTACT DIALOG ===============*/
