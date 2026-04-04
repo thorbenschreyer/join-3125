@@ -124,7 +124,7 @@
   width: 120px;
   height: 120px;
   margin-left: 32px;
-  margin-right: 64px;
+  margin-right: 50px;
 }
 
 .add-contact-dialog-form {
@@ -135,13 +135,9 @@
 }
 
 .add-contact-dialog-right-inputfield {
-  margin: 8px;
-  margin-left: 12px;
-}
-
-.add-contact-dialog-right-inputfield {
   border-radius: 10px;
   border: 1px solid rgba(209, 209, 209, 1);
+  margin: 8px 0px;
   padding: 8px 16px;
   width: 100%;
 }
@@ -163,6 +159,29 @@
 .dialoge-close-img-handler-upsite {
     display: none;
 }
+
+.dialog-button-handler {
+    width: 100%;
+    margin-top: 32px;
+}
+
+.btn-dialog {
+    padding: 15px 24px;
+    margin-right: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid black;
+}
+
+.add-contact-dialog-button-cancel {
+}
+
+
+.add-contact-dialog-button-create {
+
+}
+
 
 /*=============== EDIT CONTACT DIALOG ===============*/
 

@@ -4,11 +4,16 @@
 @media (max-width: 1000px) {
   .add-contact-dialog-right {
     margin: 24px;
-    margin-left: 0px;
   }
 
   .add-contact-dialog-right-img {
-    margin: 0px 16px;
+    margin: 0px 8px;
+  }
+}
+
+@media (max-width: 875px) {
+  .add-contact-dialog-button-cancel {
+    display: none;
   }
 }
 
@@ -58,9 +63,17 @@
   .add-dialog-left-content {
     justify-content: unset;
   }
+
+  .dialog-button-handler {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 450px) {
+  .add-contact-dialog-right {
+    margin: 16px;
+  }
   .add-left-dialog-img {
     display: none;
   }
