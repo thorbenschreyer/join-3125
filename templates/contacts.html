@@ -29,7 +29,7 @@
 
 <!-- Mobile MENU EDIT/DELETE -->
 <dialog class="mobile-edit-delete-menu" id="mobile-edit-delete-menu">
-  <p onclick="" class="contact-btn-mobile contact-btn-edit-mobile"><img src="../assets/icons/edit.png" alt="" />Edit</p>
+  <p onclick="openDialog(editDialog), editUser()" class="contact-btn-mobile contact-btn-edit-mobile"><img src="../assets/icons/edit.png" alt="" />Edit</p>
   <p onclick="deleteUserMobile()" class="contact-btn-mobile contact-btn-delete-mobile"><img src="../assets/icons/delete.png" alt="" />Delete</p>
 </dialog>
 
@@ -88,16 +88,16 @@
     <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-right-close" src="../assets/icons/cancel_dark.png" alt="">
     </div>
     <div class="add-contact-dialog-right-content">
-    <p class="wdit-contact-initials">TS</p>
+    <p id="edit-contact-initials" class="edit-contact-initials">TS</p>
     <div class="dialog-form-handler">
       <form onsubmit="return false;" class="add-contact-dialog-form">
         
-        <p class="dialog-input-handler"><input value="Peter Müller" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
-        <p class="dialog-input-handler"><input value="peter@mail.com" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
-        <p class="dialog-input-handler"><input value="+4912544656456" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="Peter Müller" id="edit-name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="peter@mail.com" id="edit-email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="+4912544656456" id="edit-phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
         <div class="dialog-button-handler">
           <button onclick="deleteUserInEditDialog()" class="btn-dialog edit-contact-dialog-button-cancel">Delete</button>
-          <button onclick="" class="btn-dialog add-contact-dialog-button-create">Save<img src="../assets/icons/check_light.png" alt=""></button>
+          <button onclick="saveEditValues()" class="btn-dialog add-contact-dialog-button-create">Save<img src="../assets/icons/check_light.png" alt=""></button>
         </div>
       </form>
     </div>

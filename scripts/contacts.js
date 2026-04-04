@@ -61,10 +61,11 @@ function renderDetailContactInformation(index) {
     color
   );
 
-  detailContact.classList.remove("animate-in"); // reset
-  void detailContact.offsetWidth; // force reflow
-  detailContact.classList.add("animate-in"); // animation starten
+  detailContact.classList.remove("animate-in");
+  void detailContact.offsetWidth;
+  detailContact.classList.add("animate-in");
 }
+
 
 /**
  * Sorts the user array by first name
@@ -211,4 +212,35 @@ function addNewContact() {
   localStorage.setItem("users", JSON.stringify(contactUsers));
   closeDialog(addDialog, 400)
   initContacts();
+}
+
+function editUser() {
+  let userInitials = document.getElementById("edit-contact-initials")
+  let editName = document.getElementById("edit-name")
+  let editMail = document.getElementById("edit-email")
+  let editPhone = document.getElementById("edit-phone")
+
+  userInitials.innerText = contactUsers[currentID].initials
+  userInitials.style.backgroundColor = contactUsers[currentID].userColor
+  editName.value = contactUsers[currentID].name
+  editMail.value = contactUsers[currentID].email
+  editPhone.value = contactUsers[currentID].phone
+}
+
+function saveEditValues() {
+    let name = document.getElementById("edit-name").value
+    let email = document.getElementById("edit-email").value
+    let phoneNumber = document.getElementById("edit-phone").value
+
+    contactUsers[currentID].name = name
+    contactUsers[currentID].email = email
+    contactUsers[currentID].phone = phoneNumber
+
+    console.log(contactUsers[currentID].name);
+  console.log(contactUsers[currentID].email);
+
+    localStorage.setItem("users", JSON.stringify(contactUsers));
+    closeDialog(editDialog, 400)
+    initContacts();
+    renderDetailContactInformation(currentID)
 }
