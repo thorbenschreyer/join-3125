@@ -68,13 +68,6 @@ function renderDetailContactInformation(index) {
 
 
 /**
- * Sorts the user array by first name
- */
-function sortContacts(contacts) {
-  contacts.sort((a, b) => a.name.localeCompare(b.name));
-}
-
-/**
  * Iterates through the UserArray and checks whether the first letter of the current name matches the current one
  * If NO, it creates a hyphen with that letter and saves it
  * If YES, it renders only the contact until a new first letter appears

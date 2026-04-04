@@ -15,14 +15,17 @@ let time;
  * whether the user is logged in.
  */
 async function init() {
-  /* THIS IS ONLY FOR DEVELOPMENT 
-  isloggedIn = false;
-  localStorage.setItem("loginState", JSON.stringify(isloggedIn)); */
+  localStorage.setItem("loginState", JSON.stringify(isloggedIn));
   isloggedIn = localStorage.getItem("loginState") === "true";
+    const publicPages = ["privacy", "legal"];
+
+
   await loadHtmlPage("all-content-area", "standard_layout.html");
   const params = new URLSearchParams(window.location.search);
   page = params.get("page");
-  checkLogin(page);
+    if (!isloggedIn && !publicPages.includes(page)) {
+    window.location.replace("login.html");
+  }
   getNameAndInitials();
   loadSidbarAndContent();
   time = getTheTimeForWelcomeMassage()
