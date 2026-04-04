@@ -37,6 +37,9 @@
 
 <dialog class="add-contact-dialog" id="add-contact-dialog">
   <div class="add-contact-dialog-left">
+      <div class="dialoge-close-img-handler-upsite">
+    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-left-close" src="../assets/icons/close_white.png" alt="">
+    </div>
     <div class="add-dialog-left-content">
       <img class="add-left-dialog-img" src="../assets/icons/main_logo_light.png" alt="">
       <span class="add-left-dialog-h1">Add contact</span>
@@ -51,12 +54,12 @@
     </div>
     <div class="add-contact-dialog-right-content">
     <img class="add-contact-dialog-right-img" src="../assets/icons/add_contact_img.png" alt="">
-    <div>
+    <div class="dialog-form-handler">
       <form class="add-contact-dialog-form">
         
-        <p><input class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="" alt=""></p>
-        <p><input class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="" alt=""></p>
-        <p><input class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="" alt=""></p>
+        <p class="dialog-input-handler"><input placeholder="Name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
+        <p class="dialog-input-handler"><input placeholder="Email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
+        <p class="dialog-input-handler"><input placeholder="Phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
         <div>
           <button class="add-contact-dialog-button-cancel">Cancel</button>
           <button class="add-contact-dialog-button-create">Create Contact</button>
