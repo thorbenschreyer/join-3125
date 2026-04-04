@@ -15,7 +15,7 @@ let mobileEdtMenu;
 async function initContacts() {
   contactUsers = JSON.parse(localStorage.getItem("users"));
   renderContactList();
-  addDialog = registerDialog("add-contact-dialog", 0);
+  addDialog = registerDialog("add-contact-dialog", 1000, "closing");
   editDialog = registerDialog("edit-contact-dialog", 0);
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
   addDialog.showModal()
@@ -127,15 +127,19 @@ function registerDialog(dialogID, delay, classforSlide) {
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
-      dialog.classList.add(classforSlide);
+      if (classforSlide) {
+        dialog.classList.add(classforSlide);
+      }
 
       setTimeout(() => {
         dialog.close();
-        dialog.classList.remove(classforSlide);
+        if (classforSlide) {
+          dialog.classList.remove(classforSlide);
+        }
+
       }, delay);
     }
   });
-
   return dialog;
 }
 
@@ -143,8 +147,13 @@ function openDialog(dialogName) {
   dialogName.showModal();
 }
 
-function closeDialog(delay = 5000) {
-  setTimeout(() => dialog.close(), delay);
+function closeDialog(dialog, delay = 300) {
+  dialog.classList.add("closing");
+
+  setTimeout(() => {
+    dialog.close();
+    dialog.classList.remove("closing");
+  }, delay);
 }
 
 function backToContacts() {
