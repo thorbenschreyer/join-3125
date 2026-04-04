@@ -18,7 +18,6 @@ async function initContacts() {
   addDialog = registerDialog("add-contact-dialog", 1000, "closing");
   editDialog = registerDialog("edit-contact-dialog", 0);
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
-  addDialog.showModal()
 }
 
 function openContactDetailview(contactID, index) {
@@ -52,12 +51,14 @@ function renderDetailContactInformation(index) {
   const initials = contactUsers[index].initials;
   const name = contactUsers[index].name;
   const email = contactUsers[index].email;
-  const phoneNumber = +49123456789;
+  const phoneNumber = contactUsers[index].phone;
+  const color = contactUsers[index].userColor;
   detailContact.innerHTML = renderDetailedContactsTemplate(
     initials,
     name,
     email,
     phoneNumber,
+    color
   );
 
   detailContact.classList.remove("animate-in"); // reset
@@ -114,7 +115,8 @@ function renderContact(index) {
   const initials = contactUsers[index].initials;
   const name = contactUsers[index].name;
   const email = contactUsers[index].email;
-  contacts.innerHTML += renderContactTemplate(index, initials, name, email);
+  const color = contactUsers[index].userColor;
+  contacts.innerHTML += renderContactTemplate(index, initials, name, email, color);
 }
 
 /**
@@ -200,7 +202,9 @@ function addNewContact() {
       name: name,
       initials: name.split(" ").map((word) => word[0]).join(""),
       email: email,
-      password: "password"
+      password: "password",
+      userColor: userColor[Math.floor(Math.random() * userColor.length)],
+      phone: phone
     }
   )
   sortContacts(contactUsers)

@@ -25,10 +25,10 @@ function helpAndLogout() {
     `;
 }
 
-function renderContactTemplate(index, initails, name, email) {
+function renderContactTemplate(index, initails, name, email, color) {
   return `
         <div onclick="openContactDetailview('contact-${index}', ${index})" id="contact-${index}" class="contact">
-          <div class="contact-initials">
+          <div class="contact-initials" style="background-color:${color}">
             <p>${initails}</p>
           </div>
           <div class="contact-name-email">
@@ -39,12 +39,12 @@ function renderContactTemplate(index, initails, name, email) {
         `;
 }
 
-function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
+function renderDetailedContactsTemplate(initials, name, email, phoneNumber, color) {
   return `
   <div>
         <div class="contact-edit">
-          <div class="contact-detail-initials">
-            <p>${initials}</p>
+          <div class="contact-detail-initials" ">
+            <p style="background-color:${color}" class="inital-style">${initials}</p>
           </div>
           <div>
             <p class="contact-detail-name">${name}</p>
