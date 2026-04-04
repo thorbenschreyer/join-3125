@@ -2,6 +2,8 @@
   max-height: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 110px;
+  margin-left: 64px;
 }
 
 .add-plus-img {
