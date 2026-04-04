@@ -157,31 +157,61 @@
 }
 
 .dialoge-close-img-handler-upsite {
-    display: none;
+  display: none;
 }
 
 .dialog-button-handler {
-    width: 100%;
-    margin-top: 32px;
+  display: flex;
+  width: 100%;
+  margin-top: 32px;
 }
 
 .btn-dialog {
-    padding: 15px 24px;
-    margin-right: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 20px;
-    border: 1px solid black;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid black;
+}
+
+.btn-dialog:first-child {
+  margin-right: 16px;
 }
 
 .add-contact-dialog-button-cancel {
+    background-color: white;
 }
-
 
 .add-contact-dialog-button-create {
-
+    color: white;
+    background-color: var(--logo-dark-blue);
+    font-weight: bold;
+    border: none;
 }
 
+.add-contact-dialog-button-create img{
+    margin-left: 8px;
+}
+
+.add-contact-dialog-button-create:hover {
+  background-color: #29abe2;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.add-contact-dialog-button-cancel:hover {
+  border: solid 1px #29abe2;
+  color: #29abe2;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px 16px;
+}
+
+.add-contact-dialog-button-cancel:hover img {
+  content: url("../assets/icons/close_blue.png");
+  padding: 4px 4px;
+}
 
 /*=============== EDIT CONTACT DIALOG ===============*/
 
