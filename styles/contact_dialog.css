@@ -1,0 +1,94 @@
+/*=============== ADD CONTACT DIALOG ===============*/
+/*=============== LEFT SIDE ===============*/
+.add-contact-dialog {
+  display: flex;
+  margin: auto;
+  width: 1212px;
+  height: 592px;
+  border: none;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.add-contact-dialog-left {
+  width: 37%;
+  height: 100%;
+  background-color: var(--logo-dark-blue);
+}
+
+.add-dialog-left-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0px 16px;
+  margin-left: 32px;
+}
+
+.add-left-dialog-img {
+  height: 68px;
+  width: 56px;
+  margin-bottom: 8px;
+}
+
+.add-left-dialog-h2 {
+  color: white;
+  font-size: 27px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.add-dialog-left-content hr {
+  width: 90px;
+  border: 3px solid var(--logo-light-blue);
+}
+
+.add-left-dialog-h1 {
+  color: white;
+  font-size: 60px;
+  font-weight: 700;
+}
+
+/*=============== RIGHT SIDE ===============*/
+
+.add-contact-dialog-right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 32px;
+  flex: 1;
+}
+
+.add-contact-dialog-right-close {
+    display: flex;
+    justify-content: end;    
+    width: 100%;
+}
+
+.add-contact-dialog-right-content {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.add-contact-dialog-right-img {
+    width: 120px;
+    height: 120px;
+    margin-left: 32px;
+    margin-right: 64px;
+}
+
+.add-contact-dialog-form {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+/*=============== EDIT CONTACT DIALOG ===============*/
+
+.edit-contact-dialog {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+}

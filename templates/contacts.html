@@ -36,7 +36,33 @@
 
 
 <dialog class="add-contact-dialog" id="add-contact-dialog">
-  Add Contact 
+  <div class="add-contact-dialog-left">
+    <div class="add-dialog-left-content">
+      <img class="add-left-dialog-img" src="../assets/icons/main_logo_light.png" alt="">
+      <span class="add-left-dialog-h1">Add contact</span>
+      <span class="add-left-dialog-h2">Tasks are better with a team!</span>
+      <hr>
+    </div>
+  </div>
+   
+  <div class="add-contact-dialog-right">
+    <div onclick="addDialog.close()" class="add-contact-dialog-right-close" >X</div>
+    <div class="add-contact-dialog-right-content">
+    <img class="add-contact-dialog-right-img" src="../assets/icons/add_contact_img.png" alt="">
+    <div>
+      <form class="add-contact-dialog-form">
+        
+        <p><input class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="" alt=""></p>
+        <p><input class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="" alt=""></p>
+        <p><input class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="" alt=""></p>
+        <div>
+          <button class="add-contact-dialog-button-cancel">Cancel</button>
+          <button class="add-contact-dialog-button-create">Create Contact</button>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
 </dialog>
 
 <dialog class="edit-contact-dialog" id="edit-contact-dialog">

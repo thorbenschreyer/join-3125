@@ -18,6 +18,7 @@ async function initContacts() {
   addDialog = registerDialog("add-contact-dialog", 0);
   editDialog = registerDialog("edit-contact-dialog", 0);
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
+  addDialog.showModal()
 }
 
 function openContactDetailview(contactID, index) {
