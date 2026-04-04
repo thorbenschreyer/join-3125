@@ -3,10 +3,11 @@
     <div class="new-contact-area">
       <button onclick="openDialog(addDialog)" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
     </div>
-
+    <!-- Rendercontainer Contacts -->
     <div class="displayed-contacts" id="displayed-contacts"></div>
   </div>
 
+  <!-- Header Contact Details -->
   <div class="contact-detail-area back-to-contacts-unset" id="contact-detail-area">
     <div class="contact-haeder-area">
       <p>Contacts</p>
@@ -15,26 +16,24 @@
       <hr class="contact-hr-mobile" />
     </div>
 
-    <div class="contact-details" id="contact-details">
-      
-    </div>
-
+    <!-- Rendercontainer for Contact Details -->
+    <div class="contact-details" id="contact-details"></div>
+    <!-- EDIT and DELETE Button Desktop -->
     <button class="back-to-contacts" onclick="backToContacts()"><img src="../assets/icons/arrow-left-line.png" alt=""></button>
     <button class="mobile-edit-delete" onclick="openDialog(mobileEdtMenu)"><img src="./assets/icons/more_vert.png" alt=""></button>
   </div>
-  
 </div>
 
+<!-- Mobile ADD Contact Button -->
 <button onclick="openDialog(addDialog)" class="add-contact-btn-mobile"><img class="add-contact-btn-img-mobile" src="../assets/icons/person_add.png" alt=""/></button>
 
-
-
+<!-- Mobile MENU EDIT/DELETE -->
 <dialog class="mobile-edit-delete-menu" id="mobile-edit-delete-menu">
   <p onclick="" class="contact-btn-mobile contact-btn-edit-mobile"><img src="../assets/icons/edit.png" alt="" />Edit</p>
   <p onclick="deleteUserMobile()" class="contact-btn-mobile contact-btn-delete-mobile"><img src="../assets/icons/delete.png" alt="" />Delete</p>
 </dialog>
 
-
+ <!-- ADD CONTACT DIALOG -->
 <dialog class="add-contact-dialog" id="add-contact-dialog">
   <div class="add-contact-dialog-left">
       <div class="dialoge-close-img-handler-upsite">
@@ -70,7 +69,40 @@
   </div>
 </dialog>
 
+
+<!-- EDIT CONTACT DIALOG -->
 <dialog class="edit-contact-dialog" id="edit-contact-dialog">
-  Add Contact 
+    <div class="add-contact-dialog-left">
+      <div class="dialoge-close-img-handler-upsite">
+    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-left-close" src="../assets/icons/close_white.png" alt="">
+    </div>
+    <div class="add-dialog-left-content">
+      <img class="add-left-dialog-img" src="../assets/icons/main_logo_light.png" alt="">
+      <span class="add-left-dialog-h1">Add contact</span>
+      <span class="add-left-dialog-h2">Tasks are better with a team!</span>
+      <hr>
+    </div>
+  </div>
+   
+  <div class="add-contact-dialog-right">
+    <div class="dialoge-close-img-handler">
+    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-right-close" src="../assets/icons/cancel_dark.png" alt="">
+    </div>
+    <div class="add-contact-dialog-right-content">
+    <img class="add-contact-dialog-right-img" src="../assets/icons/add_contact_img.png" alt="">
+    <div class="dialog-form-handler">
+      <form onsubmit="return false;" class="add-contact-dialog-form">
+        
+        <p class="dialog-input-handler"><input placeholder="Name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
+        <p class="dialog-input-handler"><input placeholder="Email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
+        <p class="dialog-input-handler"><input placeholder="Phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
+        <div class="dialog-button-handler">
+          <button onclick="closeDialog(addDialog, 400)" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="../assets/icons/cancel_dark.png" alt=""></button>
+          <button onclick="" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="../assets/icons/check_light.png" alt=""></button>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
 </dialog>
 

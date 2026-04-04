@@ -221,7 +221,39 @@
 /*=============== EDIT CONTACT DIALOG ===============*/
 
 .edit-contact-dialog {
-  width: 100px;
-  height: 100px;
-  background-color: green;
+  display: none;
+}
+
+.edit-contact-dialog[open] {
+  display: flex;
+  margin: auto;
+  width: 1212px;
+  height: 592px;
+  border: none;
+  border-radius: 30px;
+  background-color: white;
+  display: flex;
+  animation: slideInDialog 0.4s ease forwards;
+}
+
+.edit-contact-dialog.closing {
+  animation: slideOutDialog 0.4s ease forwards;
+}
+
+@keyframes slideOutDialog {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+.edit-contact-dialog-left {
+  width: 37%;
+  height: 100%;
+  background-color: var(--logo-dark-blue);
 }
