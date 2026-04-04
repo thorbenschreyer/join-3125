@@ -7,6 +7,7 @@ let initialViewportHeight = window.visualViewport.height;
 
 let wasEmpty = true;
 let users = [];
+let userColor = [];
 
 // Initialization of event listeners after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeApp);
@@ -173,7 +174,7 @@ async function getUserDataForLogin() {
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
     });
   }
-  sortContacts(users)
+  sortContacts(users);
   localStorage.setItem("users", JSON.stringify(users));
 }
 
@@ -198,5 +199,17 @@ async function uploadUsersToFirebase() {
     },
     body: JSON.stringify(users),
   });
-  getUsersFromLocalStorage()
+  getUsersFromLocalStorage();
 }
+
+userColor = [
+  rgba(255, 122, 0, 1),
+  rgba(147, 39, 255, 1),
+  rgba(110, 82, 255, 1),
+  rgba(252, 113, 255, 1),
+  rgba(255, 187, 43, 1),
+  rgba(31, 215, 193, 1),
+  rgba(70, 47, 138, 1),
+  rgba(255, 70, 70, 1),
+  rgba(0, 190, 232, 1),
+];
