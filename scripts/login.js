@@ -156,7 +156,7 @@ function removeMobileLogo() {
  * The backend returns an object keyed by user IDs, which is transformed into
  * an array to match the structure used throughout the application.
  */
-async function getUserDataForLogin() {
+async function getUserData() {
   users = [];
   let allUserData = await fetch(`${fireBaseUrl}users.json`);
   let allUserDataToJson = await allUserData.json();
@@ -202,6 +202,13 @@ async function uploadUsersToFirebase() {
     body: JSON.stringify(users),
   });
   getUsersFromLocalStorage();
+}
+
+/**
+ * Sorts the user array by first name
+ */
+function sortContacts(contacts) {
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 userColor = [

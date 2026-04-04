@@ -26,7 +26,7 @@ async function init() {
   getNameAndInitials();
   loadSidbarAndContent();
   time = getTheTimeForWelcomeMassage()
-  getUserDataForLogin()
+  getUserData()
 }
 
 /**
