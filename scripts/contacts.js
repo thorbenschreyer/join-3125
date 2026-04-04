@@ -18,7 +18,7 @@ async function initContacts() {
   addDialog = registerDialog("add-contact-dialog", 1000, "closing");
   editDialog = registerDialog("edit-contact-dialog", 0);
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
-  addDialog.showModal()
+  editDialog.showModal()
 }
 
 function openContactDetailview(contactID, index) {
@@ -178,5 +178,14 @@ function deleteUserMobile() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
   backToContacts();
+  initContacts();
+}
+
+function deleteUserInEditDialog() {
+  contactUsers.splice(currentID, 1);
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  detailContact = document.getElementById("contact-details");
+  detailContact.innerHTML = "";
+  closeDialog(editDialog, 400)
   initContacts();
 }

@@ -74,31 +74,30 @@
 <dialog class="edit-contact-dialog" id="edit-contact-dialog">
     <div class="add-contact-dialog-left">
       <div class="dialoge-close-img-handler-upsite">
-    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-left-close" src="../assets/icons/close_white.png" alt="">
+    <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-left-close" src="../assets/icons/close_white.png" alt="">
     </div>
     <div class="add-dialog-left-content">
       <img class="add-left-dialog-img" src="../assets/icons/main_logo_light.png" alt="">
-      <span class="add-left-dialog-h1">Add contact</span>
-      <span class="add-left-dialog-h2">Tasks are better with a team!</span>
+      <span class="edit-left-dialog-h1">Edit Contact</span>
       <hr>
     </div>
   </div>
    
   <div class="add-contact-dialog-right">
     <div class="dialoge-close-img-handler">
-    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-right-close" src="../assets/icons/cancel_dark.png" alt="">
+    <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-right-close" src="../assets/icons/cancel_dark.png" alt="">
     </div>
     <div class="add-contact-dialog-right-content">
-    <img class="add-contact-dialog-right-img" src="../assets/icons/add_contact_img.png" alt="">
+    <p class="wdit-contact-initials">TS</p>
     <div class="dialog-form-handler">
       <form onsubmit="return false;" class="add-contact-dialog-form">
         
-        <p class="dialog-input-handler"><input placeholder="Name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
-        <p class="dialog-input-handler"><input placeholder="Email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
-        <p class="dialog-input-handler"><input placeholder="Phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="Peter Müller" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="peter@mail.com" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="+4912544656456" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
         <div class="dialog-button-handler">
-          <button onclick="closeDialog(addDialog, 400)" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="../assets/icons/cancel_dark.png" alt=""></button>
-          <button onclick="" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="../assets/icons/check_light.png" alt=""></button>
+          <button onclick="deleteUserInEditDialog()" class="btn-dialog edit-contact-dialog-button-cancel">Delete</button>
+          <button onclick="" class="btn-dialog add-contact-dialog-button-create">Save<img src="../assets/icons/check_light.png" alt=""></button>
         </div>
       </form>
     </div>
