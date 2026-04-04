@@ -17,8 +17,7 @@ let time;
 async function init() {
   /* THIS IS ONLY FOR DEVELOPMENT 
   isloggedIn = false;
-  localStorage.setItem("loginState", JSON.stringify(isloggedIn));*/
-
+  localStorage.setItem("loginState", JSON.stringify(isloggedIn)); */
   isloggedIn = localStorage.getItem("loginState") === "true";
   await loadHtmlPage("all-content-area", "standard_layout.html");
   const params = new URLSearchParams(window.location.search);
@@ -68,8 +67,7 @@ async function setLoggedinNavigation() {
     const headerMenu = document.getElementById("help-and-logout");
     headerMenu.innerHTML = helpAndLogout();
 
-    await loadHtmlPage("content", "./templates/contacts.html");
-    /* initAddTaskElements(); */
+    await loadHtmlPage("content", "./templates/summary.html");
     
     setInitials();
     setTaskSummaryInformation ()
@@ -110,6 +108,7 @@ async function loadHtmlPage(divID, pagefile) {
     lastOpenPage = pagefile;
   }
 }
+
 
 /**
  * This function opens and closes the menu by replacing classes

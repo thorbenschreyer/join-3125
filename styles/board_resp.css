@@ -29,14 +29,23 @@
     .tasks-container {
         flex-direction: row;
         width: 100%;
+        /* -ms-overflow-style: inherit;
+        scrollbar-width: thin; */
     }
 
     .task-bar {
         width: 100%;
+        align-items: baseline;
+        padding: 13px 0;
+    }
+
+    .board-small-task{
+        margin: 13px;
     }
 
     .tasks-header-and-plus {
         width: 246px;
+        padding-left: 13px;
     }
 
     .placeholder-task {
