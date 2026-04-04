@@ -36,6 +36,10 @@
   }
 
   /* =============== Summary Content =============== */
+  .summary-page {
+    margin: 0px 8px;
+    margin-top: 64px
+  }
 }
 
 @media (max-width: 818px) {
