@@ -142,6 +142,11 @@
   width: 100%;
 }
 
+.add-contact-dialog-right-inputfield:focus {
+    border: 1px solid var(--logo-light-blue);
+    outline: none;
+}
+
 .add-contact-dialog-right-input-img {
   margin-left: -44px;
 }
