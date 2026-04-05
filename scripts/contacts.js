@@ -229,9 +229,6 @@ function saveEditValues() {
     contactUsers[currentID].email = email
     contactUsers[currentID].phone = phoneNumber
 
-    console.log(contactUsers[currentID].name);
-  console.log(contactUsers[currentID].email);
-
     localStorage.setItem("users", JSON.stringify(contactUsers));
     closeDialog(editDialog, 400)
     initContacts();
