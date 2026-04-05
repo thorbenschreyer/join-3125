@@ -44,7 +44,7 @@
 
 @media (max-width: 818px) {
   .welcome-content {
-    
+    padding: 16px;
     position: fixed;
     top: 0;
     left: 0;
