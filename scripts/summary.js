@@ -11,6 +11,9 @@ function findNumberOfTask(taskdefinition) {
   return tasks.filter((task) => task.state === taskdefinition).length;
 }
 
+/**
+ * Rendering the numbers for the summary board
+ */
 function setTaskSummaryInformation() {
   let tasksInBoard = tasks.length;
   let tasksInProgress = findNumberOfTask("In Progress");
@@ -32,6 +35,11 @@ function setTaskSummaryInformation() {
   setOpticalPriority();
 }
 
+/**
+ * Sorts all tasks by date. 
+ * If none exist, the call is intercepted.
+ * @returns -
+ */
 function sortTodoforDate() {
   let toDoArray = tasks.filter((task) => task.state === "To do");
 
@@ -41,7 +49,6 @@ function sortTodoforDate() {
     nexttoDoPriority = null;
     return;
   }
-
 
   toDoSOrted = toDoArray.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate),);
   nexttoDoPriority = toDoArray[0].priority;
@@ -53,6 +60,9 @@ function sortTodoforDate() {
   formattedDate = date.toLocaleDateString("de-DE", { day: "2-digit", month: "long" }) + ", " + date.getFullYear();
 }
 
+/**
+ * Sets the priority flag for the next task 
+ */
 function setOpticalPriority() {
   let prio = document.getElementById("prio-img");
   prio.classList.remove("high-prio", "medium-prio", "low-prio");

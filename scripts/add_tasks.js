@@ -17,6 +17,7 @@ let TITLE_INPUT_ERROR;
 let DUE_DATE_INPUT_ERROR;
 let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
+let ASSIGNED_TO_FORM;
 let ASSIGNED_TO_WRAPPER;
 let ASSIGNED_TO_INPUT_WRAPPER;
 let ASSIGNED_TO_INPUT;
@@ -34,7 +35,7 @@ let SUBTASKS_LIST;
 let SUBTASK_ITEM;
 let SUBTASKS;
 
-let RESET_TASK_FORM_BTN;
+let CLEAR_FORM_BTN;
 let ADDTASK_BTN;
 
 // Requirements set for add task form validation
@@ -69,6 +70,7 @@ async function initAddTaskElements() {
     DUE_DATE_INPUT_ERROR = document.getElementById("due-date-input-error");
     PRIORITY_COLOR_IMAGES = [URGENT_COLOR_IMG, MEDIUM_COLOR_IMG, LOW_COLOR_IMG];
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
+    ASSIGNED_TO_FORM = document.getElementById("assigned-to-form");
     ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-to-wrapper");
     ASSIGNED_TO_INPUT_WRAPPER = document.querySelector(".custom-dropdown-toggle");
     ASSIGNED_TO_INPUT = document.getElementById("task-assigned-to-input");
@@ -85,7 +87,7 @@ async function initAddTaskElements() {
     SUBTASKS_LIST = document.getElementById("subtasks-list");
     SUBTASK_ITEM = Array.from(document.getElementsByClassName("subtask-item"));
 
-    RESET_TASK_FORM_BTN = document.getElementById("clear-task-btn");
+    CLEAR_FORM_BTN = document.getElementById("clear-task-btn");
     ADDTASK_BTN = document.getElementById("add-task-btn");
 
     CALENDAR_ICON = document.getElementById("calendar-icon");
@@ -102,7 +104,6 @@ async function initAddTaskElements() {
     });
     setMinDate();
     feedbackOnRequiredInput();
-    higlightSelectedPriority();
     await getUserNames();
     pushUserNames();
 } 
@@ -113,6 +114,7 @@ function feedbackOnRequiredInput() {
         if (titleInput.length == 0) {
             TITLE_INPUT.classList.add("red-border")
             TITLE_INPUT_ERROR.classList.remove("dNone")
+            TITLE_INPUT_ERROR.textContent = "This field is required";
         }
     }); 
     TITLE_INPUT.addEventListener("input", function() {
@@ -120,6 +122,7 @@ function feedbackOnRequiredInput() {
         if (titleInput.length == 0) {
             TITLE_INPUT.classList.add("red-border");
             TITLE_INPUT_ERROR.classList.remove("dNone");
+            TITLE_INPUT_ERROR.textContent = "This field is required";
         } else if (titleInput.length > 0) {
             TITLE_INPUT.classList.remove("red-border");
             TITLE_INPUT_ERROR.classList.add("dNone");
@@ -183,16 +186,19 @@ function feedbackOnRequiredInput() {
     TECHNICAL_TASK.addEventListener("click", function() {
         CATEGORY_INPUT.value = "Technical Task";
         CATEGORY_INPUT.dispatchEvent(new Event("change"));
+        closeCategoryDropdown();
     })
     USER_STORY.addEventListener("click", function() {
         CATEGORY_INPUT.value = "User Story";
         CATEGORY_INPUT.dispatchEvent(new Event("change"));
+        closeCategoryDropdown();
     })
     CLEAR_SUBTASKS_BTN.addEventListener("click", function() {
         SUBTASKS_INPUT.value = "";
         hideSubtaskInputButtons();
     });
     ADD_SUBTASK_BTN.addEventListener("click", function() {
+        if (SUBTASKS_INPUT.value.length > 0) {
         SUBTASKS_LIST.insertAdjacentHTML(
              "beforeend",
              `<div class="subtask-item-wrapper" ondblclick="editSubtask(this.querySelector('.edit-subtask-btn'))">   
@@ -219,6 +225,7 @@ function feedbackOnRequiredInput() {
             );
         SUBTASKS_INPUT.value = "";
         hideSubtaskInputButtons();
+        }
     })
     SUBTASKS_INPUT.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -253,6 +260,9 @@ function feedbackOnRequiredInput() {
         }
         checkFormValidity()
     })
+    CLEAR_FORM_BTN.addEventListener("click", function () {
+        clearFormular();
+    })
 }
 
 function showSubtaskInputButtons() {
@@ -267,13 +277,13 @@ function hideSubtaskInputButtons() {
     ADD_SUBTASK_BTN.classList.add("dNone");
 }
 
-
-
 function checkFormValidity() {
     if (isTitleValid && isDueDateValid && isCategoryValid) {
         ADDTASK_BTN.disabled = false;
+        ADDTASK_BTN.classList.remove("disabled-btn");
     } else {
         ADDTASK_BTN.disabled = true;
+        ADDTASK_BTN.classList.add("disabled-btn");
     }
 }
 
@@ -338,7 +348,6 @@ function setMinDate() {
 }
 
 function higlightSelectedPriority(priority) {
-    PRIORITY_BUTTONS.forEach(btn => btn.classList.remove("selected-priority"));
     resetPriorityImages();
     if (priority === "urgent") {
         highlightUrgentPriority();
@@ -554,6 +563,33 @@ function toggleCategoryDropdown(event) {
     CATEGORY_TASKS.classList.toggle("dNone");
     CATEGORY_TASKS.classList.toggle("dFlex");
     document.getElementById("task-category-input").focus();
+}
+
+function resetUserSelection() {
+    let badgeContainer = document.getElementById("assigned-badges");
+    document.querySelectorAll(".dropdown-user").forEach(el => {
+        el.classList.remove("selected");
+        let imgs = el.querySelectorAll(".dropdown-user-checkbox");
+        imgs[0].classList.remove("dNone");
+        imgs[1].classList.add("dNone");
+        imgs[2].classList.add("dNone");
+    });
+    badgeContainer.innerHTML = "";
+    selectedUsers = [];
+}
+
+function clearFormular() {
+    TITLE_INPUT.value = "";
+    TITLE_INPUT.classList.remove("red-border")
+    TITLE_INPUT_ERROR.textContent = "";
+    DESC_INPUT.value = "";
+    DUE_DATE_INPUT.value = "";
+    DUE_DATE_INPUT.classList.remove("red-border")
+    DUE_DATE_INPUT_ERROR.textContent = "";
+    higlightSelectedPriority("medium");
+    resetUserSelection();
+    CATEGORY_INPUT.value = "";
+    SUBTASKS_LIST.innerHTML = "";
 }
 
 

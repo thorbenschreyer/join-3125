@@ -35,7 +35,6 @@ body {
 .add-tasks-page {
   display: flex;
   flex-direction: column;
-  /* max-width: 1440px; */
   height: 100%;
   margin-top: 110px;
   margin-left: 64px;
@@ -54,7 +53,6 @@ h1 {
 /* === FORMULAR === */
 .add-task-form {
   display: flex;
-  flex: 1;
   gap: 24px;
 }
 
@@ -67,7 +65,7 @@ h1 {
 .task-column {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* === INPUT-FIELDS === */
@@ -89,7 +87,11 @@ label {
   padding: 8px 10px;
   border: solid 1px var(--light-gray);
   border-radius: 6px;
-  cursor: pointer;
+  cursor: pointer !important;
+}
+
+.form-input:hover {
+  cursor: pointer !important;
 }
 
 .form-input::placeholder {
@@ -142,7 +144,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   gap: 8px;
   width: calc(33.33333% - 6.66666px);
-  padding: 12px 20px;
+  padding: 10px 20px;
   border: none;
   border-radius: 10px;
   background-color: var(--white);
@@ -191,6 +193,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   background: var(--white);
   user-select: none;
+  padding: 4px 10px;
 }
 
 .dropdown-arrow {
@@ -326,9 +329,12 @@ height: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 8px;
   position: relative;
   z-index: 1;
+}
+
+.assigned-badges:has(.assigned-badge) {
+  margin-top: 8px;
 }
 
 .assigned-badge {
@@ -534,11 +540,13 @@ height: 10px;
 
 /* === FOOTER === */
 .add-task-footer {
+  position: absolute;
+  top: 584px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   width: 690px;
-  padding-bottom: 80px;
+  padding: 96px 0 0;
 }
 
 .footer-left {
@@ -560,7 +568,6 @@ height: 10px;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  z-index: 998;
 }
 
 .clear-task-btn:hover {
@@ -579,7 +586,19 @@ height: 10px;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  z-index: 999;
+}
+
+.disabled-btn {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+}
+
+.footer-right .disabled-btn:hover {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+  cursor: default;
 }
 
 .add-task-btn:hover {
