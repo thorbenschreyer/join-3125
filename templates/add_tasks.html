@@ -10,7 +10,7 @@
             <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
             <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
             <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
-          </div>
+        </div>
     </div>
 
     <!-- FORMULAR -->
@@ -25,7 +25,7 @@
                     Title<span class="required">*</span>
                 </label>
                 <input id="task-title" class="task-title form-input" type="text" placeholder="Enter a title">
-                <span id="title-input-error" class="input-error dNone">This Field is required</span>
+                <span id="title-input-error" class="input-error dNone"></span>
             </div>
 
             <!-- DESCRIPTION -->
@@ -33,7 +33,7 @@
                 <label for="task-description">
                     Description
                 </label>
-                <textarea id="task-description" class="task-description form-input" rows="4" placeholder="Enter a Description"></textarea>
+                <textarea id="task-description" class="task-description form-input" rows="5" placeholder="Enter a Description"></textarea>
             </div>
 
             <!-- DUE DATE -->   
@@ -67,10 +67,10 @@
                     </button>
 
                     <!-- PRIORITY-MEDIUM -->
-                    <button id="task-prio-medium-btn" class="priority-btn" type="button" onclick="higlightSelectedPriority('medium')">
+                    <button id="task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="higlightSelectedPriority('medium')">
                         <span class="prio-text">Medium</span> 
-                        <img id="task-prio-medium-color" class="task-prio-img" src="../assets/icons/medium_prio_color.svg" alt="">
-                        <img id="task-prio-medium-white" class="task-prio-img dNone" src="../assets/icons/medium_prio_white.svg" alt="">
+                        <img id="task-prio-medium-color" class="task-prio-img dNone" src="../assets/icons/medium_prio_color.svg" alt="">
+                        <img id="task-prio-medium-white" class="task-prio-img" src="../assets/icons/medium_prio_white.svg" alt="">
                     </button>
 
                     <!-- PRIORITY-LOW -->
@@ -85,7 +85,7 @@
             </div>
 
             <!-- ASSIGNED TO -->
-            <div class="form-group">
+            <div id="assigned-to-form" class="form-group">
                 <label>Assigned to</label>
                 <div id="task-assigned-to-wrapper" class="custom-dropdown">
                     <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
@@ -146,10 +146,10 @@
 
         <!-- FOOTER RIGHT -->
         <div class="footer-right">
-            <button class="clear-task-btn">
+            <button id="clear-task-btn" class="clear-task-btn">
                 <span>Clear &times</span>
             </button>
-            <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit" disabled>
+            <button id="add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" disabled>
                 <span>Create Task</span>
                 <img src="../assets/icons/check_light.svg" alt="">
             </button>
