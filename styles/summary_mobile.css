@@ -37,8 +37,8 @@
 
   /* =============== Summary Content =============== */
   .summary-page {
-    margin: 0px 8px;
-    margin-top: 64px
+    padding: 0px 8px;
+    padding-top: 64px
   }
 }
 
