@@ -35,13 +35,11 @@
   margin-top: 16px;
 }
 
-.back-to-previous-page {
-  position: fixed;
-  top: 225px;
-  right: 96px;
-  cursor: pointer;
-  width: 32px;
+.back-to-page-handler {
+  display: flex;
+  justify-content: end;
   height: 32px;
+  width: 100%;
 }
 
 .back-to-previous-page {
@@ -52,14 +50,7 @@
   content: url("../assets/icons/arrow_left_line_hover.png");
 }
 
-.back-to-previous-page-help {
-  position: fixed;
-  top: 225px;
-  right: 96px;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-}
+
 
 .back-to-previous-page-help:hover {
   content: url("../assets/icons/arrow_left_line_hover.png");
