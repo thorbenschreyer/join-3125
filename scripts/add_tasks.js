@@ -18,6 +18,8 @@ let DUE_DATE_INPUT_ERROR;
 let PRIORITY_COLOR_IMAGES;
 let PRIORITY_WHITE_IMAGES;
 let ASSIGNED_TO_WRAPPER;
+let ASSIGNED_TO_INPUT_WRAPPER;
+let ASSIGNED_TO_INPUT;
 let ASSIGNED_TO_USERS;
 let CATEGORY_WRAPPER;
 let CATEGORY_INPUT;
@@ -26,6 +28,7 @@ let TECHNICAL_TASK;
 let USER_STORY;
 let SUBTASKS_INPUT;
 let CLEAR_SUBTASKS_BTN;
+let SUBTASK_VERTICAL_DIVIDER;
 let ADD_SUBTASK_BTN;
 let SUBTASKS_LIST;
 let SUBTASK_ITEM;
@@ -67,6 +70,8 @@ async function initAddTaskElements() {
     PRIORITY_COLOR_IMAGES = [URGENT_COLOR_IMG, MEDIUM_COLOR_IMG, LOW_COLOR_IMG];
     PRIORITY_WHITE_IMAGES = [URGENT_WHITE_IMG, MEDIUM_WHITE_IMG, LOW_WHITE_IMG];
     ASSIGNED_TO_WRAPPER = document.getElementById("task-assigned-to-wrapper");
+    ASSIGNED_TO_INPUT_WRAPPER = document.querySelector(".custom-dropdown-toggle");
+    ASSIGNED_TO_INPUT = document.getElementById("task-assigned-to-input");
     ASSIGNED_TO_USERS = document.getElementById("task-assigned-to-users");
     CATEGORY_WRAPPER = document.getElementById("task-category-wrapper");
     CATEGORY_INPUT = document.getElementById("task-category-input");
@@ -75,6 +80,7 @@ async function initAddTaskElements() {
     USER_STORY = document.getElementById("user-story");
     SUBTASKS_INPUT = document.getElementById("subtasks-input");
     CLEAR_SUBTASKS_BTN = document.getElementById("clear-input-btn");
+    SUBTASK_VERTICAL_DIVIDER = document.getElementById("subtasks-vertical-divider");
     ADD_SUBTASK_BTN = document.getElementById("add-subtask-btn");
     SUBTASKS_LIST = document.getElementById("subtasks-list");
     SUBTASK_ITEM = Array.from(document.getElementsByClassName("subtask-item"));
@@ -89,6 +95,9 @@ async function initAddTaskElements() {
     }  
     if (CATEGORY_WRAPPER && !CATEGORY_WRAPPER.contains(event.target)) {
         closeCategoryDropdown()
+    }
+    if (SUBTASKS_INPUT && !SUBTASKS_INPUT.contains(event.target)) {
+        hideSubtaskInputButtons();
     }
     });
     setMinDate();
@@ -167,6 +176,10 @@ function feedbackOnRequiredInput() {
     CALENDAR_ICON.addEventListener("click", function() {
         DUE_DATE_INPUT.showPicker();
     });
+    
+    ASSIGNED_TO_INPUT.addEventListener("focus", function() {
+        ASSIGNED_TO_INPUT_WRAPPER.classList.add("blue-border");
+    });
     TECHNICAL_TASK.addEventListener("click", function() {
         CATEGORY_INPUT.value = "Technical Task";
         CATEGORY_INPUT.dispatchEvent(new Event("change"));
@@ -177,6 +190,7 @@ function feedbackOnRequiredInput() {
     })
     CLEAR_SUBTASKS_BTN.addEventListener("click", function() {
         SUBTASKS_INPUT.value = "";
+        hideSubtaskInputButtons();
     });
     ADD_SUBTASK_BTN.addEventListener("click", function() {
         SUBTASKS_LIST.insertAdjacentHTML(
@@ -204,14 +218,18 @@ function feedbackOnRequiredInput() {
              `
             );
         SUBTASKS_INPUT.value = "";
+        hideSubtaskInputButtons();
     })
     SUBTASKS_INPUT.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
             ADD_SUBTASK_BTN.click();
+            showSubtaskInputButtons();
         }
     });
-
+    SUBTASKS_INPUT.addEventListener("focus", function() {
+        showSubtaskInputButtons();
+    });
     TITLE_INPUT.addEventListener("change", function() {
         TITLE_INPUT.value.length > 0 ? isTitleValid = true : isTitleValid = false
         checkFormValidity()
@@ -236,6 +254,20 @@ function feedbackOnRequiredInput() {
         checkFormValidity()
     })
 }
+
+function showSubtaskInputButtons() {
+    CLEAR_SUBTASKS_BTN.classList.remove("dNone");
+    SUBTASK_VERTICAL_DIVIDER.classList.remove("dNone");
+    ADD_SUBTASK_BTN.classList.remove("dNone");
+}
+
+function hideSubtaskInputButtons() {
+    CLEAR_SUBTASKS_BTN.classList.add("dNone");
+    SUBTASK_VERTICAL_DIVIDER.classList.add("dNone");
+    ADD_SUBTASK_BTN.classList.add("dNone");
+}
+
+
 
 function checkFormValidity() {
     if (isTitleValid && isDueDateValid && isCategoryValid) {
@@ -402,6 +434,7 @@ function openAssignedDropdown() {
     arrowdown.classList.toggle("dNone");
     arrowup.classList.toggle("dNone");
     document.getElementById("task-assigned-to-input").focus();
+    ASSIGNED_TO_INPUT_WRAPPER.classList.add("blue-border");
 }
 
 function toggleAssignedDropdown(event) {
@@ -413,6 +446,10 @@ function toggleAssignedDropdown(event) {
     users.classList.toggle("dFlex");
     arrowdown.classList.toggle("dNone");
     arrowup.classList.toggle("dNone");
+    checkDropdownState();
+    if (users.classList.contains("dFlex")) {
+        ASSIGNED_TO_INPUT_WRAPPER.classList.add("blue-border");
+    }
 }
 
 function closeAssignedDropdown() {
@@ -425,6 +462,15 @@ function closeAssignedDropdown() {
     arrowup.classList.add("dNone");
     document.getElementById("task-assigned-to-input").value = "";
     filterAssignedUsers();
+    checkDropdownState();
+}
+
+function checkDropdownState() {
+    if (ASSIGNED_TO_INPUT === document.activeElement) {
+        ASSIGNED_TO_INPUT_WRAPPER.classList.add("blue-border");
+    } else {
+        ASSIGNED_TO_INPUT_WRAPPER.classList.remove("blue-border");
+    }
 }
 
 
@@ -509,6 +555,7 @@ function toggleCategoryDropdown(event) {
     CATEGORY_TASKS.classList.toggle("dFlex");
     document.getElementById("task-category-input").focus();
 }
+
 
 /**
  * Testdaten zum enwickeln! Wenn diese gelöscht werden, müssen die Daten im Local Storage mit dem KEY: "tasks" gespeichert werden!

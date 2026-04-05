@@ -82,10 +82,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-left: 64px;
-  padding-top: 110px;
   max-width: calc(1440px - 232px);
   max-height: calc(100vh - 96px);
+  overflow-y: scroll;
 }
 
 /* =============== Header-Menu ===============*/

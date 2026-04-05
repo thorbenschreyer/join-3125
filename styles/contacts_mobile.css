@@ -167,7 +167,7 @@
     }
   }
 
-  dialog.closing {
+  .mobile-edit-delete-menu.closing {
   animation: slideOut 1s forwards;
 }
 
@@ -182,12 +182,12 @@
   }
 }
 
-  dialog {
+  .mobile-edit-delete-menu {
     transform: translateX(100%);
     transition: transform 300ms ease;
   }
 
-  dialog.dialog-open {
+  .mobile-edit-delete-menu.dialog-open {
     transform: translateX(0);
   }
 
@@ -263,18 +263,11 @@
     width: 56px;
     height: 56px;
     border-radius: 100%;
+    border: none;
     background-color: var(--logo-dark-blue);
   }
-}
 
-.add-contact-dialog {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-}
-
-.edit-contact-dialog {
-  width: 100px;
-  height: 100px;
-  background-color: green;
+  .add-contact-btn-mobile:hover {
+    background-color: var(--logo-light-blue);
+  }
 }

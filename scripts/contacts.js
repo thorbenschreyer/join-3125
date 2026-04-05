@@ -15,13 +15,13 @@ let mobileEdtMenu;
 async function initContacts() {
   contactUsers = JSON.parse(localStorage.getItem("users"));
   renderContactList();
-  addDialog = registerDialog("add-contact-dialog");
-  editDialog = registerDialog("edit-contact-dialog");
-  mobileEdtMenu = registerDialog("mobile-edit-delete-menu");
+  addDialog = registerDialog("add-contact-dialog", 1000, "closing");
+  editDialog = registerDialog("edit-contact-dialog", 0);
+  mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
 }
 
 function openContactDetailview(contactID, index) {
-  currentID = index
+  currentID = index;
   setDetailViewActiveColor(contactID);
   renderDetailContactInformation(index);
   let detailesContactView = document.getElementById("contact-detail-area");
@@ -51,25 +51,21 @@ function renderDetailContactInformation(index) {
   const initials = contactUsers[index].initials;
   const name = contactUsers[index].name;
   const email = contactUsers[index].email;
-  const phoneNumber = +49123456789;
+  const phoneNumber = contactUsers[index].phone;
+  const color = contactUsers[index].userColor;
   detailContact.innerHTML = renderDetailedContactsTemplate(
     initials,
     name,
     email,
     phoneNumber,
+    color
   );
 
-  detailContact.classList.remove("animate-in"); // reset
-  void detailContact.offsetWidth; // force reflow
-  detailContact.classList.add("animate-in"); // animation starten
+  detailContact.classList.remove("animate-in");
+  void detailContact.offsetWidth;
+  detailContact.classList.add("animate-in");
 }
 
-/**
- * Sorts the user array by first name
- */
-function sortContacts(contacts) {
-  contacts.sort((a, b) => a.name.localeCompare(b.name));
-}
 
 /**
  * Iterates through the UserArray and checks whether the first letter of the current name matches the current one
@@ -113,7 +109,8 @@ function renderContact(index) {
   const initials = contactUsers[index].initials;
   const name = contactUsers[index].name;
   const email = contactUsers[index].email;
-  contacts.innerHTML += renderContactTemplate(index, initials, name, email);
+  const color = contactUsers[index].userColor;
+  contacts.innerHTML += renderContactTemplate(index, initials, name, email, color);
 }
 
 /**
@@ -121,20 +118,24 @@ function renderContact(index) {
  * @param {The ID of the desired dialog window} dialogID
  * @returns The dialog, which can then be manipulated (e.g., opened and closed)
  */
-function registerDialog(dialogID) {
+function registerDialog(dialogID, delay, classforSlide) {
   const dialog = document.getElementById(dialogID);
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {
-      dialog.classList.add("closing");
+      if (classforSlide) {
+        dialog.classList.add(classforSlide);
+      }
 
       setTimeout(() => {
         dialog.close();
-        dialog.classList.remove("closing");
-      }, 1000);
+        if (classforSlide) {
+          dialog.classList.remove(classforSlide);
+        }
+
+      }, delay);
     }
   });
-
   return dialog;
 }
 
@@ -142,8 +143,13 @@ function openDialog(dialogName) {
   dialogName.showModal();
 }
 
-function closeDialog( delay = 5000) {
-  setTimeout(() => dialog.close(), delay);
+function closeDialog(dialog, delay = 300) {
+  dialog.classList.add("closing");
+
+  setTimeout(() => {
+    dialog.close();
+    dialog.classList.remove("closing");
+  }, delay);
 }
 
 function backToContacts() {
@@ -160,13 +166,81 @@ function deleteUser() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
   detailContact = document.getElementById("contact-details");
-  detailContact.innerHTML = ""
+  detailContact.innerHTML = "";
   initContacts();
 }
 
 function deleteUserMobile() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
-  backToContacts()
+  backToContacts();
   initContacts();
+}
+
+function deleteUserInEditDialog() {
+  contactUsers.splice(currentID, 1);
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  detailContact = document.getElementById("contact-details");
+  detailContact.innerHTML = "";
+  closeDialog(editDialog, 400)
+  initContacts();
+}
+
+function addNewContact() {
+  let name = document.getElementById("contact-name").value;
+  let email = document.getElementById("contact-email").value;
+  let phone = document.getElementById("contact-phone").value;
+  contactUsers.push(
+    {
+      id: "Random ID",
+      name: name,
+      initials: name.split(" ").map((word) => word[0]).join(""),
+      email: email,
+      password: "password",
+      userColor: userColor[Math.floor(Math.random() * userColor.length)],
+      phone: phone
+    }
+  )
+  sortContacts(contactUsers)
+  localStorage.setItem("users", JSON.stringify(contactUsers));
+  closeDialog(addDialog, 400)
+  initContacts();
+}
+
+function editUser() {
+  let userInitials = document.getElementById("edit-contact-initials")
+  let editName = document.getElementById("edit-name")
+  let editMail = document.getElementById("edit-email")
+  let editPhone = document.getElementById("edit-phone")
+
+  userInitials.innerText = contactUsers[currentID].initials
+  userInitials.style.backgroundColor = contactUsers[currentID].userColor
+  editName.value = contactUsers[currentID].name
+  editMail.value = contactUsers[currentID].email
+  editPhone.value = contactUsers[currentID].phone
+}
+
+function saveEditValues() {
+    let name = document.getElementById("edit-name").value
+    let email = document.getElementById("edit-email").value
+    let phoneNumber = document.getElementById("edit-phone").value
+
+    contactUsers[currentID].name = name
+    contactUsers[currentID].email = email
+    contactUsers[currentID].phone = phoneNumber
+
+    localStorage.setItem("users", JSON.stringify(contactUsers));
+    closeDialog(editDialog, 400)
+    initContacts();
+    renderDetailContactInformation(currentID)
+}
+
+function showSuccessMessage() {
+  const toast = document.getElementById("success-toast");
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
 }

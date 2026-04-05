@@ -7,6 +7,7 @@ let initialViewportHeight = window.visualViewport.height;
 
 let wasEmpty = true;
 let users = [];
+let userColor = [];
 
 // Initialization of event listeners after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeApp);
@@ -155,7 +156,7 @@ function removeMobileLogo() {
  * The backend returns an object keyed by user IDs, which is transformed into
  * an array to match the structure used throughout the application.
  */
-async function getUserDataForLogin() {
+async function getUserData() {
   users = [];
   let allUserData = await fetch(`${fireBaseUrl}users.json`);
   let allUserDataToJson = await allUserData.json();
@@ -171,9 +172,11 @@ async function getUserDataForLogin() {
         .join(""),
       email: allUserDataToJson[UserKeysArray[userIndex]].email,
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
+      userColor: userColor[Math.floor(Math.random() * userColor.length)],
+      phone: allUserDataToJson[UserKeysArray[userIndex]].phone,
     });
   }
-  sortContacts(users)
+  sortContacts(users);
   localStorage.setItem("users", JSON.stringify(users));
 }
 
@@ -198,5 +201,24 @@ async function uploadUsersToFirebase() {
     },
     body: JSON.stringify(users),
   });
-  getUsersFromLocalStorage()
+  getUsersFromLocalStorage();
 }
+
+/**
+ * Sorts the user array by first name
+ */
+function sortContacts(contacts) {
+  contacts.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+userColor = [
+  "rgba(255, 122, 0, 1)",
+  "rgba(147, 39, 255, 1)",
+  "rgba(110, 82, 255, 1)",
+  "rgba(252, 113, 255, 1)",
+  "rgba(255, 187, 43, 1)",
+  "rgba(31, 215, 193, 1)",
+  "rgba(70, 47, 138, 1)",
+  "rgba(255, 70, 70, 1)",
+  "rgba(0, 190, 232, 1)",
+];

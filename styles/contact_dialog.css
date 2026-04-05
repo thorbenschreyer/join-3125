@@ -1,0 +1,297 @@
+/*=============== ADD CONTACT DIALOG ===============*/
+/*=============== LEFT SIDE ===============*/
+
+.add-contact-dialog {
+  display: none;
+}
+
+.add-contact-dialog[open] {
+  display: flex;
+  margin: auto;
+  width: 1212px;
+  height: 592px;
+  border: none;
+  border-radius: 30px;
+  background-color: white;
+  display: flex;
+  animation: slideInDialog 0.4s ease forwards;
+}
+
+@keyframes slideInDialog {
+  from {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.add-contact-dialog.closing {
+  animation: slideOutDialog 0.4s ease forwards;
+}
+
+@keyframes slideOutDialog {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+.add-contact-dialog-left {
+  width: 37%;
+  height: 100%;
+  background-color: var(--logo-dark-blue);
+}
+
+.add-dialog-left-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0px 16px;
+  margin-left: 32px;
+}
+
+.add-left-dialog-img {
+  height: 68px;
+  width: 56px;
+  margin-bottom: 8px;
+}
+
+.add-left-dialog-h2 {
+  color: white;
+  font-size: 27px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.add-dialog-left-content hr {
+  width: 90px;
+  border: 3px solid var(--logo-light-blue);
+}
+
+.add-left-dialog-h1 {
+  color: white;
+  font-size: 60px;
+  font-weight: 700;
+}
+
+/*=============== RIGHT SIDE ===============*/
+
+.add-contact-dialog-right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 32px;
+  flex: 1;
+}
+
+.dialoge-close-img-handler {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.add-contact-dialog-right-close {
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.add-contact-dialog-right-close:hover {
+  content: url("../assets/icons/cancel_dark_hover.png");
+}
+
+.add-contact-dialog-right-content {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+.add-contact-dialog-right-img {
+  width: 120px;
+  height: 120px;
+  margin-left: 32px;
+  margin-right: 50px;
+}
+
+.add-contact-dialog-form {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 100%;
+}
+
+.add-contact-dialog-right-inputfield {
+  border-radius: 10px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  margin: 8px 0px;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+.add-contact-dialog-right-inputfield:focus {
+  border: 1px solid var(--logo-light-blue);
+  outline: none;
+}
+
+.add-contact-dialog-right-input-img {
+  margin-left: -44px;
+}
+
+.dialog-input-handler {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dialog-form-handler {
+  width: 100%;
+}
+
+.dialoge-close-img-handler-upsite {
+  display: none;
+}
+
+.dialog-button-handler {
+  display: flex;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.btn-dialog {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid black;
+}
+
+.btn-dialog:first-child {
+  margin-right: 16px;
+}
+
+.add-contact-dialog-button-cancel {
+  background-color: white;
+}
+
+.edit-contact-dialog-button-cancel {
+  background-color: white;
+}
+
+.add-contact-dialog-button-create {
+  color: white;
+  background-color: var(--logo-dark-blue);
+  font-weight: bold;
+  border: none;
+}
+
+.add-contact-dialog-button-create img {
+  margin-left: 8px;
+}
+
+.add-contact-dialog-button-create:hover {
+  background-color: #29abe2;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.add-contact-dialog-button-cancel:hover {
+  border: solid 1px #29abe2;
+  color: #29abe2;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px 16px;
+}
+
+.edit-contact-dialog-button-cancel:hover {
+  border: solid 1px #29abe2;
+  color: #29abe2;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px 16px;
+}
+
+.add-contact-dialog-button-cancel:hover img {
+  content: url("../assets/icons/close_blue.png");
+  padding: 4px 4px;
+}
+
+/*=============== EDIT CONTACT DIALOG ===============*/
+
+.edit-contact-dialog {
+  display: none;
+}
+
+.edit-contact-dialog[open] {
+  display: flex;
+  margin: auto;
+  width: 1212px;
+  height: 592px;
+  border: none;
+  border-radius: 30px;
+  background-color: white;
+  display: flex;
+  animation: slideInDialog 0.4s ease forwards;
+}
+
+.edit-contact-dialog.closing {
+  animation: slideOutDialog 0.4s ease forwards;
+}
+
+@keyframes slideOutDialog {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+.edit-contact-dialog-left {
+  width: 37%;
+  height: 100%;
+  background-color: var(--logo-dark-blue);
+}
+
+.edit-left-dialog-h1 {
+  color: white;
+  font-size: 60px;
+  font-weight: 700;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.edit-contact-initials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  flex-shrink: 0;
+
+  margin-left: 32px;
+  margin-right: 50px;
+  background-color: orange;
+
+  font-size: 48px;
+  font-weight: 500;
+  color: white;
+}

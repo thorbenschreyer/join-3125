@@ -50,10 +50,10 @@ function smallTask() {
     `
 }
 
-function renderContactTemplate(index, initails, name, email) {
+function renderContactTemplate(index, initails, name, email, color) {
   return `
         <div onclick="openContactDetailview('contact-${index}', ${index})" id="contact-${index}" class="contact">
-          <div class="contact-initials">
+          <div class="contact-initials" style="background-color:${color}">
             <p>${initails}</p>
           </div>
           <div class="contact-name-email">
@@ -64,17 +64,17 @@ function renderContactTemplate(index, initails, name, email) {
         `;
 }
 
-function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
-  return`
+function renderDetailedContactsTemplate(initials, name, email, phoneNumber, color) {
+  return `
   <div>
         <div class="contact-edit">
-          <div class="contact-detail-initials">
-            <p>${initials}</p>
+          <div class="contact-detail-initials" ">
+            <p style="background-color:${color}" class="inital-style">${initials}</p>
           </div>
           <div>
             <p class="contact-detail-name">${name}</p>
             <div class="contact-btn">
-              <p onclick="openDialog(editDialog)" class="contact-btn contact-btn-edit">
+              <p onclick="openDialog(editDialog), editUser()" class="contact-btn contact-btn-edit">
                 <img src="../assets/icons/edit.png" alt="" />Edit
               </p>
               <p onclick="deleteUser()" class="contact-btn contact-btn-delete">
@@ -92,14 +92,14 @@ function renderDetailedContactsTemplate(initials, name, email, phoneNumber) {
           <p>${phoneNumber}</p>
         </div>
       </div>
-  `
+  `;
 }
 
 function contactBrakerTemplate(letter) {
-  return`
+  return `
         <div class="contact-breaker">
             <p>${letter}</p>
             <hr />
         </div>
-  `
+  `;
 }
