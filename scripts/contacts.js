@@ -20,6 +20,11 @@ async function initContacts() {
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
 }
 
+/**
+ * Opens the contact's detail view
+ * @param {Identifies the user} contactID 
+ * @param {Index of the for loop} index 
+ */
 function openContactDetailview(contactID, index) {
   currentID = index;
   setDetailViewActiveColor(contactID);
@@ -46,6 +51,10 @@ function setDetailViewActiveColor(contactID) {
   lastActiveDetailViewContact = contactID;
 }
 
+/**
+ * Renders the user
+ * @param {the user to be rendered} index 
+ */
 function renderDetailContactInformation(index) {
   detailContact = document.getElementById("contact-details");
   const initials = contactUsers[index].initials;
@@ -139,10 +148,19 @@ function registerDialog(dialogID, delay, classforSlide) {
   return dialog;
 }
 
+/**
+ * Opens the dialog
+ * @param {enter the name here if there are multiple dialogs} dialogName 
+ */
 function openDialog(dialogName) {
   dialogName.showModal();
 }
 
+/**
+ * Closes the dialog with a delay to allow for an animation
+ * @param {the dialog to be closed} dialog 
+ * @param {delay duration} delay 
+ */
 function closeDialog(dialog, delay = 300) {
   dialog.classList.add("closing");
 
@@ -152,6 +170,9 @@ function closeDialog(dialog, delay = 300) {
   }, delay);
 }
 
+/**
+ * Takes us back to the contacts. The "isActiv" status is also removed
+ */
 function backToContacts() {
   let detailesContactView = document.getElementById("contact-detail-area");
   detailesContactView.classList.add("back-to-contacts-unset");
@@ -162,6 +183,9 @@ function backToContacts() {
   lastActiveUser.classList.add("contact");
 }
 
+/**
+ * Deletes the user
+ */
 function deleteUser() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
@@ -170,6 +194,9 @@ function deleteUser() {
   initContacts();
 }
 
+/**
+ * Deletes the user and returns to the contacts 
+ */
 function deleteUserMobile() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
@@ -177,6 +204,9 @@ function deleteUserMobile() {
   initContacts();
 }
 
+/**
+ * Deletes the user in the edit dialog
+ */
 function deleteUserInEditDialog() {
   contactUsers.splice(currentID, 1);
   localStorage.setItem("users", JSON.stringify(contactUsers));
@@ -186,6 +216,9 @@ function deleteUserInEditDialog() {
   initContacts();
 }
 
+/**
+ * Creates a new user
+ */
 function addNewContact() {
   let name = document.getElementById("contact-name").value;
   let email = document.getElementById("contact-email").value;
@@ -207,6 +240,9 @@ function addNewContact() {
   initContacts();
 }
 
+/**
+ * Opens edit mode and sets the values
+ */
 function editUser() {
   let userInitials = document.getElementById("edit-contact-initials")
   let editName = document.getElementById("edit-name")
@@ -220,6 +256,9 @@ function editUser() {
   editPhone.value = contactUsers[currentID].phone
 }
 
+/**
+ * Saves the edited values
+ */
 function saveEditValues() {
     let name = document.getElementById("edit-name").value
     let email = document.getElementById("edit-email").value
@@ -235,6 +274,9 @@ function saveEditValues() {
     renderDetailContactInformation(currentID)
 }
 
+/**
+ * Displays the "Created successfully" dialog
+ */
 function showSuccessMessage() {
   const toast = document.getElementById("success-toast");
 
