@@ -237,3 +237,13 @@ function saveEditValues() {
     initContacts();
     renderDetailContactInformation(currentID)
 }
+
+function showSuccessMessage() {
+  const toast = document.getElementById("success-toast");
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}

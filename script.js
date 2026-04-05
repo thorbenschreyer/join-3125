@@ -15,7 +15,6 @@ let time;
  * whether the user is logged in.
  */
 async function init() {
-  localStorage.setItem("loginState", JSON.stringify(isloggedIn));
   isloggedIn = localStorage.getItem("loginState") === "true";
     const publicPages = ["privacy", "legal"];
 

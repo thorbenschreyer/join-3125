@@ -64,7 +64,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 0px 32px;
+  padding: 16px 32px;
 }
 
 .add-contact-btn {
@@ -281,6 +281,31 @@
 .add-contact-btn-mobile {
   display: none;
 }
+
+.success-toast {
+  position: fixed;
+  left: 50%;
+  bottom: -100px;
+  transform: translateX(-50%);
+  
+  background: #2a3647;
+  color: white;
+  padding: 16px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 1000;
+}
+
+.success-toast.show {
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  opacity: 1;
+}
+
+
 @media (max-width: 1250px) {
   .contact-haeder-area {
     flex-direction: column;

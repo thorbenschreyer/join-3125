@@ -61,7 +61,7 @@
         <p class="dialog-input-handler"><input required id="contact-phone" placeholder="Phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
         <div class="dialog-button-handler">
           <button onclick="closeDialog(addDialog, 400)" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="../assets/icons/cancel_dark.png" alt=""></button>
-          <button onclick="addNewContact()" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="../assets/icons/check_light.png" alt=""></button>
+          <button onclick="addNewContact(), showSuccessMessage()" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="../assets/icons/check_light.png" alt=""></button>
         </div>
       </form>
     </div>
@@ -105,3 +105,6 @@
   </div>
 </dialog>
 
+<div id="success-toast" class="success-toast">
+  Benutzer erfolgreich erstellt!
+</div>
