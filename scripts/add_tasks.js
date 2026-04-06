@@ -414,7 +414,8 @@ function addTask() {
         priority: taskPriority,
         assignedTo: taskAssignedTo,
         category: taskCategory,
-        subtasks: taskSubtasks
+        subtasks: taskSubtasks,
+        currentTask: "to-do"
     });
     saveTaskData();
     addTaskSuccess();
