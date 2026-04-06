@@ -222,6 +222,7 @@ function clickInSummaryBoard() {
   toggleIsActive("add_task", "add_task_img");
 }
 
+
 /**
  * This function generates the name and initials of the logged-in user and returns them
  */
@@ -280,6 +281,12 @@ async function loadAddTaskPage() {
   await loadHtmlPage("content", "./templates/add_tasks.html");
   initAddTaskElements();
   toggleIsActive("add_task", "add_task_img");
+}
+
+function loadBoardPage() {
+  loadHtmlPage("content", "./templates/board.html");
+  removeActiveState();
+  toggleIsActive("board", "board_img");
 }
 
 async function openContactsPage() {

@@ -620,3 +620,62 @@ height: 10px;
   width: 10px;
   height: auto;
 }
+
+/* === ADD TASK TOAST === */
+.add-task-success-overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.325s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+.add-task-success-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.add-task-success-toast {
+  position: fixed;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  background: #2f3e4d;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 300;
+  opacity: 0;
+  transition: none;
+  z-index: 9999;
+  animation: none;
+}
+
+.add-task-success-toast.show {
+  animation: toast-flyin 0.325s linear forwards;
+}
+
+@keyframes toast-flyin {
+  0% {
+    top: 100%;
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.add-task-success-content {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.add-task-success-content img {
+  width: auto;
+  height: 24px;
+}
