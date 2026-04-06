@@ -1,9 +1,10 @@
 let currentTaskBar = "todo-tasks";
-let i = 0;
+let currentDraggedElement;
 let allTasks = [
     {
         'id' : 0,
-        'category' : 'User Story', 
+        'category' : 'User Story',
+        'category_color' : 'user', 
         'title' :  'Kochwelt Page & Recipe Recommander',
         'description' : 'Build start page with recipe recommendation.',
         'subtasks' : [
@@ -26,21 +27,39 @@ let allTasks = [
         ],
         'priority' : 'Medium',
         'current_task' : 'todo'
+    }, {
+        'id' : 1,
+        'category' : 'Technical Task',
+        'category_color' : 'technical', 
+        'title' :  'CSS Architecture Planning',
+        'description' : 'Define CSS naming conventions and stucture.',
+        'subtasks' : [
+            {
+                'id' : 0,
+                'subtask' : 'Establish CSS Methodology',
+                'current-state' : 'closed',
+            },
+            {
+                'id' : 1,
+                'subtask' : 'Setup Base Styles',
+                'current-state' : 'closed',
+            }
+        ],
+        'due_date' : '02/09/2023',
+        'assigned_to' : [
+            'Sofia Müller',
+            'Benedikt Ziegler'
+        ],
+        'priority' : 'urgent',
+        'current_task' : 'in-progress'
     }
-];
 
-let taskCategory = allTasks[i].category;
-let taskTitle = allTasks[i].title;
-let taskDescription = allTasks[i].description;
-let taskSubtasks = allTasks[i].subtasks;
-let taskDueDate = allTasks[i].due_date;
-let taskAssignedTo = allTasks[i].assigned_to;
-let taskPriority = allTasks[i].priority;
-let taskCurrentTask = allTasks[i].current_task;
+
+];
 
 
 function boardInit() {
-    renderSmallTask();
+    renderAllTasks();
 }
 
 async function openAddTaskOverlay(selectedTaskBar) {
@@ -51,7 +70,6 @@ async function openAddTaskOverlay(selectedTaskBar) {
     addTaskFooter.classList.add('d-none');
     dialogTaskFooter.classList.remove('d-none');
     currentTaskBar = selectedTaskBar + '-tasks';
-    console.log('Dialog gerendert');
     overlay.classList.remove('d-none');
 }
 
@@ -68,29 +86,89 @@ function closeAddTaskOverlay() {
     }, 200);
 }
 
+
 function stopEventBubbling(event) {
     event.stopPropagation();
 }
 
-// function renderSmallTask() {
-//     const taskContainer = document.getElementById(currentTaskBar);
-//     removePlaceholder(taskContainer);
-//     taskContainer.insertAdjacentHTML('beforeend', smallTask());
-//     console.log(taskAssignedTo);
-// }
 
-function renderTodos(i) {
-    let todo = allTasks.filter(t => t['current_task'] == 'todo');
-    const todoTaskBar = document.getElementById();
-    for (i = 0; i < allTasks.length; i++) {
-        const element = array[i];
-        
-    }
+function renderAllTasks() {
+    renderTodoTasks();
+    renderInProgressTasks();
+    renderAwaitFeedbackTasks();
+    renderDoneTasks();
 }
 
-function removePlaceholder(container) {
-    const placeholder = container.querySelector('.placeholder-task');
-    if (placeholder) {
-        placeholder.classList.add('d-none');
-    }
+
+function renderTodoTasks() {
+    let todo = allTasks.filter(t => t['current_task'] == 'todo');
+    const todoTaskBar = document.getElementById('todo-tasks');
+    todoTaskBar.innerHTML = "";
+    if (todo.length == 0) {
+        todoTaskBar.innerHTML = renderPlaceholderTemplate('to do');
+        return;
+    };
+    for (let index = 0; index < todo.length; index++) {
+        const element = todo[index];
+        todoTaskBar.innerHTML += smallTask(element);
+    }; 
+}
+
+
+function renderInProgressTasks() {
+    let inProgress = allTasks.filter(t => t['current_task'] == 'in-progress');
+    const inProgressTaskBar = document.getElementById('in-progress-tasks');
+    inProgressTaskBar.innerHTML = "";
+    if (inProgress.length == 0) {
+        inProgressTaskBar.innerHTML = renderPlaceholderTemplate('In Progress');
+        return;
+    };
+    for (let index = 0; index < inProgress.length; index++) {
+        const element = inProgress[index];
+        inProgressTaskBar.innerHTML += smallTask(element);
+    }; 
+}
+
+
+function renderAwaitFeedbackTasks() {
+    let awaitFeedback = allTasks.filter(t => t['current_task'] == 'await-feedback');
+    const awaitFeedbackTaskBar = document.getElementById('await-feedback-tasks');
+    awaitFeedbackTaskBar.innerHTML = "";
+    if (awaitFeedback.length == 0) {
+        awaitFeedbackTaskBar.innerHTML = renderPlaceholderTemplate('Awaiting Feedback'); 
+        return;
+    };
+    for (let index = 0; index < awaitFeedback.length; index++) {
+        const element = awaitFeedback[index];
+        awaitFeedbackTaskBar.innerHTML += smallTask(element);
+    }; 
+}
+
+
+function renderDoneTasks() {
+    let done = allTasks.filter(t => t['current_task'] == 'done');
+    const doneTaskBar = document.getElementById('done-tasks');
+    doneTaskBar.innerHTML = "";
+    if (done.length == 0) {
+        doneTaskBar.innerHTML = renderPlaceholderTemplate('Done');
+        return;
+    };
+    for (let index = 0; index < done.length; index++) {
+        const element = done[index];
+        doneTaskBar.innerHTML += smallTask(element);
+    }; 
+}
+
+
+function startDragging(id) {
+    currentDraggedElement = id;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function movingTo(category) {
+    allTasks[currentDraggedElement].current_task = category;
+    boardInit();
 }

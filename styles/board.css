@@ -4,6 +4,7 @@
   flex-direction: column;
   padding-top: 110px;
   padding-left: 64px;
+  height: 100%;
 }
 
 .add-plus-img {
@@ -128,6 +129,7 @@
   min-height: 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  height: 100%;
 }
 
 .all-task-bars::-webkit-scrollbar {
@@ -137,7 +139,7 @@
 .task-bar {
   display: flex;
   flex-direction: column;
-  background-color: #F6F7F8;
+  /* background-color: transparent; */
   border-radius: 10px;
   width: 278px;
   height: 100%;
@@ -196,6 +198,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   width: 100%;
+  height: 100%;
+  background-color: transparent;
 }
 
 .width-248px {
@@ -283,13 +287,24 @@
   gap: 16px;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+  overflow: hidden;
+  transform: translate(0, 0);
 }
 
-.small-task-category {
+.small-task-category-user {
   font-size: 16px;
   font-weight: 400;
   color: white;
   background-color: #0038FF;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+.small-task-category-technical {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  background-color: rgba(31, 215, 193, 1);
   padding: 4px 16px;
   border-radius: 8px;
 }

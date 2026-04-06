@@ -91,25 +91,52 @@ function checkLogin(page) {
  * @param {The ID of the div container} divID
  * @param {The name or the folder and the name of the HTML file} pagefile
  */
-async function loadHtmlPage(divID, pagefile) {
-  const response = await fetch(pagefile);
-  const html = await response.text();
-  document.getElementById(divID).innerHTML = html;
-
-  if (pagefile.includes("contacts.html")) {
-    initContacts();
-  }
+// async function loadHtmlPage(divID, pagefile) {
+//   const response = await fetch(pagefile);
+//   const html = await response.text();
+//   document.getElementById(divID).innerHTML = html;
   
-  if (
-    pagefile != "./footerpages/help.html" &&
-    pagefile != "./footerpages/privacy_policy.html" &&
-    pagefile != "./footerpages/legal_notice.html"
-  ) {
-    lastOpenID = divID;
-    lastOpenPage = pagefile;
-  }
+//   if (pagefile.includes("contacts.html")) {
+//     initContacts();
+//   }
+  
+//   if (
+//     pagefile != "./footerpages/help.html" &&
+//     pagefile != "./footerpages/privacy_policy.html" &&
+//     pagefile != "./footerpages/legal_notice.html"
+//   ) {
+//     lastOpenID = divID;
+//     lastOpenPage = pagefile;
+//   }
+// }
+
+async function loadHtmlPage(divID, pagefile) {
+    const response = await fetch(pagefile);
+    const html = await response.text();
+    document.getElementById(divID).innerHTML = html;
+    
+    triggerPageInit(pagefile);
+    updatePageHistory(divID, pagefile);
 }
 
+function triggerPageInit(pagefile) {
+    if (pagefile.includes('contacts.html')) {
+        initContacts();
+    } else if (pagefile.includes('board.html')) {
+        boardInit();
+    }
+}
+
+function updatePageHistory(divID, pagefile) {
+    const isHelp = pagefile.includes('help.html');
+    const isPrivacy = pagefile.includes('privacy_policy.html');
+    const isLegal = pagefile.includes('legal_notice.html');
+    
+    if (!isHelp && !isPrivacy && !isLegal) {
+        lastOpenID = divID;
+        lastOpenPage = pagefile;
+    }
+}
 
 /**
  * This function opens and closes the menu by replacing classes

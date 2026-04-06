@@ -5,7 +5,7 @@
         <div id="find-task-container" class="find-task-container">
             <div id="search-task-input-container" class="search-task-input-container">
                 <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
-                <div class="search-icon-wrapper" onclick="renderSmallTask()">
+                <div class="search-icon-wrapper" onclick="renderAllTasks()">
                     <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                     <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
                     <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
@@ -19,7 +19,7 @@
     <div class="search-task-container-mobile" id="search-task-container-mobile">
         <div id="search-task-input-container-mobile" class="search-task-input-container-mobile">
                     <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
-                    <div class="search-icon-wrapper" onclick="renderSmallTask()">
+                    <div class="search-icon-wrapper" onclick="renderAllTasks()">
                         <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                         <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
                         <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
@@ -36,11 +36,7 @@
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
-                <div id="todo-tasks" class="tasks-container">
-                    <div id="placeholder-todo-task" class="placeholder-task">
-                        <p>no Tasks to do</p>
-                    </div>
-                    
+                <div id="todo-tasks" class="tasks-container" ondrop="movingTo('todo')" ondragover="allowDrop(event)">
                 </div>
             </div>
             <div id="in-progress-task-bar" class="task-bar">
@@ -52,10 +48,7 @@
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
-                <div id="in-progress-tasks" class="tasks-container">
-                    <div id="placeholder-in-progress-task" class="placeholder-task">
-                        <p>No Tasks In Progress</p>
-                    </div>
+                <div id="in-progress-tasks" class="tasks-container" ondrop="movingTo('in-progress')" ondragover="allowDrop(event)">
                 </div>
             </div>
             <div id="await-feedback-task-bar" class="task-bar">
@@ -67,21 +60,13 @@
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
-                <div id="await-feedback-tasks" class="tasks-container">
-                    <div id="placeholder-await-feedback-task" class="placeholder-task">
-                        <p>No Tasks Awaiting Feedback</p>
-                    </div>
+                <div id="await-feedback-tasks" class="tasks-container" ondrop="movingTo('await-feedback')" ondragover="allowDrop(event)">
                 </div>
             </div>
             <div id="done-task-bar" class="task-bar">
                 <h3 class="task-bar-heading width-248px">Done</h3>
-                <div id="done-tasks" class="tasks-container">
-                    <div id="placeholder-done-task" class="placeholder-task">
-                        <p>No Tasks Done</p>
-                    </div>
+                <div id="done-tasks" class="tasks-container" ondrop="movingTo('done')" ondragover="allowDrop(event)">
                 </div>
             </div>
         </div>
 </div>
-        
-        
