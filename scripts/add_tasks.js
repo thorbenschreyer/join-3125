@@ -34,9 +34,10 @@ let ADD_SUBTASK_BTN;
 let SUBTASKS_LIST;
 let SUBTASK_ITEM;
 let SUBTASKS;
-
 let CLEAR_FORM_BTN;
 let ADDTASK_BTN;
+let ADD_TASK_SUCCESS_TOAST;
+let ADD_TASK_SUCCESS_OVERLAY;
 
 // Requirements set for add task form validation
 let isTitleValid = false;
@@ -86,9 +87,10 @@ async function initAddTaskElements() {
     ADD_SUBTASK_BTN = document.getElementById("add-subtask-btn");
     SUBTASKS_LIST = document.getElementById("subtasks-list");
     SUBTASK_ITEM = Array.from(document.getElementsByClassName("subtask-item"));
-
     CLEAR_FORM_BTN = document.getElementById("clear-task-btn");
     ADDTASK_BTN = document.getElementById("add-task-btn");
+    ADD_TASK_SUCCESS_TOAST = document.getElementById("add-task-success-toast");
+    ADD_TASK_SUCCESS_OVERLAY = document.getElementById("add-task-success-overlay");
 
     CALENDAR_ICON = document.getElementById("calendar-icon");
     document.addEventListener("click", function(event) {
@@ -213,7 +215,7 @@ function feedbackOnRequiredInput() {
                     </div>
                 </li>
                 <div id="subtask-edit" class="subtask-item-edit dNone">
-                    <input class="subtask-edit-input" type="text" name="subtasks" value="${SUBTASKS_INPUT.value}">
+                    <input class="subtask-edit-input" type="text" name="subtasks" value="${SUBTASKS_INPUT.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
                     <div class="subtask-edit-btns">
                         <img class="edit-input-delete-btn" src="../assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
                         <span class="subtask-edit-input-divider">|</span>
@@ -302,8 +304,11 @@ function hideSubtaskButtons(item) {
 function editSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
     let editDiv = wrapper.querySelector("#subtask-edit");
+    let inputLength = editDiv.querySelector(".subtask-edit-input").value.length;
     editDiv.classList.remove("dNone");
     editDiv.style.display = "flex";
+    editDiv.querySelector(".subtask-edit-input").focus();  
+    editDiv.querySelector(".subtask-edit-input").setSelectionRange(inputLength, inputLength);
     wrapper.querySelector("#subtask-item").classList.add("dNone");
 }
 
@@ -385,33 +390,45 @@ function highlightLowPriority() {
     LOW_WHITE_IMG.classList.remove("dNone");
 }
 
-// function addTask() {
-//     let taskTitle = TITLE_INPUT.value;
-//     let taskDescription = DESC_INPUT.value;
-//     let taskDueDate = DUE_DATE_INPUT.value;
-//     let taskPriority;
-//     if (URGENT_BTN.classList.contains("prio-urgent")) {
-//         taskPriority = "urgent";
-//     } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
-//         taskPriority = "medium";
-//     } else if (LOW_BTN.classList.contains("prio-low")) {
-//         taskPriority = "low";
-//     }
-//     let taskAssignedTo = selectedUsers.map(u => u.name)
-//     let taskCategory = CATEGORY_SELECT.value;
-//     let taskSubtasks = SUBTASKS.value;
+function addTask() {
+    let Subtasks = Array.from(document.querySelectorAll(".subtask-text"));
+    let taskTitle = TITLE_INPUT.value;
+    let taskDescription = DESC_INPUT.value;
+    let taskDueDate = DUE_DATE_INPUT.value;
+    let taskPriority;
+    if (URGENT_BTN.classList.contains("prio-urgent")) {
+        taskPriority = "urgent";
+    } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
+        taskPriority = "medium";
+    } else if (LOW_BTN.classList.contains("prio-low")) {
+        taskPriority = "low";
+    }
+    let taskAssignedTo = selectedUsers.map(u => u.name)
+    let taskCategory = CATEGORY_INPUT.value;
+    let taskSubtasks = Subtasks.map(s => s.textContent);
 
-//     tasks.push({
-//         title: taskTitle,
-//         description: taskDescription,
-//         dueDate: taskDueDate,
-//         priority: taskPriority,
-//         assignedTo: taskAssignedTo,
-//         category: taskCategory,
-//         subtasks: taskSubtasks
-//     });
-//     saveTaskData();
-// }
+    tasks.push({
+        title: taskTitle,
+        description: taskDescription,
+        dueDate: taskDueDate,
+        priority: taskPriority,
+        assignedTo: taskAssignedTo,
+        category: taskCategory,
+        subtasks: taskSubtasks,
+        currentTask: "to-do"
+    });
+    saveTaskData();
+    addTaskSuccess();
+}
+
+function addTaskSuccess() {
+    ADDTASK_BTN.disabled = true;
+    ADD_TASK_SUCCESS_TOAST.classList.add("show");
+    ADD_TASK_SUCCESS_OVERLAY.classList.add("show");
+    setTimeout(() => {
+        loadBoardPage();
+    }, 1500);
+}
 
 async function saveTaskData() {
     let lastTask = tasks.length - 1;
@@ -579,6 +596,7 @@ function resetUserSelection() {
 }
 
 function clearFormular() {
+    ADDTASK_BTN.classList.add("disabled-btn"); 
     TITLE_INPUT.value = "";
     TITLE_INPUT.classList.remove("red-border")
     TITLE_INPUT_ERROR.textContent = "";

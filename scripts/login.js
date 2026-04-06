@@ -6,7 +6,6 @@ const inputImg = document.getElementById("input-password-img");
 let initialViewportHeight = window.visualViewport.height;
 
 let wasEmpty = true;
-let users = [];
 let userColor = [];
 
 // Initialization of event listeners after the DOM is fully loaded

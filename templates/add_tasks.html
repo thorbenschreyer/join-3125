@@ -102,7 +102,7 @@
 
             <!-- CATEGORY -->
             <div class="form-group">
-                <label for="task-category">Category<span class="required">*</span></label>
+                <label>Category<span class="required">*</span></label>
                 <div id="task-category-wrapper" class="custom-dropdown">
                     <div class="custom-dropdown-toggle form-input" onclick="openCategoryDropdown()">
                         <input id="task-category-input" class="dropdown-input" type="text" placeholder="Select task category" readonly>
@@ -123,7 +123,7 @@
 
             <!-- SUBTASKS -->
             <div class="form-group">
-                <label for="subtasks">Subtasks</label>
+                <label for="subtasks-input">Subtasks</label> 
                 <input id="subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask">
                 <img id="clear-input-btn" class="clear-input-icon dNone" src="../assets/icons/subtask_close.svg" alt="">
                 <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone">|</span>
@@ -156,6 +156,15 @@
         </div>
 
     </div>
+
+    <!-- TOAST -->
+        <div id="add-task-success-overlay" class="add-task-success-overlay"></div>
+        <div id="add-task-success-toast" class="add-task-success-toast">
+            <div class="add-task-success-content">
+                <span>Task added to board</span>
+                <img src="../assets/icons/board_white.png" alt="">
+            </div>
+        </div>
 
     <!-- Footer for Dialog Add Task -->
 

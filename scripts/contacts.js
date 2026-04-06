@@ -235,23 +235,32 @@ function deleteUserInEditDialog() {
  * Creates a new user
  */
 function addNewContact() {
-  let name = document.getElementById("contact-name").value;
-  let email = document.getElementById("contact-email").value;
-  let phone = document.getElementById("contact-phone").value;
-  contactUsers.push(
-    {
-      id: "Random ID",
-      name: name,
-      initials: name.split(" ").map((word) => word[0]).join(""),
-      email: email,
-      password: "password",
-      userColor: userColor[Math.floor(Math.random() * userColor.length)],
-      phone: phone
-    }
-  )
-  sortContacts(contactUsers)
+  let nameInput = document.getElementById("contact-name");
+  let emailInput = document.getElementById("contact-email");
+  let phoneInput = document.getElementById("contact-phone");
+
+  let name = nameInput.value;
+  let email = emailInput.value;
+  let phone = phoneInput.value;
+
+  contactUsers.push({
+    id: "Random ID",
+    name: name,
+    initials: name.split(" ").map((word) => word[0]).join(""),
+    email: email,
+    password: "password",
+    userColor: userColor[Math.floor(Math.random() * userColor.length)],
+    phone: phone
+  });
+
+  sortContacts(contactUsers);
   localStorage.setItem("users", JSON.stringify(contactUsers));
-  closeDialog(addDialog, 400)
+
+  nameInput.value = "";
+  emailInput.value = "";
+  phoneInput.value = "";
+
+  closeDialog(addDialog, 400);
   initContacts();
 }
 
