@@ -25,12 +25,12 @@ function helpAndLogout() {
     `;
 }
   
-function smallTask() {
+function smallTask(element) {
   return `
-    <div id="board-small-task" class="board-small-task">
-        <p id="small-task-category" class="small-task-category">User Story</p>
-        <h3  id="small-task-title" class="small-task-title">Kochwelt Page & Recipe Recommender</h3>
-        <p id="small-task-description" class="small-task-description">Build start page with recipe recommendation...</p>
+    <div draggable="true" ondragstart="startDragging(${element['id']})" id="board-small-task" class="board-small-task">
+        <p id="small-task-category" class="small-task-category-${element.category_color}">${element.category}</p>
+        <h3  id="small-task-title" class="small-task-title">${element.title}</h3>
+        <p id="small-task-description" class="small-task-description">${element.description}</p>
         <div id="subtasks-with-subtasks-bar-container" class="subtasks-with-subtasks-bar-container">
             <div id="subtasks-bar-container" class="subtasks-bar-container">
                 <div id="subtasks-bar" class="subtasks-bar">
@@ -48,6 +48,14 @@ function smallTask() {
         </div>
     </div>
     `
+}
+
+function renderPlaceholderTemplate(emptyTaskBar) {
+  return `
+  <div class="placeholder-task">
+    <p>No Tasks ${emptyTaskBar}</p>
+  </div>
+  `
 }
 
 function renderContactTemplate(index, initails, name, email, color) {
