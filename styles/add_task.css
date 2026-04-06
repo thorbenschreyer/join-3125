@@ -433,7 +433,12 @@ height: 10px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-left: 0;
+  max-height: 60px;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-gray) transparent;
   font-size: 12px;
   list-style: none;
 }
@@ -541,12 +546,12 @@ height: 10px;
 /* === FOOTER === */
 .add-task-footer {
   position: absolute;
-  top: 584px;
+  top: 756px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   width: 690px;
-  padding: 96px 0 0;
+  padding: 0;
 }
 
 .footer-left {

@@ -213,7 +213,7 @@ function feedbackOnRequiredInput() {
                     </div>
                 </li>
                 <div id="subtask-edit" class="subtask-item-edit dNone">
-                    <input class="subtask-edit-input" type="text" name="subtasks" value="${SUBTASKS_INPUT.value}">
+                    <input class="subtask-edit-input" type="text" name="subtasks" value="${SUBTASKS_INPUT.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
                     <div class="subtask-edit-btns">
                         <img class="edit-input-delete-btn" src="../assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
                         <span class="subtask-edit-input-divider">|</span>
@@ -302,8 +302,11 @@ function hideSubtaskButtons(item) {
 function editSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
     let editDiv = wrapper.querySelector("#subtask-edit");
+    let inputLength = editDiv.querySelector(".subtask-edit-input").value.length;
     editDiv.classList.remove("dNone");
     editDiv.style.display = "flex";
+    editDiv.querySelector(".subtask-edit-input").focus();  
+    editDiv.querySelector(".subtask-edit-input").setSelectionRange(inputLength, inputLength);
     wrapper.querySelector("#subtask-item").classList.add("dNone");
 }
 
@@ -579,6 +582,7 @@ function resetUserSelection() {
 }
 
 function clearFormular() {
+    ADDTASK_BTN.classList.add("disabled-btn"); 
     TITLE_INPUT.value = "";
     TITLE_INPUT.classList.remove("red-border")
     TITLE_INPUT_ERROR.textContent = "";
