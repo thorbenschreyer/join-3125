@@ -27,7 +27,7 @@ function helpAndLogout() {
   
 function smallTask(element) {
   return `
-    <div draggable="true" ondragstart="startDragging(${element['id']})" id="board-small-task" class="board-small-task">
+    <div draggable="true" ondragstart="startDragging(event, ${element['id']})" ondragend="stopDragging(event)" id="board-small-task-${element.id}" class="board-small-task">
         <p id="small-task-category" class="small-task-category-${element.category_color}">${element.category}</p>
         <h3  id="small-task-title" class="small-task-title">${element.title}</h3>
         <p id="small-task-description" class="small-task-description">${element.description}</p>

@@ -289,6 +289,13 @@
   cursor: pointer;
   overflow: hidden;
   transform: translate(0, 0);
+  min-height: fit-content;
+}
+
+.rotate-on-drag {
+    transform: rotate(5deg) !important;
+    opacity: 0.6;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .small-task-category-user {
