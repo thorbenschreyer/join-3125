@@ -2,7 +2,6 @@
   max-width: 900px;
   margin-top: 110px;
   margin-left: 64px;
-  font-family: Arial, sans-serif;
 }
 
 .footer-pages h1 {
@@ -52,6 +51,15 @@
 
 .back-to-previous-page-help:hover {
   content: url("../assets/icons/arrow_left_line_hover.png");
+}
+
+@media (max-width: 818px) {
+  .footer-pages {
+    max-width: 900px;
+    margin-top: 16px;
+    margin-left: 8px;
+}
+  
 }
 
 @media (max-width: 744px) {
