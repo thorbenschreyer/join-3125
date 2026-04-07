@@ -144,7 +144,7 @@
 .menu-items {
   display: flex;
   flex-direction: column;
-  background-color: var(--logo-light-blue);
+  background-color: var(--logo-dark-blue);
 }
 
 .menu-hover {
@@ -161,7 +161,7 @@
 }
 
 .menu-hover:hover {
-  background-color: var(--logo-light-blue);
+  background-color: rgba(42, 61, 89, 1);
 }
 
 .menu-hover img {
@@ -174,7 +174,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 64px 0;
-  background-color: var(--logo-light-blue);
+  background-color: var(--logo-dark-blue);
   height: 100%;
   width: 100%;
 }
@@ -183,7 +183,7 @@
   padding: 8px;
   padding-left: 56px;
   color: rgba(205, 205, 205, 1);
-  background-color: var(--logo-light-blue);
+  background-color: var(--logo-dark-blue);
   transition: all 0.3s ease;
 }
 
