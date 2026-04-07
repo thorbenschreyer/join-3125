@@ -51,7 +51,7 @@ const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.a
 /* let tasks = []; */
 
 // USER NAMES
-let userNames = [];
+let users = [];
 
 async function initAddTaskElements() {
     TITLE_INPUT = document.getElementById("task-title");
@@ -106,8 +106,9 @@ async function initAddTaskElements() {
     });
     setMinDate();
     feedbackOnRequiredInput();
-    await getUserNames();
-    pushUserNames();
+    await loadUsers();
+    renderUsersDropdown();
+    resetUserSelection();
 } 
 
 function feedbackOnRequiredInput() {
@@ -441,16 +442,21 @@ async function saveTaskData() {
     });
 }
 
-async function getUserNames() {
+async function loadUsers() {
+    users = [];
     let allUserData = await fetch(`${BASE_URL}users.json`);
     let allUserDataToJson = await allUserData.json(); 
     let UserKeysArray = Object.keys(allUserDataToJson);
 
     for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-        userNames.push(allUserDataToJson[UserKeysArray[userIndex]].name)
+        users.push(
+            {
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
+            }
+        )
     }    
 }
-
 
 function openAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
@@ -503,18 +509,17 @@ function checkDropdownState() {
 
 
 let selectedUsers = [];
-const BADGE_COLORS = ["#FF7A00", "#6E52FF", "#00BEE8", "#9327FF", "#FC71FF", "#FF4646", "#FFC701", "#0038FF", "#1FD7C1", "#C3FF2B"];
 
-function pushUserNames() {
+function renderUsersDropdown() {
     ASSIGNED_TO_USERS.innerHTML = "";
-    for (let i = 0; i < userNames.length; i++) {
-        let initials = getInitials(userNames[i]);
-        let color = BADGE_COLORS[i];
-        ASSIGNED_TO_USERS.insertAdjacentHTML("beforeend", pushUserNamesTemplate(userNames[i], initials, color));
+    for (let i = 0; i < users.length; i++) {
+        let initials = getInitials(users[i].name);
+        let color = users[i].avatarColor;
+        ASSIGNED_TO_USERS.insertAdjacentHTML("beforeend", renderUsersDropdownTemplate(users[i].name, initials, color));
     }
 }
 
-function pushUserNamesTemplate(user, initials, color) {
+function renderUsersDropdownTemplate(user, initials, color) {
     return `
         <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
