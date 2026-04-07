@@ -27,7 +27,7 @@ function helpAndLogout() {
   
 function smallTask(element) {
   return `
-    <div draggable="true" ondragstart="startDragging(${element['id']})" id="board-small-task" class="board-small-task">
+    <div draggable="true" ondragstart="startDragging(event, ${element['id']})" id="board-small-task" class="board-small-task">
         <p id="small-task-category" class="small-task-category-${element.category_color}">${element.category}</p>
         <h3  id="small-task-title" class="small-task-title">${element.title}</h3>
         <p id="small-task-description" class="small-task-description">${element.description}</p>
@@ -83,10 +83,10 @@ function renderDetailedContactsTemplate(initials, name, email, phoneNumber, colo
             <p class="contact-detail-name">${name}</p>
             <div class="contact-btn">
               <p onclick="openDialog(editDialog), editUser()" class="contact-btn contact-btn-edit">
-                <img src="../assets/icons/edit.png" alt="" />Edit
+                <img src="./assets/icons/edit.png" alt="" />Edit
               </p>
               <p onclick="deleteUser()" class="contact-btn contact-btn-delete">
-                <img src="../assets/icons/delete.png" alt="" />Delete
+                <img src="./assets/icons/delete.png" alt="" />Delete
               </p>
             </div>
           </div>

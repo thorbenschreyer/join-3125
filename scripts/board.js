@@ -60,6 +60,26 @@ let allTasks = [
 
 function boardInit() {
     renderAllTasks();
+    initTouchPolyfill();
+    setupPolyfillTouchmove();
+}
+
+function initTouchPolyfill() {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) {
+        MobileDragDrop.polyfill({
+            forceApply: true,
+            holdToDrag: 250,
+            dragImageTranslateOverride: MobileDragDrop.scrollBehaviourDragImageTranslateOverride
+        });
+        setupPolyfillTouchmove();
+    }
+}
+
+function setupPolyfillTouchmove() {
+    window.addEventListener('touchmove', () => {
+        // Keeps the polyfill active during movement
+    }, { passive: false });
 }
 
 async function openAddTaskOverlay(selectedTaskBar) {
@@ -160,15 +180,17 @@ function renderDoneTasks() {
 }
 
 
-function startDragging(id) {
+function startDragging(event, id) {
     currentDraggedElement = id;
+    event.dataTransfer.setData('text/plain', id.toString());
 }
 
 function allowDrop(event) {
     event.preventDefault();
 }
 
-function movingTo(category) {
+function movingTo(event, category) {
+    event.preventDefault();
     allTasks[currentDraggedElement].current_task = category;
     boardInit();
 }
