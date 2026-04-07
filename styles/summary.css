@@ -125,11 +125,11 @@
 }
 
 .task-summary-style:hover .task-number {
-  color: white;
+  color: var(--white);
 }
 
 .task-summary-style:hover .task-text {
-  color: white;
+  color: var(--white);
 }
 
 .task-text {
@@ -187,9 +187,9 @@
 }
 
 .task-summary-style:hover .task-date {
-  color: white;
+  color: var(--white);
 }
 
 .task-summary-style:hover .task-date-text {
-  color: white;
+  color: var(--white)
 }

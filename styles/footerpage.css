@@ -21,12 +21,12 @@
 }
 
 .footer-pages span {
-  color: rgba(41, 171, 226, 1);
+  color: var(--logo-light-blue);
   text-decoration: none;
 }
 
 .link {
-  color: #29abe2;
+  color: var(--logo-light-blue);
   font-weight: 500;
 }
 
@@ -58,8 +58,7 @@
     max-width: 900px;
     margin-top: 16px;
     margin-left: 8px;
-}
-  
+  }
 }
 
 @media (max-width: 744px) {
