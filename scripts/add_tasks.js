@@ -451,6 +451,7 @@ async function getUserNames() {
     }    
 }
 
+
 function openAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
     let arrowdown = document.getElementById("dropdown-arrow");

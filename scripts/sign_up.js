@@ -27,6 +27,18 @@ const FORM_INPUT_FIELDS = [
 
 // USER DATA
 let users = [];
+let userColor;
+const USER_COLOR = [
+  "rgba(255, 122, 0, 1)",
+  "rgba(147, 39, 255, 1)",
+  "rgba(110, 82, 255, 1)",
+  "rgba(252, 113, 255, 1)",
+  "rgba(255, 187, 43, 1)",
+  "rgba(31, 215, 193, 1)",
+  "rgba(70, 47, 138, 1)",
+  "rgba(255, 70, 70, 1)",
+  "rgba(0, 190, 232, 1)",
+];
 
 /**
  * Adds a new user to the in-memory collection and persists it.
@@ -40,6 +52,7 @@ function addUser() {
     let userEmail = USER_EMAIL.value;
     let userPassword = USER_PASSWORD.value;
     let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+    assignUserColor();
     if (userPassword != userConfirmPassword) {
         showPasswordMismatchError();
         return;
@@ -54,7 +67,8 @@ function addUser() {
     users.push({
         name: userName,
         email: userEmail,
-        password: userPassword
+        password: userPassword,
+        avatarColor: userColor
     });
     saveUserData();
     signUpsuccess();
@@ -168,6 +182,7 @@ async function saveUserData() {
  * an array to match the structure used throughout the application.
  */
 async function getUserData() {
+    users = [];
     let allUserData = await fetch(`${BASE_URL}users.json`);
     let allUserDataToJson = await allUserData.json(); 
     let UserKeysArray = Object.keys(allUserDataToJson);
@@ -245,6 +260,11 @@ function updateConfirmPasswordInputType() {
     } else {
         USER_CONFIRM_PASSWORD.type = "password";
     }
+}
+
+function assignUserColor() {
+    newUserIndex = users.length
+    userColor = USER_COLOR[newUserIndex % USER_COLOR.length]
 }
 
 /**
