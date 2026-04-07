@@ -8,7 +8,7 @@ let toDoSOrted;
  * @returns the number of items in the new arrays
  */
 function findNumberOfTask(taskdefinition) {
-  return tasks.filter((task) => task.state === taskdefinition).length;
+  return tasks.filter((task) => task.currentTask === taskdefinition).length;
 }
 
 /**
