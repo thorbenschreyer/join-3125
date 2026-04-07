@@ -14,7 +14,8 @@ function findNumberOfTask(taskdefinition) {
 /**
  * Rendering the numbers for the summary board
  */
-function setTaskSummaryInformation() {
+  async function setTaskSummaryInformation() {
+  await loadTasks(); 
   let tasksInBoard = tasks.length;
   let tasksInProgress = findNumberOfTask("In Progress");
   let awaitingFeedback = findNumberOfTask("Await Feedback");

@@ -300,6 +300,7 @@ function getTheTimeForWelcomeMassage() {
 
 async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
+  await setTaskSummaryInformation();
   setTaskSummaryInformation();
   setInitials()
 }
