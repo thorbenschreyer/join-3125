@@ -81,38 +81,24 @@ function renderDetailContactInformation(index) {
  * If NO, it creates a hyphen with that letter and saves it
  * If YES, it renders only the contact until a new first letter appears
  */
-// function renderContactList() {
-//   let contacts = document.getElementById("displayed-contacts");
-//   contacts.innerHTML = "";
-//   currentBrakpointLetter = "";
-
-//   for (let index = 0; index < contactUsers.length; index++) {
-//     let firstLetter = contactUsers[index].name.split(" ")[0][0];
-
-//     if (firstLetter != currentBrakpointLetter) {
-//       contactBraker(firstLetter);
-//       currentBrakpointLetter = firstLetter;
-//       renderContact(index);
-//     } else {
-//       renderContact(index);
-//     }
-//   }
-// }
-
 function renderContactList() {
-  console.count("renderContactList called");
-  console.trace("Stack trace");
-  document.getElementById("displayed-contacts").innerHTML = "";
+  let contacts = document.getElementById("displayed-contacts");
+  contacts.innerHTML = "";
   currentBrakpointLetter = "";
-  for (let i = 0; i < contactUsers.length; i++) {
-    let firstLetter = contactUsers[i].name.split(" ")[0][0];
-    if (firstLetter !== currentBrakpointLetter) {
+
+  for (let index = 0; index < contactUsers.length; index++) {
+    let firstLetter = contactUsers[index].name.split(" ")[0][0];
+
+    if (firstLetter != currentBrakpointLetter) {
       contactBraker(firstLetter);
       currentBrakpointLetter = firstLetter;
+      renderContact(index);
+    } else {
+      renderContact(index);
     }
-    renderContact(i);
   }
 }
+
 
 /**
  * Calls the separator template function

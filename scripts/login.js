@@ -39,7 +39,7 @@ function loginSubmit(event) {
     isloggedIn = true;
     localStorage.setItem("loginState", JSON.stringify(isloggedIn));
     localStorage.setItem("currentUser", JSON.stringify(user));
-    window.location.href = "../index.html";
+    window.location.href = "index.html";
   } else {
     buttonsContainer.classList.add("button-margin-top-if-error");
     errorContainer.classList.remove("d-none");
@@ -75,7 +75,7 @@ function guestLogin() {
       password: "123",
     }),
   );
-  window.location.href = "../index.html";
+  window.location.href = "index.html";
 }
 
 /**
@@ -86,7 +86,7 @@ function logOut() {
   isGuestLogin = false;
   localStorage.setItem("loginState", JSON.stringify(isloggedIn));
   localStorage.setItem("isGuestLogin", JSON.stringify(isGuestLogin));
-  window.location.href = "../login.html";
+  window.location.href = "login.html";
 }
 
 /**
@@ -115,11 +115,11 @@ function togglePasswordVisibility() {
   const inputImg = document.getElementById("input-password-img");
   if (passwordData.type === "password") {
     passwordData.type = "text";
-    inputImg.src = "../assets/icons/visibility_on.png";
+    inputImg.src = "assets/icons/visibility_on.png";
     inputImg.alt = "Visibility On Icon";
   } else {
     passwordData.type = "password";
-    inputImg.src = "../assets/icons/visibility_off.png";
+    inputImg.src = "assets/icons/visibility_off.png";
     inputImg.alt = "Visibility Off Icon";
   }
 }
@@ -130,7 +130,7 @@ function togglePasswordVisibility() {
  */
 function removePasswordVisibility() {
   passwordData.type = "password";
-  inputImg.src = "../assets/icons/lock.png";
+  inputImg.src = "assets/icons/lock.png";
   inputImg.alt = "Lock Icon";
   inputImg.classList.remove("cursor-pointer");
   inputImg.removeEventListener("click", togglePasswordVisibility);
@@ -171,7 +171,7 @@ async function getUserData() {
         .join(""),
       email: allUserDataToJson[UserKeysArray[userIndex]].email,
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
-      userColor: userColor[Math.floor(Math.random() * userColor.length)],
+      userColor: allUserDataToJson[UserKeysArray[userIndex]].avatarColor,
       phone: allUserDataToJson[UserKeysArray[userIndex]].phone,
     });
   }

@@ -48,10 +48,10 @@ let isCategoryValid = false;
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
 // TASK DATA
-/* let tasks = []; */
+let tasks = [];
 
 // USER NAMES
-let userNames = [];
+let users = [];
 
 async function initAddTaskElements() {
     TITLE_INPUT = document.getElementById("task-title");
@@ -106,8 +106,10 @@ async function initAddTaskElements() {
     });
     setMinDate();
     feedbackOnRequiredInput();
-    await getUserNames();
-    pushUserNames();
+    await loadUsers();
+    await loadTasks();
+    renderUsersDropdown();
+    resetUserSelection();
 } 
 
 function feedbackOnRequiredInput() {
@@ -208,18 +210,18 @@ function feedbackOnRequiredInput() {
                     <div class="subtask-item-content">
                         <span class="subtask-text">${SUBTASKS_INPUT.value}</span>
                         <div id="subtask-item-btns" class="subtask-item-btns dNone">
-                            <img class="edit-subtask-btn" src="../assets/icons/subtask_edit.svg" alt="" onclick="editSubtask(this)">
+                            <img class="edit-subtask-btn" src="./assets/icons/subtask_edit.svg" alt="" onclick="editSubtask(this)">
                             <span class="subtask-edit-divider">|</span>
-                            <img class="delete-subtask-btn" src="../assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                            <img class="delete-subtask-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
                         </div>
                     </div>
                 </li>
                 <div id="subtask-edit" class="subtask-item-edit dNone">
                     <input class="subtask-edit-input" type="text" name="subtasks" value="${SUBTASKS_INPUT.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
                     <div class="subtask-edit-btns">
-                        <img class="edit-input-delete-btn" src="../assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                        <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
                         <span class="subtask-edit-input-divider">|</span>
-                        <img class="edit-input-check-btn" src="../assets/icons/subtask_check.svg" alt="" onclick="confirmEditSubtask(this)">
+                        <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt="" onclick="confirmEditSubtask(this)">
                     </div>
                 </div>
               </div>
@@ -441,13 +443,19 @@ async function saveTaskData() {
     });
 }
 
-async function getUserNames() {
+async function loadUsers() {
+    users = [];
     let allUserData = await fetch(`${BASE_URL}users.json`);
     let allUserDataToJson = await allUserData.json(); 
     let UserKeysArray = Object.keys(allUserDataToJson);
 
     for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-        userNames.push(allUserDataToJson[UserKeysArray[userIndex]].name)
+        users.push(
+            {
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
+            }
+        )
     }    
 }
 
@@ -502,25 +510,24 @@ function checkDropdownState() {
 
 
 let selectedUsers = [];
-const BADGE_COLORS = ["#FF7A00", "#6E52FF", "#00BEE8", "#9327FF", "#FC71FF", "#FF4646", "#FFC701", "#0038FF", "#1FD7C1", "#C3FF2B"];
 
-function pushUserNames() {
+function renderUsersDropdown() {
     ASSIGNED_TO_USERS.innerHTML = "";
-    for (let i = 0; i < userNames.length; i++) {
-        let initials = getInitials(userNames[i]);
-        let color = BADGE_COLORS[i];
-        ASSIGNED_TO_USERS.insertAdjacentHTML("beforeend", pushUserNamesTemplate(userNames[i], initials, color));
+    for (let i = 0; i < users.length; i++) {
+        let initials = getInitials(users[i].name);
+        let color = users[i].avatarColor;
+        ASSIGNED_TO_USERS.insertAdjacentHTML("beforeend", renderUsersDropdownTemplate(users[i].name, initials, color));
     }
 }
 
-function pushUserNamesTemplate(user, initials, color) {
+function renderUsersDropdownTemplate(user, initials, color) {
     return `
         <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
             <span class="dropdown-user-name">${user}</span>
-            <img class="dropdown-user-checkbox" src="../assets/icons/checkbox_default.svg" alt="">
-            <img class="dropdown-user-checkbox dNone" src="../assets/icons/checkbox_checked.svg" alt="">
-            <img class="dropdown-user-checkbox dNone" src="../assets/icons/checkbox_checked_sign.svg" alt="">
+            <img class="dropdown-user-checkbox" src="./assets/icons/checkbox_default.svg" alt="">
+            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked.svg" alt="">
+            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked_sign.svg" alt="">
         </div>
     `;
 }
@@ -610,231 +617,29 @@ function clearFormular() {
     SUBTASKS_LIST.innerHTML = "";
 }
 
-
 /**
- * Testdaten zum enwickeln! Wenn diese gelöscht werden, müssen die Daten im Local Storage mit dem KEY: "tasks" gespeichert werden!
+ * Retrieves all tasks from the backend and maps them into the local `tasks` array.
+ *
+ * The backend returns tasks as an object keyed by IDs, which is transformed into
+ * an array to match the structure used throughout the application.
  */
-
-/* TESTDATA DELETE IF FIREBASE WORKS */
-const tasks = [
-{
-id: "1",
-title: "Fix Login Bug",
-description: "Fix authentication issue on login page",
-assignedTo: "Tunc Senel",
-category: "Technical Task",
-dueDate: "2026-04-05",
-priority: "urgent",
-subtasks: "Check API;Fix token validation",
-state: "To do"
-},
-{
-id: "2",
-title: "Create User Profile Page",
-description: "Implement UI and backend connection",
-assignedTo: "Anna Müller",
-category: "User Story",
-dueDate: "2026-04-02",
-priority: "medium",
-subtasks: "Design layout;Connect API",
-state: "In Progress"
-},
-{
-id: "3",
-title: "Optimize Database",
-description: "Improve performance of slow queries",
-assignedTo: "Max Weber",
-category: "Technical Task",
-dueDate: "2026-04-02",
-priority: "low",
-subtasks: "Analyze queries;Add indexes",
-state: "To do"
-},
-{
-id: "4",
-title: "Fix Navbar Responsive",
-description: "Navbar breaks on small screens",
-assignedTo: "Lisa Schneider",
-category: "Bugfix",
-dueDate: "2026-04-02",
-priority: "medium",
-subtasks: "Check breakpoints;Fix CSS",
-state: "Done"
-},
-{
-id: "5",
-title: "Dark Mode Toggle",
-description: "Add dark mode feature",
-assignedTo: "Tunc Senel",
-category: "User Story",
-dueDate: "2026-04-05",
-priority: "low",
-subtasks: "Create toggle;Save preference",
-state: "Await Feedback"
-},
-{
-id: "6",
-title: "Auth Refactor",
-description: "Clean up authentication logic",
-assignedTo: "Sarah Klein",
-category: "Technical Task",
-dueDate: "2026-04-06",
-priority: "urgent",
-subtasks: "Split modules;Improve security",
-state: "In Progress"
-},
-{
-id: "7",
-title: "Calendar Bug",
-description: "Calendar shows wrong dates",
-assignedTo: "Max Weber",
-category: "Bugfix",
-dueDate: "2026-04-02",
-priority: "medium",
-subtasks: "Fix parsing;Update UI",
-state: "To do"
-},
-{
-id: "8",
-title: "Notification System",
-description: "Create notifications for tasks",
-assignedTo: "Anna Müller",
-category: "User Story",
-dueDate: "2026-04-08",
-priority: "urgent",
-subtasks: "Create UI;Backend event",
-state: "In Progress"
-},
-{
-id: "9",
-title: "Improve Performance",
-description: "Reduce loading time",
-assignedTo: "Lisa Schneider",
-category: "Technical Task",
-dueDate: "2026-04-09",
-priority: "medium",
-subtasks: "Lazy loading;Optimize images",
-state: "Done"
-},
-{
-id: "10",
-title: "Task Search",
-description: "Add search bar for tasks",
-assignedTo: "Tunc Senel",
-category: "User Story",
-dueDate: "2026-04-10",
-priority: "medium",
-subtasks: "Search input;Filter tasks",
-state: "Await Feedback"
-},
-{
-id: "11",
-title: "Caching System",
-description: "Implement caching layer",
-assignedTo: "Max Weber",
-category: "Technical Task",
-dueDate: "2026-04-11",
-priority: "low",
-subtasks: "Add cache;Test speed",
-state: "To do"
-},
-{
-id: "12",
-title: "Avatar Upload Fix",
-description: "Fix file upload issue",
-assignedTo: "Sarah Klein",
-category: "Bugfix",
-dueDate: "2026-04-12",
-priority: "urgent",
-subtasks: "Validate type;Preview image",
-state: "In Progress"
-},
-{
-id: "13",
-title: "Dashboard Overview",
-description: "Create dashboard statistics",
-assignedTo: "Anna Müller",
-category: "User Story",
-dueDate: "2026-04-13",
-priority: "medium",
-subtasks: "Widgets;Charts",
-state: "Done"
-},
-{
-id: "14",
-title: "CSS Refactor",
-description: "Improve CSS structure",
-assignedTo: "Lisa Schneider",
-category: "Technical Task",
-dueDate: "2026-04-14",
-priority: "low",
-subtasks: "Variables;Class cleanup",
-state: "To do"
-},
-{
-id: "15",
-title: "Logout Redirect",
-description: "Fix redirect after logout",
-assignedTo: "Tunc Senel",
-category: "Bugfix",
-dueDate: "2026-04-15",
-priority: "medium",
-subtasks: "Check session;Fix route",
-state: "Done"
-},
-{
-id: "16",
-title: "Activity Log",
-description: "Track user actions",
-assignedTo: "Max Weber",
-category: "User Story",
-dueDate: "2026-04-16",
-priority: "low",
-subtasks: "Track events;Show history",
-state: "Await Feedback"
-},
-{
-id: "17",
-title: "API Rate Limit",
-description: "Prevent API abuse",
-assignedTo: "Sarah Klein",
-category: "Technical Task",
-dueDate: "2026-04-17",
-priority: "urgent",
-subtasks: "Limiter;Test endpoints",
-state: "In Progress"
-},
-{
-id: "18",
-title: "Drag and Drop Fix",
-description: "Fix drag issue in board",
-assignedTo: "Anna Müller",
-category: "Bugfix",
-dueDate: "2026-04-18",
-priority: "medium",
-subtasks: "Check events;Fix UI",
-state: "To do"
-},
-{
-id: "19",
-title: "Export Tasks",
-description: "Allow exporting tasks as CSV",
-assignedTo: "Lisa Schneider",
-category: "User Story",
-dueDate: "2026-04-19",
-priority: "low",
-subtasks: "Export button;Generate CSV",
-state: "Await Feedback"
-},
-{
-id: "20",
-title: "Error Logging",
-description: "Improve error monitoring",
-assignedTo: "Tunc Senel",
-category: "Technical Task",
-dueDate: "2026-04-20",
-priority: "medium",
-subtasks: "Add logger;Send to backend",
-state: "In Progress"
+   async function loadTasks() { 
+    tasks = [] 
+    let allTasksData = await fetch(`${BASE_URL}tasks.json`);
+    let allTasksDataToJson = await allTasksData.json(); 
+    let TaskKeysArray = Object.keys(allTasksDataToJson);
+    for (let taskIndex = 0; taskIndex < TaskKeysArray.length; taskIndex++) {
+        tasks.push(
+            {
+                title: allTasksDataToJson[TaskKeysArray[taskIndex]].title,
+                description: allTasksDataToJson[TaskKeysArray[taskIndex]].description,
+                dueDate: allTasksDataToJson[TaskKeysArray[taskIndex]].dueDate,
+                priority: allTasksDataToJson[TaskKeysArray[taskIndex]].priority,
+                assignedTo: allTasksDataToJson[TaskKeysArray[taskIndex]].assignedTo,
+                category: allTasksDataToJson[TaskKeysArray[taskIndex]].category,
+                subtasks: allTasksDataToJson[TaskKeysArray[taskIndex]].subtasks,
+                currentTask: allTasksDataToJson[TaskKeysArray[taskIndex]].currentTask,
+            }
+        )
+    }    
 }
-];

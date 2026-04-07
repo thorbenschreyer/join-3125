@@ -19,7 +19,7 @@ async function init() {
     const publicPages = ["privacy", "legal"];
 
 
-  await loadHtmlPage("all-content-area", "standard_layout.html");
+  await loadHtmlPage("all-content-area", "./standard_layout.html");
   const params = new URLSearchParams(window.location.search);
   page = params.get("page");
     if (!isloggedIn && !publicPages.includes(page)) {
@@ -300,6 +300,7 @@ function getTheTimeForWelcomeMassage() {
 
 async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
+  await setTaskSummaryInformation();
   setTaskSummaryInformation();
   setInitials()
 }

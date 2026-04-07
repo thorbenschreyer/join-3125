@@ -289,6 +289,8 @@
   cursor: pointer;
   overflow: hidden;
   transform: translate(0, 0);
+  -webkit-user-select: none;
+  user-select: none;
   min-height: fit-content;
 }
 

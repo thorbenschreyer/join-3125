@@ -1,7 +1,7 @@
 <div class="contact-main-area">
   <div class="contact-and-button-area">
     <div class="new-contact-area">
-      <button onclick="openDialog(addDialog)" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="../assets/icons/person_add.png" alt=""/></button>
+      <button onclick="openDialog(addDialog)" class="add-contact-btn">Add new contact<img class="add-contact-btn-img" src="./assets/icons/person_add.png" alt=""/></button>
     </div>
     <!-- Rendercontainer Contacts -->
     <div class="displayed-contacts" id="displayed-contacts"></div>
@@ -25,22 +25,22 @@
 </div>
 
 <!-- Mobile ADD Contact Button -->
-<button onclick="openDialog(addDialog)" class="add-contact-btn-mobile"><img class="add-contact-btn-img-mobile" src="../assets/icons/person_add.png" alt=""/></button>
+<button onclick="openDialog(addDialog)" class="add-contact-btn-mobile"><img class="add-contact-btn-img-mobile" src="./assets/icons/person_add.png" alt=""/></button>
 
 <!-- Mobile MENU EDIT/DELETE -->
 <dialog class="mobile-edit-delete-menu" id="mobile-edit-delete-menu">
-  <p onclick="openDialog(editDialog), editUser()" class="contact-btn-mobile contact-btn-edit-mobile"><img src="../assets/icons/edit.png" alt="" />Edit</p>
-  <p onclick="deleteUserMobile()" class="contact-btn-mobile contact-btn-delete-mobile"><img src="../assets/icons/delete.png" alt="" />Delete</p>
+  <p onclick="openDialog(editDialog), editUser()" class="contact-btn-mobile contact-btn-edit-mobile"><img src="./assets/icons/edit.png" alt="" />Edit</p>
+  <p onclick="deleteUserMobile()" class="contact-btn-mobile contact-btn-delete-mobile"><img src="./assets/icons/delete.png" alt="" />Delete</p>
 </dialog>
 
  <!-- ADD CONTACT DIALOG -->
 <dialog class="add-contact-dialog" id="add-contact-dialog">
   <div class="add-contact-dialog-left">
       <div class="dialoge-close-img-handler-upsite">
-    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-left-close" src="../assets/icons/close_white.png" alt="">
+    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-left-close" src="./assets/icons/close_white.png" alt="">
     </div>
     <div class="add-dialog-left-content">
-      <img class="add-left-dialog-img" src="../assets/icons/main_logo_light.png" alt="">
+      <img class="add-left-dialog-img" src="./assets/icons/main_logo_light.png" alt="">
       <span class="add-left-dialog-h1">Add contact</span>
       <span class="add-left-dialog-h2">Tasks are better with a team!</span>
       <hr>
@@ -49,16 +49,16 @@
    
   <div class="add-contact-dialog-right">
     <div class="dialoge-close-img-handler">
-    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-right-close" src="../assets/icons/cancel_dark.png" alt="">
+    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-right-close" src="./assets/icons/cancel_dark.png" alt="">
     </div>
     <div class="add-contact-dialog-right-content">
-    <img class="add-contact-dialog-right-img" src="../assets/icons/add_contact_img.png" alt="">
+    <img class="add-contact-dialog-right-img" src="./assets/icons/add_contact_img.png" alt="">
     <div class="dialog-form-handler">
       <form onsubmit="return false;" class="add-contact-dialog-form">
         
-        <p class="dialog-input-handler"><input required id="contact-name" placeholder="Name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
-        <p class="dialog-input-handler"><input required id="contact-email" placeholder="Email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
-        <p class="dialog-input-handler"><input required id="contact-phone" placeholder="Phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
+        <p class="dialog-input-handler"><input required id="contact-name" placeholder="Name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/person.png" alt=""></p>
+        <p class="dialog-input-handler"><input required id="contact-email" placeholder="Email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/mail.png" alt=""></p>
+        <p class="dialog-input-handler"><input required id="contact-phone" placeholder="Phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/call.png" alt=""></p>
         <div class="dialog-button-handler">
           <button onclick="closeDialog(addDialog, 400)" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="../assets/icons/cancel_dark.png" alt=""></button>
           <button onclick="addNewContact(), showSuccessMessage()" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="../assets/icons/check_light.png" alt=""></button>
@@ -74,7 +74,7 @@
 <dialog class="edit-contact-dialog" id="edit-contact-dialog">
     <div class="add-contact-dialog-left">
       <div class="dialoge-close-img-handler-upsite">
-    <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-left-close" src="../assets/icons/close_white.png" alt="">
+    <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-left-close" src="./assets/icons/close_white.png" alt="">
     </div>
     <div class="add-dialog-left-content">
       <img class="add-left-dialog-img" src="../assets/icons/main_logo_light.png" alt="">
@@ -85,19 +85,19 @@
    
   <div class="add-contact-dialog-right">
     <div class="dialoge-close-img-handler">
-    <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-right-close" src="../assets/icons/cancel_dark.png" alt="">
+    <img onclick="closeDialog(editDialog, 400)" class="add-contact-dialog-right-close" src="./assets/icons/cancel_dark.png" alt="">
     </div>
     <div class="add-contact-dialog-right-content">
     <p id="edit-contact-initials" class="edit-contact-initials">TS</p>
     <div class="dialog-form-handler">
       <form onsubmit="return false;" class="add-contact-dialog-form">
         
-        <p class="dialog-input-handler"><input value="Peter Müller" id="edit-name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/person.png" alt=""></p>
-        <p class="dialog-input-handler"><input value="peter@mail.com" id="edit-email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/mail.png" alt=""></p>
-        <p class="dialog-input-handler"><input value="+4912544656456" id="edit-phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="../assets/icons/call.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="Peter Müller" id="edit-name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/person.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="peter@mail.com" id="edit-email" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/mail.png" alt=""></p>
+        <p class="dialog-input-handler"><input value="+4912544656456" id="edit-phone" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/call.png" alt=""></p>
         <div class="dialog-button-handler">
           <button onclick="deleteUserInEditDialog()" class="btn-dialog edit-contact-dialog-button-cancel">Delete</button>
-          <button onclick="saveEditValues()" class="btn-dialog add-contact-dialog-button-create">Save<img src="../assets/icons/check_light.png" alt=""></button>
+          <button onclick="saveEditValues()" class="btn-dialog add-contact-dialog-button-create">Save<img src="./assets/icons/check_light.png" alt=""></button>
         </div>
       </form>
     </div>

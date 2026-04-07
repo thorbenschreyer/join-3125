@@ -60,6 +60,26 @@ let allTasks = [
 
 function boardInit() {
     renderAllTasks();
+    initTouchPolyfill();
+    setupPolyfillTouchmove();
+}
+
+function initTouchPolyfill() {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) {
+        MobileDragDrop.polyfill({
+            forceApply: true,
+            holdToDrag: 250,
+            dragImageTranslateOverride: MobileDragDrop.scrollBehaviourDragImageTranslateOverride
+        });
+        setupPolyfillTouchmove();
+    }
+}
+
+function setupPolyfillTouchmove() {
+    window.addEventListener('touchmove', () => {
+        // Keeps the polyfill active during movement
+    }, { passive: false });
 }
 
 async function openAddTaskOverlay(selectedTaskBar) {
