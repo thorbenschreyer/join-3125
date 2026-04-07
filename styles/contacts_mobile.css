@@ -69,7 +69,7 @@
   }
 
   .contact-main-area {
-    height: calc(100vh - 82px);
+    height: calc(100vh - 96px);
   }
 
   .contact-haeder-area {
@@ -168,19 +168,19 @@
   }
 
   .mobile-edit-delete-menu.closing {
-  animation: slideOut 1s forwards;
-}
+    animation: slideOut 1s forwards;
+  }
 
-@keyframes slideOut {
-  from {
-    opacity: 1;
-    transform: translateX(0);
+  @keyframes slideOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100px);
+    }
   }
-  to {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-}
 
   .mobile-edit-delete-menu {
     transform: translateX(100%);
