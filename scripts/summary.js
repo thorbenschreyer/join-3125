@@ -42,7 +42,7 @@ function findNumberOfTask(taskdefinition) {
  * @returns -
  */
 function sortTodoforDate() {
-  let toDoArray = tasks.filter((task) => task.state === "To do");
+  let toDoArray = tasks.filter((task) => task.currentTask === "to-do");
 
   if (toDoArray.length === 0) {
     formattedDate = "-";
