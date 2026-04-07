@@ -171,7 +171,7 @@ async function getUserData() {
         .join(""),
       email: allUserDataToJson[UserKeysArray[userIndex]].email,
       password: allUserDataToJson[UserKeysArray[userIndex]].password,
-      userColor: userColor[Math.floor(Math.random() * userColor.length)],
+      userColor: allUserDataToJson[UserKeysArray[userIndex]].avatarColor,
       phone: allUserDataToJson[UserKeysArray[userIndex]].phone,
     });
   }

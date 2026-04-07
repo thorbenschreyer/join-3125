@@ -17,10 +17,10 @@ function findNumberOfTask(taskdefinition) {
   async function setTaskSummaryInformation() {
   await loadTasks(); 
   let tasksInBoard = tasks.length;
-  let tasksInProgress = findNumberOfTask("In Progress");
-  let awaitingFeedback = findNumberOfTask("Await Feedback");
-  let todo = findNumberOfTask("To do");
-  let done = findNumberOfTask("Done");
+  let tasksInProgress = findNumberOfTask("in-progress");
+  let awaitingFeedback = findNumberOfTask("await-feedback");
+  let todo = findNumberOfTask("to-do");
+  let done = findNumberOfTask("done");
 
   sortTodoforDate();
 
