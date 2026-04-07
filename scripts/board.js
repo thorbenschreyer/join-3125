@@ -183,6 +183,7 @@ function renderDoneTasks() {
 function startDragging(event, id) {
     currentDraggedElement = id;
     event.dataTransfer.setData('text/plain', id.toString());
+    applyDragStyles(event.target);
 }
 
 function allowDrop(event) {
@@ -193,4 +194,14 @@ function movingTo(event, category) {
     event.preventDefault();
     allTasks[currentDraggedElement].current_task = category;
     boardInit();
+}
+
+function stopDragging(event) {
+    event.target.classList.remove('rotate-on-drag');
+}
+
+function applyDragStyles(element) {
+    setTimeout(() => {
+        element.classList.add('rotate-on-drag');
+    }, 0);
 }
