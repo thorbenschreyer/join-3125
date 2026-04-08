@@ -1,71 +1,12 @@
 let currentTaskBar = "todo-tasks";
 let currentDraggedElement;
 let subtaskPercent = 0;
-let allTasks = [
-    {
-        'id' : 0,
-        'category' : 'User Story',
-        'category_color' : 'user', 
-        'title' :  'Kochwelt Page & Recipe Recommander',
-        'description' : 'Build start page with recipe recommendation.',
-        'subtasks' : [
-            {
-                'subtask' : 'Implement Recipe Recommendation',
-                'current-state' : 'closed',
-            },
-            {
-                'subtask' : 'Start Page Layout',
-                'current-state' : 'open',
-            },
-            {
-                'subtask' : 'Test Subtask',
-                'current-state' : 'open',
-            }
-        ],
-        'due_date' : '10/05/2023',
-        'assigned_to' : [
-            'Emmanuel Mauer',
-            'Marcel Bauer',
-            'Anton Mayer'
-        ],
-        'priority' : 'medium',
-        'current_task' : 'todo'
-    }, {
-        'id' : 1,
-        'category' : 'Technical Task',
-        'category_color' : 'technical', 
-        'title' :  'CSS Architecture Planning',
-        'description' : 'Define CSS naming conventions and stucture.',
-        'subtasks' : [
-            {
-                'id' : 0,
-                'subtask' : 'Establish CSS Methodology',
-                'current-state' : 'closed',
-            },
-            {
-                'id' : 1,
-                'subtask' : 'Setup Base Styles',
-                'current-state' : 'closed',
-            }
-        ],
-        'due_date' : '02/09/2023',
-        'assigned_to' : [
-            'Sofia Müller',
-            'Benedikt Ziegler'
-        ],
-        'priority' : 'urgent',
-        'current_task' : 'in-progress'
-    }
-
-
-];
 
 
 function boardInit() {
     renderAllTasks();
     initTouchPolyfill();
-    setupPolyfillTouchmove();
-    console.log(tasks[26]);    
+    setupPolyfillTouchmove();    
 }
 
 function initTouchPolyfill() {
@@ -206,17 +147,17 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function movingTo(event, category) {
+async function movingTo(event, category) {
     event.preventDefault();
     const taskIndex = tasks.findIndex(t => t.id === currentDraggedElement);
+    if (taskIndex === -1) return;
     
-    if (taskIndex !== -1) {
-        const movedTask = tasks.splice(taskIndex, 1)[0];
-        movedTask.currentTask = category;
-        tasks.unshift(movedTask);
-    }
+    const movedTask = tasks.splice(taskIndex, 1)[0];
+    movedTask.currentTask = category;
+    tasks.unshift(movedTask);
     
     boardInit();
+    await updateFirebaseCategory(movedTask.firebaseId, category);
 }
 
 function stopDragging(event) {
@@ -256,5 +197,18 @@ function renderTaskDialog(task) {
 function getAssignedToNames(id) {
     const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
     const taskNamesContainer = document.getElementById('dialog-task-user-badges');
+}
 
+async function updateFirebaseCategory(firebaseId, newCategory) {
+    const url = `${BASE_URL}tasks/${firebaseId}.json`;
+    const payload = JSON.stringify({ currentTask: newCategory });
+    
+    await fetch(url, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-HTTP-Method-Override': 'PATCH'
+        },
+        body: payload
+    });
 }
