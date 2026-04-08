@@ -461,7 +461,7 @@ function getFormattedSubtasks() {
     return subtaskNodes.map((node, index) => ({
         id: index,
         subtask: node.textContent,
-        'current-state': 'open'
+        'current_state': 'open'
     }));
 }
 
@@ -473,13 +473,13 @@ function generateUniqueId() {
     return highestId + 1;
 }
 
-function formatSubtasks(subtaskNames) {
-    return subtaskNames.map((name, index) => ({
-        id: index,
-        subtask: name,
-        'current-state': 'open'
-    }));
-}
+// function formatSubtasks(subtaskNames) {
+//     return subtaskNames.map((name, index) => ({
+//         id: index,
+//         subtask: name,
+//         'current-state': 'open'
+//     }));
+// }
 
 function addTaskSuccess() {
     ADDTASK_BTN.disabled = true;
@@ -681,29 +681,6 @@ function clearFormular() {
  * The backend returns tasks as an object keyed by IDs, which is transformed into
  * an array to match the structure used throughout the application.
  */
-//    async function loadTasks() { 
-//     tasks = [] 
-//     let allTasksData = await fetch(`${BASE_URL}tasks.json`);
-//     let allTasksDataToJson = await allTasksData.json(); 
-//     let TaskKeysArray = Object.keys(allTasksDataToJson);
-//     for (let taskIndex = 0; taskIndex < TaskKeysArray.length; taskIndex++) {
-//         tasks.push(
-//             {
-//                 id: allTasksDataToJson[TaskKeysArray[taskIndex]].id,
-//                 title: allTasksDataToJson[TaskKeysArray[taskIndex]].title,
-//                 description: allTasksDataToJson[TaskKeysArray[taskIndex]].description,
-//                 dueDate: allTasksDataToJson[TaskKeysArray[taskIndex]].dueDate,
-//                 priority: allTasksDataToJson[TaskKeysArray[taskIndex]].priority,
-//                 assignedTo: allTasksDataToJson[TaskKeysArray[taskIndex]].assignedTo,
-//                 category: allTasksDataToJson[TaskKeysArray[taskIndex]].category,
-//                 categoryColor: allTasksDataToJson[TaskKeysArray[taskIndex]].categoryColor,
-//                 subtasks: allTasksDataToJson[TaskKeysArray[taskIndex]].subtasks,
-//                 currentTask: allTasksDataToJson[TaskKeysArray[taskIndex]].currentTask,
-//             }
-//         )
-//     }    
-// }
-
 async function loadTasks() { 
     tasks = [];
     let response = await fetch(`${BASE_URL}tasks.json`);

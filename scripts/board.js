@@ -49,6 +49,7 @@ function closeAddTaskOverlay() {
         dialog.classList.remove('slide-out');
         dialog.innerHTML = '';
     }, 200);
+    renderAllTasks();
 }
 
 
@@ -76,7 +77,7 @@ function renderTodoTasks() {
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
         const id = element.id;
-        const closedSubtasksLength = todo[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        const closedSubtasksLength = todo[index].subtasks.filter(d => d['current_state'] == 'closed').length;
         todoTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
@@ -95,7 +96,7 @@ function renderInProgressTasks() {
     for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
         const id = element.id;
-        const closedSubtasksLength = inProgress[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        const closedSubtasksLength = inProgress[index].subtasks.filter(d => d['current_state'] == 'closed').length;
         inProgressTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
@@ -114,7 +115,7 @@ function renderAwaitFeedbackTasks() {
     for (let index = 0; index < awaitFeedback.length; index++) {
         const element = awaitFeedback[index];
         const id = element.id;
-        const closedSubtasksLength = awaitFeedback[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        const closedSubtasksLength = awaitFeedback[index].subtasks.filter(d => d['current_state'] == 'closed').length;
         awaitFeedbackTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
@@ -133,7 +134,7 @@ function renderDoneTasks() {
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
         const id = element.id;
-        const closedSubtasksLength = done[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        const closedSubtasksLength = done[index].subtasks.filter(d => d['current_state'] == 'closed').length;
         doneTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
@@ -190,6 +191,7 @@ function openTaskDetails(id) {
         renderTaskDialog(currentTask);
         showDialogOverlay();
         getAssignedToNames(currentTask);
+        getSubtasks(currentTask);
     }
 }
 
@@ -250,4 +252,50 @@ function getUserColor(userName) {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find(u => u.name === userName);
     return user && user.userColor ? user.userColor : 'rgba(110, 82, 255, 1)';
+}
+
+function getSubtasks(currentTask) {
+    const subtaskContainer = document.getElementById('dialog-task-subtask-container');
+    const subtasks = currentTask.subtasks;
+    subtaskContainer.innerHTML = "";
+    for(let i = 0; i < subtasks.length; i++) {
+        const subtask = subtasks[i].subtask;
+        const currentState = subtasks[i].current_state;
+        subtaskContainer.innerHTML += renderSubtaskDiv(subtask, currentState, i, currentTask.id);
+    }
+}
+
+function renderCheckboxSubtask(currentState, index, taskId) {
+    const defaultCheckBox = document.getElementById(`checkbox-default-${taskId}-${index}`);
+    const checkedCheckBox = document.getElementById(`checkbox-checked-${taskId}-${index}`);
+    if (currentState === 'closed') {
+        defaultCheckBox.classList.add('d-none');
+        checkedCheckBox.classList.remove('d-none');
+    } else {
+        defaultCheckBox.classList.remove('d-none');
+        checkedCheckBox.classList.add('d-none');
+    }
+}
+
+async function toggleCheckbox(index, taskId) {
+    const task = tasks.find(t => t.id == taskId);
+    const subtask = task.subtasks[index];
+    const newState = subtask.current_state === 'closed' ? 'open' : 'closed';
+    subtask.current_state = newState;
+    renderCheckboxSubtask(newState, index, taskId);
+    await updateSubtaskInFirebase(task.firebaseId, index, newState);
+    renderAllTasks();
+}
+
+async function updateSubtaskInFirebase(firebaseId, index, state) {
+    const url = `${BASE_URL}tasks/${firebaseId}/subtasks/${index}.json`;
+    const payload = JSON.stringify({ current_state: state });
+    await fetch(url, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-HTTP-Method-Override': 'PATCH'
+        },
+        body: payload
+    });
 }

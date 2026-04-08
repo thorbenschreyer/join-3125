@@ -379,7 +379,6 @@
   width: 525px;
   flex-direction: column;
   gap: 16px;
-  padding: 48px 40px;
   background-color: white;
   border-radius: 30px;
 }
@@ -489,6 +488,30 @@
 }
 
 .assigned-to-name {
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.dialog-task-subtasks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dialog-task-subtasks-header {
   font-size: 20px;
   font-weight: 400;
+}
+
+.dialog-task-subtask-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.subtask-and-checkbox-container {
+  display: flex;
+  gap: 16px;
+  overflow-y: auto;
 }

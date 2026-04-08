@@ -109,6 +109,18 @@ function renderPlaceholderTemplate(emptyTaskBar) {
   `;
 }
 
+function renderSubtaskDiv(subtask, currentState, index, taskId) {
+    const hideDefault = currentState === 'closed' ? 'd-none' : '';
+    const hideChecked = currentState === 'closed' ? '' : 'd-none';
+    return `
+    <div class="subtask-and-checkbox-container">
+        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-default-${taskId}-${index}" class="checkbox-img ${hideDefault}" src="../assets/icons/checkbox_default.svg" alt="Unchecked">
+        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-checked-${taskId}-${index}" class="checkbox-img ${hideChecked}" src="../assets/icons/checked.png" alt="Checked">
+        <p>${subtask}</p>
+    </div>
+    `;
+}
+
 function renderContactTemplate(index, initails, name, email, color) {
   return `
         <div onclick="openContactDetailview('contact-${index}', ${index})" id="contact-${index}" class="contact">
