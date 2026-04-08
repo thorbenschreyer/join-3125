@@ -679,3 +679,81 @@ height: 10px;
   width: auto;
   height: 24px;
 }
+
+/* === TABLET === */
+@media (max-width: 1050px) {
+  /* === PAGE-CONTENT === */
+  .page-content {
+    padding-left: 0px !important;
+  }
+
+  /* === ADD-TASKS-CONTENT === */
+  .add-tasks-page {
+    margin-top:  56px;
+  }
+
+  /* === HEADER === */
+  .add-task-header > h1 {
+    display: none;
+  }
+
+  /* === FORMULAR === */
+  .add-task-form {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .vertical-divider {
+    display: none;
+  }
+
+  /* === FORMULAR-HEADER-MOBILE === */
+  .add-tasks-mobile-header {
+    display: flex;
+    width: 320px;
+    padding: 0 0 4px;
+  }
+
+  /* === LEFT FOOTER AND RIGHT FOOTER === */
+  .add-task-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: static;
+    width: 100%;
+  }
+
+  .footer-left {
+    width: 320px;
+    padding: 12px 0 0;
+  }
+
+  .footer-right {
+    position: absolute;
+    justify-content: flex-end;
+    top: 77%;
+    width: 320px;
+    gap: 20px;
+  }
+
+}
+
+/* @media (max-width: 818px) {
+   === ADD-TASKS-CONTENT === 
+  .add-tasks-page {
+    margin-left:  0;
+  }
+
+  .footer-right {
+    position: absolute;
+    justify-content: flex-end;
+    top: 77%;
+    width: 320px;
+    padding: 6px 0;
+    background: var(--bg-color);
+    gap: 20px;
+  }
+
+   position sticky 
+} */

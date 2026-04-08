@@ -16,46 +16,45 @@ let time;
  */
 async function init() {
   isloggedIn = localStorage.getItem("loginState") === "true";
-    const publicPages = ["privacy", "legal"];
-
+  const publicPages = ["privacy", "legal"];
 
   await loadHtmlPage("all-content-area", "./standard_layout.html");
   const params = new URLSearchParams(window.location.search);
   page = params.get("page");
-    if (!isloggedIn && !publicPages.includes(page)) {
+  if (!isloggedIn && !publicPages.includes(page)) {
     window.location.replace("login.html");
   }
   getNameAndInitials();
   loadSidbarAndContent();
-  time = getTheTimeForWelcomeMassage()
+  time = getTheTimeForWelcomeMassage();
 }
 
 /**
- * This function loads the sidebar and the content. It checks whether the user is logged in or not! 
- * If NO, the corresponding sidebar is loaded and it checks whether "Privacy" or "Legal" was clicked -> loadPrivacyOrLegal() 
+ * This function loads the sidebar and the content. It checks whether the user is logged in or not!
+ * If NO, the corresponding sidebar is loaded and it checks whether "Privacy" or "Legal" was clicked -> loadPrivacyOrLegal()
  * If the user is logged in, they are greeted with the normal menu and the corresponding page is loaded -> setLoggedinNavigation()
  */
 async function loadSidbarAndContent() {
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
-    loadPrivacyOrLegal ()
-    } else {
-    setLoggedinNavigation()
+    loadPrivacyOrLegal();
+  } else {
+    setLoggedinNavigation();
   }
 }
 
 /**
- * This function is triggered when the user is not logged in and has clicked either "Privacy" or "Legal" in the login menu. 
+ * This function is triggered when the user is not logged in and has clicked either "Privacy" or "Legal" in the login menu.
  */
 async function loadPrivacyOrLegal() {
   if (page === "privacy") {
-      await loadHtmlPage("content", "./footerpages/privacy_policy.html");
-      toggleIsActive("privacy_policy");
-    } else if (page === "legal") {
-      await loadHtmlPage("content", "./footerpages/legal_notice.html");
-      toggleIsActive("legal_notice");
-    }
+    await loadHtmlPage("content", "./footerpages/privacy_policy.html");
+    toggleIsActive("privacy_policy");
+  } else if (page === "legal") {
+    await loadHtmlPage("content", "./footerpages/legal_notice.html");
+    toggleIsActive("legal_notice");
+  }
 }
 
 /**
@@ -63,19 +62,17 @@ async function loadPrivacyOrLegal() {
  */
 async function setLoggedinNavigation() {
   const mainNavigation = document.getElementById("navigation-items");
-    mainNavigation.innerHTML = LoggedInNavigation();
+  mainNavigation.innerHTML = LoggedInNavigation();
 
-    const headerMenu = document.getElementById("help-and-logout");
-    headerMenu.innerHTML = helpAndLogout();
+  const headerMenu = document.getElementById("help-and-logout");
+  headerMenu.innerHTML = helpAndLogout();
 
-    await loadHtmlPage("content", "./templates/summary.html");
-    
-    setInitials();
-    setTaskSummaryInformation ()
+  await loadHtmlPage("content", "./templates/summary.html");
+  setInitials();
+  setTaskSummaryInformation();
 
-
-    document.getElementById("privacy-legal").classList.add("display-none");
-    initialToggle();
+  document.getElementById("privacy-legal").classList.add("display-none");
+  initialToggle();
 }
 
 function checkLogin(page) {
@@ -95,11 +92,11 @@ function checkLogin(page) {
 //   const response = await fetch(pagefile);
 //   const html = await response.text();
 //   document.getElementById(divID).innerHTML = html;
-  
+
 //   if (pagefile.includes("contacts.html")) {
 //     initContacts();
 //   }
-  
+
 //   if (
 //     pagefile != "./footerpages/help.html" &&
 //     pagefile != "./footerpages/privacy_policy.html" &&
@@ -111,31 +108,31 @@ function checkLogin(page) {
 // }
 
 async function loadHtmlPage(divID, pagefile) {
-    const response = await fetch(pagefile);
-    const html = await response.text();
-    document.getElementById(divID).innerHTML = html;
-    
-    triggerPageInit(pagefile);
-    updatePageHistory(divID, pagefile);
+  const response = await fetch(pagefile);
+  const html = await response.text();
+  document.getElementById(divID).innerHTML = html;
+
+  triggerPageInit(pagefile);
+  updatePageHistory(divID, pagefile);
 }
 
 function triggerPageInit(pagefile) {
-    if (pagefile.includes('contacts.html')) {
-        initContacts();
-    } else if (pagefile.includes('board.html')) {
-        boardInit();
-    }
+  if (pagefile.includes("contacts.html")) {
+    initContacts();
+  } else if (pagefile.includes("board.html")) {
+    boardInit();
+  }
 }
 
 function updatePageHistory(divID, pagefile) {
-    const isHelp = pagefile.includes('help.html');
-    const isPrivacy = pagefile.includes('privacy_policy.html');
-    const isLegal = pagefile.includes('legal_notice.html');
-    
-    if (!isHelp && !isPrivacy && !isLegal) {
-        lastOpenID = divID;
-        lastOpenPage = pagefile;
-    }
+  const isHelp = pagefile.includes("help.html");
+  const isPrivacy = pagefile.includes("privacy_policy.html");
+  const isLegal = pagefile.includes("legal_notice.html");
+
+  if (!isHelp && !isPrivacy && !isLegal) {
+    lastOpenID = divID;
+    lastOpenPage = pagefile;
+  }
 }
 
 /**
@@ -249,7 +246,6 @@ function clickInSummaryBoard() {
   toggleIsActive("add_task", "add_task_img");
 }
 
-
 /**
  * This function generates the name and initials of the logged-in user and returns them
  */
@@ -271,8 +267,6 @@ function setInitials() {
   const initialsText = document.getElementById("initials-menu");
   const nameFromUser = document.getElementById("welcome-name");
   const welcomeTime = document.getElementById("welcome-time");
-
-   
 
   if (isGuestLogin === true) {
     initialsText.innerText = "G";
@@ -302,7 +296,7 @@ async function loadSummaryPage() {
   await loadHtmlPage("content", "./templates/summary.html");
   await setTaskSummaryInformation();
   setTaskSummaryInformation();
-  setInitials()
+  setInitials();
 }
 
 async function loadAddTaskPage() {

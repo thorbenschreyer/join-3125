@@ -12,7 +12,7 @@
   height: 592px;
   border: none;
   border-radius: 30px;
-  background-color: white;
+  background-color: var(--white);
   display: flex;
   animation: slideInDialog 0.4s ease forwards;
 }
@@ -67,7 +67,7 @@
 }
 
 .add-left-dialog-h2 {
-  color: white;
+  color: var(--white);
   font-size: 27px;
   font-weight: 400;
   margin-bottom: 8px;
@@ -79,7 +79,7 @@
 }
 
 .add-left-dialog-h1 {
-  color: white;
+  color: var(--white);
   font-size: 60px;
   font-weight: 700;
 }
@@ -187,15 +187,15 @@
 }
 
 .add-contact-dialog-button-cancel {
-  background-color: white;
+  background-color: var(--white);
 }
 
 .edit-contact-dialog-button-cancel {
-  background-color: white;
+  background-color: var(--white);
 }
 
 .add-contact-dialog-button-create {
-  color: white;
+  color: var(--white);
   background-color: var(--logo-dark-blue);
   font-weight: bold;
   border: none;
@@ -206,20 +206,20 @@
 }
 
 .add-contact-dialog-button-create:hover {
-  background-color: #29abe2;
+  background-color: var(--logo-light-blue);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .add-contact-dialog-button-cancel:hover {
-  border: solid 1px #29abe2;
-  color: #29abe2;
+  border: solid 1px var(--logo-light-blue);
+  color: var(--logo-light-blue);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   padding: 10px 16px;
 }
 
 .edit-contact-dialog-button-cancel:hover {
-  border: solid 1px #29abe2;
-  color: #29abe2;
+  border: solid 1px var(--logo-light-blue);
+  color: var(--logo-light-blue);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   padding: 10px 16px;
 }
@@ -270,7 +270,7 @@
 }
 
 .edit-left-dialog-h1 {
-  color: white;
+  color: var(--white);
   font-size: 60px;
   font-weight: 700;
   margin-top: 16px;
@@ -293,5 +293,5 @@
 
   font-size: 48px;
   font-weight: 500;
-  color: white;
+  color: var(--white);
 }
