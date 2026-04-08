@@ -300,7 +300,7 @@
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.small-task-category-user {
+.small-task-category-user-story {
   font-size: 16px;
   font-weight: 400;
   color: white;
@@ -309,7 +309,7 @@
   border-radius: 8px;
 }
 
-.small-task-category-technical {
+.small-task-category-technical-task {
   font-size: 16px;
   font-weight: 400;
   color: white;
@@ -345,7 +345,6 @@
 }
 
 .subtasks-bar {
-  width: 50%;
   background-color: #4589FF;
   height: 100%;
   border-radius: 8px;
@@ -361,6 +360,8 @@
 .small-task-user-badges-container {
   display: flex;
   align-items: center;
+  margin-right: 16px;
+  overflow: auto;
 }
 
 .small-task-dropdown-user-badge {
@@ -447,12 +448,13 @@
   font-weight: 400;
 }
 
-.fix-width-100px {
-  width: 100px;
+.fix-width-120px {
+  width: 120px;
 }
 
 .dialog-priority-container {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -461,6 +463,11 @@
   gap: 32px;
   font-size: 20px;
   font-weight: 400;
+}
+
+.dialog-task-prio-img {
+  width: 20px;
+  height: 10px;
 }
 
 .dialog-task-user-badges {
@@ -474,4 +481,14 @@
   width: 100%;
   align-items: center;
   gap: 16px;
+}
+
+.dialog-assigned-to-heading {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.assigned-to-name {
+  font-size: 20px;
+  font-weight: 400;
 }

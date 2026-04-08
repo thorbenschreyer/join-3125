@@ -392,35 +392,93 @@ function highlightLowPriority() {
     LOW_WHITE_IMG.classList.remove("dNone");
 }
 
-function addTask() {
-    let Subtasks = Array.from(document.querySelectorAll(".subtask-text"));
-    let taskTitle = TITLE_INPUT.value;
-    let taskDescription = DESC_INPUT.value;
-    let taskDueDate = DUE_DATE_INPUT.value;
-    let taskPriority;
-    if (URGENT_BTN.classList.contains("prio-urgent")) {
-        taskPriority = "urgent";
-    } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
-        taskPriority = "medium";
-    } else if (LOW_BTN.classList.contains("prio-low")) {
-        taskPriority = "low";
-    }
-    let taskAssignedTo = selectedUsers.map(u => u.name)
-    let taskCategory = CATEGORY_INPUT.value;
-    let taskSubtasks = Subtasks.map(s => s.textContent);
+// function addTask() {
+//     let Subtasks = Array.from(document.querySelectorAll(".subtask-text"));
+//     let taskTitle = TITLE_INPUT.value;
+//     let taskDescription = DESC_INPUT.value;
+//     let taskDueDate = DUE_DATE_INPUT.value;
+//     let taskPriority;
+//     let taskId = tasks.length;
+//     if (URGENT_BTN.classList.contains("prio-urgent")) {
+//         taskPriority = "urgent";
+//     } else if (MEDIUM_BTN.classList.contains("prio-medium")) {
+//         taskPriority = "medium";
+//     } else if (LOW_BTN.classList.contains("prio-low")) {
+//         taskPriority = "low";
+//     }
+//     let taskAssignedTo = selectedUsers.map(u => u.name)
+//     let taskCategory = CATEGORY_INPUT.value;
+//     let taskCategoryColor = CATEGORY_INPUT.value.trim().toLowerCase().split(' ').join('-');
+//     let taskSubtasks = Subtasks.map(s => s.textContent);
 
-    tasks.push({
-        title: taskTitle,
-        description: taskDescription,
-        dueDate: taskDueDate,
-        priority: taskPriority,
-        assignedTo: taskAssignedTo,
-        category: taskCategory,
-        subtasks: taskSubtasks,
-        currentTask: "to-do"
-    });
+//     tasks.push({
+//         id: taskId,
+//         title: taskTitle,
+//         description: taskDescription,
+//         dueDate: taskDueDate,
+//         priority: taskPriority,
+//         assignedTo: taskAssignedTo,
+//         category: taskCategory,
+//         categoryColor: taskCategoryColor, 
+//         subtasks: taskSubtasks,
+//         currentTask: "to-do"
+//     });
+//     saveTaskData();
+//     addTaskSuccess();
+// }
+
+function addTask() {
+    const newTask = buildTaskObject();
+    tasks.push(newTask);
     saveTaskData();
     addTaskSuccess();
+}
+
+function buildTaskObject() {
+    return {
+        id: generateUniqueId(),
+        title: TITLE_INPUT.value,
+        description: DESC_INPUT.value,
+        dueDate: DUE_DATE_INPUT.value,
+        priority: getSelectedPriority(),
+        assignedTo: selectedUsers.map(user => user.name),
+        category: CATEGORY_INPUT.value,
+        categoryColor: CATEGORY_INPUT.value.trim().toLowerCase().split(' ').join('-'),
+        subtasks: getFormattedSubtasks(),
+        currentTask: 'to-do'
+    };
+}
+
+function getSelectedPriority() {
+    if (URGENT_BTN.classList.contains('prio-urgent')) return 'urgent';
+    if (MEDIUM_BTN.classList.contains('prio-medium')) return 'medium';
+    if (LOW_BTN.classList.contains('prio-low')) return 'low';
+    return '';
+}
+
+function getFormattedSubtasks() {
+    const subtaskNodes = Array.from(document.querySelectorAll('.subtask-text'));
+    return subtaskNodes.map((node, index) => ({
+        id: index,
+        subtask: node.textContent,
+        'current-state': 'open'
+    }));
+}
+
+function generateUniqueId() {
+    if (tasks.length === 0) {
+        return 0;
+    }
+    const highestId = Math.max(...tasks.map(task => task.id));
+    return highestId + 1;
+}
+
+function formatSubtasks(subtaskNames) {
+    return subtaskNames.map((name, index) => ({
+        id: index,
+        subtask: name,
+        'current-state': 'open'
+    }));
 }
 
 function addTaskSuccess() {
@@ -623,23 +681,39 @@ function clearFormular() {
  * The backend returns tasks as an object keyed by IDs, which is transformed into
  * an array to match the structure used throughout the application.
  */
-   async function loadTasks() { 
-    tasks = [] 
-    let allTasksData = await fetch(`${BASE_URL}tasks.json`);
-    let allTasksDataToJson = await allTasksData.json(); 
-    let TaskKeysArray = Object.keys(allTasksDataToJson);
-    for (let taskIndex = 0; taskIndex < TaskKeysArray.length; taskIndex++) {
-        tasks.push(
-            {
-                title: allTasksDataToJson[TaskKeysArray[taskIndex]].title,
-                description: allTasksDataToJson[TaskKeysArray[taskIndex]].description,
-                dueDate: allTasksDataToJson[TaskKeysArray[taskIndex]].dueDate,
-                priority: allTasksDataToJson[TaskKeysArray[taskIndex]].priority,
-                assignedTo: allTasksDataToJson[TaskKeysArray[taskIndex]].assignedTo,
-                category: allTasksDataToJson[TaskKeysArray[taskIndex]].category,
-                subtasks: allTasksDataToJson[TaskKeysArray[taskIndex]].subtasks,
-                currentTask: allTasksDataToJson[TaskKeysArray[taskIndex]].currentTask,
-            }
-        )
-    }    
+//    async function loadTasks() { 
+//     tasks = [] 
+//     let allTasksData = await fetch(`${BASE_URL}tasks.json`);
+//     let allTasksDataToJson = await allTasksData.json(); 
+//     let TaskKeysArray = Object.keys(allTasksDataToJson);
+//     for (let taskIndex = 0; taskIndex < TaskKeysArray.length; taskIndex++) {
+//         tasks.push(
+//             {
+//                 id: allTasksDataToJson[TaskKeysArray[taskIndex]].id,
+//                 title: allTasksDataToJson[TaskKeysArray[taskIndex]].title,
+//                 description: allTasksDataToJson[TaskKeysArray[taskIndex]].description,
+//                 dueDate: allTasksDataToJson[TaskKeysArray[taskIndex]].dueDate,
+//                 priority: allTasksDataToJson[TaskKeysArray[taskIndex]].priority,
+//                 assignedTo: allTasksDataToJson[TaskKeysArray[taskIndex]].assignedTo,
+//                 category: allTasksDataToJson[TaskKeysArray[taskIndex]].category,
+//                 categoryColor: allTasksDataToJson[TaskKeysArray[taskIndex]].categoryColor,
+//                 subtasks: allTasksDataToJson[TaskKeysArray[taskIndex]].subtasks,
+//                 currentTask: allTasksDataToJson[TaskKeysArray[taskIndex]].currentTask,
+//             }
+//         )
+//     }    
+// }
+
+async function loadTasks() { 
+    tasks = [];
+    let response = await fetch(`${BASE_URL}tasks.json`);
+    let data = await response.json(); 
+    
+    if (data) {
+        for (let key in data) {
+            let singleTask = data[key];
+            singleTask.firebaseId = key;
+            tasks.push(singleTask);
+        }
+    }
 }

@@ -1,67 +1,12 @@
 let currentTaskBar = "todo-tasks";
 let currentDraggedElement;
-let allTasks = [
-    {
-        'id' : 0,
-        'category' : 'User Story',
-        'category_color' : 'user', 
-        'title' :  'Kochwelt Page & Recipe Recommander',
-        'description' : 'Build start page with recipe recommendation.',
-        'subtasks' : [
-            {
-                'id' : 0,
-                'subtask' : 'Implement Recipe Recommendation',
-                'current-state' : 'closed',
-            },
-            {
-                'id' : 1,
-                'subtask' : 'Start Page Layout',
-                'current-state' : 'open',
-            }
-        ],
-        'due_date' : '10/05/2023',
-        'assigned_to' : [
-            'Emmanuel Mauer',
-            'Marcel Bauer',
-            'Anton Mayer'
-        ],
-        'priority' : 'Medium',
-        'current_task' : 'todo'
-    }, {
-        'id' : 1,
-        'category' : 'Technical Task',
-        'category_color' : 'technical', 
-        'title' :  'CSS Architecture Planning',
-        'description' : 'Define CSS naming conventions and stucture.',
-        'subtasks' : [
-            {
-                'id' : 0,
-                'subtask' : 'Establish CSS Methodology',
-                'current-state' : 'closed',
-            },
-            {
-                'id' : 1,
-                'subtask' : 'Setup Base Styles',
-                'current-state' : 'closed',
-            }
-        ],
-        'due_date' : '02/09/2023',
-        'assigned_to' : [
-            'Sofia Müller',
-            'Benedikt Ziegler'
-        ],
-        'priority' : 'urgent',
-        'current_task' : 'in-progress'
-    }
-
-
-];
+let subtaskPercent = 0;
 
 
 function boardInit() {
     renderAllTasks();
     initTouchPolyfill();
-    setupPolyfillTouchmove();
+    setupPolyfillTouchmove();    
 }
 
 function initTouchPolyfill() {
@@ -116,13 +61,13 @@ function renderAllTasks() {
     renderTodoTasks();
     renderInProgressTasks();
     renderAwaitFeedbackTasks();
-    renderDoneTasks();
+    renderDoneTasks(); 
 }
 
 
 function renderTodoTasks() {
-    let todo = allTasks.filter(t => t['current_task'] == 'todo');
-    const todoTaskBar = document.getElementById('todo-tasks');
+    let todo = tasks.filter(t => t['currentTask'] == 'to-do');
+    const todoTaskBar = document.getElementById('to-do-tasks');
     todoTaskBar.innerHTML = "";
     if (todo.length == 0) {
         todoTaskBar.innerHTML = renderPlaceholderTemplate('to do');
@@ -130,13 +75,17 @@ function renderTodoTasks() {
     };
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
-        todoTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = todo[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        todoTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
 
 function renderInProgressTasks() {
-    let inProgress = allTasks.filter(t => t['current_task'] == 'in-progress');
+    let inProgress = tasks.filter(t => t['currentTask'] == 'in-progress');
     const inProgressTaskBar = document.getElementById('in-progress-tasks');
     inProgressTaskBar.innerHTML = "";
     if (inProgress.length == 0) {
@@ -145,13 +94,17 @@ function renderInProgressTasks() {
     };
     for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
-        inProgressTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = inProgress[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        inProgressTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
 
 function renderAwaitFeedbackTasks() {
-    let awaitFeedback = allTasks.filter(t => t['current_task'] == 'await-feedback');
+    let awaitFeedback = tasks.filter(t => t['currentTask'] == 'await-feedback');
     const awaitFeedbackTaskBar = document.getElementById('await-feedback-tasks');
     awaitFeedbackTaskBar.innerHTML = "";
     if (awaitFeedback.length == 0) {
@@ -160,13 +113,17 @@ function renderAwaitFeedbackTasks() {
     };
     for (let index = 0; index < awaitFeedback.length; index++) {
         const element = awaitFeedback[index];
-        awaitFeedbackTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = awaitFeedback[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        awaitFeedbackTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
 
 function renderDoneTasks() {
-    let done = allTasks.filter(t => t['current_task'] == 'done');
+    let done = tasks.filter(t => t['currentTask'] == 'done');
     const doneTaskBar = document.getElementById('done-tasks');
     doneTaskBar.innerHTML = "";
     if (done.length == 0) {
@@ -175,7 +132,11 @@ function renderDoneTasks() {
     };
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
-        doneTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = done[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        doneTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
@@ -190,10 +151,17 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function movingTo(event, category) {
+async function movingTo(event, category) {
     event.preventDefault();
-    allTasks[currentDraggedElement].current_task = category;
+    const taskIndex = tasks.findIndex(t => t.id === currentDraggedElement);
+    if (taskIndex === -1) return;
+    
+    const movedTask = tasks.splice(taskIndex, 1)[0];
+    movedTask.currentTask = category;
+    tasks.unshift(movedTask);
+    
     boardInit();
+    await updateFirebaseCategory(movedTask.firebaseId, category);
 }
 
 function stopDragging(event) {
@@ -204,4 +172,82 @@ function applyDragStyles(element) {
     setTimeout(() => {
         element.classList.add('rotate-on-drag');
     }, 0);
+}
+
+function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
+    percent = Math.round(closedSubtasksLength / element.subtasks.length * 100);
+    document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
+}
+
+function showDialogOverlay() {
+    const overlay = document.getElementById('add-task-overlay');
+    overlay.classList.remove('d-none');
+}
+
+function openTaskDetails(id) {
+    const currentTask = tasks.find(task => task.id === id);
+    if (currentTask) {
+        renderTaskDialog(currentTask);
+        showDialogOverlay();
+        getAssignedToNames(currentTask);
+    }
+}
+
+function renderTaskDialog(task) {
+    const dialogContainer = document.getElementById('add-task-dialog');
+    dialogContainer.innerHTML = renderDialogTask(task);
+}
+
+function getAssignedToNamesInitials(currentTask, id) {
+    const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
+    const assignedToNames = currentTask.assignedTo;
+    smallTaskNamesContainer.innerHTML = "";
+    for(let i = 0; i < assignedToNames.length; i++) {
+        const name = assignedToNames[i];
+        const initials = getInitials(name);
+        const badgeColor = getUserColor(name);
+        smallTaskNamesContainer.innerHTML += renderNameBadges(initials, badgeColor);
+    }
+}
+
+function getAssignedToNames(currentTask) {
+    const taskNamesContainer = document.getElementById('dialog-task-user-badges');
+    const assignedToNames = currentTask.assignedTo;
+    taskNamesContainer.innerHTML = "";
+    for(let i = 0; i < assignedToNames.length; i++) {
+        const name = assignedToNames[i];
+        const initials = getInitials(name);
+        const badgeColor = getUserColor(name);
+        taskNamesContainer.innerHTML += renderNameBadgesAndNames(name, initials, badgeColor);
+    }    
+}
+
+async function updateFirebaseCategory(firebaseId, newCategory) {
+    const url = `${BASE_URL}tasks/${firebaseId}.json`;
+    const payload = JSON.stringify({ currentTask: newCategory });
+    
+    await fetch(url, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-HTTP-Method-Override': 'PATCH'
+        },
+        body: payload
+    });
+}
+
+function getInitials(fullName) {
+    const nameArray = fullName.trim().split(' ');
+    if (nameArray.length === 1) {
+        return nameArray[0][0].toUpperCase();
+    }
+    const firstLetter = nameArray[0][0];
+    const lastLetter = nameArray[nameArray.length - 1][0];
+    return (firstLetter + lastLetter).toUpperCase();
+}
+
+function getUserColor(userName) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.name === userName);
+    return user && user.userColor ? user.userColor : 'rgba(110, 82, 255, 1)';
 }
