@@ -122,8 +122,12 @@ async function updateLastResetDate(dateString) {
 }
 
 async function checkIfToday() {
-    const todayDateString = new Date().toISOString().split('T')[0];
+    const now = new Date();
+    const offset = now.getTimezoneOffset() * 60000;
+    const todayDateString = new Date(now.getTime() - offset).toISOString().split('T')[0];
+    
     const savedDate = await fetchLastResetDate();
+    
     
     if (todayDateString !== savedDate) {
         await startNewDay(todayDateString);
