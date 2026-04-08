@@ -1,5 +1,6 @@
 let currentTaskBar = "todo-tasks";
 let currentDraggedElement;
+let subtaskPercent = 0;
 let allTasks = [
     {
         'id' : 0,
@@ -9,13 +10,15 @@ let allTasks = [
         'description' : 'Build start page with recipe recommendation.',
         'subtasks' : [
             {
-                'id' : 0,
                 'subtask' : 'Implement Recipe Recommendation',
                 'current-state' : 'closed',
             },
             {
-                'id' : 1,
                 'subtask' : 'Start Page Layout',
+                'current-state' : 'open',
+            },
+            {
+                'subtask' : 'Test Subtask',
                 'current-state' : 'open',
             }
         ],
@@ -25,7 +28,7 @@ let allTasks = [
             'Marcel Bauer',
             'Anton Mayer'
         ],
-        'priority' : 'Medium',
+        'priority' : 'medium',
         'current_task' : 'todo'
     }, {
         'id' : 1,
@@ -62,6 +65,7 @@ function boardInit() {
     renderAllTasks();
     initTouchPolyfill();
     setupPolyfillTouchmove();
+    console.log(tasks[26]);    
 }
 
 function initTouchPolyfill() {
@@ -116,13 +120,13 @@ function renderAllTasks() {
     renderTodoTasks();
     renderInProgressTasks();
     renderAwaitFeedbackTasks();
-    renderDoneTasks();
+    renderDoneTasks(); 
 }
 
 
 function renderTodoTasks() {
-    let todo = allTasks.filter(t => t['current_task'] == 'todo');
-    const todoTaskBar = document.getElementById('todo-tasks');
+    let todo = tasks.filter(t => t['currentTask'] == 'to-do');
+    const todoTaskBar = document.getElementById('to-do-tasks');
     todoTaskBar.innerHTML = "";
     if (todo.length == 0) {
         todoTaskBar.innerHTML = renderPlaceholderTemplate('to do');
@@ -130,13 +134,16 @@ function renderTodoTasks() {
     };
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
-        todoTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = todo[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        todoTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
     }; 
 }
 
 
 function renderInProgressTasks() {
-    let inProgress = allTasks.filter(t => t['current_task'] == 'in-progress');
+    let inProgress = tasks.filter(t => t['currentTask'] == 'in-progress');
     const inProgressTaskBar = document.getElementById('in-progress-tasks');
     inProgressTaskBar.innerHTML = "";
     if (inProgress.length == 0) {
@@ -145,13 +152,16 @@ function renderInProgressTasks() {
     };
     for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
-        inProgressTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = inProgress[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        inProgressTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
     }; 
 }
 
 
 function renderAwaitFeedbackTasks() {
-    let awaitFeedback = allTasks.filter(t => t['current_task'] == 'await-feedback');
+    let awaitFeedback = tasks.filter(t => t['currentTask'] == 'await-feedback');
     const awaitFeedbackTaskBar = document.getElementById('await-feedback-tasks');
     awaitFeedbackTaskBar.innerHTML = "";
     if (awaitFeedback.length == 0) {
@@ -160,13 +170,16 @@ function renderAwaitFeedbackTasks() {
     };
     for (let index = 0; index < awaitFeedback.length; index++) {
         const element = awaitFeedback[index];
-        awaitFeedbackTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = awaitFeedback[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        awaitFeedbackTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
     }; 
 }
 
 
 function renderDoneTasks() {
-    let done = allTasks.filter(t => t['current_task'] == 'done');
+    let done = tasks.filter(t => t['currentTask'] == 'done');
     const doneTaskBar = document.getElementById('done-tasks');
     doneTaskBar.innerHTML = "";
     if (done.length == 0) {
@@ -175,7 +188,10 @@ function renderDoneTasks() {
     };
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
-        doneTaskBar.innerHTML += smallTask(element);
+        const id = element.id;
+        const closedSubtasksLength = done[index].subtasks.filter(d => d['current-state'] == 'closed').length;
+        doneTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
+        fillDoneSubtaskBar(element, closedSubtasksLength, id);
     }; 
 }
 
@@ -192,7 +208,7 @@ function allowDrop(event) {
 
 function movingTo(event, category) {
     event.preventDefault();
-    allTasks[currentDraggedElement].current_task = category;
+    tasks[currentDraggedElement].currentTask = category;
     boardInit();
 }
 
@@ -204,4 +220,34 @@ function applyDragStyles(element) {
     setTimeout(() => {
         element.classList.add('rotate-on-drag');
     }, 0);
+}
+
+function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
+    percent = Math.round(closedSubtasksLength / element.subtasks.length * 100);
+    document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
+}
+
+function showDialogOverlay() {
+    const overlay = document.getElementById('add-task-overlay');
+    overlay.classList.remove('d-none');
+}
+
+function openTaskDetails(id) {
+    const currentTask = tasks.find(task => task.id === id);
+    if (currentTask) {
+        renderTaskDialog(currentTask);
+        showDialogOverlay();
+        getAssignedToNames(id);
+    }
+}
+
+function renderTaskDialog(task) {
+    const dialogContainer = document.getElementById('add-task-dialog');
+    dialogContainer.innerHTML = renderDialogTask(task);
+}
+
+function getAssignedToNames(id) {
+    const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
+    const taskNamesContainer = document.getElementById('dialog-task-user-badges');
+
 }

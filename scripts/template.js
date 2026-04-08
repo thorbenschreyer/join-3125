@@ -25,29 +25,77 @@ function helpAndLogout() {
     `;
 }
   
-function smallTask(element) {
+function smallTask(element, closedSubtasksLenght, id) {
   return `
-    <div draggable="true" ondragstart="startDragging(event, ${element['id']})" ondragend="stopDragging(event)" id="board-small-task-${element.id}" class="board-small-task">
-        <p id="small-task-category" class="small-task-category-${element.category_color}">${element.category}</p>
-        <h3  id="small-task-title" class="small-task-title">${element.title}</h3>
-        <p id="small-task-description" class="small-task-description">${element.description}</p>
-        <div id="subtasks-with-subtasks-bar-container" class="subtasks-with-subtasks-bar-container">
-            <div id="subtasks-bar-container" class="subtasks-bar-container">
-                <div id="subtasks-bar" class="subtasks-bar">
+    <div onclick="openTaskDetails(${id})" draggable="true" ondragstart="startDragging(event, ${element['id']})" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task">
+        <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
+        <h3  id="small-task-title-${id}" class="small-task-title">${element.title}</h3>
+        <p id="small-task-description-${id}" class="small-task-description">${element.description}</p>
+        <div id="subtasks-with-subtasks-bar-container-${id}" class="subtasks-with-subtasks-bar-container">
+            <div id="subtasks-bar-container-${id}" class="subtasks-bar-container">
+                <div id="subtasks-bar-${id}" class="subtasks-bar">
                 </div>
             </div>
-            <p>1/2 Subtasks</p>
+            <p>${closedSubtasksLenght}/${element.subtasks.length} Subtasks</p>
         </div>
-        <div id="small-task-user-badge-and-priority-container" class="small-task-user-badge-and-priority-container">
-            <div id="small-task-user-badges-container" class="small-task-user-badges-container">
+        <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
+            <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container">
                 <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #6E52FF">MS</div>
                 <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #d07513">MS</div>
                 <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #1fc22a">MS</div>
             </div>
-            <img id="task-prio-medium-color" class="task-prio-img" src="../assets/icons/medium_prio_color.svg" alt="">
+            <img id="task-prio-image-${id}" class="task-prio-img" src="../assets/icons/${element.priority}_prio_color.png" alt="">
         </div>
     </div>
-    `
+    `;
+}
+
+function renderDialogTask(task) {
+  return `
+  <div id="dialog-board-task" class="dialog-board-task">
+        <div id="dialog-task-category-and-close-x-container" class="dialog-task-category-and-close-x-container">
+          <p id="dialog-task-category" class="dialog-task-category">${task.category}</p>
+          <div onclick="closeAddTaskOverlay()" id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
+            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+          </div>
+        </div>
+        <h3  id="dialog-task-title" class="dialog-task-title">${task.title}</h3>
+        <p id="dialog-task-description" class="dialog-task-description">${task.description}</p>
+        <div id="dialog-due-date" class="dialog-due-date">
+          <p class="fix-width100px">Due date:</p>
+          <p>${task.dueDate}</p>
+        </div>
+        <div id="dialog-task-priority" class="dialog-task-priority">
+          <p class="fix-width-100px">Priority:</p>
+          <div id="dialog-priority-container" class="dialog-priority-container">
+            <p>${task.priority}</p>
+            <img id="task-prio" class="dialog-task-prio-img" src="./assets/icons/${task.priority}_prio_color.png" alt="${task.priority} priority Image">
+          </div>
+        </div>
+        <p>Assigned To:</p>
+        <div id="dialog-task-user-badges" class="dialog-task-user-badges">
+          <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
+            <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: #d07513">AG</div>
+            <p>Andreas Gruber</p>
+          </div>
+          <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
+            <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: #1fc22a">SL</div>
+            <p>Sandra Lobnig</p>
+          </div>
+        </div>
+      </div>
+  `;
+}
+
+function renderUserBadges(task) {
+  return `
+  <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
+    <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: #6E52FF">MS</div>
+    <p>Manuel Sucher</p>
+  </div>
+  `;
 }
 
 function renderPlaceholderTemplate(emptyTaskBar) {
@@ -55,7 +103,7 @@ function renderPlaceholderTemplate(emptyTaskBar) {
   <div class="placeholder-task">
     <p>No Tasks ${emptyTaskBar}</p>
   </div>
-  `
+  `;
 }
 
 function renderContactTemplate(index, initails, name, email, color) {

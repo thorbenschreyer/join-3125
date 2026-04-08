@@ -27,16 +27,16 @@
         </div>
     </div>
         <div id="all-task-bars" class="all-task-bars">
-            <div id="todo-task-bar" class="task-bar">
+            <div id="to-do-task-bar" class="task-bar">
                 <section id="tasks-header-and-plus" class="tasks-header-and-plus">
                     <h3 class="task-bar-heading">To Do</h3>
-                    <div id="add-todo-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('todo')">
+                    <div id="add-to-do-task" class="add-task-plus-wrapper" onclick="openAddTaskOverlay('to-do')">
                         <img src="./assets/icons/small_ad_task_grey.png" alt="Add Task Plus Image" class="add-task-plus">
                         <img src="./assets/icons/small_ad_task_blue.png" alt="Add Task Plus Image Hover" class="add-task-plus-hover">
                         <img src="./assets/icons/small_ad_task_dark.png" alt="Add Task Plus Image Active" class="add-task-plus-active">
                     </div>
                 </section>
-                <div id="todo-tasks" class="tasks-container" ondrop="movingTo(event, 'todo')" ondragover="allowDrop(event)">
+                <div id="to-do-tasks" class="tasks-container" ondrop="movingTo(event, 'to-do')" ondragenter="allowDrop(event)"  ondragover="allowDrop(event)">
                 </div>
             </div>
             <div id="in-progress-task-bar" class="task-bar">
