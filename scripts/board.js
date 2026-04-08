@@ -208,7 +208,14 @@ function allowDrop(event) {
 
 function movingTo(event, category) {
     event.preventDefault();
-    tasks[currentDraggedElement].currentTask = category;
+    const taskIndex = tasks.findIndex(t => t.id === currentDraggedElement);
+    
+    if (taskIndex !== -1) {
+        const movedTask = tasks.splice(taskIndex, 1)[0];
+        movedTask.currentTask = category;
+        tasks.unshift(movedTask);
+    }
+    
     boardInit();
 }
 
