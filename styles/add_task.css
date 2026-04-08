@@ -316,8 +316,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .dropdown-user-checkbox:nth-of-type(3) {
   left: 274px;
-width: 10px;
-height: 10px;
+  width: 10px;
+  height: 10px;
 }
 
 .dropdown-user.selected  {
@@ -543,6 +543,13 @@ height: 10px;
   background-color: #eeeeee;
 }
 
+/* === REQUIRED-FIELD-MOBILE === */
+.required-field-mobile {
+  display: none;
+  width: 320px;
+  font-size: 12px;
+}
+
 /* === FOOTER === */
 .add-task-footer {
   position: absolute;
@@ -739,21 +746,110 @@ height: 10px;
 
 }
 
-/* @media (max-width: 818px) {
-   === ADD-TASKS-CONTENT === 
+@media (max-width: 818px) {
+  /* === ADD-TASKS-CONTENT === */
   .add-tasks-page {
+    margin-top:  0;
     margin-left:  0;
   }
 
-  .footer-right {
-    position: absolute;
-    justify-content: flex-end;
-    top: 77%;
-    width: 320px;
-    padding: 6px 0;
+  /* === FORMULAR-HEADER-MOBILE === */
+  .add-tasks-mobile-header {
+    position: sticky;
+    top: 0;
     background: var(--bg-color);
-    gap: 20px;
+    padding: 40px 0 4px;
+    z-index: 10;
   }
 
-   position sticky 
-} */
+  /* === FORMULAR === */
+  .add-task-form {
+    align-items: center;
+  }
+
+  /* === REQUIRED-FIELD-MOBILE === */
+  .required-field-mobile {
+    display: flex;
+  }
+
+   /* === LEFT FOOTER AND RIGHT FOOTER === */
+  .add-task-footer {
+    align-items: center;
+  }
+
+  .footer-left {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+   /* === FORMULAR === */
+  .add-task-form {
+    padding-bottom: 100px;
+  }
+
+  /* === LEFT FOOTER AND RIGHT FOOTER === */
+  .footer-right {
+    position: fixed;
+    top: auto;
+    bottom: 86px;
+    padding: 8px 0;
+    background: var(--bg-color);
+  }
+
+}
+
+@media (max-width: 375px) {
+  /* === FORMULAR-HEADER-MOBILE === */
+  .add-tasks-mobile-header {
+    width: 288px;
+  }
+
+  /* === REQUIRED-FIELD-MOBILE === */
+  .required-field-mobile {
+    width: 288px;
+  }
+
+  /* === LEFT COLUMN & RIGHT COLUMN === */
+  .left-column,
+  .right-column {
+    width: 288px;
+  }
+
+  .footer-right {
+    width: 288px;
+  }
+
+  /* === DUE DATE INPUT === */
+  .task-input-icon {
+    left: 264px;
+  }
+
+  /* === PRIORITY-BUTTONS === */
+  .prio-text {
+    font-size: 14px;
+  }
+  
+/* === ASSIGNED TO === */
+  .dropdown-user-checkbox {
+    left: 240px;
+  }
+
+  .dropdown-user-checkbox:nth-of-type(3) {
+    left: 242px;
+  }
+
+/* === SUBTASKS === */
+  .clear-input-icon {
+    left: 236px;
+  }
+
+  .subtasks-vertical-divider {
+    left: 256px;
+  }
+
+  .add-subtask-icon {
+    left: 264px;
+  }
+
+}
