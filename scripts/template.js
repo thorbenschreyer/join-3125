@@ -50,50 +50,53 @@ function smallTask(element, closedSubtasksLenght, id) {
     `;
 }
 
-function renderDialogTask(task) {
-  return `
-  <div id="dialog-board-task" class="dialog-board-task">
-        <div id="dialog-task-category-and-close-x-container" class="dialog-task-category-and-close-x-container">
-          <p id="dialog-task-category" class="dialog-task-category">${task.category}</p>
-          <div onclick="closeAddTaskOverlay()" id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
-            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
-            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
-            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
-          </div>
-        </div>
-        <h3  id="dialog-task-title" class="dialog-task-title">${task.title}</h3>
-        <p id="dialog-task-description" class="dialog-task-description">${task.description}</p>
-        <div id="dialog-due-date" class="dialog-due-date">
-          <p class="fix-width100px">Due date:</p>
-          <p>${task.dueDate}</p>
-        </div>
-        <div id="dialog-task-priority" class="dialog-task-priority">
-          <p class="fix-width-100px">Priority:</p>
-          <div id="dialog-priority-container" class="dialog-priority-container">
-            <p>${task.priority}</p>
-            <img id="task-prio" class="dialog-task-prio-img" src="./assets/icons/${task.priority}_prio_color.png" alt="${task.priority} priority Image">
-          </div>
-        </div>
-        <p>Assigned To:</p>
-        <div id="dialog-task-user-badges" class="dialog-task-user-badges">
-          <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
-            <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: #d07513">AG</div>
-            <p>Andreas Gruber</p>
-          </div>
-          <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
-            <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: #1fc22a">SL</div>
-            <p>Sandra Lobnig</p>
-          </div>
-        </div>
-      </div>
+function renderNameBadges(initials, badgeColor) {
+  return`
+  <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: ${badgeColor}">${initials}</div>
   `;
 }
 
-function renderUserBadges(task) {
+function renderDialogTask(task) {
+  return `
+  <div id="dialog-board-task" class="dialog-board-task">
+    <div id="dialog-task-category-and-close-x-container" class="dialog-task-category-and-close-x-container">
+      <p id="dialog-task-category" class="dialog-task-category">${task.category}</p>
+      <div onclick="closeAddTaskOverlay()" id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
+        <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+        <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+        <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+      </div>
+    </div>
+    <h3  id="dialog-task-title" class="dialog-task-title">${task.title}</h3>
+    <p id="dialog-task-description" class="dialog-task-description">${task.description}</p>
+    <div id="dialog-due-date" class="dialog-due-date">
+      <p class="fix-width-120px">Due date:</p>
+      <p>${task.dueDate}</p>
+    </div>
+    <div id="dialog-task-priority" class="dialog-task-priority">
+      <p class="fix-width-120px">Priority:</p>
+      <div id="dialog-priority-container" class="dialog-priority-container">
+        <p>${task.priority}</p>
+        <img id="task-prio" class="dialog-task-prio-img" src="./assets/icons/${task.priority}_prio_color.png" alt="${task.priority} priority Image">
+      </div>
+    </div>
+    <p class="fix-width-120px dialog-assigned-to-heading">Assigned To:</p>
+    <div id="dialog-task-user-badges" class="dialog-task-user-badges">
+    </div>
+    <div id="dialog-task-subtasks" class="dialog-task-subtasks">
+      <p id="dialog-task-subtasks-header" class="dialog-task-subtasks-header">Subtasks:</p>
+      <div id="dialog-task-subtask-container" class="dialog-task-subtask-container">
+      </div>
+    </div>
+  </div>
+  `;
+}
+
+function renderNameBadgesAndNames(name, initials, badgeColor) {
   return `
   <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
-    <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: #6E52FF">MS</div>
-    <p>Manuel Sucher</p>
+    <div class="dropdown-user-badge dialog-task-dropdown-user-badge" style="background-color: ${badgeColor}">${initials}</div>
+    <p class="assigned-to-name">${name}</p>
   </div>
   `;
 }

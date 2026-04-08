@@ -360,6 +360,8 @@
 .small-task-user-badges-container {
   display: flex;
   align-items: center;
+  margin-right: 16px;
+  overflow: auto;
 }
 
 .small-task-dropdown-user-badge {
@@ -446,8 +448,8 @@
   font-weight: 400;
 }
 
-.fix-width-100px {
-  width: 100px;
+.fix-width-120px {
+  width: 120px;
 }
 
 .dialog-priority-container {
@@ -479,4 +481,14 @@
   width: 100%;
   align-items: center;
   gap: 16px;
+}
+
+.dialog-assigned-to-heading {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.assigned-to-name {
+  font-size: 20px;
+  font-weight: 400;
 }

@@ -79,6 +79,7 @@ function renderTodoTasks() {
         const closedSubtasksLength = todo[index].subtasks.filter(d => d['current-state'] == 'closed').length;
         todoTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
@@ -97,6 +98,7 @@ function renderInProgressTasks() {
         const closedSubtasksLength = inProgress[index].subtasks.filter(d => d['current-state'] == 'closed').length;
         inProgressTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
@@ -115,6 +117,7 @@ function renderAwaitFeedbackTasks() {
         const closedSubtasksLength = awaitFeedback[index].subtasks.filter(d => d['current-state'] == 'closed').length;
         awaitFeedbackTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
@@ -133,6 +136,7 @@ function renderDoneTasks() {
         const closedSubtasksLength = done[index].subtasks.filter(d => d['current-state'] == 'closed').length;
         doneTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
+        getAssignedToNamesInitials(element, id);
     }; 
 }
 
@@ -185,7 +189,7 @@ function openTaskDetails(id) {
     if (currentTask) {
         renderTaskDialog(currentTask);
         showDialogOverlay();
-        getAssignedToNames(id);
+        getAssignedToNames(currentTask);
     }
 }
 
@@ -194,9 +198,28 @@ function renderTaskDialog(task) {
     dialogContainer.innerHTML = renderDialogTask(task);
 }
 
-function getAssignedToNames(id) {
+function getAssignedToNamesInitials(currentTask, id) {
     const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
+    const assignedToNames = currentTask.assignedTo;
+    smallTaskNamesContainer.innerHTML = "";
+    for(let i = 0; i < assignedToNames.length; i++) {
+        const name = assignedToNames[i];
+        const initials = getInitials(name);
+        const badgeColor = getUserColor(name);
+        smallTaskNamesContainer.innerHTML += renderNameBadges(initials, badgeColor);
+    }
+}
+
+function getAssignedToNames(currentTask) {
     const taskNamesContainer = document.getElementById('dialog-task-user-badges');
+    const assignedToNames = currentTask.assignedTo;
+    taskNamesContainer.innerHTML = "";
+    for(let i = 0; i < assignedToNames.length; i++) {
+        const name = assignedToNames[i];
+        const initials = getInitials(name);
+        const badgeColor = getUserColor(name);
+        taskNamesContainer.innerHTML += renderNameBadgesAndNames(name, initials, badgeColor);
+    }    
 }
 
 async function updateFirebaseCategory(firebaseId, newCategory) {
@@ -211,4 +234,20 @@ async function updateFirebaseCategory(firebaseId, newCategory) {
         },
         body: payload
     });
+}
+
+function getInitials(fullName) {
+    const nameArray = fullName.trim().split(' ');
+    if (nameArray.length === 1) {
+        return nameArray[0][0].toUpperCase();
+    }
+    const firstLetter = nameArray[0][0];
+    const lastLetter = nameArray[nameArray.length - 1][0];
+    return (firstLetter + lastLetter).toUpperCase();
+}
+
+function getUserColor(userName) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.name === userName);
+    return user && user.userColor ? user.userColor : 'rgba(110, 82, 255, 1)';
 }
