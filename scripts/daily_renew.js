@@ -138,12 +138,20 @@ async function startNewDay(dateString) {
     await resetTasksInFirebase(renewTasks);
     await updateLastResetDate(dateString);
     tasks = [...renewTasks];
-    renderAllTasks(); 
+    sortTodoforDate();
+    setTaskSummaryInformation();
 }
 
 async function resetTasksInFirebase(renewTasks) {
     const url = `${BASE_URL}tasks.json`;
-    const payload = JSON.stringify(renewTasks);
+    
+    const tasksObject = {};
+    for (let i = 0; i < renewTasks.length; i++) {
+        const task = renewTasks[i];
+        tasksObject[task.firebaseId] = task;
+    }
+    
+    const payload = JSON.stringify(tasksObject);
     
     await fetch(url, {
         method: 'PUT',
