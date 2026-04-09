@@ -77,13 +77,12 @@ function renderTodoTasks() {
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
         const id = element.id;
-        const closedSubtasksLength = todo[index].subtasks.filter(d => d['current_state'] == 'closed').length;
+        const closedSubtasksLength = closedSubtaskLength('to-do', index);
         todoTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
     }; 
 }
-
 
 function renderInProgressTasks() {
     let inProgress = tasks.filter(t => t['currentTask'] == 'in-progress');
@@ -96,7 +95,7 @@ function renderInProgressTasks() {
     for (let index = 0; index < inProgress.length; index++) {
         const element = inProgress[index];
         const id = element.id;
-        const closedSubtasksLength = inProgress[index].subtasks.filter(d => d['current_state'] == 'closed').length;
+        const closedSubtasksLength = closedSubtaskLength('in-progress', index);
         inProgressTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
@@ -115,7 +114,7 @@ function renderAwaitFeedbackTasks() {
     for (let index = 0; index < awaitFeedback.length; index++) {
         const element = awaitFeedback[index];
         const id = element.id;
-        const closedSubtasksLength = awaitFeedback[index].subtasks.filter(d => d['current_state'] == 'closed').length;
+        const closedSubtasksLength = closedSubtaskLength('await-feedback', index);
         awaitFeedbackTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
@@ -134,13 +133,19 @@ function renderDoneTasks() {
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
         const id = element.id;
-        const closedSubtasksLength = done[index].subtasks.filter(d => d['current_state'] == 'closed').length;
+        const closedSubtasksLength = closedSubtaskLength('done', index);
         doneTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
         fillDoneSubtaskBar(element, closedSubtasksLength, id);
         getAssignedToNamesInitials(element, id);
     }; 
 }
 
+function closedSubtaskLength(currentTaskCat, index) {
+    const taskBar = tasks.filter(t => t.currentTask === currentTaskCat);
+    const subtasks = taskBar[index].subtasks;
+    if (!subtasks) return 0;
+    return subtasks.filter(d => d.current_state === 'closed').length;
+}
 
 function startDragging(event, id) {
     currentDraggedElement = id;
@@ -176,6 +181,7 @@ function applyDragStyles(element) {
 }
 
 function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
+    if (!element.subtasks) return;
     percent = Math.round(closedSubtasksLength / element.subtasks.length * 100);
     document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
 }
@@ -204,6 +210,8 @@ function getAssignedToNamesInitials(currentTask, id) {
     const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
     const assignedToNames = currentTask.assignedTo;
     smallTaskNamesContainer.innerHTML = "";
+    if (!assignedToNames) return
+    // checkAssignedTo(assignedToNames);
     for(let i = 0; i < assignedToNames.length; i++) {
         const name = assignedToNames[i];
         const initials = getInitials(name);
@@ -212,10 +220,18 @@ function getAssignedToNamesInitials(currentTask, id) {
     }
 }
 
+function checkAssignedTo(assignedTo) {
+    if (!assignedTo) {
+        let container = document.getElementById('dialog-assigned-to');
+        container.classList.add('d-none');
+    }
+}
+
 function getAssignedToNames(currentTask) {
     const taskNamesContainer = document.getElementById('dialog-task-user-badges');
     const assignedToNames = currentTask.assignedTo;
     taskNamesContainer.innerHTML = "";
+    if (!assignedToNames) return
     for(let i = 0; i < assignedToNames.length; i++) {
         const name = assignedToNames[i];
         const initials = getInitials(name);
@@ -258,6 +274,7 @@ function getSubtasks(currentTask) {
     const subtaskContainer = document.getElementById('dialog-task-subtask-container');
     const subtasks = currentTask.subtasks;
     subtaskContainer.innerHTML = "";
+    if (!subtasks) return;
     for(let i = 0; i < subtasks.length; i++) {
         const subtask = subtasks[i].subtask;
         const currentState = subtasks[i].current_state;
@@ -298,4 +315,19 @@ async function updateSubtaskInFirebase(firebaseId, index, state) {
         },
         body: payload
     });
+}
+
+async function deleteTask(taskId) {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+    
+    const url = `${BASE_URL}tasks/${task.firebaseId}.json`;
+    
+    await fetch(url, {
+        method: 'DELETE'
+    });
+    
+    await loadTasks();
+    renderAllTasks();
+    closeAddTaskOverlay();
 }

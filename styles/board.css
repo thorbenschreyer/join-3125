@@ -514,4 +514,68 @@
   display: flex;
   gap: 16px;
   overflow-y: auto;
+  align-items: center;
+}
+
+.checkbox-img {
+  width: 24px;
+  height: 24px;
+}
+
+.dialog-delete-edit-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: end;
+  justify-content: end;
+  gap: 8px;
+}
+
+.dialog-delete-container:hover {
+  color: #29abe2;
+  text-shadow: 0 0 1px #29abe2;
+}
+
+.dialog-edit-container:hover {
+  color: #29abe2;
+  text-shadow: 0 0 1px #29abe2;
+}
+
+.dialog-delete-img-wrapper,
+.dialog-edit-img-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.dialog-delete-container,
+.dialog-edit-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dialog-delete-hover-img,
+.dialog-edit-hover-img {
+    display: none;
+}
+
+.dialog-delete-container:hover .dialog-delete-img,
+.dialog-edit-container:hover .dialog-edit-img {
+    display: none;
+}
+
+.dialog-delete-container:hover .dialog-delete-hover-img,
+.dialog-edit-container:hover .dialog-edit-hover-img {
+    display: block;
+}
+
+.img-size-24px {
+  width: 24px;
+  height: 24px;
+}
+
+.dialog-delete-edit {
+  font-size: 16px;
+  font-weight: 400;
 }
