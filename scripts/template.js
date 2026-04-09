@@ -215,3 +215,54 @@ function contactBrakerTemplate(letter) {
         </div>
   `;
 }
+
+
+/**
+ * 
+ * @param {string} user 
+ * @param {string} initials 
+ * @param {string} color 
+ * @returns {string}
+ */
+function renderUsersDropdownTemplate(user, initials, color) {
+    return `
+        <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
+            <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
+            <span class="dropdown-user-name">${user}</span>
+            <img class="dropdown-user-checkbox" src="./assets/icons/checkbox_default.svg" alt="">
+            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked.svg" alt="">
+            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked_sign.svg" alt="">
+        </div>
+    `;
+}
+
+/** * 
+ * @param {string} user 
+ * @param {string} initials
+ * @param {string} color
+ * @returns {string}
+ */
+function renderSubtaskItemsTemplate(subtasksInput) {
+    return `
+            <div class="subtask-item-wrapper" ondblclick="editSubtask(this.querySelector('.edit-subtask-btn'))">   
+                <li id="subtask-item" onmouseenter="showSubtaskButtons(this)" onmouseleave="hideSubtaskButtons(this)">
+                    <div class="subtask-item-content">
+                        <span class="subtask-text">${subtasksInput.value}</span>
+                        <div id="subtask-item-btns" class="subtask-item-btns dNone">
+                            <img class="edit-subtask-btn" src="./assets/icons/subtask_edit.svg" alt="" onclick="editSubtask(this)">
+                            <span class="subtask-edit-divider">|</span>
+                            <img class="delete-subtask-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                        </div>
+                    </div>
+                </li>
+                <div id="subtask-edit" class="subtask-item-edit dNone">
+                    <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
+                    <div class="subtask-edit-btns">
+                        <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                        <span class="subtask-edit-input-divider">|</span>
+                        <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt="" onclick="confirmEditSubtask(this)">
+                    </div>
+                </div>
+              </div>
+             `
+}
