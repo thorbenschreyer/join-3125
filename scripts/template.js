@@ -55,7 +55,7 @@ function smallTask(element, closedSubtasksLength, id) {
     <div onclick="openTaskDetails(${id})" draggable="true" ondragstart="startDragging(event, ${element.id})" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task">
         <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
         <h3 id="small-task-title-${id}" class="small-task-title">${element.title}</h3>
-        <p id="small-task-description-${id}" class="small-task-description">${element.description}</p>
+        <p id="small-task-description-${id}" class="small-task-description">${truncateDescription(element.description)}</p>
         ${getSmallSubtasksHtml(element, closedSubtasksLength, id)}
         <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
             <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container"></div>
@@ -105,28 +105,28 @@ function renderDialogTask(task) {
         <img id="task-prio" class="dialog-task-prio-img" src="./assets/icons/${task.priority}_prio_color.png" alt="${task.priority} priority Image">
       </div>
     </div id="dialog-assigned-to">
-    <p class="fix-width-120px dialog-assigned-to-heading">Assigned To:</p>
-    <div id="dialog-task-user-badges" class="dialog-task-user-badges">
+      <p class="fix-width-120px dialog-assigned-to-heading" id="dialog-assigned-to-heading">Assigned To:</p>
+      <div id="dialog-task-user-badges" class="dialog-task-user-badges">
     </div>
     <div id="dialog-task-subtasks" class="dialog-task-subtasks">
       <p id="dialog-task-subtasks-header" class="dialog-task-subtasks-header">Subtasks:</p>
       <div id="dialog-task-subtask-container" class="dialog-task-subtask-container">
       </div>
-      <div class="dialog-delete-edit-container"> 
-        <div class="dialog-delete-container" onclick="deleteTask(${task.id})">
-          <div class="dialog-delete-img-wrapper">
-            <img src="./assets/icons/delete.png" alt="delete Task" class="dialog-delete-img img-size-24px">
-            <img src="./assets/icons/delete_blue.png" alt="delete Task" class="dialog-delete-hover-img img-size-24px">
-          </div>
-          <p class="dialog-delete-edit">Delete</p>
+    </div>
+    <div class="dialog-delete-edit-container"> 
+      <div class="dialog-delete-container" onclick="deleteTask(${task.id})">
+        <div class="dialog-delete-img-wrapper">
+          <img src="./assets/icons/delete.png" alt="delete Task" class="dialog-delete-img img-size-24px">
+          <img src="./assets/icons/delete_blue.png" alt="delete Task" class="dialog-delete-hover-img img-size-24px">
         </div>
-        <div class="dialog-edit-container">
-          <div class="dialog-edit-img-wrapper">
-            <img src="./assets/icons/edit.png" alt="delete Task" class="dialog-edit-img img-size-24px">
-            <img src="./assets/icons/edit_blue.png" alt="delete Task" class="dialog-edit-hover-img img-size-24px">
-          </div>
-          <p class="dialog-delete-edit">Edit</p>
+        <p class="dialog-delete-edit">Delete</p>
+      </div>
+      <div class="dialog-edit-container">
+        <div class="dialog-edit-img-wrapper">
+          <img src="./assets/icons/edit.png" alt="delete Task" class="dialog-edit-img img-size-24px">
+          <img src="./assets/icons/edit_blue.png" alt="delete Task" class="dialog-edit-hover-img img-size-24px">
         </div>
+        <p class="dialog-delete-edit">Edit</p>
       </div>
     </div>
   </div>

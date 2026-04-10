@@ -140,6 +140,13 @@ function renderDoneTasks() {
     }; 
 }
 
+function truncateDescription(text) {
+    if (!text) return '';
+    const words = text.split(' ');
+    if (words.length <= 5) return text;
+    return words.slice(0, 5).join(' ') + '...';
+}
+
 function closedSubtaskLength(currentTaskCat, index) {
     const taskBar = tasks.filter(t => t.currentTask === currentTaskCat);
     const subtasks = taskBar[index].subtasks;
@@ -194,30 +201,43 @@ function showDialogOverlay() {
 function openTaskDetails(id) {
     const currentTask = tasks.find(task => task.id === id);
     if (currentTask) {
-        renderTaskDialog(currentTask);
         showDialogOverlay();
+        renderTaskDialog(currentTask);
         getAssignedToNames(currentTask);
         getSubtasks(currentTask);
-    }
-}
+    };
+};
 
 function renderTaskDialog(task) {
     const dialogContainer = document.getElementById('add-task-dialog');
     dialogContainer.innerHTML = renderDialogTask(task);
 }
 
+// function getAssignedToNamesInitials(currentTask, id) {
+//     const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
+//     const assignedToNames = currentTask.assignedTo;
+//     smallTaskNamesContainer.innerHTML = "";
+//     if (!assignedToNames) return
+//     for(let i = 0; i < assignedToNames.length; i++) {
+//         const name = assignedToNames[i];
+//         const initials = getInitials(name);
+//         const badgeColor = getUserColor(name);
+//         smallTaskNamesContainer.innerHTML += renderNameBadges(initials, badgeColor);
+//     }
+// }
+
 function getAssignedToNamesInitials(currentTask, id) {
-    const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
-    const assignedToNames = currentTask.assignedTo;
-    smallTaskNamesContainer.innerHTML = "";
-    if (!assignedToNames) return
-    // checkAssignedTo(assignedToNames);
-    for(let i = 0; i < assignedToNames.length; i++) {
-        const name = assignedToNames[i];
-        const initials = getInitials(name);
-        const badgeColor = getUserColor(name);
-        smallTaskNamesContainer.innerHTML += renderNameBadges(initials, badgeColor);
+    const container = document.getElementById(`small-task-user-badges-container-${id}`);
+    const assigned = currentTask.assignedTo;
+    if (!container || !assigned) return;
+    let html = "";
+    for (let i = 0; i < Math.min(assigned.length, 3); i++) {
+        html += renderNameBadges(getInitials(assigned[i]), getUserColor(assigned[i]));
     }
+    if (assigned.length > 3) {
+        html += renderNameBadges(`+${assigned.length - 3}`, '#2A3647');
+    }
+    container.innerHTML = html;
 }
 
 function checkAssignedTo(assignedTo) {
@@ -229,15 +249,19 @@ function checkAssignedTo(assignedTo) {
 
 function getAssignedToNames(currentTask) {
     const taskNamesContainer = document.getElementById('dialog-task-user-badges');
+    const assignedToContainer = document.getElementById('dialog-assigned-to-heading')
     const assignedToNames = currentTask.assignedTo;
     taskNamesContainer.innerHTML = "";
-    if (!assignedToNames) return
+    if (!assignedToNames) {
+        assignedToContainer.classList.add('d-none');
+        return;
+    };
     for(let i = 0; i < assignedToNames.length; i++) {
         const name = assignedToNames[i];
         const initials = getInitials(name);
         const badgeColor = getUserColor(name);
         taskNamesContainer.innerHTML += renderNameBadgesAndNames(name, initials, badgeColor);
-    }    
+    };    
 }
 
 async function updateFirebaseCategory(firebaseId, newCategory) {
@@ -272,9 +296,13 @@ function getUserColor(userName) {
 
 function getSubtasks(currentTask) {
     const subtaskContainer = document.getElementById('dialog-task-subtask-container');
+    const subtaskHeading = document.getElementById('dialog-task-subtasks-header');
     const subtasks = currentTask.subtasks;
     subtaskContainer.innerHTML = "";
-    if (!subtasks) return;
+    if (!subtasks) {
+        subtaskHeading.classList.add('d-none');
+        return;
+    }
     for(let i = 0; i < subtasks.length; i++) {
         const subtask = subtasks[i].subtask;
         const currentState = subtasks[i].current_state;
