@@ -44,6 +44,15 @@ let isTitleValid = false;
 let isDueDateValid = false;
 let isCategoryValid = false;
 
+/**
+ * Restores the required-field validation flags to their default state.
+ */
+function resetFormValidationState() {
+    isTitleValid = false;
+    isDueDateValid = false;
+    isCategoryValid = false;
+}
+
 // Firebase backend endpoint.
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
@@ -63,12 +72,32 @@ let selectedUsers = [];
  */
 async function initAddTaskElements() {
     initDOMElements();
+    resetFormValidationState();
     initAddTaskListeners();
     setMinDate();
     await loadUsers();
     await loadTasks();
     renderUsersDropdown();
     resetUserSelection();
+}
+
+/**
+ * Loads all users from Firebase and stores only the fields needed for assignment display.
+ */
+async function loadUsers() {
+    users = [];
+    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserDataToJson = await allUserData.json(); 
+    let UserKeysArray = Object.keys(allUserDataToJson);
+
+    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+        users.push(
+            {
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
+            }
+        )
+    }    
 }
 
 /**
@@ -89,25 +118,6 @@ async function loadTasks() {
             tasks.push(singleTask);
         }
     }
-}
-
-/**
- * Loads all users from Firebase and stores only the fields needed for assignment display.
- */
-async function loadUsers() {
-    users = [];
-    let allUserData = await fetch(`${BASE_URL}users.json`);
-    let allUserDataToJson = await allUserData.json(); 
-    let UserKeysArray = Object.keys(allUserDataToJson);
-
-    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-        users.push(
-            {
-                name : allUserDataToJson[UserKeysArray[userIndex]].name,
-                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
-            }
-        )
-    }    
 }
 
 /**
@@ -286,6 +296,7 @@ function deleteSubtask(button) {
  * Resets the form inputs and restores the default add-task state.
  */
 function clearFormular() {
+    resetFormValidationState();
     addTaskBtn.classList.add("disabled-btn"); 
     titleInput.value = "";
     titleInput.classList.remove("red-border")
