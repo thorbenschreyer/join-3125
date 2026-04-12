@@ -210,6 +210,7 @@ async function loadUsers() {
             }
         )
     }    
+}
 // ASSIGNED TO
 /**
  * Renders the assignment dropdown from the loaded user list.
