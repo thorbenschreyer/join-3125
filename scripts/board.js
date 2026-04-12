@@ -8,6 +8,9 @@ let currentSearchTerm = '';
 //     console.log(`boardInit called at: ${currentTime}`);
 //     console.trace();
 
+/**
+ * Initializes the board by rendering all tasks and setting up touch polyfills for mobile devices.
+ */
 function boardInit() {
     renderAllTasks();
     initTouchPolyfill();
@@ -15,6 +18,9 @@ function boardInit() {
 }
 
 
+/**
+ * Initializes the drag-and-drop polyfill for touch devices.
+ */
 function initTouchPolyfill() {
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouch) {
@@ -27,24 +33,39 @@ function initTouchPolyfill() {
     }
 }
 
+/**
+ * Sets up a listener for touchmove to keep the drag-and-drop polyfill active.
+ */
 function setupPolyfillTouchmove() {
     window.addEventListener('touchmove', () => {
         // Keeps the polyfill active during movement
     }, { passive: false });
 }
 
+/**
+ * Filters tasks on the board based on the desktop search input value.
+ */
 function filterTasksBySearch() {
     const searchInput = document.getElementById('find-task');
     currentSearchTerm = searchInput.value.toLowerCase();
     renderAllTasks();
 }
 
+/**
+ * Filters tasks on the board based on the mobile search input value.
+ */
 function filterTasksBySearchMobile() {
     const searchInput = document.getElementById('find-task-mobile');
     currentSearchTerm = searchInput.value.toLowerCase();
     renderAllTasks();
 }
 
+/**
+ * Checks if a given task matches the current search term in its title or description.
+ * 
+ * @param {Object} t - The task object to check.
+ * @returns {boolean} True if the task matches the search term, false otherwise.
+ */
 function checkTaskMatch(t) {
     if (!currentSearchTerm) return true;
     const title = (t.title || '').toLowerCase();
@@ -52,6 +73,11 @@ function checkTaskMatch(t) {
     return title.includes(currentSearchTerm) || desc.includes(currentSearchTerm);
 }
 
+/**
+ * Opens the "Add Task" overlay and presets the selected task category column.
+ * 
+ * @param {string} selectedTaskBar - The column/category identifier (e.g., 'to-do').
+ */
 async function openAddTaskOverlay(selectedTaskBar) {
     await loadHtmlPage('add-task-dialog', './templates/add_tasks.html');
     const overlay = document.getElementById('add-task-overlay');
@@ -67,6 +93,11 @@ async function openAddTaskOverlay(selectedTaskBar) {
 }
 
 
+/**
+ * Closes a specified dialog overlay with a slide-out animation.
+ * 
+ * @param {string} currentDialog - The base ID name of the dialog to close.
+ */
 function closeOverlay(currentDialog) {
     const overlay = document.getElementById(`${currentDialog}-overlay`);
     const dialog = document.getElementById(`${currentDialog}-dialog`);
@@ -81,6 +112,9 @@ function closeOverlay(currentDialog) {
     renderAllTasks();
 }
 
+/**
+ * Closes the "Add Task" overlay with a delayed slide-out animation.
+ */
 function closeAddTaskOverlay() {
     const overlay = document.getElementById('add-task-overlay');
     const dialog = document.getElementById('add-task-dialog');
@@ -97,11 +131,19 @@ function closeAddTaskOverlay() {
 }
 
 
+/**
+ * Prevents the event from bubbling up the DOM tree.
+ * 
+ * @param {Event} event - The DOM event.
+ */
 function stopEventBubbling(event) {
     event.stopPropagation();
 }
 
 
+/**
+ * Renders all task columns (To Do, In Progress, Await Feedback, Done).
+ */
 function renderAllTasks() {
     renderTodoTasks();
     renderInProgressTasks();
@@ -109,6 +151,9 @@ function renderAllTasks() {
     renderDoneTasks(); 
 }
 
+/**
+ * Renders tasks in the "To Do" column.
+ */
 function renderTodoTasks() {
     const todo = tasks.filter(t => t.currentTask === 'to-do' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const todoTaskBar = document.getElementById('to-do-tasks');
@@ -122,6 +167,9 @@ function renderTodoTasks() {
     });
 }
 
+/**
+ * Renders tasks in the "In Progress" column.
+ */
 function renderInProgressTasks() {
     const inProgress = tasks.filter(t => t.currentTask === 'in-progress' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const inProgressTaskBar = document.getElementById('in-progress-tasks');
@@ -135,6 +183,9 @@ function renderInProgressTasks() {
     });
 }
 
+/**
+ * Renders tasks in the "Await Feedback" column.
+ */
 function renderAwaitFeedbackTasks() {
     const awaitFeedback = tasks.filter(t => t.currentTask === 'await-feedback' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const awaitBar = document.getElementById('await-feedback-tasks');
@@ -148,6 +199,9 @@ function renderAwaitFeedbackTasks() {
     });
 }
 
+/**
+ * Renders tasks in the "Done" column.
+ */
 function renderDoneTasks() {
     const done = tasks.filter(t => t.currentTask === 'done' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const doneTaskBar = document.getElementById('done-tasks');
@@ -161,6 +215,12 @@ function renderDoneTasks() {
     });
 }
 
+/**
+ * Truncates text to a maximum of 5 words and appends an ellipsis.
+ * 
+ * @param {string} text - The text to truncate.
+ * @returns {string} The truncated text.
+ */
 function truncateText(text) {
     if (!text) return '';
     const words = text.split(' ');
@@ -168,6 +228,13 @@ function truncateText(text) {
     return words.slice(0, 5).join(' ') + '...';
 }
 
+/**
+ * Calculates the number of closed subtasks for a specific task.
+ * 
+ * @param {string} currentTaskCat - The category of the task (e.g., 'to-do').
+ * @param {number} index - The index of the task within its category array.
+ * @returns {number} The count of closed subtasks.
+ */
 function closedSubtaskLength(currentTaskCat, index) {
     const taskBar = tasks.filter(t => t.currentTask === currentTaskCat);
     const subtasks = taskBar[index].subtasks;
@@ -175,6 +242,12 @@ function closedSubtaskLength(currentTaskCat, index) {
     return subtasks.filter(d => d.current_state === 'closed').length;
 }
 
+/**
+ * Initiates the drag operation for a task element.
+ * 
+ * @param {DragEvent} event - The drag start event.
+ * @param {number|string} id - The ID of the task being dragged.
+ */
 function startDragging(event, id) {
     currentDraggedElement = id;
     const columns = ['to-do-tasks', 'in-progress-tasks', 'await-feedback-tasks', 'done-tasks'];
@@ -186,10 +259,21 @@ function startDragging(event, id) {
     }
 }
 
+/**
+ * Allows an element to be dropped by preventing the default handling of the event.
+ * 
+ * @param {DragEvent} event - The drag over event.
+ */
 function allowDrop(event) {
     event.preventDefault();
 }
 
+/**
+ * Moves a dragged task to a new category when dropped directly on a column.
+ * 
+ * @param {DragEvent} event - The drop event.
+ * @param {string} category - The target category to move the task to.
+ */
 async function movingTo(event, category) {
     event.preventDefault();
     const task = tasks.find(t => t.id == currentDraggedElement);
@@ -204,6 +288,12 @@ async function movingTo(event, category) {
     await updateCategoryOrder(col);
 }
 
+/**
+ * Handles dropping a task onto another task to reorder within or across columns.
+ * 
+ * @param {DragEvent} event - The drop event.
+ * @param {number|string} targetId - The ID of the target task being dropped on.
+ */
 async function dropOnTask(event, targetId) {
     event.preventDefault();
     event.stopPropagation();
@@ -219,6 +309,11 @@ async function dropOnTask(event, targetId) {
     await updateCategoryOrder(col);
 }
 
+/**
+ * Updates the sorting index for all tasks in a specific column in Firebase.
+ * 
+ * @param {Array<Object>} col - The array of tasks in the specific column.
+ */
 async function updateCategoryOrder(col) {
     for (let i = 0; i < col.length; i++) {
         await fetch(`${BASE_URL}tasks/${col[i].firebaseId}/sortIndex.json`, {
@@ -228,6 +323,9 @@ async function updateCategoryOrder(col) {
     }
 }
 
+/**
+ * Updates the sorting index for all tasks globally in Firebase.
+ */
 async function updateTasksOrder() {
     for (let i = 0; i < tasks.length; i++) {
         tasks[i].sortIndex = i;
@@ -241,6 +339,11 @@ async function updateTasksOrder() {
 }
 
 
+/**
+ * Ends the drag operation and removes styling from drag areas and the dragged element.
+ * 
+ * @param {DragEvent} event - The drag end event.
+ */
 function stopDragging(event) {
     const columns = ['to-do-tasks', 'in-progress-tasks', 'await-feedback-tasks', 'done-tasks'];
     event.target.classList.remove('rotate-on-drag');
@@ -250,23 +353,43 @@ function stopDragging(event) {
     }
 }
 
+/**
+ * Applies rotation styles to an element while it is being dragged.
+ * 
+ * @param {HTMLElement} element - The DOM element being dragged.
+ */
 function applyDragStyles(element) {
     setTimeout(() => {
         element.classList.add('rotate-on-drag');
     }, 0);
 }
 
+/**
+ * Fills the progress bar of a task based on the ratio of closed subtasks.
+ * 
+ * @param {Object} element - The task object.
+ * @param {number} closedSubtasksLength - The number of subtasks that are closed.
+ * @param {number|string} id - The ID of the task.
+ */
 function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
     if (!element.subtasks || element.subtasks.length === 0) return;
     percent = Math.round(closedSubtasksLength / element.subtasks.length * 100);
     document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
 }
 
+/**
+ * Displays the task detail dialog overlay.
+ */
 function showDialogOverlay() {
     const overlay = document.getElementById('task-overlay');
     overlay.classList.remove('d-none');
 }
 
+/**
+ * Opens the detailed view of a specific task by its ID.
+ * 
+ * @param {number|string} id - The ID of the task.
+ */
 function openTaskDetails(id) {
     const currentTask = tasks.find(task => task.id == id);
     if (currentTask) {
@@ -277,11 +400,22 @@ function openTaskDetails(id) {
     };
 };
 
+/**
+ * Renders the detailed content of a task into the dialog container.
+ * 
+ * @param {Object} task - The task object to render.
+ */
 function renderTaskDialog(task) {
     const dialogContainer = document.getElementById('task-dialog');
     dialogContainer.innerHTML = renderDialogTask(task);
 }
 
+/**
+ * Renders the initials badges of assigned users for a small task card.
+ * 
+ * @param {Object} currentTask - The task object.
+ * @param {number|string} id - The ID of the task.
+ */
 function getAssignedToNamesInitials(currentTask, id) {
     const container = document.getElementById(`small-task-user-badges-container-${id}`);
     const assigned = currentTask.assignedTo;
@@ -296,6 +430,11 @@ function getAssignedToNamesInitials(currentTask, id) {
     container.innerHTML = html;
 }
 
+/**
+ * Hides the assigned-to section in the dialog if no users are assigned.
+ * 
+ * @param {Array<string>} assignedTo - The array of assigned user names.
+ */
 function checkAssignedTo(assignedTo) {
     if (!assignedTo) {
         let container = document.getElementById('dialog-assigned-to');
@@ -303,6 +442,11 @@ function checkAssignedTo(assignedTo) {
     }
 }
 
+/**
+ * Renders the names and initials of assigned users inside the task detail dialog.
+ * 
+ * @param {Object} currentTask - The task object containing assigned users.
+ */
 function getAssignedToNames(currentTask) {
     const taskNamesContainer = document.getElementById('dialog-task-user-badges');
     const assignedToContainer = document.getElementById('dialog-assigned-to-heading')
@@ -320,6 +464,12 @@ function getAssignedToNames(currentTask) {
     };    
 }
 
+/**
+ * Updates the category (currentTask) of a specific task in Firebase.
+ * 
+ * @param {string} firebaseId - The Firebase-specific ID of the task.
+ * @param {string} newCategory - The new category to assign to the task.
+ */
 async function updateFirebaseCategory(firebaseId, newCategory) {
     const url = `${BASE_URL}tasks/${firebaseId}.json`;
     const payload = JSON.stringify({ currentTask: newCategory });
@@ -334,6 +484,12 @@ async function updateFirebaseCategory(firebaseId, newCategory) {
     });
 }
 
+/**
+ * Extracts and returns the initials from a full name.
+ * 
+ * @param {string} fullName - The full name of the user.
+ * @returns {string} The formatted initials.
+ */
 function getInitials(fullName) {
     const nameArray = fullName.trim().split(' ');
     if (nameArray.length === 1) {
@@ -344,12 +500,23 @@ function getInitials(fullName) {
     return (firstLetter + lastLetter).toUpperCase();
 }
 
+/**
+ * Retrieves the background color associated with a specific user.
+ * 
+ * @param {string} userName - The name of the user.
+ * @returns {string} The color string (e.g., rgba, hex).
+ */
 function getUserColor(userName) {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find(u => u.name === userName);
     return user && user.userColor ? user.userColor : 'rgba(110, 82, 255, 1)';
 }
 
+/**
+ * Renders the list of subtasks for a given task inside the task detail dialog.
+ * 
+ * @param {Object} currentTask - The task object containing subtasks.
+ */
 function getSubtasks(currentTask) {
     const subtaskContainer = document.getElementById('dialog-task-subtask-container');
     const subtaskHeading = document.getElementById('dialog-task-subtasks-header');
@@ -366,6 +533,13 @@ function getSubtasks(currentTask) {
     }
 }
 
+/**
+ * Toggles the visibility of checked/unchecked checkbox icons for a subtask.
+ * 
+ * @param {string} currentState - The current state of the subtask ('open' or 'closed').
+ * @param {number} index - The index of the subtask.
+ * @param {number|string} taskId - The ID of the parent task.
+ */
 function renderCheckboxSubtask(currentState, index, taskId) {
     const defaultCheckBox = document.getElementById(`checkbox-default-${taskId}-${index}`);
     const checkedCheckBox = document.getElementById(`checkbox-checked-${taskId}-${index}`);
@@ -378,6 +552,12 @@ function renderCheckboxSubtask(currentState, index, taskId) {
     }
 }
 
+/**
+ * Toggles the state of a subtask between 'open' and 'closed' and updates it in Firebase.
+ * 
+ * @param {number} index - The index of the subtask.
+ * @param {number|string} taskId - The ID of the parent task.
+ */
 async function toggleCheckbox(index, taskId) {
     const task = tasks.find(t => t.id == taskId);
     const subtask = task.subtasks[index];
@@ -388,6 +568,13 @@ async function toggleCheckbox(index, taskId) {
     renderAllTasks();
 }
 
+/**
+ * Updates the state of a specific subtask in Firebase.
+ * 
+ * @param {string} firebaseId - The Firebase-specific ID of the task.
+ * @param {number} index - The index of the subtask.
+ * @param {string} state - The new state of the subtask ('open' or 'closed').
+ */
 async function updateSubtaskInFirebase(firebaseId, index, state) {
     const url = `${BASE_URL}tasks/${firebaseId}/subtasks/${index}.json`;
     const payload = JSON.stringify({ current_state: state });
@@ -401,6 +588,11 @@ async function updateSubtaskInFirebase(firebaseId, index, state) {
     });
 }
 
+/**
+ * Deletes a specific task from Firebase and re-renders the board.
+ * 
+ * @param {number|string} taskId - The ID of the task to delete.
+ */
 async function deleteTask(taskId) {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
