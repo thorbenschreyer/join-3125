@@ -135,24 +135,36 @@ async function checkIfToday() {
 }
 
 async function startNewDay(dateString) {
-    await resetTasksInFirebase(renewTasks);
+    await resetDataInFirebase('tasks', renewTasks, 'firebaseId');
+    await resetDataInFirebase('users', renewUsers); 
+
     await updateLastResetDate(dateString);
+
     tasks = [...renewTasks];
+    users = [...renewUsers];
+
     sortTodoforDate();
     setTaskSummaryInformation();
 }
 
-async function resetTasksInFirebase(renewTasks) {
-    const url = `${BASE_URL}tasks.json`;
+async function resetDataInFirebase(path, dataArray, keyField = null) {
+    const url = `${BASE_URL}${path}.json`;
     
-    const tasksObject = {};
-    for (let i = 0; i < renewTasks.length; i++) {
-        const task = renewTasks[i];
-        tasksObject[task.firebaseId] = task;
+    let dataObject = {};
+
+    for (let i = 0; i < dataArray.length; i++) {
+        const item = dataArray[i];
+        if (keyField && item[keyField]) {
+            dataObject[item[keyField]] = item;
+        } 
+        else {
+            const generatedKey = generateFirebaseLikeId();
+            dataObject[generatedKey] = item;
+        }
     }
-    
-    const payload = JSON.stringify(tasksObject);
-    
+
+    const payload = JSON.stringify(dataObject);
+
     await fetch(url, {
         method: 'PUT',
         headers: { 
@@ -161,3 +173,150 @@ async function resetTasksInFirebase(renewTasks) {
         body: payload
     });
 }
+
+function generateFirebaseLikeId() {
+    return '-' + Math.random().toString(36).substr(2, 20);
+}
+
+const renewUsers = [
+  {
+    "avatarColor": "rgba(255, 99, 132, 1)",
+    "email": "paul.becker@gmail.com",
+    "name": "Paul Becker",
+    "password": "paulbecker123",
+    "phone": "0151 22334455"
+  },
+  {
+    "avatarColor": "rgba(54, 162, 235, 1)",
+    "email": "sarah.hoffmann@gmail.com",
+    "name": "Sarah Hoffmann",
+    "password": "sarahhoffmann123",
+    "phone": "0176 99887766"
+  },
+  {
+    "avatarColor": "rgba(255, 206, 86, 1)",
+    "email": "daniel.klein@gmail.com",
+    "name": "Daniel Klein",
+    "password": "danielklein123",
+    "phone": "0152 44556677"
+  },
+  {
+    "avatarColor": "rgba(75, 192, 192, 1)",
+    "email": "nina.schulz@gmail.com",
+    "name": "Nina Schulz",
+    "password": "ninaschulz123",
+    "phone": "0177 11223344"
+  },
+  {
+    "avatarColor": "rgba(153, 102, 255, 1)",
+    "email": "felix.wagner@gmail.com",
+    "name": "Felix Wagner",
+    "password": "felixwagner123",
+    "phone": "0160 77889900"
+  },
+  {
+    "avatarColor": "rgba(255, 159, 64, 1)",
+    "email": "lea.bauer@gmail.com",
+    "name": "Lea Bauer",
+    "password": "leabauer123",
+    "phone": "0159 66778899"
+  },
+  {
+    "avatarColor": "rgba(199, 199, 199, 1)",
+    "email": "jonas.lang@gmail.com",
+    "name": "Jonas Lang",
+    "password": "jonaslang123",
+    "phone": "0175 33445566"
+  },
+  {
+    "avatarColor": "rgba(83, 102, 255, 1)",
+    "email": "emma.krueger@gmail.com",
+    "name": "Emma Krüger",
+    "password": "emmakrueger123",
+    "phone": "0157 88990011"
+  },
+  {
+    "avatarColor": "rgba(255, 99, 255, 1)",
+    "email": "tim.roth@gmail.com",
+    "name": "Tim Roth",
+    "password": "timroth123",
+    "phone": "0178 22334455"
+  },
+  {
+    "avatarColor": "rgba(0, 200, 150, 1)",
+    "email": "lena.schmidt@gmail.com",
+    "name": "Lena Schmidt",
+    "password": "lenaschmidt123",
+    "phone": "0151 55667788"
+  },
+  {
+    "avatarColor": "rgba(120, 50, 200, 1)",
+    "email": "marc.neumann@gmail.com",
+    "name": "Marc Neumann",
+    "password": "marcneumann123",
+    "phone": "0176 44332211"
+  },
+  {
+    "avatarColor": "rgba(10, 180, 255, 1)",
+    "email": "julia.hahn@gmail.com",
+    "name": "Julia Hahn",
+    "password": "juliahahn123",
+    "phone": "0152 99887766"
+  },
+  {
+    "avatarColor": "rgba(255, 140, 0, 1)",
+    "email": "sebastian.voigt@gmail.com",
+    "name": "Sebastian Voigt",
+    "password": "sebastianvoigt123",
+    "phone": "0177 55664433"
+  },
+  {
+    "avatarColor": "rgba(60, 179, 113, 1)",
+    "email": "melanie.koch@gmail.com",
+    "name": "Melanie Koch",
+    "password": "melaniekoch123",
+    "phone": "0160 11223344"
+  },
+  {
+    "avatarColor": "rgba(220, 20, 60, 1)",
+    "email": "philipp.busch@gmail.com",
+    "name": "Philipp Busch",
+    "password": "philippbusch123",
+    "phone": "0159 33445566"
+  },
+  {
+    "avatarColor": "rgba(65, 105, 225, 1)",
+    "email": "sophie.frank@gmail.com",
+    "name": "Sophie Frank",
+    "password": "sophiefrank123",
+    "phone": "0175 66778899"
+  },
+  {
+    "avatarColor": "rgba(34, 139, 34, 1)",
+    "email": "lukas.meier@gmail.com",
+    "name": "Lukas Meier",
+    "password": "lukasmeier123",
+    "phone": "0157 22334455"
+  },
+  {
+    "avatarColor": "rgba(255, 20, 147, 1)",
+    "email": "anna.fuchs@gmail.com",
+    "name": "Anna Fuchs",
+    "password": "annafuchs123",
+    "phone": "0178 99887766"
+  },
+  {
+    "avatarColor": "rgba(0, 191, 255, 1)",
+    "email": "tobias.krause@gmail.com",
+    "name": "Tobias Krause",
+    "password": "tobiaskrause123",
+    "phone": "0151 66778899"
+  },
+  {
+    "avatarColor": "rgba(255, 215, 0, 1)",
+    "email": "carina.otto@gmail.com",
+    "name": "Carina Otto",
+    "password": "carinaotto123",
+    "phone": "0176 44556677"
+  }
+];

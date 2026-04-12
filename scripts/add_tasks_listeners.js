@@ -1,10 +1,28 @@
+/**
+ * Registers all event listeners required for the add-task form.
+ */
+function initAddTaskListeners() {
+    initClickOutsideElementsListener();
+    initTitleInputListeners();
+    initDueDateInputListeners();
+    initCalendarIconListener();
+    initAssignedToListener();
+    initCategoryListeners();
+    initSubtaskListeners();
+    initFormValidationListeners();
+    initClearFormListener();
+}
+
+/**
+ * Closes open dropdowns and subtask controls when the user clicks outside their active area.
+ */
 function initClickOutsideElementsListener() {
     document.addEventListener("click", function(event) {
         if (assignedToWrapper && !assignedToWrapper.contains(event.target)) {
             closeAssignedDropdown();
         }  
         if (categoryWrapper && !categoryWrapper.contains(event.target)) {
-            closeCategoryDropdown()
+            closeCategoryDropdown();
         }
         if (subtasksInput && !subtasksInput.contains(event.target)) {
             hideSubtaskInputButtons();
@@ -12,6 +30,10 @@ function initClickOutsideElementsListener() {
     });
 }
 
+// INPUT FEEDBACK
+/**
+ * Keeps the title field error state in sync while the user interacts with the required input.
+ */
 function initTitleInputListeners() {
     titleInput.addEventListener("focus", function() {
         let titleInputValue = titleInput.value;
@@ -30,6 +52,9 @@ function initTitleInputListeners() {
     });
 }
 
+/**
+ * Updates the due date error state based on whether the field is filled and not set in the past.
+ */
 function initDueDateInputListeners() {
     dueDateInput.addEventListener("focus", function() {
         let dueDateInputValue = dueDateInput.value;
@@ -53,19 +78,30 @@ function initDueDateInputListeners() {
         }
     });
 }
-
+    
+/**
+ * Opens the native date picker when the calendar icon is clicked.
+ */
 function initCalendarIconListener() {
     calendarIcon.addEventListener("click", function() {
         dueDateInput.showPicker();
     });
 }
 
+// ASSIGNED TO
+/**
+ * Highlights the assignment input while it is active.
+ */
 function initAssignedToListener() {
     assignedToInput.addEventListener("focus", function() {
         assignedToInputWrapper.classList.add("blue-border");
     });
 }
 
+// CATEGORY
+/**
+ * Applies the selected category option and triggers the shared change-based validation flow.
+ */
 function initCategoryListeners() {
     technicalTask.addEventListener("click", function() {
         categoryInput.value = "Technical Task";
@@ -79,6 +115,10 @@ function initCategoryListeners() {
     })
 }
 
+// SUBTASKS
+/**
+ * Wires the subtask input to show its controls, clear temporary input, and add subtasks through both click and Enter.
+ */
 function initSubtaskListeners() {
     subtasksInput.addEventListener("focus", function() {
         showSubtaskInputButtons();
@@ -93,7 +133,7 @@ function initSubtaskListeners() {
         subtasksInput.value = "";
         hideSubtaskInputButtons();
         }
-    })
+    });
     subtasksInput.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
@@ -103,6 +143,10 @@ function initSubtaskListeners() {
     });
 }
 
+// FORM VALIDATION
+/**
+ * Keeps the required-field validation flags in sync so the submit state can be recalculated after each change.
+ */
 function initFormValidationListeners() {
     titleInput.addEventListener("change", function() {
         titleInput.value.length > 0 ? isTitleValid = true : isTitleValid = false
@@ -120,29 +164,17 @@ function initFormValidationListeners() {
         checkFormValidity()
     });
     categoryInput.addEventListener("change", function() {
-        if (categoryInput.value == "Technical Task" || categoryInput.value == "User Story") {
-            isCategoryValid = true;
-        } else {
-            isCategoryValid = false;
-        }
+        categoryInput.value == "Technical Task" || categoryInput.value == "User Story" ? isCategoryValid = true : isCategoryValid = false;
         checkFormValidity()
     })
 }
 
+// FORM ACTIONS
+/**
+ * Resets the form when the clear button is clicked.
+ */
 function initClearFormListener() {
     clearFormBtn.addEventListener("click", function () {
         clearFormular();
     })
-}
-
-function initAddTaskListeners() {
-    initClickOutsideElementsListener();
-    initTitleInputListeners();
-    initDueDateInputListeners();
-    initCalendarIconListener();
-    initAssignedToListener();
-    initCategoryListeners();
-    initSubtaskListeners();
-    initFormValidationListeners();
-    initClearFormListener();
 }

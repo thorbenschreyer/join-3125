@@ -65,21 +65,21 @@
                 <div class="priority-buttons">
 
                     <!-- PRIORITY-URGENT -->
-                    <button id="task-prio-urgent-btn" class="priority-btn" type="button" onclick="higlightSelectedPriority('urgent')">
+                    <button id="task-prio-urgent-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('urgent')">
                         <span class="prio-text">Urgent</span>
                         <img id="task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
                         <img id="task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="">
                     </button>
 
                     <!-- PRIORITY-MEDIUM -->
-                    <button id="task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="higlightSelectedPriority('medium')">
+                    <button id="task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="highlightSelectedPriority('medium')">
                         <span class="prio-text">Medium</span> 
                         <img id="task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
                         <img id="task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="">
                     </button>
 
                     <!-- PRIORITY-LOW -->
-                    <button id="task-prio-low-btn" class="priority-btn" type="button" onclick="higlightSelectedPriority('low')">
+                    <button id="task-prio-low-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('low')">
                         <span class="prio-text">Low</span>
                         <img id="task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
                         <img id="task-prio-low-white" class="task-prio-img dNone" src="./assets/icons/low_prio_white.svg" alt="">
@@ -115,10 +115,10 @@
                         <img id="category-dropup-arrow" src="./assets/icons/arrow_drop_up.svg" class="dropdown-arrow dNone" onclick="toggleCategoryDropdown(event)" alt="">
                     </div>
                     <div id="task-category-tasks" class="custom-dropdown-tasks dNone">
-                        <div id="dropdown-tasks" class="dropdown-tasks">
+                        <div class="dropdown-tasks">
                             <span id="technical-task" class="dropdown-user-name">Technical Task</span>
                         </div>
-                        <div id="dropdown-tasks" class="dropdown-tasks">
+                        <div class="dropdown-tasks">
                             <span id="user-story" class="dropdown-user-name">User Story</span>
                         </div>
 

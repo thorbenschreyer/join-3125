@@ -176,31 +176,6 @@ async function getUserData() {
     });
   }
   sortContacts(users);
-  localStorage.setItem("users", JSON.stringify(users));
-}
-
-/**
- * Retrieves data from localStorage
- * @returns an array of users
- */
-function getUsersFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("users"));
-}
-
-/**
- * Loads the current data from localStorage and updates it in Firebase
- */
-async function uploadUsersToFirebase() {
-  let users = getUsersFromLocalStorage();
-
-  await fetch(`${fireBaseUrl}users.json`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(users),
-  });
-  getUsersFromLocalStorage();
 }
 
 /**

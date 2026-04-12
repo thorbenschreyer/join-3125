@@ -13,8 +13,11 @@ let mobileEdtMenu;
  * Renders the list
  */
 async function initContacts() {
-  contactUsers = JSON.parse(localStorage.getItem("users"));
+  await getUserData();
+  contactUsers = users;
+
   renderContactList();
+
   addDialog = registerDialog("add-contact-dialog", 1000, "closing");
   editDialog = registerDialog("edit-contact-dialog", 0);
   mobileEdtMenu = registerDialog("mobile-edit-delete-menu", 1000, "closing");
@@ -75,7 +78,6 @@ function renderDetailContactInformation(index) {
   detailContact.classList.add("animate-in");
 }
 
-
 /**
  * Iterates through the UserArray and checks whether the first letter of the current name matches the current one
  * If NO, it creates a hyphen with that letter and saves it
@@ -98,7 +100,6 @@ function renderContactList() {
     }
   }
 }
-
 
 /**
  * Calls the separator template function
@@ -187,20 +188,33 @@ function backToContacts() {
 /**
  * Deletes the user
  */
-function deleteUser() {
-  contactUsers.splice(currentID, 1);
-  localStorage.setItem("users", JSON.stringify(contactUsers));
-  detailContact = document.getElementById("contact-details");
-  detailContact.innerHTML = "";
+async function deleteUser() {
+  let userId = contactUsers[currentID].id;
+
+  await fetch(`${fireBaseUrl}users/${userId}.json`, {
+    method: "DELETE",
+  });
+
+  await getUserData();
+  contactUsers = users;
+
+  document.getElementById("contact-details").innerHTML = "";
   initContacts();
 }
 
 /**
  * Deletes the user and returns to the contacts 
  */
-function deleteUserMobile() {
-  contactUsers.splice(currentID, 1);
-  localStorage.setItem("users", JSON.stringify(contactUsers));
+async function deleteUserMobile() {
+  let userId = contactUsers[currentID].id;
+
+  await fetch(`${fireBaseUrl}users/${userId}.json`, {
+    method: "DELETE",
+  });
+
+  await getUserData();
+  contactUsers = users;
+
   backToContacts();
   initContacts();
 }
@@ -208,46 +222,52 @@ function deleteUserMobile() {
 /**
  * Deletes the user in the edit dialog
  */
-function deleteUserInEditDialog() {
-  contactUsers.splice(currentID, 1);
-  localStorage.setItem("users", JSON.stringify(contactUsers));
-  detailContact = document.getElementById("contact-details");
-  detailContact.innerHTML = "";
-  closeDialog(editDialog, 400)
+async function deleteUserInEditDialog() {
+  let userId = contactUsers[currentID].id;
+
+  await fetch(`${fireBaseUrl}users/${userId}.json`, {
+    method: "DELETE",
+  });
+
+  await getUserData();
+  contactUsers = users;
+
+  document.getElementById("contact-details").innerHTML = "";
+
+  closeDialog(editDialog, 400);
   initContacts();
 }
 
 /**
  * Creates a new user
  */
-function addNewContact() {
-  let nameInput = document.getElementById("contact-name");
-  let emailInput = document.getElementById("contact-email");
-  let phoneInput = document.getElementById("contact-phone");
+async function addNewContact() {
+  let name = document.getElementById("contact-name").value;
+  let email = document.getElementById("contact-email").value;
+  let phone = document.getElementById("contact-phone").value;
 
-  let name = nameInput.value;
-  let email = emailInput.value;
-  let phone = phoneInput.value;
-
-  contactUsers.push({
-    id: "Random ID",
+  let newUser = {
     name: name,
-    initials: name.split(" ").map((word) => word[0]).join(""),
     email: email,
+    phone: phone,
     password: "password",
-    userColor: userColor[Math.floor(Math.random() * userColor.length)],
-    phone: phone
+    avatarColor: userColor[Math.floor(Math.random() * userColor.length)],
+  };
+
+  await fetch(`${fireBaseUrl}users.json`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
   });
 
-  sortContacts(contactUsers);
-  localStorage.setItem("users", JSON.stringify(contactUsers));
-
-  nameInput.value = "";
-  emailInput.value = "";
-  phoneInput.value = "";
+  await getUserData();
+  contactUsers = users;
 
   closeDialog(addDialog, 400);
   initContacts();
+  showSuccessMessage();
 }
 
 /**
@@ -269,19 +289,33 @@ function editUser() {
 /**
  * Saves the edited values
  */
-function saveEditValues() {
-    let name = document.getElementById("edit-name").value
-    let email = document.getElementById("edit-email").value
-    let phoneNumber = document.getElementById("edit-phone").value
+async function saveEditValues() {
+  let name = document.getElementById("edit-name").value;
+  let email = document.getElementById("edit-email").value;
+  let phone = document.getElementById("edit-phone").value;
 
-    contactUsers[currentID].name = name
-    contactUsers[currentID].email = email
-    contactUsers[currentID].phone = phoneNumber
+  let userId = contactUsers[currentID].id;
 
-    localStorage.setItem("users", JSON.stringify(contactUsers));
-    closeDialog(editDialog, 400)
-    initContacts();
-    renderDetailContactInformation(currentID)
+  let updatedUser = {
+    name: name,
+    email: email,
+    phone: phone,
+  };
+
+  await fetch(`${fireBaseUrl}users/${userId}.json`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedUser),
+  });
+
+  await getUserData();
+  contactUsers = users;
+
+  closeDialog(editDialog, 400);
+  initContacts();
+  renderDetailContactInformation(currentID);
 }
 
 /**

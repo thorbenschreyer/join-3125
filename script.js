@@ -197,6 +197,12 @@ function initialToggle() {
 function toggleIsActive(id, imgId) {
   let newID = document.getElementById(id);
   let oldID = document.getElementById(currentToggleID);
+
+  let oldImg = document.getElementById(currentImgID);
+  if (oldImg) {
+    oldImg.src = oldImg.src.replace("white", "grey");
+  }
+
   checkAvilableID(newID, oldID);
   currentToggleID = id;
 
@@ -241,9 +247,9 @@ function removeActiveStatefromSummary() {
  * This function removes the "Active" status from the Summary section and sets it to "Active" when a task is added, provided you click on one of the fields in the Summary section
  */
 function clickInSummaryBoard() {
-  loadHtmlPage("content", "./templates/add_tasks.html");
+  loadHtmlPage("content", "./templates/board.html");
   removeActiveState();
-  toggleIsActive("add_task", "add_task_img");
+  toggleIsActive("board", "board_img");
 }
 
 /**
