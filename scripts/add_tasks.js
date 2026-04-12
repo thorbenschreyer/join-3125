@@ -35,6 +35,7 @@ let subtaskItem;
 let subtasks;
 let clearFormBtn;
 let addTaskBtn;
+let dialogAddTaskBtn;
 let addTaskSuccessToast;
 let addTaskSuccessOverlay;
 
@@ -66,9 +67,13 @@ function checkFormValidity() {
     if (isTitleValid && isDueDateValid && isCategoryValid) {
         addTaskBtn.disabled = false;
         addTaskBtn.classList.remove("disabled-btn");
+        dialogAddTaskBtn.disabled = false;
+        dialogAddTaskBtn.classList.remove("disabled-btn");
     } else {
         addTaskBtn.disabled = true;
         addTaskBtn.classList.add("disabled-btn");
+        dialogAddTaskBtn.disabled = true;
+        dialogAddTaskBtn.classList.add("disabled-btn");
     }
 }
 
@@ -128,7 +133,7 @@ function buildTaskObject() {
         category: categoryInput.value,
         categoryColor: categoryInput.value.trim().toLowerCase().split(' ').join('-'),
         subtasks: getFormattedSubtasks(),
-        currentTask: 'to-do'
+        currentTask: `${currentTaskBar}`
     };
 }
 
@@ -139,13 +144,14 @@ function addTaskSuccess() {
     setTimeout(() => {
         loadBoardPage();
     }, 1500);
+    
 }
 
 async function saveTaskData() {
     let lastTask = tasks.length - 1;
     await fetch(`${BASE_URL}tasks.json`, {
         method: "POST",
-        header: {
+        headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(tasks[lastTask])
@@ -199,6 +205,7 @@ function closeAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
     let arrowdown = document.getElementById("dropdown-arrow");
     let arrowup = document.getElementById("dropup-arrow");
+    if (!users) return;
     users.classList.add("dNone");
     users.classList.remove("dFlex");
     arrowdown.classList.remove("dNone");
@@ -251,7 +258,8 @@ function toggleCategoryDropdown(event) {
 }
 
 function clearFormular() {
-    addTaskBtn.classList.add("disabled-btn"); 
+    addTaskBtn.classList.add("disabled-btn");
+    dialogAddTaskBtn.classList.add("disabled-btn");
     titleInput.value = "";
     titleInput.classList.remove("red-border")
     titleInputError.textContent = "";

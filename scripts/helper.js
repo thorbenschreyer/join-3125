@@ -52,6 +52,7 @@ function initSubtasksElements() {
 function initFormBtnElements() {
     clearFormBtn = document.getElementById("clear-task-btn");
     addTaskBtn = document.getElementById("add-task-btn");
+    dialogAddTaskBtn = document.getElementById("dialog-add-task-btn");
 }
 
 function initToastElements() {

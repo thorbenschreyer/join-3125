@@ -24,38 +24,14 @@ function helpAndLogout() {
         <button id="initials-menu" class="initials-menu" onclick="openCloseHeaderMenu()"> </button> 
     `;
 }
-  
-// function smallTask(element, closedSubtasksLenght, id) {
-//   return `
-//     <div onclick="openTaskDetails(${id})" draggable="true" ondragstart="startDragging(event, ${element['id']})" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task">
-//         <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
-//         <h3  id="small-task-title-${id}" class="small-task-title">${element.title}</h3>
-//         <p id="small-task-description-${id}" class="small-task-description">${element.description}</p>
-//         <div id="subtasks-with-subtasks-bar-container-${id}" class="subtasks-with-subtasks-bar-container">
-//             <div id="subtasks-bar-container-${id}" class="subtasks-bar-container">
-//                 <div id="subtasks-bar-${id}" class="subtasks-bar">
-//                 </div>
-//             </div>
-//             <p>${closedSubtasksLenght}/${element.subtasks.length} Subtasks</p>
-//         </div>
-//         <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
-//             <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container">
-//                 <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #6E52FF">MS</div>
-//                 <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #d07513">MS</div>
-//                 <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: #1fc22a">MS</div>
-//             </div>
-//             <img id="task-prio-image-${id}" class="task-prio-img" src="../assets/icons/${element.priority}_prio_color.png" alt="">
-//         </div>
-//     </div>
-//     `;
-// }
+
 
 function smallTask(element, closedSubtasksLength, id) {
     return `
-    <div onclick="openTaskDetails(${id})" draggable="true" ondragstart="startDragging(event, ${element.id})" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task">
+    <div onclick="openTaskDetails('${id}')" draggable="true" ondragstart="startDragging(event, '${id}')" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task" ondrop="dropOnTask(event, '${id}')" ondragover="allowDrop(event)">
         <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
-        <h3 id="small-task-title-${id}" class="small-task-title">${element.title}</h3>
-        <p id="small-task-description-${id}" class="small-task-description">${truncateDescription(element.description)}</p>
+        <h3 id="small-task-title-${id}" class="small-task-title">${truncateText(element.title)}</h3>
+        <p id="small-task-description-${id}" class="small-task-description">${truncateText(element.description)}</p>
         ${getSmallSubtasksHtml(element, closedSubtasksLength, id)}
         <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
             <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container"></div>
@@ -86,7 +62,7 @@ function renderDialogTask(task) {
   <div id="dialog-board-task" class="dialog-board-task">
     <div id="dialog-task-category-and-close-x-container" class="dialog-task-category-and-close-x-container">
       <p id="dialog-task-category" class="dialog-task-category">${task.category}</p>
-      <div onclick="closeAddTaskOverlay()" id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
+      <div onclick="closeOverlay('task')" id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
         <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
         <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
         <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">

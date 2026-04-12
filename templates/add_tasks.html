@@ -1,5 +1,5 @@
 <!-- ADD-TASKS-CONTENT -->
-<div class="add-tasks-page">
+<div id="add-tasks-page" class="add-tasks-page">
 
     <!-- HEADER -->
     <div class="add-task-header">
@@ -92,7 +92,7 @@
             <!-- ASSIGNED TO -->
             <div id="assigned-to-form" class="form-group">
                 <label>Assigned to</label>
-                <div id="task-assigned-to-wrapper" class="custom-dropdown">
+                <div id="task-assigned-to-wrapper" class="custom-dropdown"  onclick="stopEventBubbling(event)">
                     <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
                         <input id="task-assigned-to-input" class="dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
                         <img id="dropdown-arrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" onclick="toggleAssignedDropdown(event)" alt="">
@@ -108,7 +108,7 @@
             <!-- CATEGORY -->
             <div class="form-group">
                 <label>Category<span class="required">*</span></label>
-                <div id="task-category-wrapper" class="custom-dropdown">
+                <div id="task-category-wrapper" class="custom-dropdown" onclick="stopEventBubbling(event)">
                     <div class="custom-dropdown-toggle form-input" onclick="openCategoryDropdown()">
                         <input id="task-category-input" class="dropdown-input" type="text" placeholder="Select task category" readonly>
                         <img id="category-dropdown-arrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" onclick="toggleCategoryDropdown(event)" alt="">
@@ -187,10 +187,10 @@
 
         <!-- FOOTER RIGHT -->
         <div class="dialog-footer-right">
-            <button class="clear-task-btn" onclick="renderSmallTask()">
+            <button class="clear-task-btn" onclick="clearFormular()">
                 <span>Clear &times</span>
             </button>
-            <button id="add-task-btn" class="add-task-btn" form="add-task-form" type="submit">
+            <button id="dialog-add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" onclick="closeAddTaskOverlay();" disabled>
                 <span>Create Task</span>
                 <img src="./assets/icons/check_light.svg" alt="">
             </button>
