@@ -201,6 +201,7 @@ function closeAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
     let arrowdown = document.getElementById("dropdown-arrow");
     let arrowup = document.getElementById("dropup-arrow");
+    if (!users || !arrowdown || !arrowup) return;
     users.classList.add("dNone");
     users.classList.remove("dFlex");
     arrowdown.classList.remove("dNone");

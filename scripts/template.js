@@ -216,13 +216,13 @@ function contactBrakerTemplate(letter) {
   `;
 }
 
-
 /**
- * 
- * @param {string} user 
- * @param {string} initials 
- * @param {string} color 
- * @returns {string}
+ * Returns the HTML string for a selectable user entry in the assignment dropdown.
+ *
+ * @param {string} user The user's display name.
+ * @param {string} initials The initials shown in the badge.
+ * @param {string} color The badge background color.
+ * @returns {string} The HTML string for the dropdown entry.
  */
 function renderUsersDropdownTemplate(user, initials, color) {
     return `
@@ -236,11 +236,11 @@ function renderUsersDropdownTemplate(user, initials, color) {
     `;
 }
 
-/** * 
- * @param {string} user 
- * @param {string} initials
- * @param {string} color
- * @returns {string}
+/**
+ * Returns the HTML string for a subtask item with both display and inline edit states.
+ * 
+ * @param {HTMLInputElement} subtasksInput The input element containing the subtask text.
+ * @returns {string} The HTML string for the subtask item.
  */
 function renderSubtaskItemsTemplate(subtasksInput) {
     return `
