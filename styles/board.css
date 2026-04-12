@@ -7,6 +7,12 @@
   height: 100%;
 }
 
+.drag-area-highlight {
+    border: 2px dashed #A8A8A8 !important;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+}
+
 .add-plus-img {
   width: 32px;
   height: 32px;
@@ -139,7 +145,6 @@
 .task-bar {
   display: flex;
   flex-direction: column;
-  /* background-color: transparent; */
   border-radius: 10px;
   width: 278px;
   height: 100%;
@@ -200,6 +205,7 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
+  border: 2px solid transparent;
 }
 
 .width-248px {
@@ -227,7 +233,8 @@
   color: #A8A8A8;
 }
 
-.add-task-overlay{
+.add-task-overlay,
+.task-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -250,7 +257,21 @@
   max-height: 100%;
 }
 
+.task-dialog {
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  animation: slideInFromRight 0.2s ease-out forwards;
+  max-height: 100%;
+  overflow: auto;
+}
+
 .add-task-dialog.slide-out {
+  animation: slideOutToRight 0.2s ease-in forwards;
+}
+
+.task-dialog.slide-out {
   animation: slideOutToRight 0.2s ease-in forwards;
 }
 
@@ -261,6 +282,19 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
+}
+
+.disabled-btn {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+}
+
+.disabled-btn:hover {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+  cursor: default;
 }
 
 @keyframes slideInFromRight {
@@ -375,6 +409,14 @@
 
 /* Dialog Task Design */
 
+.dialog-add-task-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
 .dialog-board-task {
   display: flex;
   width: 525px;
@@ -434,11 +476,15 @@
 .dialog-task-title {
   font-size: 61px;
   font-weight: 700;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .dialog-task-description {
   font-size: 20px;
   font-weight: 400;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .dialog-due-date {

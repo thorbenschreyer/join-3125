@@ -80,8 +80,14 @@
   <div class="page-content" id="content"></div>
 </div>
 
-<div id="add-task-overlay" class="add-task-overlay d-none" onclick="closeAddTaskOverlay()">
-  <div id="add-task-dialog" class="add-task-dialog" onclick="stopEventBubbling(event)">
+<div id="add-task-overlay" class="add-task-overlay d-none" onclick="closeOverlay('add-task')">
+  <div id="add-task-dialog" class="add-task-dialog" onclick="stopEventBubbling(event), closeAssignedDropdown(), closeCategoryDropdown()">
+    <!-- The add task dialog will be loaded here dynamically -->
+  </div>
+</div>
+
+<div id="task-overlay" class="task-overlay d-none" onclick="closeOverlay('task')">
+  <div id="task-dialog" class="task-dialog" onclick="stopEventBubbling(event)">
     <!-- The add task dialog will be loaded here dynamically -->
   </div>
 </div>

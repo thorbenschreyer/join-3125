@@ -1,13 +1,19 @@
-let currentTaskBar = "todo-tasks";
+let currentTaskBar = "to-do";
 let currentDraggedElement;
 let subtaskPercent = 0;
+let currentSearchTerm = '';
 
+// for debugging 
+// const currentTime = new Date().toLocaleTimeString();
+//     console.log(`boardInit called at: ${currentTime}`);
+//     console.trace();
 
 function boardInit() {
     renderAllTasks();
     initTouchPolyfill();
     setupPolyfillTouchmove();    
 }
+
 
 function initTouchPolyfill() {
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -27,21 +33,44 @@ function setupPolyfillTouchmove() {
     }, { passive: false });
 }
 
+function filterTasksBySearch() {
+    const searchInput = document.getElementById('find-task');
+    currentSearchTerm = searchInput.value.toLowerCase();
+    renderAllTasks();
+}
+
+function filterTasksBySearchMobile() {
+    const searchInput = document.getElementById('find-task-mobile');
+    currentSearchTerm = searchInput.value.toLowerCase();
+    renderAllTasks();
+}
+
+function checkTaskMatch(t) {
+    if (!currentSearchTerm) return true;
+    const title = (t.title || '').toLowerCase();
+    const desc = (t.description || '').toLowerCase();
+    return title.includes(currentSearchTerm) || desc.includes(currentSearchTerm);
+}
+
 async function openAddTaskOverlay(selectedTaskBar) {
     await loadHtmlPage('add-task-dialog', './templates/add_tasks.html');
     const overlay = document.getElementById('add-task-overlay');
     const addTaskFooter = document.getElementById('add-task-footer');
     const dialogTaskFooter = document.getElementById('add-task-dialog-footer');
+    const dialogContainer = document.getElementById('add-tasks-page');
+    dialogContainer.classList.add('dialog-add-task-page');
     addTaskFooter.classList.add('d-none');
     dialogTaskFooter.classList.remove('d-none');
-    currentTaskBar = selectedTaskBar + '-tasks';
+    currentTaskBar = selectedTaskBar;
     overlay.classList.remove('d-none');
+    initAddTaskElements();
 }
 
 
-function closeAddTaskOverlay() {
-    const overlay = document.getElementById('add-task-overlay');
-    const dialog = document.getElementById('add-task-dialog');
+function closeOverlay(currentDialog) {
+    const overlay = document.getElementById(`${currentDialog}-overlay`);
+    const dialog = document.getElementById(`${currentDialog}-dialog`);
+    if (!overlay) return;
     dialog.classList.add('slide-out');
     setTimeout(() => {
         overlay.classList.add('d-none');
@@ -50,6 +79,21 @@ function closeAddTaskOverlay() {
         dialog.innerHTML = '';
     }, 200);
     renderAllTasks();
+}
+
+function closeAddTaskOverlay() {
+    const overlay = document.getElementById('add-task-overlay');
+    const dialog = document.getElementById('add-task-dialog');
+    if (!overlay) return;
+    setTimeout(() => {
+        dialog.classList.add('slide-out');
+        setTimeout(() => {
+            overlay.classList.add('d-none');
+            overlay.classList.remove('d-flex');
+            dialog.classList.remove('slide-out');
+            dialog.innerHTML = '';
+        }, 200);
+    }, 1000);    
 }
 
 
@@ -65,82 +109,59 @@ function renderAllTasks() {
     renderDoneTasks(); 
 }
 
-
 function renderTodoTasks() {
-    let todo = tasks.filter(t => t['currentTask'] == 'to-do');
+    const todo = tasks.filter(t => t.currentTask === 'to-do' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const todoTaskBar = document.getElementById('to-do-tasks');
+    if (!todo.length) return todoTaskBar.innerHTML = renderPlaceholderTemplate('to do');
     todoTaskBar.innerHTML = "";
-    if (todo.length == 0) {
-        todoTaskBar.innerHTML = renderPlaceholderTemplate('to do');
-        return;
-    };
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        const id = element.id;
-        const closedSubtasksLength = closedSubtaskLength('to-do', index);
-        todoTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
-        fillDoneSubtaskBar(element, closedSubtasksLength, id);
-        getAssignedToNamesInitials(element, id);
-    }; 
+    todo.forEach((element, index) => {
+        const closedLength = closedSubtaskLength('to-do', index);
+        todoTaskBar.innerHTML += smallTask(element, closedLength, element.id);
+        fillDoneSubtaskBar(element, closedLength, element.id);
+        getAssignedToNamesInitials(element, element.id);
+    });
 }
 
 function renderInProgressTasks() {
-    let inProgress = tasks.filter(t => t['currentTask'] == 'in-progress');
+    const inProgress = tasks.filter(t => t.currentTask === 'in-progress' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const inProgressTaskBar = document.getElementById('in-progress-tasks');
+    if (!inProgress.length) return inProgressTaskBar.innerHTML = renderPlaceholderTemplate('In Progress');
     inProgressTaskBar.innerHTML = "";
-    if (inProgress.length == 0) {
-        inProgressTaskBar.innerHTML = renderPlaceholderTemplate('In Progress');
-        return;
-    };
-    for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        const id = element.id;
-        const closedSubtasksLength = closedSubtaskLength('in-progress', index);
-        inProgressTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
-        fillDoneSubtaskBar(element, closedSubtasksLength, id);
-        getAssignedToNamesInitials(element, id);
-    }; 
+    inProgress.forEach((element, index) => {
+        const closedLength = closedSubtaskLength('in-progress', index);
+        inProgressTaskBar.innerHTML += smallTask(element, closedLength, element.id);
+        fillDoneSubtaskBar(element, closedLength, element.id);
+        getAssignedToNamesInitials(element, element.id);
+    });
 }
-
 
 function renderAwaitFeedbackTasks() {
-    let awaitFeedback = tasks.filter(t => t['currentTask'] == 'await-feedback');
-    const awaitFeedbackTaskBar = document.getElementById('await-feedback-tasks');
-    awaitFeedbackTaskBar.innerHTML = "";
-    if (awaitFeedback.length == 0) {
-        awaitFeedbackTaskBar.innerHTML = renderPlaceholderTemplate('Awaiting Feedback'); 
-        return;
-    };
-    for (let index = 0; index < awaitFeedback.length; index++) {
-        const element = awaitFeedback[index];
-        const id = element.id;
-        const closedSubtasksLength = closedSubtaskLength('await-feedback', index);
-        awaitFeedbackTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
-        fillDoneSubtaskBar(element, closedSubtasksLength, id);
-        getAssignedToNamesInitials(element, id);
-    }; 
+    const awaitFeedback = tasks.filter(t => t.currentTask === 'await-feedback' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
+    const awaitBar = document.getElementById('await-feedback-tasks');
+    if (!awaitFeedback.length) return awaitBar.innerHTML = renderPlaceholderTemplate('Awaiting Feedback');
+    awaitBar.innerHTML = "";
+    awaitFeedback.forEach((element, index) => {
+        const closedLength = closedSubtaskLength('await-feedback', index);
+        awaitBar.innerHTML += smallTask(element, closedLength, element.id);
+        fillDoneSubtaskBar(element, closedLength, element.id);
+        getAssignedToNamesInitials(element, element.id);
+    });
 }
-
 
 function renderDoneTasks() {
-    let done = tasks.filter(t => t['currentTask'] == 'done');
+    const done = tasks.filter(t => t.currentTask === 'done' && checkTaskMatch(t)).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
     const doneTaskBar = document.getElementById('done-tasks');
+    if (!done.length) return doneTaskBar.innerHTML = renderPlaceholderTemplate('Done');
     doneTaskBar.innerHTML = "";
-    if (done.length == 0) {
-        doneTaskBar.innerHTML = renderPlaceholderTemplate('Done');
-        return;
-    };
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        const id = element.id;
-        const closedSubtasksLength = closedSubtaskLength('done', index);
-        doneTaskBar.innerHTML += smallTask(element, closedSubtasksLength, id);
-        fillDoneSubtaskBar(element, closedSubtasksLength, id);
-        getAssignedToNamesInitials(element, id);
-    }; 
+    done.forEach((element, index) => {
+        const closedLength = closedSubtaskLength('done', index);
+        doneTaskBar.innerHTML += smallTask(element, closedLength, element.id);
+        fillDoneSubtaskBar(element, closedLength, element.id);
+        getAssignedToNamesInitials(element, element.id);
+    });
 }
 
-function truncateDescription(text) {
+function truncateText(text) {
     if (!text) return '';
     const words = text.split(' ');
     if (words.length <= 5) return text;
@@ -156,8 +177,13 @@ function closedSubtaskLength(currentTaskCat, index) {
 
 function startDragging(event, id) {
     currentDraggedElement = id;
+    const columns = ['to-do-tasks', 'in-progress-tasks', 'await-feedback-tasks', 'done-tasks'];
     event.dataTransfer.setData('text/plain', id.toString());
     applyDragStyles(event.target);
+    for (let i = 0; i < columns.length; i++) {
+        const col = document.getElementById(columns[i]);
+        if (col) col.classList.add('drag-area-highlight');
+    }
 }
 
 function allowDrop(event) {
@@ -166,19 +192,62 @@ function allowDrop(event) {
 
 async function movingTo(event, category) {
     event.preventDefault();
-    const taskIndex = tasks.findIndex(t => t.id === currentDraggedElement);
-    if (taskIndex === -1) return;
-    
-    const movedTask = tasks.splice(taskIndex, 1)[0];
-    movedTask.currentTask = category;
-    tasks.unshift(movedTask);
-    
+    const task = tasks.find(t => t.id == currentDraggedElement);
+    if (!task || task.currentTask === category) return;
+    task.currentTask = category;
+    const col = tasks.filter(t => t.currentTask === category).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
+    col.splice(col.indexOf(task), 1);
+    col.unshift(task);
+    col.forEach((t, i) => t.sortIndex = i);
     boardInit();
-    await updateFirebaseCategory(movedTask.firebaseId, category);
+    await updateFirebaseCategory(task.firebaseId, category);
+    await updateCategoryOrder(col);
 }
 
+async function dropOnTask(event, targetId) {
+    event.preventDefault();
+    event.stopPropagation();
+    const drag = tasks.find(t => t.id == currentDraggedElement);
+    const target = tasks.find(t => t.id == targetId);
+    if (!drag || !target || drag === target) return;
+    drag.currentTask = target.currentTask;
+    const col = tasks.filter(t => t.currentTask === target.currentTask).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
+    col.splice(col.indexOf(drag), 1);
+    col.splice(col.indexOf(target), 0, drag);
+    col.forEach((t, i) => t.sortIndex = i);
+    boardInit();
+    await updateCategoryOrder(col);
+}
+
+async function updateCategoryOrder(col) {
+    for (let i = 0; i < col.length; i++) {
+        await fetch(`${BASE_URL}tasks/${col[i].firebaseId}/sortIndex.json`, {
+            method: "PUT",
+            body: JSON.stringify(i)
+        });
+    }
+}
+
+async function updateTasksOrder() {
+    for (let i = 0; i < tasks.length; i++) {
+        tasks[i].sortIndex = i;
+        const url = `${BASE_URL}tasks/${tasks[i].firebaseId}/sortIndex.json`;
+        await fetch(url, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(i)
+        });
+    }
+}
+
+
 function stopDragging(event) {
+    const columns = ['to-do-tasks', 'in-progress-tasks', 'await-feedback-tasks', 'done-tasks'];
     event.target.classList.remove('rotate-on-drag');
+    for (let i = 0; i < columns.length; i++) {
+        const col = document.getElementById(columns[i]);
+        if (col) col.classList.remove('drag-area-highlight');
+    }
 }
 
 function applyDragStyles(element) {
@@ -188,18 +257,18 @@ function applyDragStyles(element) {
 }
 
 function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
-    if (!element.subtasks) return;
+    if (!element.subtasks || element.subtasks.length === 0) return;
     percent = Math.round(closedSubtasksLength / element.subtasks.length * 100);
     document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
 }
 
 function showDialogOverlay() {
-    const overlay = document.getElementById('add-task-overlay');
+    const overlay = document.getElementById('task-overlay');
     overlay.classList.remove('d-none');
 }
 
 function openTaskDetails(id) {
-    const currentTask = tasks.find(task => task.id === id);
+    const currentTask = tasks.find(task => task.id == id);
     if (currentTask) {
         showDialogOverlay();
         renderTaskDialog(currentTask);
@@ -209,22 +278,9 @@ function openTaskDetails(id) {
 };
 
 function renderTaskDialog(task) {
-    const dialogContainer = document.getElementById('add-task-dialog');
+    const dialogContainer = document.getElementById('task-dialog');
     dialogContainer.innerHTML = renderDialogTask(task);
 }
-
-// function getAssignedToNamesInitials(currentTask, id) {
-//     const smallTaskNamesContainer = document.getElementById(`small-task-user-badges-container-${id}`);
-//     const assignedToNames = currentTask.assignedTo;
-//     smallTaskNamesContainer.innerHTML = "";
-//     if (!assignedToNames) return
-//     for(let i = 0; i < assignedToNames.length; i++) {
-//         const name = assignedToNames[i];
-//         const initials = getInitials(name);
-//         const badgeColor = getUserColor(name);
-//         smallTaskNamesContainer.innerHTML += renderNameBadges(initials, badgeColor);
-//     }
-// }
 
 function getAssignedToNamesInitials(currentTask, id) {
     const container = document.getElementById(`small-task-user-badges-container-${id}`);
@@ -348,14 +404,11 @@ async function updateSubtaskInFirebase(firebaseId, index, state) {
 async function deleteTask(taskId) {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
-    
     const url = `${BASE_URL}tasks/${task.firebaseId}.json`;
-    
     await fetch(url, {
         method: 'DELETE'
     });
-    
     await loadTasks();
     renderAllTasks();
-    closeAddTaskOverlay();
+    closeOverlay('task');
 }

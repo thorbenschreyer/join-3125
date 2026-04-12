@@ -4,22 +4,22 @@
         <h2 class="board-heading">Board</h2>
         <div id="find-task-container" class="find-task-container">
             <div id="search-task-input-container" class="search-task-input-container">
-                <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
-                <div class="search-icon-wrapper" onclick="renderAllTasks()">
+                <input onkeydown="if(event.key === 'Enter') filterTasksBySearch()" oninput="if(this.value === '') filterTasksBySearch()" class="find-task-input" id="find-task" type="text" placeholder="Find Task">
+                <div class="search-icon-wrapper" onclick="filterTasksBySearch()">
                     <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                     <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
                     <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
                 </div>
             </div>
-            <button class="add-task-button dark-button" id="add-task" onclick="openAddTaskOverlay('todo')">
+            <button class="add-task-button dark-button" id="add-task" onclick="openAddTaskOverlay('to-do')">
                 <p>Add Task</p> <img class="add-plus-img" src="./assets/icons/add_light.png" alt="Add Task Plus Image">
             </button>
         </div>       
     </header>
     <div class="search-task-container-mobile" id="search-task-container-mobile">
         <div id="search-task-input-container-mobile" class="search-task-input-container-mobile">
-                    <input class="find-task-input" id="find-task" type="text" placeholder="Find Task">
-                    <div class="search-icon-wrapper" onclick="renderAllTasks()">
+                    <input onkeydown="if(event.key === 'Enter') filterTasksBySearchMobile()" oninput="if(this.value === '') filterTasksBySearchMobile()" class="find-task-input" id="find-task-mobile" type="text" placeholder="Find Task">
+                    <div class="search-icon-wrapper" onclick="filterTasksBySearchMobile()">
                         <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                         <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
                         <img src="./assets/icons/search_blue.png" alt="search icon active" class="search-icon search-icon-active">
