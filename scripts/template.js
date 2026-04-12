@@ -35,7 +35,7 @@ function smallTask(element, closedSubtasksLength, id) {
         ${getSmallSubtasksHtml(element, closedSubtasksLength, id)}
         <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
             <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container"></div>
-            <img id="task-prio-image-${id}" class="task-prio-img" src="../assets/icons/${element.priority}_prio_color.png" alt="">
+            <img id="task-prio-image-${id}" class="task-prio-img" src="./assets/icons/${element.priority}_prio_color.png" alt="">
         </div>
     </div>`;
 }
@@ -97,7 +97,7 @@ function renderDialogTask(task) {
         </div>
         <p class="dialog-delete-edit">Delete</p>
       </div>
-      <div class="dialog-edit-container">
+      <div class="dialog-edit-container" onclick="openEditMode(${task.id})">
         <div class="dialog-edit-img-wrapper">
           <img src="./assets/icons/edit.png" alt="delete Task" class="dialog-edit-img img-size-24px">
           <img src="./assets/icons/edit_blue.png" alt="delete Task" class="dialog-edit-hover-img img-size-24px">
@@ -131,12 +131,74 @@ function renderSubtaskDiv(subtask, currentState, index, taskId) {
     const hideChecked = currentState === 'closed' ? '' : 'd-none';
     return `
     <div class="subtask-and-checkbox-container">
-        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-default-${taskId}-${index}" class="checkbox-img ${hideDefault}" src="../assets/icons/checkbox_default.svg" alt="Unchecked">
-        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-checked-${taskId}-${index}" class="checkbox-img ${hideChecked}" src="../assets/icons/checked.png" alt="Checked">
+        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-default-${taskId}-${index}" class="checkbox-img ${hideDefault}" src="./assets/icons/checkbox_default.svg" alt="Unchecked">
+        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-checked-${taskId}-${index}" class="checkbox-img ${hideChecked}" src="./assets/icons/checked.png" alt="Checked">
         <p>${subtask}</p>
     </div>
     `;
 }
+
+
+
+function buildEditForm(task) {
+  return `
+      <div class="edit-task-dialog-content">
+        
+          <label>Title</label>
+          <input id="edit-title" type="text" value="${task.title}">
+          <label>Description</label>
+          <textarea id="edit-desc">${task.description}</textarea>
+       
+        
+          <label>Due Date</label>
+          <input id="edit-date" type="date" value="${task.dueDate}">
+          <label>Priority</label>
+          ${buildPrioritySelect(task.priority)}
+        
+        <button onclick="saveEditedTask(${task.id})" class="save-btn">
+          Ok
+        </button>
+      </div>
+  `;
+}
+
+// function buildEditTitleAndDesc(task) {
+//     return `
+//         <div class="edit-field-group">
+//             <label>Title</label>
+//             <input id="edit-title" type="text" value="${task.title}">
+//             <label>Description</label>
+//             <textarea id="edit-desc">${task.description}</textarea>
+//         </div>
+//     `;
+// }
+
+function buildEditDetails(task) {
+    return `
+        <div class="edit-field-group">
+            <label>Due Date</label>
+            <input id="edit-date" type="date" value="${task.dueDate}">
+            <label>Priority</label>
+            ${buildPrioritySelect(task.priority)}
+        </div>
+    `;
+}
+
+function buildPrioritySelect(currentPrio) {
+    return `
+        <select id="edit-prio">
+            <option value="Urgent" ${currentPrio === 'Urgent' ? 'selected' : ''}>Urgent</option>
+            <option value="Medium" ${currentPrio === 'Medium' ? 'selected' : ''}>Medium</option>
+            <option value="Low" ${currentPrio === 'Low' ? 'selected' : ''}>Low</option>
+        </select>
+    `;
+}
+
+
+
+
+
+
 
 function renderContactTemplate(index, initails, name, email, color) {
   return `

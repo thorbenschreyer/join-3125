@@ -27,7 +27,6 @@ function initializeApp() {
 function loginSubmit(event) {
   event.preventDefault();
   let user = users.find((u) => u.email === emailData.value);
-  console.log(user.password);
   const errorContainer = document.getElementById("container-error-message");
   const buttonsContainer = document.getElementById("container-login-buttons");
   if (user && user.password == passwordData.value) {
@@ -99,7 +98,7 @@ function checkFirstInput(event) {
   if (isEmptyNow) {
     removePasswordVisibility();
   } else if (wasEmpty && !isEmptyNow) {
-    inputImg.src = "../assets/icons/visibility_off.png";
+    inputImg.src = "assets/icons/visibility_off.png";
     inputImg.alt = "Visibility Off Icon";
     inputImg.classList.add("cursor-pointer");
     inputImg.addEventListener("click", togglePasswordVisibility);
@@ -119,7 +118,7 @@ function togglePasswordVisibility() {
     inputImg.alt = "Visibility On Icon";
   } else {
     passwordData.type = "password";
-    inputImg.src = "assets/icons/visibility_off.png";
+    inputImg.src = "./assets/icons/visibility_off.png";
     inputImg.alt = "Visibility Off Icon";
   }
 }

@@ -209,7 +209,8 @@ async function loadUsers() {
                 avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
             }
         )
-    }    
+    }  
+};  
 // ASSIGNED TO
 /**
  * Renders the assignment dropdown from the loaded user list.

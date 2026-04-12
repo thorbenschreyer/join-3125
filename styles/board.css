@@ -62,6 +62,7 @@
   letter-spacing: 0%;
   background: none;
   padding: 8px 0 8px 16px;
+  max-width: 245px;
 }
 
 .find-task-input:-webkit-autofill {
@@ -326,7 +327,8 @@
   transform: translate(0, 0);
   -webkit-user-select: none;
   user-select: none;
-  min-height: fit-content;
+  min-height: webkit-fit-content;
+  flex-shrink: 0;
 }
 
 .rotate-on-drag {
@@ -630,4 +632,22 @@
 .dialog-delete-edit {
   font-size: 16px;
   font-weight: 400;
+}
+
+/* Edit Task Dialog */
+
+.edit-task-dialog {
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  animation: slideInFromRight 0.2s ease-out forwards;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.edit-task-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }

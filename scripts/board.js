@@ -262,15 +262,15 @@ function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
     document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
 }
 
-function showDialogOverlay() {
-    const overlay = document.getElementById('task-overlay');
+function showDialogOverlay(overlayType) {
+    const overlay = document.getElementById(`${overlayType}-overlay`);
     overlay.classList.remove('d-none');
 }
 
 function openTaskDetails(id) {
     const currentTask = tasks.find(task => task.id == id);
     if (currentTask) {
-        showDialogOverlay();
+        showDialogOverlay('task');
         renderTaskDialog(currentTask);
         getAssignedToNames(currentTask);
         getSubtasks(currentTask);
@@ -411,4 +411,58 @@ async function deleteTask(taskId) {
     await loadTasks();
     renderAllTasks();
     closeOverlay('task');
+}
+
+function openEditMode(taskId) {
+    showDialogOverlay('edit');
+    const task = getTaskFromGlobalArray(taskId);
+    const container = document.getElementById('edit-dialog');
+    container.innerHTML = buildEditForm(task);
+}
+
+function getTaskFromGlobalArray(taskId) {
+    return tasks.find(t => t.id === taskId);
+}
+
+function saveEditedTask(taskId) {
+    const task = getTaskFromGlobalArray(taskId);
+    updateTaskObjectWithNewValues(task);
+    saveTasksToStorage();
+    refreshTaskDialog(task);
+}
+
+function updateTaskObjectWithNewValues(task) {
+    task.title = document.getElementById('edit-title').value;
+    task.description = document.getElementById('edit-desc').value;
+    task.dueDate = document.getElementById('edit-date').value;
+    task.priority = document.getElementById('edit-prio').value;
+}
+
+function refreshTaskDialog(task) {
+    const container = document.getElementById('dialog-board-task');
+    container.outerHTML = renderDialogTask(task);
+    renderAllTasks();
+    openTaskDetails(task.id)
+    closeOverlay('edit');
+}
+
+// Updates the database with the current tasks array
+async function saveEditedTask(taskId) {
+    const task = getTaskFromGlobalArray(taskId);
+    updateTaskObjectWithNewValues(task);
+    await updateTaskWithPost(taskId, task);
+    refreshTaskDialog(task);
+}
+
+// Handles the HTTP PUT request
+async function updateTaskWithPost(taskId, taskData) {
+    const response = await fetch(BASE_URL + `tasks/${taskId}.json`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "PUT"
+        },
+        body: JSON.stringify(taskData)
+    });
+    return await response.json();
 }
