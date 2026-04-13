@@ -237,25 +237,10 @@ function initFormValidationListeners() {
 
 // FORM ACTIONS
 /**
- * Resets the form through both mouse and keyboard interaction on the clear button.
+ * Resets the form when the clear button is clicked.
  */
 function initClearFormListener() {
     clearFormBtn.addEventListener("click", function () {
         clearFormular();
-    });
-    clearFormBtn.addEventListener("keydown", function(event) {
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            clearFormular();
-        }
-    });
-}
-
-function initAddTaskListener() {
-    addTaskBtn.addEventListener("keydown", function(event) {
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            addTask();
-        }
     });
 }

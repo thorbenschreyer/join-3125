@@ -53,22 +53,38 @@
                     <div class="input-wrapper">
                         <input id="password-register" type="password" minlength="8" maxlength="16" placeholder="Password" required>
                         <img id="password-lock" class="input-icon" src="./assets/icons/lock.png" alt="">
-                        <img id="password-visibility-on" class=" input-icon input-icon-visibility dNone" onclick="togglePasswordVisibility('password-visibility-on')" src="./assets/icons/visibility_on.png" alt="">
-                        <img id="password-visibility-off" class="input-icon input-icon-visibility dNone" onclick="togglePasswordVisibility('password-visibility-off')" src="./assets/icons/visibility_off.png" alt="">
+                        <img id="password-visibility-on" class=" input-icon input-icon-visibility dNone" src="./assets/icons/visibility_on.png" alt=""
+                         onclick="togglePasswordVisibility('password-visibility-on')"
+                         onkeydown="if(event.key === 'Enter' || event.key === ' ') togglePasswordVisibility('password-visibility-on')"
+                         tabindex="0"
+                        >
+                        <img id="password-visibility-off" class="input-icon input-icon-visibility dNone" src="./assets/icons/visibility_off.png" alt=""
+                         onclick="togglePasswordVisibility('password-visibility-off')"
+                         onkeydown="if(event.key === 'Enter' || event.key === ' ') togglePasswordVisibility('password-visibility-off')"
+                         tabindex="0"
+                        >
                     </div>
                     <div class="input-wrapper">
                         <input id="confirm-password-register" type="password" minlength="8" maxlength="16" placeholder="Confirm Password" required>
                         <span id="input-error" class="dNone"></span>
                         <img id="confirm-password-lock" class="input-icon" src="./assets/icons/lock.png" alt="">
-                        <img id="confirm-password-visibility-on" class="input-icon input-icon-visibility dNone" onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-on')" src="./assets/icons/visibility_on.png" alt="">
-                        <img id="confirm-password-visibility-off" class="input-icon input-icon-visibility dNone" onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-off')" src="./assets/icons/visibility_off.png" alt="">
+                        <img id="confirm-password-visibility-on" class="input-icon input-icon-visibility dNone" src="./assets/icons/visibility_on.png" alt=""
+                         onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-on')"
+                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleConfirmPasswordVisibility('confirm-password-visibility-on')"
+                         tabindex="0"
+                        >
+                        <img id="confirm-password-visibility-off" class="input-icon input-icon-visibility dNone" src="./assets/icons/visibility_off.png" alt=""
+                         onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-off')"
+                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleConfirmPasswordVisibility('confirm-password-visibility-off')"
+                         tabindex="0"
+                        >
                     </div>
                 <!-- FOOTER IM FORMULAR -->
                     <div class="signup-form-footer">
                         <label>
-                            <input type="checkbox" required/>
+                            <input id="privacy-policy-checkbox" type="checkbox" required/>
                                 <span>
-                                    I accept the <a href="#">Privacy policy</a>
+                                    I accept the <a href="index.html?page=privacy" id="privacy-policy-checkbox-link">Privacy policy</a>
                                 </span>
                         </label>
                         <button id="signup-button" class="signup-button" type="submit">Sign up</button>
@@ -83,8 +99,8 @@
         <footer class="signup-footer">
             
             <!-- FOOTER LINKS --> 
-            <a href="index.html?page=privacy" data-text="Privacy Policy">Privacy Policy</a>
-            <a href="index.html?page=legal" data-text="Legal notice">Legal Notice</a>
+            <a href="index.html?page=privacy" id="privacy-policy-footer" data-text="Privacy Policy">Privacy Policy</a>
+            <a href="index.html?page=legal" id="legal-notice-footer" data-text="Legal notice">Legal Notice</a>
 
         </footer>
 

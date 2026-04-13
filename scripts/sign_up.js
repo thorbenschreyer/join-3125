@@ -3,6 +3,7 @@ const USER_NAME = document.getElementById("name-register");
 const USER_EMAIL = document.getElementById("email-register");
 const USER_PASSWORD = document.getElementById("password-register");
 const USER_CONFIRM_PASSWORD = document.getElementById("confirm-password-register");
+const SIGNUP_BACK_BUTTON = document.getElementById("signup-back-button");
 const SIGNUP_BUTTON = document.getElementById("signup-button");
 const INPUT_ERROR = document.getElementById("input-error");
 const PASSWORD_LOCK = document.getElementById("password-lock");
@@ -13,6 +14,11 @@ const CONFIRM_PASSWORD_VISIBILITY_ON = document.getElementById("confirm-password
 const CONFIRM_PASSWORD_VISIBILITY_OFF = document.getElementById("confirm-password-visibility-off");
 const SIGNUP_SUCCESS_TOAST = document.getElementById("signup-success-toast");
 const SIGNUP_SUCCESS_OVERLAY = document.getElementById("signup-success-overlay");
+const PRIVACY_POLICY_CHECKBOX = document.getElementById("privacy-policy-checkbox");
+const PRIVACY_POLICY_CHECKBOX_LINK = document.getElementById("privacy-policy-checkbox-link");
+const PRIVACY_POLICY_FOOTER = document.getElementById("privacy-policy-footer");
+const LEGAL_NOTICE_FOOTER = document.getElementById("legal-notice-footer");
+
 
 // BASE URL
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -267,6 +273,48 @@ function assignUserColor() {
     userColor = USER_COLOR[newUserIndex % USER_COLOR.length]
 }
 
+SIGNUP_BACK_BUTTON.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+        window.location.href = "login.html";
+    }
+});
+
+PRIVACY_POLICY_CHECKBOX.addEventListener("focus", function() {
+    PRIVACY_POLICY_CHECKBOX.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            PRIVACY_POLICY_CHECKBOX.checked = !PRIVACY_POLICY_CHECKBOX.checked;
+        }
+    });
+});
+
+PRIVACY_POLICY_CHECKBOX_LINK.addEventListener("focus", function() {
+    PRIVACY_POLICY_CHECKBOX_LINK.addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault();
+            window.location.href = "index.html?page=privacy";
+        }
+    });
+});
+
+PRIVACY_POLICY_FOOTER.addEventListener("focus", function() {
+    PRIVACY_POLICY_FOOTER.addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault();
+            window.location.href = "index.html?page=privacy";
+        }
+    });
+});
+
+LEGAL_NOTICE_FOOTER.addEventListener("focus", function() {
+    LEGAL_NOTICE_FOOTER.addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault();
+            window.location.href = "index.html?page=legal";
+        }
+    });
+});
+        
 /**
  * Bootstraps the application by restoring persisted user data
  * and registering all input-related event handlers.

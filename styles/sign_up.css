@@ -171,6 +171,11 @@ input {
   accent-color: var(--logo-dark-blue);
 }
 
+.signup-form-footer input[type="checkbox"]:focus {
+  outline: solid 2px #000000;
+  outline-offset: 2px;
+}
+
 .signup-form-footer span {
   color: #a8a8a8;
   font-size: 12px;
@@ -203,7 +208,12 @@ input {
 
 .signup-button:hover {
   background-color: var(--logo-light-blue);
-  transform: scale(1.02);
+  transform: scale(1.02); 
+}
+
+.signup-button:focus {
+  outline: solid 2px #000000;
+  outline-offset: 2px;
 }
 
 /* === FOOTER === */
