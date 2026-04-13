@@ -237,6 +237,7 @@ function openAssignedDropdown() {
     arrowup.classList.toggle("dNone");
     document.getElementById("task-assigned-to-input").focus();
     assignedToInputWrapper.classList.add("blue-border");
+    closeCategoryDropdown();
 }
 
 /**
@@ -251,10 +252,12 @@ function toggleAssignedDropdown(event) {
     users.classList.toggle("dFlex");
     arrowdown.classList.toggle("dNone");
     arrowup.classList.toggle("dNone");
+    document.getElementById("task-assigned-to-input").focus();
     checkDropdownState();
     if (users.classList.contains("dFlex")) {
         assignedToInputWrapper.classList.add("blue-border");
     }
+    closeCategoryDropdown();
 }
 
 /**
@@ -288,6 +291,7 @@ function toggleUserSelection(event, user, initials, color) {
         selectedUsers.push({ name: user, initials: initials, color: color });
     }
     renderAssignedBadges();
+    assignedToInputWrapper.classList.add("blue-border");
 }
 
 // CATEGORY
@@ -298,6 +302,7 @@ function openCategoryDropdown() {
     categoryTasks.classList.remove("dNone");
     categoryTasks.classList.add("dFlex");
     document.getElementById("task-category-input").focus();
+    closeAssignedDropdown();
 }
 
 /**
@@ -308,6 +313,7 @@ function toggleCategoryDropdown(event) {
     categoryTasks.classList.toggle("dNone");
     categoryTasks.classList.toggle("dFlex");
     document.getElementById("task-category-input").focus();
+    closeAssignedDropdown();
 }
 
 /**
@@ -373,6 +379,7 @@ function clearFormular() {
     highlightSelectedPriority("medium");
     resetUserSelection();
     categoryInput.value = "";
+    subtasksInput.value = "";
     subtasksList.innerHTML = "";
 }
 

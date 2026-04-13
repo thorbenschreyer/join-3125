@@ -202,7 +202,11 @@ function contactBrakerTemplate(letter) {
  */
 function renderUsersDropdownTemplate(user, initials, color) {
     return `
-        <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
+        <div id="dropdown-user" class="dropdown-user" 
+         onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')"
+         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleUserSelection(event, '${user}', '${initials}', '${color}')"
+         tabindex="0"
+        >
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
             <span class="dropdown-user-name">${user}</span>
             <img class="dropdown-user-checkbox" src="./assets/icons/checkbox_default.svg" alt="">
@@ -225,18 +229,34 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                     <div class="subtask-item-content">
                         <span class="subtask-text">${subtasksInput.value}</span>
                         <div id="subtask-item-btns" class="subtask-item-btns dNone">
-                            <img class="edit-subtask-btn" src="./assets/icons/subtask_edit.svg" alt="" onclick="editSubtask(this)">
+                            <img class="edit-subtask-btn" src="./assets/icons/subtask_edit.svg" alt=""
+                             onclick="editSubtask(this)"
+                             onkeydown="if(event.key === 'Enter' || event.key === ' ') editSubtask(this)"
+                             tabindex="0"
+                            >
                             <span class="subtask-edit-divider">|</span>
-                            <img class="delete-subtask-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                            <img class="delete-subtask-btn" src="./assets/icons/subtask_delete.svg" alt=""
+                             onclick="deleteSubtask(this)"
+                             onkeydown="if(event.key === 'Enter' || event.key === ' ') deleteSubtask(this)"
+                             tabindex="0"
+                            >
                         </div>
                     </div>
                 </li>
                 <div id="subtask-edit" class="subtask-item-edit dNone">
-                    <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
+                    <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeydown="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
                     <div class="subtask-edit-btns">
-                        <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                        <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt=""
+                         onclick="deleteSubtask(this)"
+                         onkeydown="if(event.key === 'Enter' || event.key === ' ') deleteSubtask(this)"
+                         tabindex="0"
+                        >
                         <span class="subtask-edit-input-divider">|</span>
-                        <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt="" onclick="confirmEditSubtask(this)">
+                        <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt=""
+                         onclick="confirmEditSubtask(this)"
+                         onkeydown="if(event.key === 'Enter' || event.key === ' ') confirmEditSubtask(this)"
+                         tabindex="0"
+                        >
                     </div>
                 </div>
               </div>
