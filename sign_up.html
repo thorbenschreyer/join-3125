@@ -34,7 +34,7 @@
 
                 <!-- HEADER IM FORMULAR -->
                  <div class="signup-form-header">
-                    <a href="login.html" id="signup-back-button" class="signup-back" aria-label="go back to login">
+                    <a href="login.html" id="signup-back-button" class="signup-back" aria-label="Back to login">
                         <!-- arrow icon generated via CSS -->
                     </a>
                     <h1>Sign up</h1>
@@ -43,41 +43,37 @@
                 <!-- FORMULAR -->
                 <form class="signup-form" onsubmit="addUser(); return false;">
                     <div class="input-wrapper">
-                        <input id="name-register" type="text" placeholder="Name" required>
+                        <input id="name-register" type="text" placeholder="Name" aria-label="Name" required>
                         <img class="input-icon" src="./assets/icons/person.png" alt="">
                     </div>
                     <div class="input-wrapper">
-                        <input id="email-register" type="email" placeholder="Email" required>
+                        <input id="email-register" type="email" placeholder="Email" aria-label="Email" required>
                         <img class="input-icon" src="./assets/icons/mail.png" alt="">
                     </div>
                     <div class="input-wrapper">
-                        <input id="password-register" type="password" minlength="8" maxlength="16" placeholder="Password" required>
+                        <input id="password-register" type="password" minlength="8" maxlength="16" placeholder="Password" aria-label="Password" required>
                         <img id="password-lock" class="input-icon" src="./assets/icons/lock.png" alt="">
-                        <img id="password-visibility-on" class=" input-icon input-icon-visibility dNone" src="./assets/icons/visibility_on.png" alt=""
-                         onclick="togglePasswordVisibility('password-visibility-on')"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') togglePasswordVisibility('password-visibility-on')"
-                         tabindex="0"
-                        >
-                        <img id="password-visibility-off" class="input-icon input-icon-visibility dNone" src="./assets/icons/visibility_off.png" alt=""
-                         onclick="togglePasswordVisibility('password-visibility-off')"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') togglePasswordVisibility('password-visibility-off')"
-                         tabindex="0"
-                        >
+                        <button type="button" id="password-visibility-on" class="visibility-btn input-icon input-icon-visibility dNone" aria-label="show password"
+                         onclick="togglePasswordVisibility('password-visibility-on')">
+                            <img src="./assets/icons/visibility_on.png" alt="">
+                        </button>
+                        <button type="button" id="password-visibility-off" class="visibility-btn input-icon input-icon-visibility dNone" aria-label="hide password"
+                         onclick="togglePasswordVisibility('password-visibility-off')">
+                            <img src="./assets/icons/visibility_off.png" alt="">
+                        </button>
                     </div>
                     <div class="input-wrapper">
-                        <input id="confirm-password-register" type="password" minlength="8" maxlength="16" placeholder="Confirm Password" required>
+                        <input id="confirm-password-register" type="password" minlength="8" maxlength="16" placeholder="Confirm Password" aria-label="Confirm Password" required>
                         <span id="input-error" class="dNone"></span>
                         <img id="confirm-password-lock" class="input-icon" src="./assets/icons/lock.png" alt="">
-                        <img id="confirm-password-visibility-on" class="input-icon input-icon-visibility dNone" src="./assets/icons/visibility_on.png" alt=""
-                         onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-on')"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleConfirmPasswordVisibility('confirm-password-visibility-on')"
-                         tabindex="0"
-                        >
-                        <img id="confirm-password-visibility-off" class="input-icon input-icon-visibility dNone" src="./assets/icons/visibility_off.png" alt=""
-                         onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-off')"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleConfirmPasswordVisibility('confirm-password-visibility-off')"
-                         tabindex="0"
-                        >
+                        <button type="button" id="confirm-password-visibility-on" class="visibility-btn input-icon input-icon-visibility dNone" aria-label="show confirm password"
+                         onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-on')">
+                            <img src="./assets/icons/visibility_on.png" alt="">
+                        </button>
+                        <button type="button" id="confirm-password-visibility-off" class="visibility-btn input-icon input-icon-visibility dNone" aria-label="hide confirm password"
+                         onclick="toggleConfirmPasswordVisibility('confirm-password-visibility-off')">
+                            <img src="./assets/icons/visibility_off.png" alt="">
+                        </button>
                     </div>
                 <!-- FOOTER IM FORMULAR -->
                     <div class="signup-form-footer">

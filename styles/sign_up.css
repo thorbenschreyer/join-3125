@@ -137,6 +137,18 @@ input {
   top: 10px;
 }
 
+.visibility-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.visibility-btn img {
+  width: 16px;
+  height: auto;
+}
+
 .signup-form input::placeholder {
   color: #d1d1d1;
   font-size: 14px;
