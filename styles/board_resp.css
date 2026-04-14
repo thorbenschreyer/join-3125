@@ -80,4 +80,43 @@
 
 }
 
+@media (max-width: 1050px) {
+
+    .dialog-add-task-page {
+        flex-direction: column;
+    }
+
+    .add-task-dialog-footer {
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 0;
+  }
+
+  .dialog-footer-left {
+    width: 320px;
+    padding: 12px 0 0;
+  }
+
+  .dialog-footer-right {
+    text-align: end;
+    width: 320px;
+    gap: 20px;
+  }
+
+}
+
+@media (max-width: 818px) {
+    .dialog-footer-left {
+    display: none;
+  }
+
+  .dialog-footer-right {
+    margin-top: 24px;
+  }
+
+  .add-task-dialog {
+    padding-top: 24px;
+  }
+}
+
 

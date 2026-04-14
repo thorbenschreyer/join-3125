@@ -450,7 +450,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 10px;
+  width: 24px;
+  height: 24px;
 }
 
 .close-dialog-x-hover,
@@ -650,4 +651,10 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.close-edit-x-container {
+  display: flex;
+  justify-content: end;
+  width: 100%;
 }

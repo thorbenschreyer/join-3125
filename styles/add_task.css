@@ -42,7 +42,7 @@ body {
 
 /* === HEADER === */
 .add-task-header {
-  width: 690px;
+  width: 100%;
 }
 
 h1 {
@@ -757,7 +757,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .add-tasks-mobile-header {
     position: sticky;
     top: 0;
-    background: var(--bg-color);
     padding: 40px 0 4px;
     z-index: 10;
   }

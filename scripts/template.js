@@ -140,25 +140,168 @@ function renderSubtaskDiv(subtask, currentState, index, taskId) {
 
 
 
-function buildEditForm(task) {
-  return `
-      <div class="edit-task-dialog-content">
+// function buildEditForm(task) {
+//   return `
+//       <div class="edit-task-dialog-content">
         
-          <label>Title</label>
-          <input id="edit-title" type="text" value="${task.title}">
-          <label>Description</label>
-          <textarea id="edit-desc">${task.description}</textarea>
+//           <label>Title</label>
+//           <input id="edit-title" type="text" value="${task.title}">
+//           <label>Description</label>
+//           <textarea id="edit-desc">${task.description}</textarea>
        
         
-          <label>Due Date</label>
-          <input id="edit-date" type="date" value="${task.dueDate}">
-          <label>Priority</label>
-          ${buildPrioritySelect(task.priority)}
+//           <label>Due Date</label>
+//           <input id="edit-date" type="date" value="${task.dueDate}">
+//           <label>Priority</label>
+//           ${buildPrioritySelect(task.priority)}
         
-        <button onclick="saveEditedTask(${task.id})" class="save-btn">
-          Ok
-        </button>
+//         <button onclick="saveEditedTask(${task.id})" class="save-btn">
+//           Ok
+//         </button>
+//       </div>
+//   `;
+// }
+
+function buildEditForm(task) {
+  console.log(task);
+  
+  return `
+    <div class="close-edit-x-container">
+      <div id="close-edit-x-wrapper" class="close-dialog-x-wrapper">
+          <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+          <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+          <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
       </div>
+    </div>
+    
+
+    <!-- FORMULAR -->
+    <form id="add-task-form" class="add-task-form" return false;">
+
+        <!-- LEFT COLUMN -->
+        <div class="task-column left-column">
+
+            <!-- TITLE -->
+            <div class="form-group">
+                <label for="task-title">
+                    Title
+                </label>
+                <input id="task-title" class="task-title form-input" type="text" placeholder="Enter a title" value="${task.title}">
+                <span id="title-input-error" class="input-error dNone"></span>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-group">
+                <label for="task-description">
+                    Description
+                </label>
+                <textarea id="task-description" class="task-description form-input" rows="5" placeholder="Enter a Description">${task.description}</textarea>
+            </div>
+
+            <!-- DUE DATE -->   
+            <div class="form-group">
+                <label for="task-due-date">
+                    Due date
+                </label>
+                <input id="task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
+                <img id="calendar-icon" src="./assets/icons/calendar.png" class="task-input-icon" alt="calendar image">
+                <span id="due-date-input-error" class="input-error dNone"></span>
+            </div>
+
+        </div>
+
+        <!-- VERTICAL DIVIDER -->
+        <div class="vertical-divider"></div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="task-column right-column">
+
+            <!-- PRIORITY-BUTTONS -->
+            <div class="form-group">
+                <label>Priority</label>
+                <div class="priority-buttons">
+
+                    <!-- PRIORITY-URGENT -->
+                    <button id="task-prio-urgent-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('urgent')">
+                        <span class="prio-text">Urgent</span>
+                        <img id="task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
+                        <img id="task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="">
+                    </button>
+
+                    <!-- PRIORITY-MEDIUM -->
+                    <button id="task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="highlightSelectedPriority('medium')">
+                        <span class="prio-text">Medium</span> 
+                        <img id="task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
+                        <img id="task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="">
+                    </button>
+
+                    <!-- PRIORITY-LOW -->
+                    <button id="task-prio-low-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('low')">
+                        <span class="prio-text">Low</span>
+                        <img id="task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
+                        <img id="task-prio-low-white" class="task-prio-img dNone" src="./assets/icons/low_prio_white.svg" alt="">
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ASSIGNED TO -->
+            <div id="assigned-to-form" class="form-group">
+                <label>Assigned to</label>
+                <div id="task-assigned-to-wrapper" class="custom-dropdown"  onclick="stopEventBubbling(event)">
+                    <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
+                        <input id="task-assigned-to-input" class="dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
+                        <img id="dropdown-arrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" onclick="toggleAssignedDropdown(event)" alt="">
+                        <img id="dropup-arrow" src="./assets/icons/arrow_drop_up.svg" class="dropdown-arrow dNone" onclick="toggleAssignedDropdown(event)" alt="">
+                    </div>
+                    <div id="task-assigned-to-users" class="custom-dropdown-users dNone">
+                    </div>
+                    <div id="assigned-badges" class="assigned-badges">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="form-group">
+                <label>
+                  Category
+                </label>
+                <div id="task-category-wrapper" class="custom-dropdown" onclick="stopEventBubbling(event)">
+                    <div class="custom-dropdown-toggle form-input" onclick="openCategoryDropdown()">
+                        <input id="task-category-input" class="dropdown-input" type="text" placeholder="Select task category" readonly>
+                        <img id="category-dropdown-arrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" onclick="toggleCategoryDropdown(event)" alt="">
+                        <img id="category-dropup-arrow" src="./assets/icons/arrow_drop_up.svg" class="dropdown-arrow dNone" onclick="toggleCategoryDropdown(event)" alt="">
+                    </div>
+                    <div id="task-category-tasks" class="custom-dropdown-tasks dNone">
+                        <div class="dropdown-tasks">
+                            <span id="technical-task" class="dropdown-user-name">Technical Task</span>
+                        </div>
+                        <div class="dropdown-tasks">
+                            <span id="user-story" class="dropdown-user-name">User Story</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTASKS -->
+            <div class="form-group">
+                <label for="subtasks-input">Subtasks</label> 
+                <input id="subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask">
+                <img id="clear-input-btn" class="clear-input-icon dNone" src="./assets/icons/subtask_close.svg" alt="">
+                <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone">|</span>
+                <img id="add-subtask-btn" class="add-subtask-icon dNone" src="./assets/icons/subtask_check.svg" alt="">
+                <ul id="subtasks-list" class="subtasks-list">
+
+                </ul>
+            </div>
+        </div>
+        <button class="add-task-button dark-button" id="success-edit-btn">
+          OK 
+        </button>
+
+    </form>
   `;
 }
 
