@@ -193,6 +193,8 @@ function checkDropdownState() {
 
 /**
  * Builds initials for the assignment badges from a user's display name.
+ * @param {string} name The full display name of the user to generate initials for.
+ * @returns {string} The generated initials for the user.
  */
 function getInitials(name) {
     return name.split(" ").map(part => part.charAt(0).toUpperCase()).join("");
@@ -243,6 +245,7 @@ function resetUserSelection() {
 // SUBTASKS
 /**
  * Reveals the subtask action buttons and highlights the active item.
+ * @param {HTMLElement} item The subtask item element to show the buttons for.
  */
 function showSubtaskButtons(item) {
     item.querySelector(".subtask-item-btns").style.display = "flex";
@@ -252,6 +255,7 @@ function showSubtaskButtons(item) {
 
 /**
  * Hides the subtask action buttons and removes the active item highlight.
+ * @param {HTMLElement} item The subtask item element to hide the buttons for.
  */
 function hideSubtaskButtons(item) {
     item.querySelector(".subtask-item-btns").style.display = "none";
@@ -280,6 +284,7 @@ function hideSubtaskInputButtons() {
 // BUILD TASK OBJECT
 /**
  * Derives the currently selected priority from the active button state.
+ * @return {string} The priority level corresponding to the active selection, or an empty string if none is selected.
  */
 function getSelectedPriority() {
     if (urgentBtn.classList.contains('prio-urgent')) return 'urgent';
@@ -290,6 +295,7 @@ function getSelectedPriority() {
 
 /**
  * Converts the rendered subtask items into the structure expected for task storage.
+ * @return {Array} An array of subtask objects containing their text and default state.
  */
 function getFormattedSubtasks() {
     const subtaskNodes = Array.from(document.querySelectorAll('.subtask-text'));
@@ -302,6 +308,7 @@ function getFormattedSubtasks() {
 
 /**
  * Generates the next local task ID based on the highest ID currently in memory.
+ * @return {number} The next unique task ID.
  */
 function generateUniqueId() {
     if (tasks.length === 0) {

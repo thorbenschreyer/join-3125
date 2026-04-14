@@ -141,6 +141,7 @@ function checkFormValidity() {
 // PRIORITY
 /**
  * Applies the selected priority style after clearing the previous visual state.
+ * @param {string} priority The priority level to apply ("urgent", "medium", or "low").
  */
 function highlightSelectedPriority(priority) {
     resetPriorityButtons();
@@ -149,68 +150,10 @@ function highlightSelectedPriority(priority) {
     } else if (priority === "medium") {
         highlightMediumPriority();
     } else if (priority === "low") {
-        highlightLowPriority()
+        highlightLowPriority();
     }   
 }
 
-function addTask() {
-    const newTask = buildTaskObject();
-    tasks.push(newTask);
-    saveTaskData();
-    addTaskSuccess();
-}
-
-function buildTaskObject() {
-    return {
-        id: generateUniqueId(),
-        title: titleInput.value,
-        description: descInput.value,
-        dueDate: dueDateInput.value,
-        priority: getSelectedPriority(),
-        assignedTo: selectedUsers.map(user => user.name),
-        category: categoryInput.value,
-        categoryColor: categoryInput.value.trim().toLowerCase().split(' ').join('-'),
-        subtasks: getFormattedSubtasks(),
-        currentTask: `${currentTaskBar}`
-    };
-}
-
-function addTaskSuccess() {
-    addTaskBtn.disabled = true;
-    addTaskSuccessToast.classList.add("show");
-    addTaskSuccessOverlay.classList.add("show");
-    setTimeout(() => {
-        loadBoardPage();
-    }, 1500);
-    
-}
-
-async function saveTaskData() {
-    let lastTask = tasks.length - 1;
-    await fetch(`${BASE_URL}tasks.json`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(tasks[lastTask])
-    });
-}
-
-async function loadUsers() {
-    users = [];
-    let allUserData = await fetch(`${BASE_URL}users.json`);
-    let allUserDataToJson = await allUserData.json(); 
-    let UserKeysArray = Object.keys(allUserDataToJson);
-
-    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-        users.push(
-            {
-                name : allUserDataToJson[UserKeysArray[userIndex]].name,
-                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
-            }
-        )
-    }    
-}
 // ASSIGNED TO
 /**
  * Renders the assignment dropdown from the loaded user list.
@@ -242,6 +185,7 @@ function openAssignedDropdown() {
 
 /**
  * Toggles the assignment dropdown without triggering the outside-click handler.
+ * @param {Event} event The click event triggered by the user interaction.
  */
 function toggleAssignedDropdown(event) {
     event.stopPropagation();
@@ -279,6 +223,10 @@ function closeAssignedDropdown() {
 
 /**
  * Toggles a user in the current assignment selection and refreshes the badge preview.
+ * @param {Event} event The click event triggered by the user interaction.
+ * @param {string} user The name of the user to toggle in the selection.
+ * @param {string} initials The initials of the user for badge display.
+ * @param {string} color The avatar color of the user for badge display.
  */
 function toggleUserSelection(event, user, initials, color) {
     let element = event.currentTarget;
@@ -312,6 +260,7 @@ function openCategoryDropdown() {
 
 /**
  * Toggles the category dropdown without triggering the outside-click handler.
+ * @param {Event} event The click event triggered by the user interaction.
  */
 function toggleCategoryDropdown(event) {
     event.stopPropagation();
@@ -342,6 +291,7 @@ function closeCategoryDropdown() {
 // SUBTASKS
 /**
  * Switches a subtask into edit mode and places the cursor at the end of the current text.
+ * @param {HTMLElement} button The button element that triggered the edit action.
  */
 function editSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
@@ -356,6 +306,7 @@ function editSubtask(button) {
 
 /**
  * Applies the edited subtask text and restores the default display state.
+ * @param {HTMLElement} button The button element that triggered the confirm action.
  */
 function confirmEditSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
@@ -371,6 +322,7 @@ function confirmEditSubtask(button) {
 
 /**
  * Removes the selected subtask from the current form state.
+ * @param {HTMLElement} button The button element that triggered the delete action.
  */
 function deleteSubtask(button) {
     button.closest(".subtask-item-wrapper").remove();
@@ -401,6 +353,7 @@ function clearFormular() {
 
 /**
  * Creates a task object from the current form state before it is saved.
+ * @return {Object} The task object containing all relevant fields for storage and display.
  */
 function buildTaskObject() {
     return {

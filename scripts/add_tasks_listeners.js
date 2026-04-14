@@ -17,6 +17,7 @@ function initAddTaskListeners() {
 
 /**
  * Closes open dropdowns and subtask controls when the user clicks outside their active area.
+ * @param {MouseEvent} event The click event triggered on the document.
  */
 function initClickOutsideElementsListener() {
     document.addEventListener("click", function(event) {
@@ -134,6 +135,7 @@ function initClickCategoryListeners() {
 
 /**
  * Applies the selected category option on Enter or Space and triggers the shared change-based validation flow.
+ * @param {KeyboardEvent} event The keydown event triggered on the category option.
  */
 function initKeyboardCategoryListeners()  {
     technicalTask.parentElement.addEventListener("keydown", function(event) {
@@ -177,9 +179,10 @@ function initClickSubtaskListeners() {
 
 /**
  * Enables keyboard access for adding and clearing subtasks with Enter or Space.
+ * @param {KeyboardEvent} event The keydown event triggered on the subtask input or buttons.
  */
 function initKeyboardSubtaskListeners() {
-    subtasksInput.addEventListener("keypress", function(event) {
+    subtasksInput.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
             addSubtaskBtn.click();
