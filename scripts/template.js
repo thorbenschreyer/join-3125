@@ -202,7 +202,7 @@ function contactBrakerTemplate(letter) {
  */
 function renderUsersDropdownTemplate(user, initials, color) {
     return `
-        <div id="dropdown-user" class="dropdown-user" 
+        <div class="dropdown-user" role="checkbox" aria-checked="false" aria-label="Assign task to ${user}"
          onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')"
          onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleUserSelection(event, '${user}', '${initials}', '${color}')"
          tabindex="0"
@@ -229,34 +229,26 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                     <div class="subtask-item-content">
                         <span class="subtask-text">${subtasksInput.value}</span>
                         <div id="subtask-item-btns" class="subtask-item-btns dNone">
-                            <img class="edit-subtask-btn" src="./assets/icons/subtask_edit.svg" alt=""
-                             onclick="editSubtask(this)"
-                             onkeydown="if(event.key === 'Enter' || event.key === ' ') editSubtask(this)"
-                             tabindex="0"
-                            >
-                            <span class="subtask-edit-divider">|</span>
-                            <img class="delete-subtask-btn" src="./assets/icons/subtask_delete.svg" alt=""
-                             onclick="deleteSubtask(this)"
-                             onkeydown="if(event.key === 'Enter' || event.key === ' ') deleteSubtask(this)"
-                             tabindex="0"
-                            >
+                            <button class="edit-subtask-btn" type="button" aria-label="Edit subtask" onclick="editSubtask(this)">
+                                <img src="./assets/icons/subtask_edit.svg" alt="">
+                            </button>
+                            <span class="subtask-edit-divider" aria-hidden="true">|</span>
+                            <button class="delete-subtask-btn" type="button" aria-label="Delete subtask" onclick="deleteSubtask(this)">
+                                <img src="./assets/icons/subtask_delete.svg" alt="">
+                            </button>
                         </div>
                     </div>
                 </li>
                 <div id="subtask-edit" class="subtask-item-edit dNone">
                     <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeydown="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
                     <div class="subtask-edit-btns">
-                        <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt=""
-                         onclick="deleteSubtask(this)"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') deleteSubtask(this)"
-                         tabindex="0"
-                        >
-                        <span class="subtask-edit-input-divider">|</span>
-                        <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt=""
-                         onclick="confirmEditSubtask(this)"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') confirmEditSubtask(this)"
-                         tabindex="0"
-                        >
+                        <button class="edit-input-delete-btn" type="button" aria-label="Delete subtask" onclick="deleteSubtask(this)">
+                            <img src="./assets/icons/subtask_delete.svg" alt="">
+                        </button>
+                        <span class="subtask-edit-input-divider" aria-hidden="true">|</span>
+                        <button class="edit-input-check-btn" type="button" aria-label="Confirm edit" onclick="confirmEditSubtask(this)">
+                            <img src="./assets/icons/subtask_check.svg" alt="">
+                        </button>
                     </div>
                 </div>
               </div>

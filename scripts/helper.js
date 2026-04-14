@@ -138,12 +138,15 @@ function hideDueDateError() {
 /**
  * Restores the neutral priority state before a new selection is highlighted.
  */
-function resetPriorityImages() {
+function resetPriorityButtons() {
     priorityColorImages.forEach(img => img.classList.remove("dNone"));
     priorityWhiteImages.forEach(img => img.classList.add("dNone"));
     urgentBtn.classList.remove("prio-urgent");
     mediumBtn.classList.remove("prio-medium");
     lowBtn.classList.remove("prio-low");
+    urgentBtn.ariaPressed = "false";
+    mediumBtn.ariaPressed = "false";
+    lowBtn.ariaPressed = "false";
 }
 
 /**
@@ -153,6 +156,7 @@ function highlightLowPriority() {
     lowBtn.classList.add("prio-low");
     lowColorImg.classList.add("dNone");
     lowWhiteImg.classList.remove("dNone");
+    lowBtn.ariaPressed = "true";
 }
 
 /**
@@ -162,6 +166,7 @@ function highlightMediumPriority() {
     mediumBtn.classList.add("prio-medium");
     mediumColorImg.classList.add("dNone");
     mediumWhiteImg.classList.remove("dNone");
+    mediumBtn.ariaPressed = "true";
 }
 
 /**
@@ -171,7 +176,7 @@ function highlightUrgentPriority() {
     urgentBtn.classList.add("prio-urgent");
     urgentColorImg.classList.add("dNone");
     urgentWhiteImg.classList.remove("dNone");
-
+    urgentBtn.ariaPressed = "true";
 }
 
 // ASSIGNED TO
@@ -212,7 +217,7 @@ function renderAssignedBadges() {
  */
 function filterAssignedUsers() {
     let searchText = document.getElementById("task-assigned-to-input").value.toLowerCase();
-    let users = assignedToUsers.querySelectorAll("#dropdown-user");
+    let users = assignedToUsers.querySelectorAll(".dropdown-user");
     for (let i = 0; i < users.length; i++) {
         let name = users[i].querySelector(".dropdown-user-name").textContent.toLowerCase();
         users[i].style.display = name.startsWith(searchText) ? "flex" : "none";

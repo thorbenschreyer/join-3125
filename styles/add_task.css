@@ -105,7 +105,6 @@ label {
   outline: none;
 }
 
-
 /* === DUE DATE INPUT === */
 .task-due-date {
   position: relative;
@@ -115,9 +114,20 @@ label {
   position: absolute;
   top: 37px;
   left: 296px;
-  width: 12px;    
+  width: 12px;
   height: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.task-input-icon img {
+  width: 100%;
+  height: auto;
 }
 
 .task-input-icon:focus {
@@ -137,6 +147,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* === PRIORITY-BUTTONS === */
+fieldset.form-group {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0;
+}
+
+fieldset.form-group legend {
+  padding: 0;
+  padding-bottom: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--logo-dark-blue);
+}
+
 .priority-buttons {
   display: flex;
   gap: 10px;
@@ -207,21 +232,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.15s ease;
+  background: none;
+  border: none;
+  line-height: 0;
+  font-size: 0;
+}
+
+.dropdown-arrow img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.dropup-arrow {
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-  object-fit: contain;
-}
-
-.dropdown-arrow:hover,
-.dropup-arrow:hover {
+.dropdown-arrow:hover {
   background-color: #eeeeee;
 }
 
@@ -396,16 +419,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   top: 32px;
   left: 268px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.clear-input-icon img {
   width: 20px;
   height: 20px;
   padding: 4px;
   border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
   object-fit: contain;
+  transition: background-color 0.15s ease;
 }
 
-.clear-input-icon:hover {
+.clear-input-icon:hover img {
   background-color: #eeeeee;
 }
 .subtasks-vertical-divider {
@@ -420,16 +452,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   top: 32px;
   left: 296px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.add-subtask-icon img {
   width: 20px;
   height: 20px;
   padding: 4px;
   border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
   object-fit: contain;
+  transition: background-color 0.15s ease;
 }
 
-.add-subtask-icon:hover {
+.add-subtask-icon:hover img {
   background-color: #eeeeee;
 }
 
@@ -466,9 +507,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .edit-subtask-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.edit-subtask-btn img {
   width: auto;
   height: 14px;
-  cursor: pointer;
 }
 
 .subtask-edit-divider {
@@ -477,9 +527,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .delete-subtask-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.delete-subtask-btn img {
   width: auto;
   height: 14px;
-  cursor: pointer;
 }
 
 .subtask-item-btns {
@@ -515,16 +574,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .edit-input-delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+  flex-shrink: 0;
+}
+
+.edit-input-delete-btn img {
   width: 20px;
   height: auto;
-  cursor: pointer;
-  flex-shrink: 0;
   padding: 4px;
   border-radius: 50%;
   transition: background-color 0.15s ease;
 }
 
-.edit-input-delete-btn:hover {
+.edit-input-delete-btn:hover img {
   background-color: #eeeeee;
 }
 
@@ -534,16 +602,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .edit-input-check-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+  flex-shrink: 0;
+}
+
+.edit-input-check-btn img {
   width: 20px;
   height: auto;
-  cursor: pointer;
-  flex-shrink: 0;
   padding: 4px;
   border-radius: 50%;
   transition: background-color 0.15s ease;
 }
 
-.edit-input-check-btn:hover {
+.edit-input-check-btn:hover img {
   background-color: #eeeeee;
 }
 
@@ -699,7 +776,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 24px;
 }
 
-/* === TABLET === */
+/* === DESKTOP SMALL === */
 @media (max-width: 1050px) {
   /* === PAGE-CONTENT === */
   .page-content {
@@ -758,6 +835,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 }
 
+/* === TABLET === */
 @media (max-width: 818px) {
   /* === ADD-TASKS-CONTENT === */
   .add-tasks-page {
@@ -792,8 +870,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .footer-left {
     display: none;
   }
+  
 }
 
+/* === MOBILE === */
 @media (max-width: 500px) {
    /* === FORMULAR === */
   .add-task-form {
@@ -811,6 +891,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 }
 
+/* === SMALL MOBILE === */
 @media (max-width: 375px) {
   /* === FORMULAR-HEADER-MOBILE === */
   .add-tasks-mobile-header {

@@ -88,12 +88,6 @@ function initCalendarIconListener() {
     calendarIcon.addEventListener("click", function() {
         dueDateInput.showPicker();
     });
-    calendarIcon.addEventListener("keydown", function(event) {
-        if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            dueDateInput.showPicker();
-        }
-    });
 }           
 
 // ASSIGNED TO

@@ -27,7 +27,7 @@
             <!-- TITLE -->
             <div class="form-group">
                 <label for="task-title">
-                    Title<span class="required">*</span>
+                    Title<span class="required" aria-hidden="true">*</span>
                 </label>
                 <input id="task-title" class="task-title form-input" type="text" placeholder="Enter a title">
                 <span id="title-input-error" class="input-error dNone"></span>
@@ -44,10 +44,12 @@
             <!-- DUE DATE -->   
             <div class="form-group">
                 <label for="task-due-date">
-                    Due date<span class="required">*</span>
+                    Due date<span class="required" aria-hidden="true">*</span>
                 </label>
                 <input id="task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10">
-                <img id="calendar-icon" src="./assets/icons/calendar.png" class="task-input-icon" alt="calendar image" tabindex="0">
+                <button id="calendar-icon" class="task-input-icon" type="button" aria-label="Open date picker">
+                    <img src="./assets/icons/calendar.png" alt="">
+                </button>
                 <span id="due-date-input-error" class="input-error dNone"></span>
             </div>
 
@@ -60,14 +62,13 @@
         <div class="task-column right-column">
 
             <!-- PRIORITY-BUTTONS -->
-            <div class="form-group">
-                <label>Priority</label>
+            <fieldset class="form-group">
+                <legend>Priority</legend>
                 <div class="priority-buttons">
 
                     <!-- PRIORITY-URGENT -->
-                    <button id="task-prio-urgent-btn" class="priority-btn" type="button" 
-                    onclick="highlightSelectedPriority('urgent')" 
-                    onkeydown="if(event.key === 'Enter' || event.key === ' ') highlightSelectedPriority('urgent')"
+                    <button id="task-prio-urgent-btn" class="priority-btn" type="button" aria-label="Set priority to urgent" aria-pressed="false"
+                     onclick="highlightSelectedPriority('urgent')" 
                     >
                         <span class="prio-text">Urgent</span>
                         <img id="task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
@@ -75,9 +76,8 @@
                     </button>
 
                     <!-- PRIORITY-MEDIUM -->
-                    <button id="task-prio-medium-btn" class="priority-btn prio-medium" type="button" 
+                    <button id="task-prio-medium-btn" class="priority-btn prio-medium" type="button" aria-label="Set priority to medium" aria-pressed="true"
                      onclick="highlightSelectedPriority('medium')" 
-                     onkeydown="if(event.key === 'Enter' || event.key === ' ') highlightSelectedPriority('medium')"
                     >
                         <span class="prio-text">Medium</span> 
                         <img id="task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
@@ -85,9 +85,8 @@
                     </button>
 
                     <!-- PRIORITY-LOW -->
-                    <button id="task-prio-low-btn" class="priority-btn" type="button" 
+                    <button id="task-prio-low-btn" class="priority-btn" type="button" aria-label="Set priority to low" aria-pressed="false"
                      onclick="highlightSelectedPriority('low')" 
-                     onkeydown="if(event.key === 'Enter' || event.key === ' ') highlightSelectedPriority('low')"
                     >
                         <span class="prio-text">Low</span>
                         <img id="task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
@@ -95,54 +94,50 @@
                     </button>
 
                 </div>
-
-            </div>
+            </fieldset>
 
             <!-- ASSIGNED TO -->
             <div id="assigned-to-form" class="form-group">
-                <label>Assigned to</label>
+                <label for="task-assigned-to-input">Assigned to</label>
                 <div id="task-assigned-to-wrapper" class="custom-dropdown"  onclick="stopEventBubbling(event)">
                     <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
                         <input id="task-assigned-to-input" class="dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
-                        <img id="dropdown-arrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" alt="" tabindex="0"
-                         onclick="toggleAssignedDropdown(event)"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleAssignedDropdown(event)"
-                        >
-                        <img id="dropup-arrow" src="./assets/icons/arrow_drop_up.svg" class="dropdown-arrow dNone" alt="" tabindex="0"
-                         onclick="toggleAssignedDropdown(event)"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleAssignedDropdown(event)"
-                        >
+                        <button id="dropdown-arrow" class="dropdown-arrow" type="button" aria-label="Open assigned dropdown" onclick="toggleAssignedDropdown(event)">
+                            <img src="./assets/icons/arrow_drop_down.svg" alt="">
+                        </button>
+                        <button id="dropup-arrow" class="dropdown-arrow dNone" type="button" aria-label="Close assigned dropdown" onclick="toggleAssignedDropdown(event)">
+                            <img src="./assets/icons/arrow_drop_up.svg" alt="">
+                        </button>
                     </div>
                     <div id="task-assigned-to-users" class="custom-dropdown-users dNone">
+                        <!-- dynamic content: assigned users will be populated here -->
                     </div>
-                    <div id="assigned-badges" class="assigned-badges">
+                    <div id="assigned-badges" class="assigned-badges" aria-hidden="true">
+                        <!-- dynamic content: assigned user badges will be populated here -->
                     </div>
                 </div>
             </div>
 
             <!-- CATEGORY -->
             <div class="form-group">
-                <label>Category<span class="required">*</span></label>
+                <label for="task-category-input">Category<span class="required" aria-hidden="true">*</span></label>
                 <div id="task-category-wrapper" class="custom-dropdown" onclick="stopEventBubbling(event)">
                     <div class="custom-dropdown-toggle form-input" onclick="openCategoryDropdown()">
                         <input id="task-category-input" class="dropdown-input" type="text" placeholder="Select task category" readonly>
-                        <img id="category-dropdown-arrow" class="dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" alt="" tabindex="0"
-                         onclick="toggleCategoryDropdown(event)"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleCategoryDropdown(event)"
-                        >
-                        <img id="category-dropup-arrow" src="./assets/icons/arrow_drop_up.svg" class="dropdown-arrow dNone" alt="" tabindex="0"
-                         onclick="toggleCategoryDropdown(event)"
-                         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleCategoryDropdown(event)"
-                        >
+                        <button id="category-dropdown-arrow" class="dropdown-arrow" type="button" aria-label="Open category dropdown" onclick="toggleCategoryDropdown(event)">
+                            <img src="./assets/icons/arrow_drop_down.svg" alt="">
+                        </button>
+                        <button id="category-dropup-arrow" class="dropdown-arrow dNone" type="button" aria-label="Close category dropdown" onclick="toggleCategoryDropdown(event)">
+                            <img src="./assets/icons/arrow_drop_up.svg" alt="">
+                        </button>
                     </div>
-                    <div id="task-category-tasks" class="custom-dropdown-tasks dNone">
-                        <div class="dropdown-tasks" tabindex="0">
+                    <div id="task-category-tasks" class="custom-dropdown-tasks dNone" role="listbox">
+                        <div class="dropdown-tasks" role="option" aria-label="Technical Task"  tabindex="0">
                             <span id="technical-task" class="dropdown-user-name">Technical Task</span>
                         </div>
-                        <div class="dropdown-tasks" tabindex="0">
+                        <div class="dropdown-tasks" role="option" aria-label="User Story"  tabindex="0">
                             <span id="user-story" class="dropdown-user-name">User Story</span>
                         </div>
-
                     </div>
                 </div>  
             </div>
@@ -151,18 +146,23 @@
             <div class="form-group">
                 <label for="subtasks-input">Subtasks</label> 
                 <input id="subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask">
-                <img id="clear-input-btn" class="clear-input-icon dNone" src="./assets/icons/subtask_close.svg" alt="" tabindex="0">
-                <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone">|</span>
-                <img id="add-subtask-btn" class="add-subtask-icon dNone" src="./assets/icons/subtask_check.svg" alt="" tabindex="0">
+                <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
+                    <img src="./assets/icons/subtask_close.svg" alt="">
+                </button>
+                <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
+                <button id="add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask">
+                    <img src="./assets/icons/subtask_check.svg" alt="">
+                </button>
                 <ul id="subtasks-list" class="subtasks-list">
-
+                    <!-- dynamic content: subtasks will be populated here -->
                 </ul>
             </div>
+
         </div>
 
         <!-- REQUIRED FIELD MOBILE -->
         <div class="required-field-mobile dNone">
-            <span class="required">*</span><span>This field is required</span>
+            <span class="required" aria-hidden="true">*</span><span>This field is required</span>
         </div>
 
     </form>
@@ -172,15 +172,15 @@
 
         <!-- FOOTER LEFT -->
         <div class="footer-left">
-            <span class="required">*</span><span>This field is required</span>
+            <span class="required" aria-hidden="true">*</span><span>This field is required</span>
         </div>
 
         <!-- FOOTER RIGHT -->
         <div class="footer-right">
-            <button id="clear-task-btn" class="clear-task-btn">
+            <button id="clear-task-btn" class="clear-task-btn" type="button">
                 <span>Clear &times</span>
             </button>
-            <button id="add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" disabled tabindex="0">
+            <button id="add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" disabled>
                 <span>Create Task</span>
                 <img src="./assets/icons/check_light.svg" alt="">
             </button>
@@ -189,8 +189,8 @@
     </div>
 
     <!-- TOAST -->
-        <div id="add-task-success-overlay" class="add-task-success-overlay"></div>
-        <div id="add-task-success-toast" class="add-task-success-toast">
+        <div id="add-task-success-overlay" class="add-task-success-overlay" aria-hidden="true"></div>
+        <div id="add-task-success-toast" class="add-task-success-toast" role="status" aria-live="polite">
             <div class="add-task-success-content">
                 <span>Task added to board</span>
                 <img src="./assets/icons/board_white.png" alt="">

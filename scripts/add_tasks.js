@@ -143,7 +143,7 @@ function checkFormValidity() {
  * Applies the selected priority style after clearing the previous visual state.
  */
 function highlightSelectedPriority(priority) {
-    resetPriorityImages();
+    resetPriorityButtons();
     if (priority === "urgent") {
         highlightUrgentPriority();
     } else if (priority === "medium") {
@@ -283,6 +283,7 @@ function closeAssignedDropdown() {
 function toggleUserSelection(event, user, initials, color) {
     let element = event.currentTarget;
     element.classList.toggle("selected");
+    element.ariaChecked = element.classList.contains("selected") ? "true" : "false";
     element.querySelectorAll(".dropdown-user-checkbox").forEach(img => img.classList.toggle("dNone"));
     let index = selectedUsers.findIndex(u => u.name === user);
     if (index > -1) {
@@ -299,8 +300,12 @@ function toggleUserSelection(event, user, initials, color) {
  * Opens the category dropdown and moves focus to the input.
  */
 function openCategoryDropdown() {
+    let arrowdown = document.getElementById("category-dropdown-arrow");
+    let arrowup = document.getElementById("category-dropup-arrow");
     categoryTasks.classList.remove("dNone");
     categoryTasks.classList.add("dFlex");
+    arrowdown.classList.add("dNone");
+    arrowup.classList.remove("dNone");
     document.getElementById("task-category-input").focus();
     closeAssignedDropdown();
 }
@@ -310,8 +315,12 @@ function openCategoryDropdown() {
  */
 function toggleCategoryDropdown(event) {
     event.stopPropagation();
+    let arrowdown = document.getElementById("category-dropdown-arrow");
+    let arrowup = document.getElementById("category-dropup-arrow");
     categoryTasks.classList.toggle("dNone");
     categoryTasks.classList.toggle("dFlex");
+    arrowdown.classList.toggle("dNone");
+    arrowup.classList.toggle("dNone");
     document.getElementById("task-category-input").focus();
     closeAssignedDropdown();
 }
@@ -320,8 +329,14 @@ function toggleCategoryDropdown(event) {
  * Closes the category dropdown.
  */
 function closeCategoryDropdown() {
+    let arrowdown = document.getElementById("category-dropdown-arrow");
+    let arrowup = document.getElementById("category-dropup-arrow");
     categoryTasks.classList.add("dNone");
     categoryTasks.classList.remove("dFlex");
+    if (arrowdown && arrowup) {
+        arrowdown.classList.remove("dNone");
+        arrowup.classList.add("dNone");
+    }
 }
 
 // SUBTASKS
@@ -376,6 +391,7 @@ function clearFormular() {
     dueDateInput.value = "";
     dueDateInput.classList.remove("red-border")
     dueDateInputError.textContent = "";
+    resetPriorityButtons();
     highlightSelectedPriority("medium");
     resetUserSelection();
     categoryInput.value = "";
