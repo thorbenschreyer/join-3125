@@ -26,7 +26,7 @@ async function init() {
   }
   getNameAndInitials();
   loadSidbarAndContent();
-  time = getTheTimeForWelcomeMassage();
+  time = getTheTimeForWelcomeMessage();
 }
 
 /**
@@ -277,11 +277,11 @@ function setInitials() {
   if (isGuestLogin === true) {
     initialsText.innerText = "G";
     nameFromUser.innerText = "";
-    welcomeTime.innerText = getTheTimeForWelcomeMassage() + "!";
+    welcomeTime.innerText = getTheTimeForWelcomeMessage() + "!";
   } else {
     initialsText.innerText = userInitials;
     nameFromUser.innerText = userName;
-    welcomeTime.innerText = getTheTimeForWelcomeMassage() + ",";
+    welcomeTime.innerText = getTheTimeForWelcomeMessage() + ",";
   }
 }
 
@@ -289,13 +289,13 @@ function setInitials() {
  * Checks the current time
  * @returns the appropriate greeting based on the time of day
  */
-function getTheTimeForWelcomeMassage() {
-  time = new Date().getHours();
-  if (time >= 23 || time <= 5) return "Hallo Nachteule";
-  if (time >= 6 && time <= 11) return "Guten Morgen";
-  if (time >= 12 && time <= 14) return "Guten Mittag";
-  if (time >= 15 && time <= 18) return "Guten Nachmittag";
-  if (time >= 19 && time <= 22) return "Guten Abend";
+function getTheTimeForWelcomeMessage() {
+  const time = new Date().getHours();
+  if (time >= 23 || time <= 5) return "Hello night owl";
+  if (time >= 6 && time <= 11) return "Good morning";
+  if (time >= 12 && time <= 14) return "Good day";
+  if (time >= 15 && time <= 18) return "Good afternoon";
+  if (time >= 19 && time <= 22) return "Good evening";
 }
 
 async function loadSummaryPage() {

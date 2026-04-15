@@ -78,6 +78,8 @@ async function openAddTaskOverlay(selectedTaskBar) {
   const addTaskFooter = document.getElementById("add-task-footer");
   const dialogTaskFooter = document.getElementById("add-task-dialog-footer");
   const dialogContainer = document.getElementById("add-tasks-page");
+  const dialogCloser = document.getElementById("close-dialog-x-wrapper");
+  dialogCloser.style.display = "flex";
   dialogContainer.classList.add("dialog-add-task-page");
   addTaskFooter.classList.add("d-none");
   dialogTaskFooter.classList.remove("d-none");
@@ -110,6 +112,14 @@ function closeAddTaskOverlay() {
     dialog.classList.add("slide-out");
     resetDialogAfterDelay(overlay, dialog, 200);
   }, 1000);
+}
+
+function closeAddTaskOverlayEmediatly() {
+  const overlay = document.getElementById("add-task-overlay");
+  const dialog = document.getElementById("add-task-dialog");
+  if (!overlay) return;
+    dialog.classList.add("slide-out");
+    resetDialogAfterDelay(overlay, dialog, 200);
 }
 
 /**
@@ -164,7 +174,7 @@ function getFilteredAndSortedTasks(category) {
  * @param {Element} taskBar - The DOM element.
  */
 function appendTaskToBar(element, index, category, taskBar) {
-  const closedLength = closedSubtaskLength(category, index);
+  const closedLength = closedSubtaskLength(element);
   taskBar.innerHTML += smallTask(element, closedLength, element.id);
   fillDoneSubtaskBar(element, closedLength, element.id);
   getAssignedToNamesInitials(element, element.id);
@@ -237,14 +247,12 @@ function truncateText(text) {
 }
 
 /**
- * Calculates the number of closed subtasks for a task in a specific category.
- * @param {string} currentTaskCat - The task category.
- * @param {number} index - The index of the task in the filtered list.
+ * Calculates the number of closed subtasks for a task.
+ * @param {Object} task - The task object.
  * @returns {number} The number of closed subtasks.
  */
-function closedSubtaskLength(currentTaskCat, index) {
-  const taskBar = tasks.filter((t) => t.currentTask === currentTaskCat);
-  const subtasks = taskBar[index].subtasks;
+function closedSubtaskLength(task) {
+  const subtasks = task.subtasks;
   if (!subtasks) return 0;
   return subtasks.filter((d) => d.current_state === "closed").length;
 }
@@ -292,18 +300,22 @@ async function movingTo(event, category) {
 }
 
 /**
- * Reorders the category array and saves the updated order to Firebase.
- * @param {Object} task - The task object.
- * @param {string} category - The new category.
+ * Reorders the tasks in a category after a task has been moved into it,
+ * placing the moved task at the top. It then updates the sort order in Firebase.
+ * @param {Object} task - The task object that was moved.
+ * @param {string} category - The new category of the task.
  */
 async function reorderAndSaveCategory(task, category) {
   const col = tasks
     .filter((t) => t.currentTask === category)
     .sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
-  col.splice(col.indexOf(task), 1);
+  const taskIndex = col.indexOf(task);
+  if (taskIndex > -1) {
+    col.splice(taskIndex, 1);
+  }
   col.unshift(task);
   col.forEach((t, i) => (t.sortIndex = i));
-  boardInit();
+  await boardInit();
   await updateFirebaseCategory(task.firebaseId, category);
   await updateCategoryOrder(col);
 }
@@ -324,18 +336,22 @@ async function dropOnTask(event, targetId) {
 }
 
 /**
- * Updates the order of tasks after a drag and drop reordering.
- * @param {Object} drag - The dragged task.
- * @param {Object} target - The target task.
+ * Updates the order of tasks after a task is dropped onto another task,
+ * reordering them within the same category.
+ * @param {Object} drag - The dragged task object.
+ * @param {Object} target - The target task object onto which the drag task was dropped.
  */
 async function updateDroppedTaskOrder(drag, target) {
   const col = tasks
     .filter((t) => t.currentTask === target.currentTask)
     .sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
-  col.splice(col.indexOf(drag), 1);
+  const dragIndex = col.indexOf(drag);
+  if (dragIndex > -1) {
+    col.splice(dragIndex, 1);
+  }
   col.splice(col.indexOf(target), 0, drag);
   col.forEach((t, i) => (t.sortIndex = i));
-  boardInit();
+  await boardInit();
   await updateCategoryOrder(col);
 }
 
@@ -403,7 +419,7 @@ function applyDragStyles(element) {
  */
 function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
   if (!element.subtasks || element.subtasks.length === 0) return;
-  percent = Math.round((closedSubtasksLength / element.subtasks.length) * 100);
+  const percent = Math.round((closedSubtasksLength / element.subtasks.length) * 100);
   document.getElementById(`subtasks-bar-${id}`).style = `width: ${percent}%`;
 }
 
