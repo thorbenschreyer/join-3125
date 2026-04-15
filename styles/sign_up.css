@@ -8,11 +8,11 @@ body {
 }
 
 button:hover {
-  cursor: pointer;
+  cursor: text;
 }
 
 input {
-  cursor: pointer;
+  cursor: text;
 }
 
 .red-border {
@@ -133,7 +133,7 @@ input {
 }
 
 .input-icon-visibility {
-  cursor: pointer;
+  cursor: pointer !important;
   top: 10px;
 }
 
@@ -177,6 +177,7 @@ input {
 
 .signup-form-footer input {
   width: 13px !important;
+  cursor: pointer !important;
 }
 
 .signup-form-footer input[type="checkbox"]:not(:checked):hover {
@@ -211,6 +212,7 @@ input {
   background-color: var(--logo-dark-blue);
   color: var(--white);
   font-weight: 600;
+  cursor: pointer !important;
   transform: scale(1);
   transform-origin: right center;
   transition:

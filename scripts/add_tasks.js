@@ -303,20 +303,6 @@ function toggleUserSelection(event, user, initials, color) {
 
 // CATEGORY
 /**
- * Opens the category dropdown and moves focus to the input.
- */
-function openCategoryDropdown() {
-    let arrowdown = document.getElementById("category-dropdown-arrow");
-    let arrowup = document.getElementById("category-dropup-arrow");
-    categoryTasks.classList.remove("dNone");
-    categoryTasks.classList.add("dFlex");
-    arrowdown.classList.add("dNone");
-    arrowup.classList.remove("dNone");
-    document.getElementById("task-category-input").focus();
-    closeAssignedDropdown();
-}
-
-/**
  * Toggles the category dropdown without triggering the outside-click handler.
  * @param {Event} event The click event triggered by the user interaction.
  */
