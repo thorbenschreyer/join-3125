@@ -42,7 +42,9 @@ body {
 
 /* === HEADER === */
 .add-task-header {
-  width: 690px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 h1 {
@@ -848,7 +850,6 @@ fieldset.form-group legend {
   .add-tasks-mobile-header {
     position: sticky;
     top: 0;
-    background: var(--bg-color);
     padding: 40px 0 4px;
     z-index: 10;
   }

@@ -1,0 +1,367 @@
+.edit-task-dialog {
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  animation: slideInFromRight 0.2s ease-out forwards;
+  max-height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.edit-task-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.close-edit-x-container {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.edit-add-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.edit-custom-dropdown {
+  position: relative;
+}
+
+.edit-custom-dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: var(--white);
+  user-select: none;
+  padding: 4px 10px;
+}
+
+.edit-dropdown-arrow {
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  object-fit: contain;
+}
+
+.edit-dropup-arrow {
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  object-fit: contain;
+}
+
+.edit-dropdown-arrow:hover,
+.edit-dropup-arrow:hover {
+  background-color: #eeeeee;
+}
+
+.edit-dropdown-search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.edit-dropdown-search-input::placeholder {
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.edit-custom-dropdown-users {
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--white);
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-gray) transparent;
+}
+
+.edit-custom-dropdown-users::-webkit-scrollbar {
+  width: 6px;
+}
+
+.edit-custom-dropdown-users::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.edit-custom-dropdown-users::-webkit-scrollbar-thumb {
+  background-color: var(--light-gray);
+  border-radius: 3px;
+}
+
+.edit-dropdown-user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.edit-dropdown-user:hover {
+  border-radius: 10px;
+  background-color: #eeeeee;
+}
+
+.edit-dropdown-user.selected {
+  border-radius: 10px;
+  background-color: var(--logo-dark-blue);
+  color: var(--white);
+}
+
+.edit-dropdown-user.selected:hover {
+  background-color: #091931;
+}
+
+.edit-dropdown-user-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--white);
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.edit-dropdown-user-name {
+  flex: 1;
+  font-size: 14px;
+}
+
+.edit-dropdown-user-checkbox {
+  position: absolute;
+  top: 15px;
+  left: 272px;
+  width: 12px;
+  height: 12px;
+}
+
+.edit-dropdown-user-checkbox:nth-of-type(3) {
+  left: 274px;
+  width: 10px;
+  height: 10px;
+}
+
+.edit-dropdown-user.selected {
+  background-color: var(--logo-dark-blue);
+  border-color: var(--white);
+}
+
+.edit-assigned-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.edit-assigned-badges:has(.edit-assigned-badge) {
+  margin-top: 8px;
+}
+
+.edit-assigned-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--white);
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Subtasks */
+
+.edit-subtask-item-wrapper {
+  padding: 4px 10px 4px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.edit-task-input {
+  position: relative;
+}
+
+.edit-clear-input-icon {
+  position: absolute;
+  top: 32px;
+  left: 268px;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  object-fit: contain;
+}
+
+.edit-clear-input-icon:hover {
+  background-color: #eeeeee;
+}
+.edit-subtasks-vertical-divider {
+  position: absolute;
+  top: 33px;
+  left: 288px;
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.edit-add-subtask-icon {
+  position: absolute;
+  top: 32px;
+  left: 296px;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  object-fit: contain;
+}
+
+.edit-add-subtask-icon:hover {
+  background-color: #eeeeee;
+}
+
+.edit-subtasks-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 60px;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-gray) transparent;
+  font-size: 12px;
+  list-style: none;
+}
+
+.edit-subtask-item-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-subtask-item-content::before {
+  content: "\2022";
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.edit-edit-subtask-btn {
+  width: auto;
+  height: 14px;
+  cursor: pointer;
+}
+
+.edit-subtask-edit-divider {
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.edit-delete-subtask-btn {
+  width: auto;
+  height: 14px;
+  cursor: pointer;
+}
+
+.edit-subtask-item-btns {
+  margin-left: auto;
+  gap: 6px;
+}
+
+.edit-subtask-item-edit {
+  position: relative;
+  align-items: center;
+  margin: 0 -10px 0 -18px;
+  border-bottom: 1px solid var(--logo-light-blue);
+}
+
+.edit-subtask-edit-input {
+  width: 100%;
+  padding: 4px 60px 4px 8px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.edit-subtask-edit {
+  position: relative;
+}
+
+.edit-subtask-edit-btns {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-edit-input-delete-btn {
+  width: 20px;
+  height: auto;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.edit-edit-input-delete-btn:hover {
+  background-color: #eeeeee;
+}
+
+.edit-subtask-edit-input-divider {
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.edit-edit-input-check-btn {
+  width: 20px;
+  height: auto;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.edit-edit-input-check-btn:hover {
+  background-color: #eeeeee;
+}

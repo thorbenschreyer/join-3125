@@ -25,9 +25,8 @@ function helpAndLogout() {
     `;
 }
 
-
 function smallTask(element, closedSubtasksLength, id) {
-    return `
+  return `
     <div onclick="openTaskDetails('${id}')" draggable="true" ondragstart="startDragging(event, '${id}')" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task" ondrop="dropOnTask(event, '${id}')" ondragover="allowDrop(event)">
         <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
         <h3 id="small-task-title-${id}" class="small-task-title">${truncateText(element.title)}</h3>
@@ -35,14 +34,14 @@ function smallTask(element, closedSubtasksLength, id) {
         ${getSmallSubtasksHtml(element, closedSubtasksLength, id)}
         <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
             <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container"></div>
-            <img id="task-prio-image-${id}" class="task-prio-img" src="../assets/icons/${element.priority}_prio_color.png" alt="">
+            <img id="task-prio-image-${id}" class="task-prio-img" src="./assets/icons/${element.priority}_prio_color.png" alt="">
         </div>
     </div>`;
 }
 
 function getSmallSubtasksHtml(element, closedLength, id) {
-    if (!element.subtasks || element.subtasks.length === 0) return '';
-    return `
+  if (!element.subtasks || element.subtasks.length === 0) return "";
+  return `
     <div id="subtasks-with-subtasks-bar-container-${id}" class="subtasks-with-subtasks-bar-container">
         <div id="subtasks-bar-container-${id}" class="subtasks-bar-container">
             <div id="subtasks-bar-${id}" class="subtasks-bar"></div>
@@ -52,7 +51,7 @@ function getSmallSubtasksHtml(element, closedLength, id) {
 }
 
 function renderNameBadges(initials, badgeColor) {
-  return`
+  return `
   <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: ${badgeColor}">${initials}</div>
   `;
 }
@@ -97,7 +96,7 @@ function renderDialogTask(task) {
         </div>
         <p class="dialog-delete-edit">Delete</p>
       </div>
-      <div class="dialog-edit-container">
+      <div class="dialog-edit-container" onclick="openEditMode(${task.id})">
         <div class="dialog-edit-img-wrapper">
           <img src="./assets/icons/edit.png" alt="delete Task" class="dialog-edit-img img-size-24px">
           <img src="./assets/icons/edit_blue.png" alt="delete Task" class="dialog-edit-hover-img img-size-24px">
@@ -127,14 +126,132 @@ function renderPlaceholderTemplate(emptyTaskBar) {
 }
 
 function renderSubtaskDiv(subtask, currentState, index, taskId) {
-    const hideDefault = currentState === 'closed' ? 'd-none' : '';
-    const hideChecked = currentState === 'closed' ? '' : 'd-none';
-    return `
+  const hideDefault = currentState === "closed" ? "d-none" : "";
+  const hideChecked = currentState === "closed" ? "" : "d-none";
+  return `
     <div class="subtask-and-checkbox-container">
-        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-default-${taskId}-${index}" class="checkbox-img ${hideDefault}" src="../assets/icons/checkbox_default.svg" alt="Unchecked">
-        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-checked-${taskId}-${index}" class="checkbox-img ${hideChecked}" src="../assets/icons/checked.png" alt="Checked">
+        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-default-${taskId}-${index}" class="checkbox-img ${hideDefault}" src="./assets/icons/checkbox_default.svg" alt="Unchecked">
+        <img onclick="toggleCheckbox(${index}, '${taskId}')" id="checkbox-checked-${taskId}-${index}" class="checkbox-img ${hideChecked}" src="./assets/icons/checked.png" alt="Checked">
         <p>${subtask}</p>
     </div>
+    `;
+}
+
+function buildEditForm(task) {
+  return `
+    <div class="close-edit-x-container">
+      <div id="close-edit-x-wrapper" class="close-dialog-x-wrapper" onclick="closeOverlay('edit')">
+          <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
+          <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
+          <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+      </div>
+    </div>
+    
+
+    <!-- FORMULAR -->
+    <form id="edit-add-task-form" class="edit-add-task-form" return false;">
+      <div class="task-column left-column">
+          <div class="form-group">
+              <label for="task-title">
+                  Title
+              </label>
+              <input id="edit-task-title" class="task-title form-input" type="text" placeholder="Enter a title" value="${task.title}">
+              <span id="edit-title-input-error" class="input-error dNone"></span>
+          </div>
+          <div class="form-group">
+              <label for="edit-task-description">
+                  Description
+              </label>
+              <textarea id="edit-task-description" class="task-description form-input" rows="5" placeholder="Enter a Description">${task.description}</textarea>
+          </div>  
+          <div class="form-group">
+              <label for="edit-task-due-date">
+                  Due date
+              </label>
+              <input id="edit-task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
+              <img id="edit-calendar-icon" src="./assets/icons/calendar.png" class="task-input-icon" alt="calendar image">
+              <span id="edit-due-date-input-error" class="input-error dNone"></span>
+          </div>
+      </div>
+      <div class="task-column right-column">
+
+          <!-- PRIORITY-BUTTONS -->
+          <div class="form-group">
+              <label>Priority</label>
+              <div class="priority-buttons">
+
+                  <!-- PRIORITY-URGENT -->
+                  <button id="edit-task-prio-urgent-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('urgent')">
+                      <span class="prio-text">Urgent</span>
+                      <img id="edit-task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
+                      <img id="edit-task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="">
+                  </button>
+
+                  <!-- PRIORITY-MEDIUM -->
+                  <button id="edit-task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="highlightSelectedPriority('medium')">
+                      <span class="prio-text">Medium</span> 
+                      <img id="edit-task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
+                      <img id="edit-task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="">
+                  </button>
+
+                  <!-- PRIORITY-LOW -->
+                  <button id="edit-task-prio-low-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('low')">
+                      <span class="prio-text">Low</span>
+                      <img id="edit-task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
+                      <img id="edit-task-prio-low-white" class="task-prio-img dNone" src="./assets/icons/low_prio_white.svg" alt="">
+                  </button>
+              </div>
+          </div>
+          <div id="edit-assigned-to-form" class="form-group">
+              <label>Assigned to</label>
+              <div id="edit-task-assigned-to-wrapper" class="edit-custom-dropdown"  onclick="stopEventBubbling(event)">
+                  <div class="edit-custom-dropdown-toggle form-input" onclick="openEditAssignedDropdown()">
+                      <input id="edit-task-assigned-to-input" class="edit-dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
+                      <img id="edit-dropdown-arrow" class="edit-dropdown-arrow" src="./assets/icons/arrow_drop_down.svg" onclick="toggleEditAssignedDropdown(event)" alt="">
+                      <img id="edit-dropup-arrow" src="./assets/icons/arrow_drop_up.svg" class="edit-dropdown-arrow dNone" onclick="toggleEditAssignedDropdown(event)" alt="">
+                  </div>
+                  <div id="edit-task-assigned-to-users" class="edit-custom-dropdown-users dNone">
+                  </div>
+                  <div id="edit-assigned-badges" class="edit-assigned-badges">
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="edit-subtasks-input">Subtasks</label> 
+              <input id="edit-subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput()">
+              <img id="edit-clear-input-btn" class="clear-input-icon dNone" src="./assets/icons/subtask_close.svg" alt="">
+              <span id="edit-subtasks-vertical-divider" class="edit-subtasks-vertical-divider dNone">|</span>
+              <img id="edit-add-subtask-btn" class="edit-add-subtask-icon dNone" src="./assets/icons/subtask_check.svg" alt="">
+              <ul id="edit-subtasks-list" class="edit-subtasks-list">
+
+              </ul>
+          </div>
+      </div>
+      <button type="button" class="add-task-button dark-button" id="success-edit-btn" onclick="saveEditedTask('${task.firebaseId}')">
+        OK 
+      </button>
+    </form>
+  `;
+}
+
+function buildEditDetails(task) {
+  return `
+        <div class="edit-field-group">
+            <label>Due Date</label>
+            <input id="edit-date" type="date" value="${task.dueDate}">
+            <label>Priority</label>
+            ${buildPrioritySelect(task.priority)}
+        </div>
+    `;
+}
+
+function buildPrioritySelect(currentPrio) {
+  return `
+        <select id="edit-prio">
+            <option value="Urgent" ${currentPrio === "Urgent" ? "selected" : ""}>Urgent</option>
+            <option value="Medium" ${currentPrio === "Medium" ? "selected" : ""}>Medium</option>
+            <option value="Low" ${currentPrio === "Low" ? "selected" : ""}>Low</option>
+        </select>
     `;
 }
 
@@ -152,7 +269,13 @@ function renderContactTemplate(index, initails, name, email, color) {
         `;
 }
 
-function renderDetailedContactsTemplate(initials, name, email, phoneNumber, color) {
+function renderDetailedContactsTemplate(
+  initials,
+  name,
+  email,
+  phoneNumber,
+  color,
+) {
   return `
   <div>
         <div class="contact-edit">
@@ -201,12 +324,8 @@ function contactBrakerTemplate(letter) {
  * @returns {string} The HTML string for the dropdown entry.
  */
 function renderUsersDropdownTemplate(user, initials, color) {
-    return `
-        <div class="dropdown-user" role="checkbox" aria-checked="false" aria-label="Assign task to ${user}"
-         onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')"
-         onkeydown="if(event.key === 'Enter' || event.key === ' ') toggleUserSelection(event, '${user}', '${initials}', '${color}')"
-         tabindex="0"
-        >
+  return `
+        <div id="dropdown-user" class="dropdown-user" onclick="toggleUserSelection(event, '${user}', '${initials}', '${color}')">
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
             <span class="dropdown-user-name">${user}</span>
             <img class="dropdown-user-checkbox" src="./assets/icons/checkbox_default.svg" alt="Blank black checkbox icon">
@@ -217,8 +336,34 @@ function renderUsersDropdownTemplate(user, initials, color) {
 }
 
 /**
+ * Returns the HTML string for a selectable user entry in the assignment dropdown.
+ *
+ * @param {string} user The user's display name.
+ * @param {string} initials The initials shown in the badge.
+ * @param {string} color The badge background color.
+ * @returns {string} The HTML string for the dropdown entry.
+ */
+function renderEditUsersDropdownTemplate(
+  userName,
+  initials,
+  color,
+  isSelected,
+) {
+  let mainClass = isSelected ? "selected" : "";
+  let hideDef = isSelected ? "dNone" : "";
+  let showChk = isSelected ? "" : "dNone";
+  return `<div class="edit-dropdown-user ${mainClass}" onclick="toggleEditUserSelection(event, '${userName}', '${initials}', '${color}')">
+        <div class="edit-dropdown-user-badge" style="background-color: ${color}">${initials}</div>
+        <span class="edit-dropdown-user-name">${userName}</span>
+        <img class="edit-dropdown-user-checkbox ${hideDef}" src="./assets/icons/checkbox_default.svg" alt="">
+        <img class="edit-dropdown-user-checkbox ${showChk}" src="./assets/icons/checkbox_checked.svg" alt="">
+        <img class="edit-dropdown-user-checkbox ${showChk}" src="./assets/icons/checkbox_checked_sign.svg" alt="">
+    </div>`;
+}
+
+/**
  * Returns the HTML string for a subtask item with both display and inline edit states.
- * 
+ *
  * @param {HTMLInputElement} subtasksInput The input element containing the subtask text.
  * @returns {string} The HTML string for the subtask item.
  */
@@ -251,6 +396,47 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                         </button>
                     </div>
                 </div>
-              </div>
-             `
+            </div>
+        </li>
+        <div id="subtask-edit" class="subtask-item-edit dNone">
+            <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
+            <div class="subtask-edit-btns">
+                <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
+                <span class="subtask-edit-input-divider">|</span>
+                <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt="" onclick="confirmEditSubtask(this)">
+            </div>
+        </div>
+    </div>
+  `;
+}
+
+/**
+ * Returns the HTML string for a subtask item with both display and inline edit states.
+ *
+ * @param {HTMLInputElement} subtasksInput The input element containing the subtask text.
+ * @returns {string} The HTML string for the subtask item.
+ */
+function renderEditSubtaskItemsTemplate(text) {
+  return `
+    <div class="edit-subtask-item-wrapper" ondblclick="editEditSubtask(this.querySelector('.edit-subtask-btn'))">   
+        <li class="edit-subtask-item" onmouseenter="showEditSubtaskButtons(this)" onmouseleave="hideEditSubtaskButtons(this)">
+            <div class="edit-subtask-item-content">
+                <span class="edit-subtask-text">${text}</span>
+                <div class="edit-subtask-item-btns dNone">
+                    <img class="edit-edit-subtask-btn" src="./assets/icons/subtask_edit.svg" onclick="editEditSubtask(this)">
+                    <span class="edit-subtask-edit-divider">|</span>
+                    <img class="edit-delete-subtask-btn" src="./assets/icons/subtask_delete.svg" onclick="deleteEditSubtask(this)">
+                </div>
+            </div>
+        </li>
+        <div class="edit-subtask-edit dNone">
+            <input class="edit-subtask-edit-input" type="text" name="subtasks" value="${text}" onkeypress="if(event.key === 'Enter') confirmEditEditSubtask(this)">
+            <div class="edit-subtask-edit-btns">
+                <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" onclick="deleteEditSubtask(this)">
+                <span class="edit-subtask-edit-input-divider">|</span>
+                <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" onclick="confirmEditEditSubtask(this)">
+            </div>
+        </div>
+    </div>
+  `;
 }

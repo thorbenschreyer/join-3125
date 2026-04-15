@@ -154,6 +154,64 @@ function highlightSelectedPriority(priority) {
     }   
 }
 
+function addTask() {
+    const newTask = buildTaskObject();
+    tasks.push(newTask);
+    saveTaskData();
+    addTaskSuccess();
+}
+
+function buildTaskObject() {
+    return {
+        id: generateUniqueId(),
+        title: titleInput.value,
+        description: descInput.value,
+        dueDate: dueDateInput.value,
+        priority: getSelectedPriority(),
+        assignedTo: selectedUsers.map(user => user.name),
+        category: categoryInput.value,
+        categoryColor: categoryInput.value.trim().toLowerCase().split(' ').join('-'),
+        subtasks: getFormattedSubtasks(),
+        currentTask: `${currentTaskBar}`
+    };
+}
+
+function addTaskSuccess() {
+    addTaskBtn.disabled = true;
+    addTaskSuccessToast.classList.add("show");
+    addTaskSuccessOverlay.classList.add("show");
+    setTimeout(() => {
+        loadBoardPage();
+    }, 1500);
+    
+}
+
+async function saveTaskData() {
+    let lastTask = tasks.length - 1;
+    await fetch(`${BASE_URL}tasks.json`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tasks[lastTask])
+    });
+}
+
+async function loadUsers() {
+    users = [];
+    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserDataToJson = await allUserData.json(); 
+    let UserKeysArray = Object.keys(allUserDataToJson);
+
+    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
+        users.push(
+            {
+                name : allUserDataToJson[UserKeysArray[userIndex]].name,
+                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
+            }
+        )
+    }  
+};  
 // ASSIGNED TO
 /**
  * Renders the assignment dropdown from the loaded user list.

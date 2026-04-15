@@ -8,9 +8,9 @@
 }
 
 .drag-area-highlight {
-    border: 2px dashed #A8A8A8 !important;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 10px;
+  border: 2px dashed #a8a8a8 !important;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
 }
 
 .add-plus-img {
@@ -62,6 +62,7 @@
   letter-spacing: 0%;
   background: none;
   padding: 8px 0 8px 16px;
+  max-width: 245px;
 }
 
 .find-task-input:-webkit-autofill {
@@ -80,7 +81,7 @@
   width: 312px;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #A8A8A8;
+  border: 1px solid #a8a8a8;
   border-radius: 10px;
   background-color: white;
   padding-right: 16px;
@@ -95,36 +96,35 @@
   box-sizing: content-box;
   width: 32px;
   height: 32px;
-  
 }
 
 .search-icon-wrapper {
   display: flex;
   cursor: pointer;
-  border-left: 1px solid #A8A8A8;
+  border-left: 1px solid #a8a8a8;
   padding-left: 16px;
 }
 
 .search-icon-hover,
 .search-icon-active {
-    display: none;
+  display: none;
 }
 
 .search-icon-wrapper:hover .search-icon-default {
-    display: none;
+  display: none;
 }
 
 .search-icon-wrapper:hover .search-icon-hover {
-    display: block;
+  display: block;
 }
 
 .search-icon-wrapper:active .search-icon-default,
 .search-icon-wrapper:active .search-icon-hover {
-    display: none;
+  display: none;
 }
 
 .search-icon-wrapper:active .search-icon-active {
-    display: block;
+  display: block;
 }
 
 .all-task-bars {
@@ -153,12 +153,12 @@
   align-items: center;
 }
 
-.task-bar-heading{
+.task-bar-heading {
   font-size: 20px;
   font-weight: 700;
   line-height: 120%;
   letter-spacing: 0%;
-  color: #42526E;
+  color: #42526e;
 }
 
 .tasks-header-and-plus {
@@ -175,24 +175,24 @@
 
 .add-task-plus-hover,
 .add-task-plus-active {
-    display: none;
+  display: none;
 }
 
 .add-task-plus-wrapper:hover .add-task-plus {
-    display: none;
+  display: none;
 }
 
 .add-task-plus-wrapper:hover .add-task-plus-hover {
-    display: block;
+  display: block;
 }
 
 .add-task-plus-wrapper:active .add-task-plus,
 .add-task-plus-wrapper:active .add-task-plus-hover {
-    display: none;
+  display: none;
 }
 
 .add-task-plus-wrapper:active .add-task-plus-active {
-    display: block;
+  display: block;
 }
 
 .tasks-container {
@@ -217,10 +217,10 @@
   justify-content: center;
   align-items: center;
   height: 48px;
-  border: dashed 1px #A8A8A8;
-  background-color: #E7E7E7;
+  border: dashed 1px #a8a8a8;
+  background-color: #e7e7e7;
   box-shadow: 0 0 4px 0 #000000 16%;
-  border-radius: 10px;  
+  border-radius: 10px;
   width: 248px;
   margin-top: 16px;
 }
@@ -230,7 +230,7 @@
   font-weight: 400;
   line-height: 120%;
   letter-spacing: 0%;
-  color: #A8A8A8;
+  color: #a8a8a8;
 }
 
 .add-task-overlay,
@@ -298,13 +298,21 @@
 }
 
 @keyframes slideInFromRight {
-  from { transform: translateX(100vw); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideOutToRight {
-  from { transform: translateX(0); }
-  to { transform: translateX(100vw); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100vw);
+  }
 }
 
 /* Task Design */
@@ -326,20 +334,23 @@
   transform: translate(0, 0);
   -webkit-user-select: none;
   user-select: none;
-  min-height: fit-content;
+  min-height: webkit-fit-content;
+  flex-shrink: 0;
 }
 
 .rotate-on-drag {
-    transform: rotate(5deg) !important;
-    opacity: 0.6;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+  transform: rotate(5deg) !important;
+  opacity: 0.6;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .small-task-category-user-story {
   font-size: 16px;
   font-weight: 400;
   color: white;
-  background-color: #0038FF;
+  background-color: #0038ff;
   padding: 4px 16px;
   border-radius: 8px;
 }
@@ -356,13 +367,13 @@
 .small-task-title {
   font-size: 16px;
   font-weight: 700;
-  color: #2A3647;
+  color: #2a3647;
 }
 
 .small-task-description {
   font-size: 16px;
   font-weight: 400;
-  color: #A8A8A8;
+  color: #a8a8a8;
 }
 
 .subtasks-with-subtasks-bar-container {
@@ -376,11 +387,11 @@
   width: 110px;
   height: 8px;
   border-radius: 8px;
-  border: solid 1px #4589FF;
+  border: solid 1px #4589ff;
 }
 
 .subtasks-bar {
-  background-color: #4589FF;
+  background-color: #4589ff;
   height: 100%;
   border-radius: 8px;
 }
@@ -405,229 +416,4 @@
 
 .small-task-dropdown-user-badge:not(:first-child) {
   margin-left: -10px;
-}
-
-/* Dialog Task Design */
-
-.dialog-add-task-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.dialog-board-task {
-  display: flex;
-  width: 525px;
-  flex-direction: column;
-  gap: 16px;
-  background-color: white;
-  border-radius: 30px;
-}
-
-.dialog-task-category-and-close-x-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dialog-task-category {
-  font-size: 23px;
-  font-weight: 400;
-  font-style: normal;
-  color: white;
-  background-color: #0038FF;
-  padding: 4px 16px;
-  border-radius: 8px;
-  width: max-content;
-}
-
-.close-dialog-x-wrapper{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  width: 10px;
-}
-
-.close-dialog-x-hover,
-.close-dialog-x-active {
-    display: none;
-}
-
-.close-dialog-x-wrapper:hover .close-dialog-x-default {
-    display: none;
-}
-
-.close-dialog-x-wrapper:hover .close-dialog-x-hover {
-    display: block;
-}
-
-.close-dialog-x-wrapper:active .close-dialog-x-default,
-.close-dialog-x-wrapper:active .close-dialog-x-hover {
-    display: none;
-}
-
-.close-dialog-x-wrapper:active .close-dialog-x-active {
-    display: block;
-}
-
-.dialog-task-title {
-  font-size: 61px;
-  font-weight: 700;
-  max-height: 300px;
-  overflow: auto;
-}
-
-.dialog-task-description {
-  font-size: 20px;
-  font-weight: 400;
-  max-height: 300px;
-  overflow: auto;
-}
-
-.dialog-due-date {
-  display: flex;
-  gap: 32px;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.fix-width-120px {
-  width: 120px;
-}
-
-.dialog-priority-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dialog-task-priority {
-  display: flex;
-  gap: 32px;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.dialog-task-prio-img {
-  width: 20px;
-  height: 10px;
-}
-
-.dialog-task-user-badges {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-height: 225px;
-  overflow: auto;
-}
-
-.dialog-dropdown-user-badge-with-name-container {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  gap: 16px;
-}
-
-.dialog-assigned-to-heading {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.assigned-to-name {
-  font-size: 19px;
-  font-weight: 400;
-}
-
-.dialog-task-subtasks {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 235px;
-  overflow: auto;
-}
-
-.dialog-task-subtasks-header {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.dialog-task-subtask-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.subtask-and-checkbox-container {
-  display: flex;
-  gap: 16px;
-  overflow-y: auto;
-  align-items: center;
-}
-
-.checkbox-img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-}
-
-.dialog-delete-edit-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: end;
-  justify-content: end;
-  gap: 8px;
-}
-
-.dialog-delete-container:hover {
-  color: #29abe2;
-  text-shadow: 0 0 1px #29abe2;
-}
-
-.dialog-edit-container:hover {
-  color: #29abe2;
-  text-shadow: 0 0 1px #29abe2;
-}
-
-.dialog-delete-img-wrapper,
-.dialog-edit-img-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.dialog-delete-container,
-.dialog-edit-container {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  cursor: pointer;
-}
-
-.dialog-delete-hover-img,
-.dialog-edit-hover-img {
-    display: none;
-}
-
-.dialog-delete-container:hover .dialog-delete-img,
-.dialog-edit-container:hover .dialog-edit-img {
-    display: none;
-}
-
-.dialog-delete-container:hover .dialog-delete-hover-img,
-.dialog-edit-container:hover .dialog-edit-hover-img {
-    display: block;
-}
-
-.img-size-24px {
-  width: 24px;
-  height: 24px;
-}
-
-.dialog-delete-edit {
-  font-size: 16px;
-  font-weight: 400;
 }
