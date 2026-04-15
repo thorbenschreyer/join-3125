@@ -2,7 +2,7 @@
 
 const renewTasks = [
     {
-        assignedTo: ['Anna Müller', 'Heinzi'],
+        assignedTo: ['Paul Becker', 'Sarah Hoffmann'],
         category: 'Technical Task',
         categoryColor: 'technical-task',
         currentTask: 'to-do',
@@ -19,7 +19,7 @@ const renewTasks = [
         title: 'Authentication Flow Update'
     },
     {
-        assignedTo: ['Hiroshi Tanaka'],
+        assignedTo: ['Daniel Klein'],
         category: 'User Story',
         categoryColor: 'user-story',
         currentTask: 'in-progress',
@@ -35,7 +35,7 @@ const renewTasks = [
         title: 'Implement Dark Mode'
     },
     {
-        assignedTo: ['Jane Doe', 'John Doe'],
+        assignedTo: ['Nina Schulz', 'Felix Wagner'],
         category: 'Technical Task',
         categoryColor: 'technical-task',
         currentTask: 'await-feedback',
@@ -53,7 +53,7 @@ const renewTasks = [
         title: 'Query Optimization'
     },
     {
-        assignedTo: ['Juan Pérez'],
+        assignedTo: ['Lea Bauer'],
         category: 'Technical Task',
         categoryColor: 'technical-task',
         currentTask: 'to-do',
@@ -68,7 +68,7 @@ const renewTasks = [
         title: 'Setup CI Pipeline'
     },
     {
-        assignedTo: ['Laura', 'Lisa Weber'],
+        assignedTo: ['Emma Krüger', 'Tobias Krause'],
         category: 'User Story',
         categoryColor: 'user-story',
         currentTask: 'done',
@@ -85,7 +85,7 @@ const renewTasks = [
         title: 'Mobile Navigation'
     },
     {
-        assignedTo: ['Maria Musterfrau', 'Max Mustermann'],
+        assignedTo: ['Lukas Meier', 'Anna Fuchs'],
         category: 'Technical Task',
         categoryColor: 'technical-task',
         currentTask: 'to-do',
