@@ -157,12 +157,15 @@ function hideDueDateError() {
 /**
  * Restores the neutral priority state before a new selection is highlighted.
  */
-function resetPriorityImages() {
+function resetPriorityButtons() {
     priorityColorImages.forEach(img => img.classList.remove("dNone"));
     priorityWhiteImages.forEach(img => img.classList.add("dNone"));
     urgentBtn.classList.remove("prio-urgent");
     mediumBtn.classList.remove("prio-medium");
     lowBtn.classList.remove("prio-low");
+    urgentBtn.ariaPressed = "false";
+    mediumBtn.ariaPressed = "false";
+    lowBtn.ariaPressed = "false";
 }
 
 /**
@@ -172,6 +175,7 @@ function highlightLowPriority() {
     lowBtn.classList.add("prio-low");
     lowColorImg.classList.add("dNone");
     lowWhiteImg.classList.remove("dNone");
+    lowBtn.ariaPressed = "true";
 }
 
 /**
@@ -181,6 +185,7 @@ function highlightMediumPriority() {
     mediumBtn.classList.add("prio-medium");
     mediumColorImg.classList.add("dNone");
     mediumWhiteImg.classList.remove("dNone");
+    mediumBtn.ariaPressed = "true";
 }
 
 /**
@@ -190,7 +195,7 @@ function highlightUrgentPriority() {
     urgentBtn.classList.add("prio-urgent");
     urgentColorImg.classList.add("dNone");
     urgentWhiteImg.classList.remove("dNone");
-
+    urgentBtn.ariaPressed = "true";
 }
 
 // ASSIGNED TO
@@ -207,6 +212,8 @@ function checkDropdownState() {
 
 /**
  * Builds initials for the assignment badges from a user's display name.
+ * @param {string} name The full display name of the user to generate initials for.
+ * @returns {string} The generated initials for the user.
  */
 function getInitials(name) {
     return name.split(" ").map(part => part.charAt(0).toUpperCase()).join("");
@@ -231,7 +238,7 @@ function renderAssignedBadges() {
  */
 function filterAssignedUsers() {
     let searchText = document.getElementById("task-assigned-to-input").value.toLowerCase();
-    let users = assignedToUsers.querySelectorAll("#dropdown-user");
+    let users = assignedToUsers.querySelectorAll(".dropdown-user");
     for (let i = 0; i < users.length; i++) {
         let name = users[i].querySelector(".dropdown-user-name").textContent.toLowerCase();
         users[i].style.display = name.startsWith(searchText) ? "flex" : "none";
@@ -257,6 +264,7 @@ function resetUserSelection() {
 // SUBTASKS
 /**
  * Reveals the subtask action buttons and highlights the active item.
+ * @param {HTMLElement} item The subtask item element to show the buttons for.
  */
 function showSubtaskButtons(item) {
     item.querySelector(".subtask-item-btns").style.display = "flex";
@@ -266,6 +274,7 @@ function showSubtaskButtons(item) {
 
 /**
  * Hides the subtask action buttons and removes the active item highlight.
+ * @param {HTMLElement} item The subtask item element to hide the buttons for.
  */
 function hideSubtaskButtons(item) {
     item.querySelector(".subtask-item-btns").style.display = "none";
@@ -294,6 +303,7 @@ function hideSubtaskInputButtons() {
 // BUILD TASK OBJECT
 /**
  * Derives the currently selected priority from the active button state.
+ * @return {string} The priority level corresponding to the active selection, or an empty string if none is selected.
  */
 function getSelectedPriority() {
     if (urgentBtn.classList.contains('prio-urgent')) return 'urgent';
@@ -311,6 +321,7 @@ function getEditSelectedPriority() {
 
 /**
  * Converts the rendered subtask items into the structure expected for task storage.
+ * @return {Array} An array of subtask objects containing their text and default state.
  */
 function getFormattedSubtasks() {
     const subtaskNodes = Array.from(document.querySelectorAll('.subtask-text'));
@@ -323,6 +334,7 @@ function getFormattedSubtasks() {
 
 /**
  * Generates the next local task ID based on the highest ID currently in memory.
+ * @return {number} The next unique task ID.
  */
 function generateUniqueId() {
     if (tasks.length === 0) {

@@ -7,14 +7,17 @@ function initAddTaskListeners() {
     initDueDateInputListeners();
     initCalendarIconListener();
     initAssignedToListener();
-    initCategoryListeners();
-    initSubtaskListeners();
+    initClickCategoryListeners();
+    initKeyboardCategoryListeners();
+    initClickSubtaskListeners();
+    initKeyboardSubtaskListeners();
     initFormValidationListeners();
     initClearFormListener();
 }
 
 /**
  * Closes open dropdowns and subtask controls when the user clicks outside their active area.
+ * @param {MouseEvent} event The click event triggered on the document.
  */
 function initClickOutsideElementsListener() {
     document.addEventListener("click", function(event) {
@@ -86,7 +89,7 @@ function initCalendarIconListener() {
     calendarIcon.addEventListener("click", function() {
         dueDateInput.showPicker();
     });
-}
+}           
 
 // ASSIGNED TO
 /**
@@ -96,13 +99,28 @@ function initAssignedToListener() {
     assignedToInput.addEventListener("focus", function() {
         assignedToInputWrapper.classList.add("blue-border");
     });
+    assignedToInput.addEventListener("blur", function() {
+        assignedToInputWrapper.classList.remove("blue-border");
+    });
+    assignedToInputWrapper.addEventListener("keydown", function(event) {
+        if (event.key === 'Escape') {
+            closeAssignedDropdown();
+        }
+    });
+    assignedToInputWrapper.addEventListener("input", function() {
+        if (assignedToInput.value.length == 1) {
+            openAssignedDropdown();
+        } else if (assignedToInput.value.length == 0) {
+            closeAssignedDropdown();
+        }
+    });
 }
 
 // CATEGORY
 /**
- * Applies the selected category option and triggers the shared change-based validation flow.
+ * Applies the selected category option on click and triggers the shared change-based validation flow.
  */
-function initCategoryListeners() {
+function initClickCategoryListeners() {
     technicalTask.addEventListener("click", function() {
         categoryInput.value = "Technical Task";
         categoryInput.dispatchEvent(new Event("change"));
@@ -115,11 +133,34 @@ function initCategoryListeners() {
     })
 }
 
+/**
+ * Applies the selected category option on Enter or Space and triggers the shared change-based validation flow.
+ * @param {KeyboardEvent} event The keydown event triggered on the category option.
+ */
+function initKeyboardCategoryListeners()  {
+    technicalTask.parentElement.addEventListener("keydown", function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            categoryInput.value = "Technical Task";
+            categoryInput.dispatchEvent(new Event("change"));
+            closeCategoryDropdown();
+        }
+    });
+    userStory.parentElement.addEventListener("keydown", function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            categoryInput.value = "User Story";
+            categoryInput.dispatchEvent(new Event("change"));
+            closeCategoryDropdown();
+        }
+    });
+}
+
 // SUBTASKS
 /**
- * Wires the subtask input to show its controls, clear temporary input, and add subtasks through both click and Enter.
+ * Wires the subtask input to show its controls and handle click-based clear and add actions.
  */
-function initSubtaskListeners() {
+function initClickSubtaskListeners() {
     subtasksInput.addEventListener("focus", function() {
         showSubtaskInputButtons();
     });
@@ -129,16 +170,38 @@ function initSubtaskListeners() {
     });
     addSubtaskBtn.addEventListener("click", function() {
         if (subtasksInput.value.length > 0) {
-        subtasksList.insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
-        subtasksInput.value = "";
-        hideSubtaskInputButtons();
+            subtasksList.insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
+            subtasksInput.value = "";
+            hideSubtaskInputButtons();
         }
     });
-    subtasksInput.addEventListener("keypress", function(event) {
+}
+
+/**
+ * Enables keyboard access for adding and clearing subtasks with Enter or Space.
+ * @param {KeyboardEvent} event The keydown event triggered on the subtask input or buttons.
+ */
+function initKeyboardSubtaskListeners() {
+    subtasksInput.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
             addSubtaskBtn.click();
             showSubtaskInputButtons();
+        }
+    });
+    clearSubtasksBtn.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            subtasksInput.value = "";
+            hideSubtaskInputButtons();
+        }
+    });
+    addSubtaskBtn.addEventListener("keydown", function(event) {
+        if (subtasksInput.value.length > 0 && (event.key === "Enter" || event.key === " ")) {
+            event.preventDefault();
+            subtasksList.insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
+            subtasksInput.value = "";
+            hideSubtaskInputButtons();
         }
     });
 }
@@ -176,5 +239,5 @@ function initFormValidationListeners() {
 function initClearFormListener() {
     clearFormBtn.addEventListener("click", function () {
         clearFormular();
-    })
+    });
 }

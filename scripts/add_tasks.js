@@ -141,15 +141,16 @@ function checkFormValidity() {
 // PRIORITY
 /**
  * Applies the selected priority style after clearing the previous visual state.
+ * @param {string} priority The priority level to apply ("urgent", "medium", or "low").
  */
 function highlightSelectedPriority(priority) {
-    resetPriorityImages();
+    resetPriorityButtons();
     if (priority === "urgent") {
         highlightUrgentPriority();
     } else if (priority === "medium") {
         highlightMediumPriority();
     } else if (priority === "low") {
-        highlightLowPriority()
+        highlightLowPriority();
     }   
 }
 
@@ -237,10 +238,12 @@ function openAssignedDropdown() {
     arrowup.classList.toggle("dNone");
     document.getElementById("task-assigned-to-input").focus();
     assignedToInputWrapper.classList.add("blue-border");
+    closeCategoryDropdown();
 }
 
 /**
  * Toggles the assignment dropdown without triggering the outside-click handler.
+ * @param {Event} event The click event triggered by the user interaction.
  */
 function toggleAssignedDropdown(event) {
     event.stopPropagation();
@@ -251,10 +254,12 @@ function toggleAssignedDropdown(event) {
     users.classList.toggle("dFlex");
     arrowdown.classList.toggle("dNone");
     arrowup.classList.toggle("dNone");
+    document.getElementById("task-assigned-to-input").focus();
     checkDropdownState();
     if (users.classList.contains("dFlex")) {
         assignedToInputWrapper.classList.add("blue-border");
     }
+    closeCategoryDropdown();
 }
 
 /**
@@ -276,10 +281,15 @@ function closeAssignedDropdown() {
 
 /**
  * Toggles a user in the current assignment selection and refreshes the badge preview.
+ * @param {Event} event The click event triggered by the user interaction.
+ * @param {string} user The name of the user to toggle in the selection.
+ * @param {string} initials The initials of the user for badge display.
+ * @param {string} color The avatar color of the user for badge display.
  */
 function toggleUserSelection(event, user, initials, color) {
     let element = event.currentTarget;
     element.classList.toggle("selected");
+    element.ariaChecked = element.classList.contains("selected") ? "true" : "false";
     element.querySelectorAll(".dropdown-user-checkbox").forEach(img => img.classList.toggle("dNone"));
     let index = selectedUsers.findIndex(u => u.name === user);
     if (index > -1) {
@@ -288,6 +298,7 @@ function toggleUserSelection(event, user, initials, color) {
         selectedUsers.push({ name: user, initials: initials, color: color });
     }
     renderAssignedBadges();
+    assignedToInputWrapper.classList.add("blue-border");
 }
 
 // CATEGORY
@@ -295,32 +306,50 @@ function toggleUserSelection(event, user, initials, color) {
  * Opens the category dropdown and moves focus to the input.
  */
 function openCategoryDropdown() {
+    let arrowdown = document.getElementById("category-dropdown-arrow");
+    let arrowup = document.getElementById("category-dropup-arrow");
     categoryTasks.classList.remove("dNone");
     categoryTasks.classList.add("dFlex");
+    arrowdown.classList.add("dNone");
+    arrowup.classList.remove("dNone");
     document.getElementById("task-category-input").focus();
+    closeAssignedDropdown();
 }
 
 /**
  * Toggles the category dropdown without triggering the outside-click handler.
+ * @param {Event} event The click event triggered by the user interaction.
  */
 function toggleCategoryDropdown(event) {
     event.stopPropagation();
+    let arrowdown = document.getElementById("category-dropdown-arrow");
+    let arrowup = document.getElementById("category-dropup-arrow");
     categoryTasks.classList.toggle("dNone");
     categoryTasks.classList.toggle("dFlex");
+    arrowdown.classList.toggle("dNone");
+    arrowup.classList.toggle("dNone");
     document.getElementById("task-category-input").focus();
+    closeAssignedDropdown();
 }
 
 /**
  * Closes the category dropdown.
  */
 function closeCategoryDropdown() {
+    let arrowdown = document.getElementById("category-dropdown-arrow");
+    let arrowup = document.getElementById("category-dropup-arrow");
     categoryTasks.classList.add("dNone");
     categoryTasks.classList.remove("dFlex");
+    if (arrowdown && arrowup) {
+        arrowdown.classList.remove("dNone");
+        arrowup.classList.add("dNone");
+    }
 }
 
 // SUBTASKS
 /**
  * Switches a subtask into edit mode and places the cursor at the end of the current text.
+ * @param {HTMLElement} button The button element that triggered the edit action.
  */
 function editSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
@@ -335,6 +364,7 @@ function editSubtask(button) {
 
 /**
  * Applies the edited subtask text and restores the default display state.
+ * @param {HTMLElement} button The button element that triggered the confirm action.
  */
 function confirmEditSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
@@ -350,6 +380,7 @@ function confirmEditSubtask(button) {
 
 /**
  * Removes the selected subtask from the current form state.
+ * @param {HTMLElement} button The button element that triggered the delete action.
  */
 function deleteSubtask(button) {
     button.closest(".subtask-item-wrapper").remove();
@@ -370,14 +401,17 @@ function clearFormular() {
     dueDateInput.value = "";
     dueDateInput.classList.remove("red-border")
     dueDateInputError.textContent = "";
+    resetPriorityButtons();
     highlightSelectedPriority("medium");
     resetUserSelection();
     categoryInput.value = "";
+    subtasksInput.value = "";
     subtasksList.innerHTML = "";
 }
 
 /**
  * Creates a task object from the current form state before it is saved.
+ * @return {Object} The task object containing all relevant fields for storage and display.
  */
 function buildTaskObject() {
     return {
