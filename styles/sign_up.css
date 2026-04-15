@@ -230,6 +230,12 @@ input {
   outline-offset: 2px;
 }
 
+.signup-button:disabled {
+  background-color: var(--logo-dark-blue);
+  cursor: not-allowed !important;
+  transform: none;
+}
+
 /* === FOOTER === */
 .signup-footer {
   padding: 0 0 24px;

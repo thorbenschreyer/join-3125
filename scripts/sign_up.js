@@ -138,6 +138,7 @@ function resetEmailInputStyles() {
 function initAccessibilityListeners() {
     initBackButtonKeyboardListener();
     initPrivacyCheckboxKeyboardListener();
+    initSignupButtonState();
     initPrivacyLinkKeyboardListener();
     initPrivacyFooterKeyboardListener();
     initLegalFooterKeyboardListener();
@@ -166,6 +167,21 @@ function initPrivacyCheckboxKeyboardListener() {
         if (event.key === "Enter") {
             event.preventDefault();
             PRIVACY_POLICY_CHECKBOX.checked = !PRIVACY_POLICY_CHECKBOX.checked;
+            PRIVACY_POLICY_CHECKBOX.dispatchEvent(new Event("change"));
+        }
+    });
+}
+
+/**
+ * Enables or disables the signup button based on the state of the privacy policy checkbox,
+ * ensuring that users can only proceed after giving consent.
+ */
+function initSignupButtonState() {
+    PRIVACY_POLICY_CHECKBOX.addEventListener("change", function() {
+        if (PRIVACY_POLICY_CHECKBOX.checked === true) {
+            SIGNUP_BUTTON.disabled = false;
+        } else if (PRIVACY_POLICY_CHECKBOX.checked === false) {
+            SIGNUP_BUTTON.disabled = true;
         }
     });
 }
