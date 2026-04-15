@@ -30,7 +30,7 @@ function loginSubmit(event) {
   const errorContainer = document.getElementById("container-error-message");
   const buttonsContainer = document.getElementById("container-login-buttons");
   if (user && user.password == passwordData.value) {
-    console.log("Login erfolgreich!!");
+    // Login erfolgreich
     buttonsContainer.classList.remove("button-margin-top-if-error");
     errorContainer.classList.add("d-none");
     emailData.value = "";

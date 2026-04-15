@@ -43,6 +43,25 @@ function initPriorityElements() {
     priorityWhiteImages = [urgentWhiteImg, mediumWhiteImg, lowWhiteImg];
 }
 
+// PRIORITY ELEMENTS Edit Dialog
+/**
+ * Initializes the DOM references used to control priority buttons and their icon states.
+ */
+function initEditPriorityElements() {
+    urgentBtn = document.getElementById("edit-task-prio-urgent-btn");
+    mediumBtn = document.getElementById("edit-task-prio-medium-btn");
+    lowBtn = document.getElementById("edit-task-prio-low-btn");
+    priorityButtons = [urgentBtn, mediumBtn, lowBtn];
+    urgentColorImg = document.getElementById("edit-task-prio-urgent-color");
+    urgentWhiteImg = document.getElementById("edit-task-prio-urgent-white");
+    mediumColorImg = document.getElementById("edit-task-prio-medium-color");
+    mediumWhiteImg = document.getElementById("edit-task-prio-medium-white");
+    lowColorImg = document.getElementById("edit-task-prio-low-color");
+    lowWhiteImg = document.getElementById("edit-task-prio-low-white");
+    priorityColorImages = [urgentColorImg, mediumColorImg, lowColorImg];
+    priorityWhiteImages = [urgentWhiteImg, mediumWhiteImg, lowWhiteImg];
+}
+
 // ASSIGNED TO ELEMENTS
 /**
  * Initializes the DOM references for the assignment dropdown and its input state.
@@ -280,6 +299,13 @@ function getSelectedPriority() {
     if (urgentBtn.classList.contains('prio-urgent')) return 'urgent';
     if (mediumBtn.classList.contains('prio-medium')) return 'medium';
     if (lowBtn.classList.contains('prio-low')) return 'low';
+    return '';
+}
+
+function getEditSelectedPriority() {
+    if (urgentBtn.classList.contains('prio-urgent')) return 'Urgent';
+    if (mediumBtn.classList.contains('prio-medium')) return 'Medium';
+    if (lowBtn.classList.contains('prio-low')) return 'Low';
     return '';
 }
 
