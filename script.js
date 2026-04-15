@@ -83,30 +83,6 @@ function checkLogin(page) {
   }
 }
 
-/**
- * This function allows you to load and open an HTML file asynchronously
- * @param {The ID of the div container} divID
- * @param {The name or the folder and the name of the HTML file} pagefile
- */
-// async function loadHtmlPage(divID, pagefile) {
-//   const response = await fetch(pagefile);
-//   const html = await response.text();
-//   document.getElementById(divID).innerHTML = html;
-
-//   if (pagefile.includes("contacts.html")) {
-//     initContacts();
-//   }
-
-//   if (
-//     pagefile != "./footerpages/help.html" &&
-//     pagefile != "./footerpages/privacy_policy.html" &&
-//     pagefile != "./footerpages/legal_notice.html"
-//   ) {
-//     lastOpenID = divID;
-//     lastOpenPage = pagefile;
-//   }
-// }
-
 async function loadHtmlPage(divID, pagefile) {
   const response = await fetch(pagefile);
   const html = await response.text();
