@@ -183,7 +183,7 @@ input {
   accent-color: var(--logo-dark-blue);
 }
 
-.signup-form-footer input[type="checkbox"]:focus {
+.signup-form-footer input[type="checkbox"]:focus-visible {
   outline: solid 2px #000000;
   outline-offset: 2px;
 }
