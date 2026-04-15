@@ -48,7 +48,7 @@
                 </label>
                 <input id="task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10">
                 <button id="calendar-icon" class="task-input-icon" type="button" aria-label="Open date picker">
-                    <img src="./assets/icons/calendar.png" alt="">
+                    <img src="./assets/icons/calendar.png" alt="Calendar Icon">
                 </button>
                 <span id="due-date-input-error" class="input-error dNone"></span>
             </div>
@@ -71,8 +71,8 @@
                      onclick="highlightSelectedPriority('urgent')" 
                     >
                         <span class="prio-text">Urgent</span>
-                        <img id="task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
-                        <img id="task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="">
+                        <img id="task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="Double chevron up in red icon">
+                        <img id="task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="Double chevron up in white icon">
                     </button>
 
                     <!-- PRIORITY-MEDIUM -->
@@ -80,8 +80,8 @@
                      onclick="highlightSelectedPriority('medium')" 
                     >
                         <span class="prio-text">Medium</span> 
-                        <img id="task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
-                        <img id="task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="">
+                        <img id="task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="Equal sign in orange icon">
+                        <img id="task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="Equal sign in white icon">
                     </button>
 
                     <!-- PRIORITY-LOW -->
@@ -89,8 +89,8 @@
                      onclick="highlightSelectedPriority('low')" 
                     >
                         <span class="prio-text">Low</span>
-                        <img id="task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
-                        <img id="task-prio-low-white" class="task-prio-img dNone" src="./assets/icons/low_prio_white.svg" alt="">
+                        <img id="task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="Double chevron down in green icon">
+                        <img id="task-prio-low-white" class="task-prio-img dNone" src="./assets/icons/low_prio_white.svg" alt="Double chevron down in white icon">
                     </button>
 
                 </div>
@@ -103,10 +103,10 @@
                     <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
                         <input id="task-assigned-to-input" class="dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
                         <button id="dropdown-arrow" class="dropdown-arrow" type="button" aria-label="Open assigned dropdown" onclick="toggleAssignedDropdown(event)">
-                            <img src="./assets/icons/arrow_drop_down.svg" alt="">
+                            <img src="./assets/icons/arrow_drop_down.svg" alt="Down arrow icon">
                         </button>
                         <button id="dropup-arrow" class="dropdown-arrow dNone" type="button" aria-label="Close assigned dropdown" onclick="toggleAssignedDropdown(event)">
-                            <img src="./assets/icons/arrow_drop_up.svg" alt="">
+                            <img src="./assets/icons/arrow_drop_up.svg" alt="Up arrow icon">
                         </button>
                     </div>
                     <div id="task-assigned-to-users" class="custom-dropdown-users dNone">
@@ -125,10 +125,10 @@
                     <div class="custom-dropdown-toggle form-input" onclick="openCategoryDropdown()">
                         <input id="task-category-input" class="dropdown-input" type="text" placeholder="Select task category" readonly>
                         <button id="category-dropdown-arrow" class="dropdown-arrow" type="button" aria-label="Open category dropdown" onclick="toggleCategoryDropdown(event)">
-                            <img src="./assets/icons/arrow_drop_down.svg" alt="">
+                            <img src="./assets/icons/arrow_drop_down.svg" alt="Down arrow icon">
                         </button>
                         <button id="category-dropup-arrow" class="dropdown-arrow dNone" type="button" aria-label="Close category dropdown" onclick="toggleCategoryDropdown(event)">
-                            <img src="./assets/icons/arrow_drop_up.svg" alt="">
+                            <img src="./assets/icons/arrow_drop_up.svg" alt="Up arrow icon">
                         </button>
                     </div>
                     <div id="task-category-tasks" class="custom-dropdown-tasks dNone" role="listbox">
@@ -147,11 +147,11 @@
                 <label for="subtasks-input">Subtasks</label> 
                 <input id="subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask">
                 <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
-                    <img src="./assets/icons/subtask_close.svg" alt="">
+                    <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
                 </button>
                 <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
                 <button id="add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask">
-                    <img src="./assets/icons/subtask_check.svg" alt="">
+                    <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                 </button>
                 <ul id="subtasks-list" class="subtasks-list">
                     <!-- dynamic content: subtasks will be populated here -->
@@ -182,7 +182,7 @@
             </button>
             <button id="add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" disabled>
                 <span>Create Task</span>
-                <img src="./assets/icons/check_light.svg" alt="">
+                <img src="./assets/icons/check_light.svg" alt="Checkmark icon">
             </button>
         </div>
 
@@ -193,7 +193,7 @@
         <div id="add-task-success-toast" class="add-task-success-toast" role="status" aria-live="polite">
             <div class="add-task-success-content">
                 <span>Task added to board</span>
-                <img src="./assets/icons/board_white.png" alt="">
+                <img src="./assets/icons/board_white.png" alt="Columns icon">
             </div>
         </div>
 
@@ -213,7 +213,7 @@
             </button>
             <button id="dialog-add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" onclick="closeAddTaskOverlay();" disabled>
                 <span>Create Task</span>
-                <img src="./assets/icons/check_light.svg" alt="">
+                <img src="./assets/icons/check_light.svg" alt="Checkmark icon">
             </button>
         </div>
 

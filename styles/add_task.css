@@ -478,7 +478,7 @@ fieldset.form-group legend {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: 60px;
+  max-height: 78px;
   overflow-y: auto;
   border-radius: 0 0 8px 8px;
   z-index: 10;
@@ -644,6 +644,7 @@ fieldset.form-group legend {
 
 .footer-left {
   font-size: 12px;
+  display: flex;
 }
 
 .footer-right {

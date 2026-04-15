@@ -209,9 +209,9 @@ function renderUsersDropdownTemplate(user, initials, color) {
         >
             <div class="dropdown-user-badge" style="background-color: ${color}">${initials}</div>
             <span class="dropdown-user-name">${user}</span>
-            <img class="dropdown-user-checkbox" src="./assets/icons/checkbox_default.svg" alt="">
-            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked.svg" alt="">
-            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked_sign.svg" alt="">
+            <img class="dropdown-user-checkbox" src="./assets/icons/checkbox_default.svg" alt="Blank black checkbox icon">
+            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked.svg" alt="Blank white checkbox icon">
+            <img class="dropdown-user-checkbox dNone" src="./assets/icons/checkbox_checked_sign.svg" alt="Checkmark icon">
         </div>
     `;
 }
@@ -230,11 +230,11 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                         <span class="subtask-text">${subtasksInput.value}</span>
                         <div id="subtask-item-btns" class="subtask-item-btns dNone">
                             <button class="edit-subtask-btn" type="button" aria-label="Edit subtask" onclick="editSubtask(this)">
-                                <img src="./assets/icons/subtask_edit.svg" alt="">
+                                <img src="./assets/icons/subtask_edit.svg" alt="Pencil icon">
                             </button>
                             <span class="subtask-edit-divider" aria-hidden="true">|</span>
                             <button class="delete-subtask-btn" type="button" aria-label="Delete subtask" onclick="deleteSubtask(this)">
-                                <img src="./assets/icons/subtask_delete.svg" alt="">
+                                <img src="./assets/icons/subtask_delete.svg" alt="Trash bin icon">
                             </button>
                         </div>
                     </div>
@@ -243,11 +243,11 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                     <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeydown="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
                     <div class="subtask-edit-btns">
                         <button class="edit-input-delete-btn" type="button" aria-label="Delete subtask" onclick="deleteSubtask(this)">
-                            <img src="./assets/icons/subtask_delete.svg" alt="">
+                            <img src="./assets/icons/subtask_delete.svg" alt="Trash bin icon">
                         </button>
                         <span class="subtask-edit-input-divider" aria-hidden="true">|</span>
                         <button class="edit-input-check-btn" type="button" aria-label="Confirm edit" onclick="confirmEditSubtask(this)">
-                            <img src="./assets/icons/subtask_check.svg" alt="">
+                            <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                         </button>
                     </div>
                 </div>
