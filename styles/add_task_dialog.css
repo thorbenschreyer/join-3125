@@ -23,12 +23,6 @@
   max-height: 100%;
 }
 
-.add-task-header-mobile-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
 
 .close-add-task-dialog-x-wrapper {
   display: flex;

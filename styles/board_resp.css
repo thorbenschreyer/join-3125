@@ -108,6 +108,13 @@
     flex-direction: column;
   }
 
+  .add-task-header-mobile-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
   .add-task-dialog-footer {
     flex-direction: column;
     gap: 24px;
