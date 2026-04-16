@@ -6,11 +6,13 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 1440px;
+  gap: 16px;
 }
 
-.login-header {
+/* .login-header {
   height: 55px;
-}
+} */
 
 .container-login-form {
   display: flex;
@@ -174,7 +176,7 @@
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .button-margin-top-if-error {
@@ -187,15 +189,6 @@
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
-}
-
-.signup-content {
-  display: flex;
-  gap: 35px;
-  align-items: center;
-  position: fixed;
-  top: 80px;
-  right: 80px;
 }
 
 .privacy-policy-and-legal-notice-links-container {
@@ -229,13 +222,15 @@
 }
 
 .logo-container {
-  position: fixed;
+  position: absolute;
   z-index: 9999;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 274px;
-  animation: glideAndShrinkSpecific 500ms ease-in-out 600ms forwards;
+  animation: 
+    glideAndShrinkSpecific 500ms ease-in-out 600ms forwards,
+    hideDynamicLogo 10ms forwards 1400ms; 
 }
 
 .main-logo {
@@ -300,4 +295,63 @@
     opacity: 0;
     visibility: hidden;
   }
+}
+
+@keyframes showStaticLogo {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hideDynamicLogo {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+
+/* Optimized Header for Flex Layout */
+.login-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 80px 80px 0 77px; 
+  height: auto;
+}
+
+/* Base style for signup content (no fixed/absolute) */
+.signup-content {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+}
+
+/* Visibility Toggle */
+.mobile-only {
+  display: none;
+}
+
+/* Static Logo placement in header */
+.static-header-logo {
+  width: 100px;
+  height: auto;
+  opacity: 0; 
+  animation: showStaticLogo 10ms forwards 1100ms; 
+}
+
+/* Responsive Handling */
+@media (max-width: 800px) {
+ 
+}
+
+/* Ensure container-signup-and-privacy-policy centers the mobile content */
+.container-signup-and-privacy-policy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 35px;
 }

@@ -152,7 +152,7 @@ function buildEditForm(task) {
     <form id="edit-add-task-form" class="edit-add-task-form" return false;">
       <div class="task-column left-column">
           <div class="form-group">
-              <label for="task-title">
+              <label for="edit-task-title">
                   Title
               </label>
               <input id="edit-task-title" class="task-title form-input" type="text" placeholder="Enter a title" value="${task.title}">
@@ -177,7 +177,7 @@ function buildEditForm(task) {
 
           <!-- PRIORITY-BUTTONS -->
           <div class="form-group">
-              <label>Priority</label>
+              <p class="edit-dialog-headings">Priority</p>
               <div class="priority-buttons">
 
                   <!-- PRIORITY-URGENT -->
@@ -203,7 +203,7 @@ function buildEditForm(task) {
               </div>
           </div>
           <div id="edit-assigned-to-form" class="form-group">
-              <label>Assigned to</label>
+              <p class="edit-dialog-headings">Assigned to</p>
               <div id="edit-task-assigned-to-wrapper" class="edit-custom-dropdown"  onclick="stopEventBubbling(event)">
                   <div class="edit-custom-dropdown-toggle form-input" onclick="openEditAssignedDropdown()">
                       <input id="edit-task-assigned-to-input" class="edit-dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
@@ -227,9 +227,12 @@ function buildEditForm(task) {
               </ul>
           </div>
       </div>
-      <button type="button" class="add-task-button dark-button" id="success-edit-btn" onclick="saveEditedTask('${task.firebaseId}')">
-        OK 
-      </button>
+      <div class="edit-succcess-btn-container">
+        <button type="button" class="edit-success-button dark-button" id="success-edit-btn" onclick="saveEditedTask('${task.firebaseId}')">
+          OK 
+          <img id="edit-success-btn-icon" class="add-task-btn-icon" src="./assets/icons/check_light.png" alt="Checkmark icon">
+        </button>
+      </div>
     </form>
   `;
 }

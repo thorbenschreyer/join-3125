@@ -52,6 +52,32 @@
 }
 
 @media (max-width: 1100px) {
+  .board-page {
+    padding: 48px 16px 0 16px;
+  }
+
+  .header-board {
+    margin: 0;
+    padding-left: 13px;
+  }
+
+  .task-bar-heading {
+    font-size: 27px;
+  }
+
+  .add-task-plus-wrapper {
+    width: 30px;
+    height: 30px;
+  }
+
+  .tasks-header-and-plus {
+    width: 100%;
+  }
+
+  .board-heading {
+    font-size: 47px;
+  }
+
   .search-task-input-container {
     display: none;
   }
@@ -99,12 +125,16 @@
     gap: 20px;
   }
 
-  .close-dialog-x-wrapper {
-    position: absolute;
-    top: 64px;
-    right: 64px;
+  .close-add-task-dialog-x-wrapper {
+    opacity: 0;
   }
 
+}
+
+@media (min-width: 1051px) {
+  .close-add-task-dialog-mobile-x-wrapper {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 818px) {

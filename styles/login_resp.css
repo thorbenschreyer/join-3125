@@ -37,7 +37,7 @@
   }
 
   .container-login-form {
-    padding: 16px;
+    padding: 0px 16px;
   }
 
   .container-login-inputs {
@@ -88,11 +88,25 @@
 
   .login-header {
     height: 115px;
+    padding: 36px 0 0 38px;
+  }
+
+  .static-header-logo {
+    width: 64px;
   }
 
   .privacy-policy-and-legal-notice-links-container {
     position: unset;
     transform: none;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+    justify-content: center;
   }
 
   @keyframes glideAndShrinkSpecific {

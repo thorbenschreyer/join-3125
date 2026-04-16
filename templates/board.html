@@ -4,7 +4,7 @@
         <h2 class="board-heading">Board</h2>
         <div id="find-task-container" class="find-task-container">
             <div id="search-task-input-container" class="search-task-input-container">
-                <input onkeydown="if(event.key === 'Enter') filterTasksBySearch()" oninput="if(this.value === '') filterTasksBySearch()" class="find-task-input" id="find-task" type="text" placeholder="Find Task">
+                <input oninput="filterTasksBySearch()" class="find-task-input" id="find-task" type="text" placeholder="Find Task">
                 <div class="search-icon-wrapper" onclick="filterTasksBySearch()">
                     <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                     <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">
@@ -18,7 +18,7 @@
     </header>
     <div class="search-task-container-mobile" id="search-task-container-mobile">
         <div id="search-task-input-container-mobile" class="search-task-input-container-mobile">
-                    <input onkeydown="if(event.key === 'Enter') filterTasksBySearchMobile()" oninput="if(this.value === '') filterTasksBySearchMobile()" class="find-task-input" id="find-task-mobile" type="text" placeholder="Find Task">
+                    <input oninput="filterTasksBySearchMobile()" class="find-task-input" id="find-task-mobile" type="text" placeholder="Find Task">
                     <div class="search-icon-wrapper" onclick="filterTasksBySearchMobile()">
                         <img src="./assets/icons/search.png" alt="Search Icon" class="search-icon search-icon-default">
                         <img src="./assets/icons/search_hover.png" alt="Search Icon Hover" class="search-icon search-icon-hover">

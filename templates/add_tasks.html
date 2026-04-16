@@ -6,10 +6,10 @@
         <h1>
             Add Task
         </h1>
-        <div id="close-dialog-x-wrapper" class="close-dialog-x-wrapper" onclick="closeAddTaskOverlayEmediatly()">
-            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
-            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
-            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
+        <div id="close-add-task-dialog-x-wrapper" class="close-add-task-dialog-x-wrapper" onclick="closeAddTaskOverlayEmediatly()">
+            <img src="./assets/icons/close.png" alt="Close Dialog" class="close-add-task-dialog-x-default">
+            <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-add-task-dialog-x-hover">
+            <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-add-task-dialog-x-active">
         </div>
     </div>
 
@@ -17,9 +17,16 @@
     <form id="add-task-form" class="add-task-form" onsubmit="addTask(); return false;">
 
         <!-- FORMULAR-HEADER-MOBILE -->
-        <h1 class="add-tasks-mobile-header dNone">
-            Add Task
-        </h1>
+        <div class="add-task-header-mobile-container">
+            <h1 class="add-tasks-mobile-header dNone">
+                Add Task
+            </h1>
+            <div id="close-add-task-dialog-mobile-x-wrapper" class="close-add-task-dialog-mobile-x-wrapper" onclick="closeAddTaskOverlayEmediatly()">
+                <img src="./assets/icons/close.png" alt="Close Dialog" class="close-add-task-dialog-mobile-x-default">
+                <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-add-task-dialog-mobile-x-hover">
+                <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-add-task-dialog-mobile-x-active">
+            </div>
+        </div>
 
         <!-- LEFT COLUMN -->
         <div class="task-column left-column">
