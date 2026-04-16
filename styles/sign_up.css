@@ -329,6 +329,7 @@ input {
 
 /* === TABLET === */
 @media (max-width: 744px) {
+
   /* === HEADER === */
   .signup-header {
     display: flex;
@@ -349,6 +350,7 @@ input {
 
   .signup-card {
     width: 300px;
+    margin-bottom: 42px;
   }
 
   /* === HEADER IM FORMULAR === */
@@ -373,4 +375,15 @@ input {
   .signup-form-footer {
     padding-top: 20px;
   }
+
+}
+
+/* === SMALL MOBILE === */
+@media (max-width: 375px) {
+
+  /* === MAIN === */
+  .signup-card {
+    width: 284px;
+  }
+
 }
