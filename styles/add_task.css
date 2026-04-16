@@ -814,7 +814,9 @@ fieldset.form-group legend {
   /* === FORMULAR-HEADER-MOBILE === */
   .add-tasks-mobile-header {
     display: flex;
-    width: 320px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     padding: 0 0 4px;
   }
 
@@ -846,7 +848,7 @@ fieldset.form-group legend {
 @media (max-width: 818px) {
   /* === ADD-TASKS-CONTENT === */
   .add-tasks-page {
-    margin-top:  0;
+    margin-top:  40px;
     margin-left:  0;
   }
 
@@ -854,7 +856,7 @@ fieldset.form-group legend {
   .add-tasks-mobile-header {
     position: sticky;
     top: 0;
-    padding: 40px 0 4px;
+    /* padding: 40px 0 4px; */
     z-index: 10;
   }
 

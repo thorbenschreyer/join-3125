@@ -14,6 +14,10 @@
   overflow: hidden;
 }
 
+.padding-none {
+  padding: 0 !important;
+}
+
 .add-task-dialog {
   background-color: white;
   border-radius: 30px;
