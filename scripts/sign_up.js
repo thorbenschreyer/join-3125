@@ -32,6 +32,10 @@ const FORM_INPUT_FIELDS = [
 
 // FORM STATE
 let users = [];
+let userNameSignup;
+let userEmail;
+let userPassword;
+let userConfirmPassword;
 let userColor;
 const USER_COLOR = [
   "rgba(255, 122, 0, 1)",
@@ -45,6 +49,23 @@ const USER_COLOR = [
   "rgba(0, 190, 232, 1)",
 ];
 
+// Track the validation state of the required fields so the signup button only becomes available when the form is filled.
+let isNameFilled = false;
+let isEmailFilled = false;
+let isPasswordFilled = false;
+let isConfirmPasswordFilled = false;
+let isPrivatePolicyChecked = false;
+
+/**
+ * Restores the required-field validation flags to their default state.
+ */
+function resetFormFilledState() {
+    isNameFilled = false;
+    isEmailFilled = false;
+    isPasswordFilled = false;
+    isConfirmPasswordFilled = false;
+}
+
 // INITIALIZATION
 /**
  * Bootstraps the application by restoring persisted user data
@@ -55,34 +76,9 @@ const USER_COLOR = [
  */
 function init() {
     getUserData();
-    handleConfirmPasswordInput();
     setupPasswordVisibilityControls();
     resetEmailInputStyles();
     initAccessibilityListeners();
-}
-
-// INPUT AND ACCESSIBILITY LISTENERS
-/**
- * Only shows the mismatch error once both fields have equal length AND at least
- * 8 characters – avoids distracting the user with errors while still typing.
- */
-function handleConfirmPasswordInput() {
-    USER_CONFIRM_PASSWORD.addEventListener("input", function() {
-        let userPassword = USER_PASSWORD.value;
-        let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
-        SIGNUP_BUTTON
-        if (userConfirmPassword.length >= 8 && userPassword !== userConfirmPassword && userPassword.length == userConfirmPassword.length) {
-            USER_CONFIRM_PASSWORD.classList.add("red-border");
-            INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
-            INPUT_ERROR.classList.remove("dNone");
-            INPUT_ERROR.classList.add("input-error");
-        } else {
-            USER_CONFIRM_PASSWORD.classList.remove("red-border");
-            INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
-            INPUT_ERROR.classList.add("dNone");
-            INPUT_ERROR.classList.remove("input-error");
-        }
-    });
 }
 
 /**
@@ -123,10 +119,9 @@ function resetEmailInputStyles() {
         FORM_INPUT_FIELDS[inputIndex].addEventListener("focus", function() {
             getUserData();
             USER_EMAIL.classList.remove("red-border");
+            USER_CONFIRM_PASSWORD.classList.remove("red-border");
             INPUT_ERROR.classList.add("dNone");
-        if (INPUT_ERROR.textContent === "This email address is already registered.") {
             INPUT_ERROR.classList.remove("input-error");
-        }
         })
     }
 }
@@ -138,10 +133,10 @@ function resetEmailInputStyles() {
 function initAccessibilityListeners() {
     initBackButtonKeyboardListener();
     initPrivacyCheckboxKeyboardListener();
-    initSignupButtonState();
     initPrivacyLinkKeyboardListener();
     initPrivacyFooterKeyboardListener();
     initLegalFooterKeyboardListener();
+    initFormFilledListeners();
 }
 
 /**
@@ -168,20 +163,6 @@ function initPrivacyCheckboxKeyboardListener() {
             event.preventDefault();
             PRIVACY_POLICY_CHECKBOX.checked = !PRIVACY_POLICY_CHECKBOX.checked;
             PRIVACY_POLICY_CHECKBOX.dispatchEvent(new Event("change"));
-        }
-    });
-}
-
-/**
- * Enables or disables the signup button based on the state of the privacy policy checkbox,
- * ensuring that users can only proceed after giving consent.
- */
-function initSignupButtonState() {
-    PRIVACY_POLICY_CHECKBOX.addEventListener("change", function() {
-        if (PRIVACY_POLICY_CHECKBOX.checked === true) {
-            SIGNUP_BUTTON.disabled = false;
-        } else if (PRIVACY_POLICY_CHECKBOX.checked === false) {
-            SIGNUP_BUTTON.disabled = true;
         }
     });
 }
@@ -277,16 +258,15 @@ function updateConfirmPasswordInputType() {
 
 // VALIDATION FEEDBACK
 /**
- * Displays a validation error after form submission if the passwords do not match.
- *
- * This acts as a fallback validation in case the mismatch was not already caught
- * by real-time input validation, ensuring the user cannot proceed with inconsistent data.
+ * Displays a validation error after form submission if the email format is invalid.
+ * This serves as a final check in case the user bypassed real-time validation,
+ * ensuring that only properly formatted email addresses are accepted by the system.
  */
-function showPasswordMismatchError() {
-    USER_CONFIRM_PASSWORD.classList.add("red-border");
-    INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
-    INPUT_ERROR.classList.remove("dNone");
-    INPUT_ERROR.classList.add("input-error");
+function invalidEmailFeedback() {
+USER_EMAIL.classList.add("red-border");
+        INPUT_ERROR.textContent = "Please enter a valid email address."
+        INPUT_ERROR.classList.remove("dNone");
+        INPUT_ERROR.classList.add("input-error");
 }
 
 /**
@@ -298,6 +278,19 @@ function showPasswordMismatchError() {
 function duplicateUserFeedback() {
     USER_EMAIL.classList.add("red-border");
     INPUT_ERROR.textContent = "This email address is already registered."
+    INPUT_ERROR.classList.remove("dNone");
+    INPUT_ERROR.classList.add("input-error");
+}
+
+/**
+ * Displays a validation error after form submission if the passwords do not match.
+ *
+ * This acts as a fallback validation in case the mismatch was not already caught
+ * by real-time input validation, ensuring the user cannot proceed with inconsistent data.
+ */
+function passwordMismatchFeedback() {
+    USER_CONFIRM_PASSWORD.classList.add("red-border");
+    INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
     INPUT_ERROR.classList.remove("dNone");
     INPUT_ERROR.classList.add("input-error");
 }
@@ -327,13 +320,10 @@ function signUpsuccess() {
  * This avoids duplicated validation logic and inconsistent feedback states.
  */
 function addUser() {
-    let userName = USER_NAME.value;
-    let userEmail = USER_EMAIL.value;
-    let userPassword = USER_PASSWORD.value;
-    let userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+    setUserInput();
     assignUserColor();
-    if (userPassword != userConfirmPassword) {
-        showPasswordMismatchError();
+    if (!USER_EMAIL.checkValidity()) {
+        invalidEmailFeedback();
         return;
     }
     const isDuplicateUser = users.some(user =>
@@ -343,7 +333,11 @@ function addUser() {
         duplicateUserFeedback();
         return;
     }
-    users.push({ name: userName, email: userEmail, password: userPassword, avatarColor: userColor });
+    if (userPassword != userConfirmPassword) {
+        passwordMismatchFeedback();
+        return;
+    }
+    users.push({ name: userNameSignup, email: userEmail, password: userPassword, avatarColor: userColor });
     saveUserData();
     signUpsuccess();
 }
@@ -397,3 +391,79 @@ async function saveUserData() {
 // APP START
 // Initialize the application init() when the window loads
 window.onload = init;
+
+
+
+// NEW
+function setUserInput() {
+    userNameSignup = USER_NAME.value;
+    userEmail = USER_EMAIL.value;
+    userPassword = USER_PASSWORD.value;
+    userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+}
+
+function emailInvalidUserFeedback() {
+    if (!USER_EMAIL.checkValidity())
+        USER_EMAIL.classList.add("red-border");
+        INPUT_ERROR.textContent = "Please enter a valid email address."
+        INPUT_ERROR.classList.remove("dNone");
+        INPUT_ERROR.classList.add("input-error");
+        return;
+}
+
+function initFormFilledListeners() {
+    USER_NAME.addEventListener("input", function() {
+        if (USER_NAME.value.length > 0) {
+            isNameFilled = true;
+        } else if (USER_NAME.value.length == 0) {
+            isNameFilled = false;
+        }
+        checkFormRequiredFields();
+    })
+    USER_EMAIL.addEventListener("input", function() {
+        if (USER_EMAIL.value.length > 0) {
+            isEmailFilled = true;
+        } else if (USER_EMAIL.value.length == 0) {
+            isEmailFilled = false;
+        }
+        checkFormRequiredFields();
+    })
+    USER_PASSWORD.addEventListener("input", function() {
+        if (USER_PASSWORD.value.length > 0) {
+            isPasswordFilled = true;
+        } else if (USER_PASSWORD.value.length == 0) {
+            isPasswordFilled = false;
+        }
+        checkFormRequiredFields();
+    })
+    USER_CONFIRM_PASSWORD.addEventListener("input", function() {
+        if (USER_CONFIRM_PASSWORD.value.length > 0) {
+            isConfirmPasswordFilled = true;
+        } else if (USER_CONFIRM_PASSWORD.value.length == 0) {
+            isConfirmPasswordFilled = false;
+        }
+        checkFormRequiredFields();
+    })
+    PRIVACY_POLICY_CHECKBOX.addEventListener("change", function() {
+        if (PRIVACY_POLICY_CHECKBOX.checked === true) {
+            isPrivatePolicyChecked = true;
+        } else if (PRIVACY_POLICY_CHECKBOX.checked === false) {
+            isPrivatePolicyChecked = false;
+        }
+        checkFormRequiredFields();
+    });
+}
+
+
+/**
+ * Enables the add-task button only when all required fields are valid.
+ */
+function checkFormRequiredFields() {
+    if (isNameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPrivatePolicyChecked) {
+        SIGNUP_BUTTON.disabled = false;
+        SIGNUP_BUTTON.classList.remove("disabled-btn");
+    } else {
+        SIGNUP_BUTTON.disabled = true;
+        SIGNUP_BUTTON.classList.add("disabled-btn");
+    }
+}

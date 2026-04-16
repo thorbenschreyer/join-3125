@@ -225,15 +225,24 @@ input {
   transform: scale(1.02); 
 }
 
-.signup-button:focus {
+.signup-button:focus-visible {
   outline: solid 2px #000000;
   outline-offset: 2px;
 }
 
-.signup-button:disabled {
-  background-color: var(--logo-dark-blue);
-  cursor: not-allowed !important;
-  transform: none;
+.disabled-btn {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+  cursor: default;
+  transform: none !important;
+}
+
+.disabled-btn:hover {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+  cursor: default !important;
 }
 
 /* === FOOTER === */
