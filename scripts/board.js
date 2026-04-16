@@ -2,6 +2,7 @@ let currentTaskBar = "to-do";
 let currentDraggedElement;
 let subtaskPercent = 0;
 let currentSearchTerm = "";
+let searchTimeout;
 
 /**
  * Initializes the board by loading users and rendering all tasks.
@@ -39,21 +40,30 @@ function setupPolyfillTouchmove() {
 }
 
 /**
+ * Executes the task filtering after a specified debounce delay.
+ * @param {string} inputId - The ID of the search input element.
+ */
+function executeSearchDebounced(inputId) {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    const searchInput = document.getElementById(inputId);
+    currentSearchTerm = searchInput.value.toLowerCase();
+    renderAllTasks();
+  }, 300);
+}
+
+/**
  * Filters tasks based on the search input and re-renders all tasks.
  */
 function filterTasksBySearch() {
-  const searchInput = document.getElementById("find-task");
-  currentSearchTerm = searchInput.value.toLowerCase();
-  renderAllTasks();
+  executeSearchDebounced("find-task");
 }
 
 /**
  * Filters tasks based on the mobile search input and re-renders all tasks.
  */
 function filterTasksBySearchMobile() {
-  const searchInput = document.getElementById("find-task-mobile");
-  currentSearchTerm = searchInput.value.toLowerCase();
-  renderAllTasks();
+  executeSearchDebounced("find-task-mobile");
 }
 
 /**
@@ -70,22 +80,25 @@ function checkTaskMatch(t) {
 
 /**
  * Opens the add task overlay for the specified task bar.
- * @param {string} selectedTaskBar - The task bar to add the task to.
+ * @param {string} selectedTaskBar - The target task category.
  */
 async function openAddTaskOverlay(selectedTaskBar) {
   await loadHtmlPage("add-task-dialog", "./templates/add_tasks.html");
-  const overlay = document.getElementById("add-task-overlay");
-  const addTaskFooter = document.getElementById("add-task-footer");
-  const dialogTaskFooter = document.getElementById("add-task-dialog-footer");
-  const dialogContainer = document.getElementById("add-tasks-page");
-  const dialogCloser = document.getElementById("close-dialog-x-wrapper");
-  dialogCloser.style.display = "flex";
-  dialogContainer.classList.add("dialog-add-task-page");
-  addTaskFooter.classList.add("d-none");
-  dialogTaskFooter.classList.remove("d-none");
   currentTaskBar = selectedTaskBar;
-  overlay.classList.remove("d-none");
+  prepareAddTaskDialogUI();
   initAddTaskElements();
+}
+
+/**
+ * Updates the DOM elements to correctly display the add task overlay.
+ */
+function prepareAddTaskDialogUI() {
+  document.getElementById("add-tasks-page").classList.add("dialog-add-task-page");
+  document.getElementById("add-task-footer").classList.add("d-none");
+  document.getElementById("add-task-dialog-footer").classList.remove("d-none");
+  document.getElementById("close-add-task-dialog-x-wrapper").style.display = "flex";
+  document.getElementById("add-task-overlay").classList.remove("d-none");
+  document.getElementById("close-add-task-dialog-mobile-x-wrapper").style.display = "flex";
 }
 
 /**

@@ -13,12 +13,27 @@
   gap: 16px;
   background-color: white;
   border-radius: 30px;
+  max-width: 100%;
 }
 
 .dialog-task-category-and-close-x-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.task-dialog {
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  animation: slideInFromRight 0.2s ease-out forwards;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.task-dialog.slide-out {
+  animation: slideOutToRight 0.2s ease-in forwards;
 }
 
 .dialog-task-category {
@@ -34,7 +49,6 @@
 
 .close-dialog-x-wrapper {
   display: flex;
-  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;

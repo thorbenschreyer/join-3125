@@ -233,57 +233,6 @@
   color: #a8a8a8;
 }
 
-.add-task-overlay,
-.task-overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(168, 168, 168, 0.4);
-  z-index: 10000;
-  overflow: hidden;
-}
-
-.add-task-dialog {
-  background-color: white;
-  border-radius: 30px;
-  padding: 64px;
-  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
-  animation: slideInFromRight 0.2s ease-out forwards;
-  max-height: 100%;
-}
-
-.task-dialog {
-  background-color: white;
-  border-radius: 30px;
-  padding: 48px 40px;
-  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
-  animation: slideInFromRight 0.2s ease-out forwards;
-  max-height: 100%;
-  overflow: auto;
-}
-
-.add-task-dialog.slide-out {
-  animation: slideOutToRight 0.2s ease-in forwards;
-}
-
-.task-dialog.slide-out {
-  animation: slideOutToRight 0.2s ease-in forwards;
-}
-
-.add-task-dialog-footer {
-  padding: 0;
-  margin-top: 64px;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .disabled-btn {
   background-color: var(--light-gray);
   color: var(--white);
@@ -417,3 +366,4 @@
 .small-task-dropdown-user-badge:not(:first-child) {
   margin-left: -10px;
 }
+

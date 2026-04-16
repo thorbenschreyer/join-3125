@@ -1,0 +1,108 @@
+
+.add-task-overlay,
+.task-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(168, 168, 168, 0.4);
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.add-task-dialog {
+  background-color: white;
+  border-radius: 30px;
+  padding: 64px;
+  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
+  animation: slideInFromRight 0.2s ease-out forwards;
+  max-height: 100%;
+}
+
+.add-task-header-mobile-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.close-add-task-dialog-x-wrapper {
+  display: flex;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.close-add-task-dialog-x-hover,
+.close-add-task-dialog-x-active {
+  display: none;
+}
+
+.close-add-task-dialog-x-wrapper:hover .close-add-task-dialog-x-default {
+  display: none;
+}
+
+.close-add-task-dialog-x-wrapper:hover .close-add-task-dialog-x-hover {
+  display: block;
+}
+
+.close-add-task-dialog-x-wrapper:active .close-add-task-dialog-x-default,
+.close-add-task-dialog-x-wrapper:active .close-add-task-dialog-x-hover {
+  display: none;
+}
+
+.close-add-task-dialog-x-wrapper:active .close-add-task-dialog-x-active {
+  display: block;
+}
+
+.add-task-dialog.slide-out {
+  animation: slideOutToRight 0.2s ease-in forwards;
+}
+
+.add-task-dialog-footer {
+  padding: 0;
+  margin-top: 64px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-add-task-dialog-mobile-x-wrapper {
+  display: flex;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.close-add-task-dialog-mobile-x-hover,
+.close-add-task-dialog-mobile-x-active {
+  display: none;
+}
+
+.close-add-task-dialog-mobile-x-wrapper:hover .close-add-task-dialog-mobile-x-default {
+  display: none;
+}
+
+.close-add-task-dialog-mobile-x-wrapper:hover .close-add-task-dialog-mobile-x-hover {
+  display: block;
+}
+
+.close-add-task-dialog-mobile-x-wrapper:active .close-add-task-dialog-mobile-x-default,
+.close-add-task-dialog-mobile-x-wrapper:active .close-add-task-dialog-mobile-x-hover {
+  display: none;
+}
+
+.close-add-task-dialog-mobile-x-wrapper:active .close-add-task-dialog-mobile-x-active {
+  display: block;
+}
