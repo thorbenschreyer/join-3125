@@ -31,6 +31,10 @@ body {
   display: none;
 }
 
+.cursor-text {
+  cursor: text !important;
+}
+
 /* === ADD-TASKS-CONTENT === */
 .add-tasks-page {
   display: flex;
@@ -89,11 +93,11 @@ label {
   padding: 8px 10px;
   border: solid 1px var(--light-gray);
   border-radius: 6px;
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 .form-input:hover {
-  cursor: pointer !important;
+  cursor: pointer;
 }
 
 .form-input::placeholder {
@@ -702,7 +706,7 @@ fieldset.form-group legend {
   background-color: var(--light-gray);
   color: var(--white);
   box-shadow: none;
-  cursor: default;
+  cursor: pointer;;
 }
 
 .add-task-btn:hover {

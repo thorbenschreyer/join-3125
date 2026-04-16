@@ -29,7 +29,7 @@
                 <label for="task-title">
                     Title<span class="required" aria-hidden="true">*</span>
                 </label>
-                <input id="task-title" class="task-title form-input" type="text" placeholder="Enter a title">
+                <input id="task-title" class="task-title form-input cursor-text" type="text" placeholder="Enter a title">
                 <span id="title-input-error" class="input-error dNone"></span>
             </div>
 
@@ -38,7 +38,7 @@
                 <label for="task-description">
                     Description
                 </label>
-                <textarea id="task-description" class="task-description form-input" rows="5" placeholder="Enter a Description"></textarea>
+                <textarea id="task-description" class="task-description form-input cursor-text" rows="5" placeholder="Enter a Description"></textarea>
             </div>
 
             <!-- DUE DATE -->   
@@ -132,11 +132,11 @@
                         </button>
                     </div>
                     <div id="task-category-tasks" class="custom-dropdown-tasks dNone" role="listbox">
-                        <div class="dropdown-tasks" role="option" aria-label="Technical Task"  tabindex="0">
-                            <span id="technical-task" class="dropdown-user-name">Technical Task</span>
+                        <div id="technical-task" class="dropdown-tasks" role="option" aria-label="Technical Task"  tabindex="0">
+                            <span class="dropdown-user-name">Technical Task</span>
                         </div>
-                        <div class="dropdown-tasks" role="option" aria-label="User Story"  tabindex="0">
-                            <span id="user-story" class="dropdown-user-name">User Story</span>
+                        <div id="user-story" class="dropdown-tasks" role="option" aria-label="User Story"  tabindex="0">
+                            <span class="dropdown-user-name">User Story</span>
                         </div>
                     </div>
                 </div>  
@@ -145,7 +145,7 @@
             <!-- SUBTASKS -->
             <div class="form-group">
                 <label for="subtasks-input">Subtasks</label> 
-                <input id="subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask">
+                <input id="subtasks-input" class="form-input task-input cursor-text" type="text" placeholder="Add new subtask">
                 <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
                     <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
                 </button>
