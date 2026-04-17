@@ -91,7 +91,7 @@
 
 .header-menu {
   position: fixed;
-  right: 20px;
+  left: 1256px;
   top: 96px;
   z-index: 1100;
 
@@ -203,6 +203,13 @@
 
 .mobile-navogation-items {
   display: none;
+}
+
+@media (max-width: 1440px) {
+  .header-menu {
+    left: unset;
+    right: 20px;
+  }
 }
 
 @media (max-width: 940px) {
