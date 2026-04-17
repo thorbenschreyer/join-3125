@@ -80,7 +80,9 @@ function initAssignedToElements() {
  */
 function initCategoryElements() {
     categoryWrapper = document.getElementById("task-category-wrapper");
+    categoryInputWrapper = document.getElementById("category-input-wrapper");
     categoryInput = document.getElementById("task-category-input");
+    categoryInputError = document.getElementById("category-input-error");
     categoryTasks = document.getElementById("task-category-tasks");
     technicalTask = document.getElementById("technical-task");
     userStory = document.getElementById("user-story");
@@ -106,6 +108,7 @@ function initSubtasksElements() {
 function initFormBtnElements() {
     clearFormBtn = document.getElementById("clear-task-btn");
     addTaskBtn = document.getElementById("add-task-btn");
+    disabledBtnWrapper = document.getElementById("disabled-btn-wrapper");
     dialogAddTaskBtn = document.getElementById("dialog-add-task-btn");
 }
 
@@ -126,6 +129,14 @@ function showTitleError() {
     titleInput.classList.add("red-border");
     titleInputError.classList.remove("dNone");
     titleInputError.textContent = "This field is required";
+}
+
+/**
+ * Clears the error state for the title input.
+ */
+function hideTitleError() {
+    titleInput.classList.remove("red-border");
+    titleInputError.classList.add("dNone");
 }
 
 // DUE DATE
@@ -259,6 +270,24 @@ function resetUserSelection() {
     });
     badgeContainer.innerHTML = "";
     selectedUsers = [];
+}
+
+// CATEGORY
+/**
+ * Shows the required-field error state for the category input.
+ */
+function showCategoryError() {
+    categoryInputWrapper.classList.add("red-border");
+    categoryInputError.classList.remove("dNone");
+    categoryInputError.textContent = "This field is required";
+}
+
+/** 
+ * Clears the error state for the category input.
+ */
+function hideCategoryError() {
+    categoryInputWrapper.classList.remove("red-border");
+    categoryInputError.classList.add("dNone");
 }
 
 // SUBTASKS
