@@ -271,3 +271,26 @@
     background-color: var(--logo-light-blue);
   }
 }
+
+@media (max-height: 690px) {
+  .add-left-dialog-img {
+    display: none;
+  }
+}
+
+@media (max-height: 590px) {
+  .add-contact-dialog-right-img {
+    display: none;
+  }
+}
+
+@media (max-height: 500px) {
+  .add-left-dialog-h1 {
+    font-size: 24px;
+  }
+
+  .add-left-dialog-h2 {
+    font-size: 16px;
+  }
+}
+

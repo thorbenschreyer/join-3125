@@ -101,3 +101,13 @@
     font-size: 40px;
   }
 }
+
+@media (max-height: 500px) {
+  .add-left-dialog-h1 {
+    font-size: 24px;
+  }
+
+  .add-left-dialog-h2 {
+    font-size: 16px;
+  }
+}
