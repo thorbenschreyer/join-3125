@@ -276,6 +276,25 @@
   .add-left-dialog-img {
     display: none;
   }
+
+  .contact-haeder-area {
+    margin-top: 48px;
+  }
+
+  .contact-detail-inforamtion {
+    padding-bottom: 8px;
+  }
+
+  .contact-detail-initials p {
+    height: 40px;
+    width: 40px;
+    font-size: 16px;
+  }
+
+  .contact-detail-name {
+    font-size: 24px;
+    font-weight: 500;
+  }
 }
 
 @media (max-height: 590px) {
@@ -293,4 +312,3 @@
     font-size: 16px;
   }
 }
-
