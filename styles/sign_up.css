@@ -378,6 +378,38 @@ input {
 
 }
 
+/* === MOBILE === */
+@media (max-width: 500px) {
+
+   /* === HEADER === */
+  .signup-header {
+    padding: 64px 180px 64px 0px;
+  }
+
+  /* === MAIN === */
+
+  .signup-card {
+    padding: 24px 12px 24px;
+    margin-bottom: 26px;
+  }
+
+  /* === HEADER IM FORMULAR === */
+  .signup-back {
+    top: 40px;
+  }
+
+  /* === FORMULAR === */
+  .signup-form {
+    gap: 20px;
+  }
+
+  /* === FOOTER IM FORMULAR === */
+  .signup-form-footer {
+    padding-top: 0px;
+  }
+
+}
+
 /* === SMALL MOBILE === */
 @media (max-width: 375px) {
 
