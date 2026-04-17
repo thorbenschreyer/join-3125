@@ -295,3 +295,15 @@
   font-weight: 500;
   color: var(--white);
 }
+
+@media (max-height: 850px) {
+  .edit-contact-initials {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .add-contact-dialog-left {
+    height: 152px;
+  }
+}
