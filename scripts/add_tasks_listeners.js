@@ -13,6 +13,7 @@ function initAddTaskListeners() {
     initKeyboardSubtaskListeners();
     initFormValidationListeners();
     initClearFormListener();
+    initAddTaskListener();
 }
 
 /**
@@ -49,8 +50,7 @@ function initTitleInputListeners() {
         if (titleInputValue.length == 0) {
             showTitleError();
         } else if (titleInputValue.length > 0) {
-            titleInput.classList.remove("red-border");
-            titleInputError.classList.add("dNone");
+            hideTitleError();
         }
     });
 }
@@ -125,11 +125,13 @@ function initClickCategoryListeners() {
         categoryInput.value = "Technical Task";
         categoryInput.dispatchEvent(new Event("change"));
         closeCategoryDropdown();
+        hideCategoryError();
     })
     userStory.addEventListener("click", function() {
         categoryInput.value = "User Story";
         categoryInput.dispatchEvent(new Event("change"));
         closeCategoryDropdown();
+        hideCategoryError();
     })
 }
 
@@ -144,6 +146,7 @@ function initKeyboardCategoryListeners()  {
             categoryInput.value = "Technical Task";
             categoryInput.dispatchEvent(new Event("change"));
             closeCategoryDropdown();
+            hideCategoryError();
         }
     });
     userStory.parentElement.addEventListener("keydown", function(event) {
@@ -152,6 +155,7 @@ function initKeyboardCategoryListeners()  {
             categoryInput.value = "User Story";
             categoryInput.dispatchEvent(new Event("change"));
             closeCategoryDropdown();
+            hideCategoryError();
         }
     });
 }
@@ -240,4 +244,22 @@ function initClearFormListener() {
     clearFormBtn.addEventListener("click", function () {
         clearFormular();
     });
+}
+
+/**
+ * Validates the form and shows error states for invalid fields when the user tries to submit an incomplete form.
+ */
+function initAddTaskListener() {
+    disabledBtnWrapper.addEventListener("click", function() {
+        if (addTaskBtn.classList.contains("disabled-btn")) {
+            titleInput.value.length == 0 ? showTitleError() : "";  
+            if (dueDateInput.value.length == 0) {
+                dueDateInputError.textContent = "This field is required";
+                showDueDateError();
+            }
+            if (categoryInput.value !== "Technical Task" && categoryInput.value !== "User Story") {
+                showCategoryError()
+            }       
+        }
+    })
 }

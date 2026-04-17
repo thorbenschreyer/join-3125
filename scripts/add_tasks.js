@@ -15,6 +15,7 @@ let lowColorImg;
 let lowWhiteImg;
 let titleInputError;
 let dueDateInputError;
+let categoryInputError;
 let priorityColorImages;
 let priorityWhiteImages;
 let assignedToForm;
@@ -23,6 +24,7 @@ let assignedToInputWrapper;
 let assignedToInput;
 let assignedToUsers;
 let categoryWrapper;
+let categoryInputWrapper;
 let categoryInput;
 let categoryTasks;
 let technicalTask;
@@ -36,6 +38,7 @@ let subtaskItem;
 let subtasks;
 let clearFormBtn;
 let addTaskBtn;
+let disabledBtnWrapper;
 let dialogAddTaskBtn;
 let addTaskSuccessToast;
 let addTaskSuccessOverlay;
@@ -381,12 +384,10 @@ function clearFormular() {
     resetFormValidationState();
     addTaskBtn.classList.add("disabled-btn"); 
     titleInput.value = "";
-    titleInput.classList.remove("red-border")
-    titleInputError.textContent = "";
     descInput.value = "";
     dueDateInput.value = "";
-    dueDateInput.classList.remove("red-border")
-    dueDateInputError.textContent = "";
+    hideTitleError();
+    hideDueDateError();
     resetPriorityButtons();
     highlightSelectedPriority("medium");
     resetUserSelection();
