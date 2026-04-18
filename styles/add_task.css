@@ -94,6 +94,7 @@ label {
   border: solid 1px var(--light-gray);
   border-radius: 6px;
   cursor: pointer;
+  scrollbar-width: none;
 }
 
 .form-input:hover {

@@ -42,7 +42,7 @@
   .task-bar {
     width: 100%;
     align-items: baseline;
-    padding: 13px 0;
+    padding: 0;
   }
 
   .board-small-task {

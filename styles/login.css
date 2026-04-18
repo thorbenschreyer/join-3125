@@ -8,11 +8,11 @@
   width: 100%;
   max-width: 1440px;
   gap: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
-/* .login-header {
-  height: 55px;
-} */
 
 .container-login-form {
   display: flex;
@@ -311,8 +311,6 @@
   }
 }
 
-
-/* Optimized Header for Flex Layout */
 .login-header {
   width: 100%;
   display: flex;
@@ -322,19 +320,16 @@
   height: auto;
 }
 
-/* Base style for signup content (no fixed/absolute) */
 .signup-content {
   display: flex;
   gap: 35px;
   align-items: center;
 }
 
-/* Visibility Toggle */
 .mobile-only {
   display: none;
 }
 
-/* Static Logo placement in header */
 .static-header-logo {
   width: 100px;
   height: auto;
@@ -343,11 +338,15 @@
 }
 
 /* Responsive Handling */
-@media (max-width: 800px) {
- 
+@media (max-height: 730px) and (max-width: 745px) {
+  .login-header {
+    display: none;
+  }
+  .login-body {
+    justify-content: space-around;
+  }
 }
 
-/* Ensure container-signup-and-privacy-policy centers the mobile content */
 .container-signup-and-privacy-policy {
   display: flex;
   flex-direction: column;

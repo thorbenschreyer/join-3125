@@ -111,3 +111,12 @@
 .close-add-task-dialog-mobile-x-wrapper:active .close-add-task-dialog-mobile-x-active {
   display: block;
 }
+
+/* responsive */
+
+@media (max-height: 750px) {
+  .add-task-dialog{
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
+}
