@@ -495,7 +495,7 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                     </div>
                 </li>
                 <div id="subtask-edit" class="subtask-item-edit dNone">
-                    <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeydown="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
+                    <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeydown="if(event.key === 'Enter')  { confirmEditSubtask(this); return false; }"></input>
                     <div class="subtask-edit-btns">
                         <button class="edit-input-delete-btn" type="button" aria-label="Delete subtask" onclick="deleteSubtask(this)">
                             <img src="./assets/icons/subtask_delete.svg" alt="Trash bin icon">
