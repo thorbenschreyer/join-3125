@@ -18,6 +18,13 @@
   padding: 0 !important;
 }
 
+.add-tasks-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .add-task-dialog {
   background-color: white;
   border-radius: 30px;
