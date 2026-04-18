@@ -786,6 +786,7 @@ fieldset.form-group legend {
 
 /* === DESKTOP SMALL === */
 @media (max-width: 1050px) {
+
   /* === PAGE-CONTENT === */
   .page-content {
     padding-left: 0px !important;
@@ -815,9 +816,7 @@ fieldset.form-group legend {
   /* === FORMULAR-HEADER-MOBILE === */
   .add-tasks-mobile-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    width: 320px;
     padding: 0 0 4px;
   }
 
@@ -832,24 +831,24 @@ fieldset.form-group legend {
 
   .footer-left {
     width: 320px;
-    padding: 12px 0 0;
+    padding: 32px 0 4px;
   }
 
   .footer-right {
-    position: absolute;
-    justify-content: flex-end;
-    top: 77%;
     width: 320px;
     gap: 20px;
+    padding: 8px 0;
+    background: var(--bg-color);
   }
 
 }
 
 /* === TABLET === */
 @media (max-width: 818px) {
+
   /* === ADD-TASKS-CONTENT === */
   .add-tasks-page {
-    margin-top:  40px;
+    margin-top:  0;
     margin-left:  0;
   }
 
@@ -857,13 +856,15 @@ fieldset.form-group legend {
   .add-tasks-mobile-header {
     position: sticky;
     top: 0;
-    /* padding: 40px 0 4px; */
+    padding: 40px 0 4px;
     z-index: 10;
+    background: var(--bg-color);
   }
 
   /* === FORMULAR === */
   .add-task-form {
     align-items: center;
+    padding-bottom: 100px;
   }
 
   /* === REQUIRED-FIELD-MOBILE === */
@@ -876,6 +877,12 @@ fieldset.form-group legend {
     align-items: center;
   }
 
+  .footer-right {
+    position: fixed;
+    bottom: 86px;
+    justify-content: flex-end;
+  }
+
   .footer-left {
     display: none;
   }
@@ -884,7 +891,8 @@ fieldset.form-group legend {
 
 /* === MOBILE === */
 @media (max-width: 500px) {
-   /* === FORMULAR === */
+
+  /* === FORMULAR === */
   .add-task-form {
     padding-bottom: 100px;
   }
@@ -902,6 +910,7 @@ fieldset.form-group legend {
 
 /* === SMALL MOBILE === */
 @media (max-width: 375px) {
+  
   /* === FORMULAR-HEADER-MOBILE === */
   .add-tasks-mobile-header {
     width: 288px;
