@@ -113,7 +113,7 @@
             <div id="assigned-to-form" class="form-group">
                 <label for="task-assigned-to-input">Assigned to</label>
                 <div id="task-assigned-to-wrapper" class="custom-dropdown"  onclick="stopEventBubbling(event)">
-                    <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
+                    <div class="custom-dropdown-toggle form-input" onclick="toggleAssignedDropdown(event)">
                         <input id="task-assigned-to-input" class="dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
                         <button id="dropdown-arrow" class="dropdown-arrow" type="button" aria-label="Open assigned dropdown" onclick="toggleAssignedDropdown(event)">
                             <img src="./assets/icons/arrow_drop_down.svg" alt="Down arrow icon">

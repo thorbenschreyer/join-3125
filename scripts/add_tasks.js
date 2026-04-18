@@ -235,13 +235,14 @@ function openAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
     let arrowdown = document.getElementById("dropdown-arrow");
     let arrowup = document.getElementById("dropup-arrow");
-    users.classList.toggle("dNone");
-    users.classList.toggle("dFlex");
-    arrowdown.classList.toggle("dNone");
-    arrowup.classList.toggle("dNone");
+    users.classList.remove("dNone");
+    users.classList.add("dFlex");
+    arrowdown.classList.add("dNone");
+    arrowup.classList.remove("dNone");
     document.getElementById("task-assigned-to-input").focus();
     assignedToInputWrapper.classList.add("blue-border");
     closeCategoryDropdown();
+    filterAssignedUsers();
 }
 
 /**
@@ -263,6 +264,7 @@ function toggleAssignedDropdown(event) {
         assignedToInputWrapper.classList.add("blue-border");
     }
     closeCategoryDropdown();
+    filterAssignedUsers();
 }
 
 /**
@@ -278,7 +280,6 @@ function closeAssignedDropdown() {
     arrowdown.classList.remove("dNone");
     arrowup.classList.add("dNone");
     document.getElementById("task-assigned-to-input").value = "";
-    filterAssignedUsers();
     checkDropdownState();
 }
 
