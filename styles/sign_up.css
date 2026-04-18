@@ -157,7 +157,7 @@ input {
 .input-error {
   display: block;
   margin-top: 6px;
-  color: var(--red);
+  color: var(--red) !important;
   font-size: 12px;
 }
 
@@ -220,6 +220,10 @@ input {
     transform 0.5s ease;
 }
 
+.signup-button span {
+  color: var(--white);
+}
+
 .signup-button:hover {
   background-color: var(--logo-light-blue);
   transform: scale(1.02); 
@@ -242,7 +246,6 @@ input {
   background-color: var(--light-gray);
   color: var(--white);
   box-shadow: none;
-  cursor: default !important;
 }
 
 /* === FOOTER === */
