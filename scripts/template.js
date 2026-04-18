@@ -218,8 +218,8 @@ function buildEditForm(task) {
           </div>
           <div class="form-group">
               <label for="edit-subtasks-input">Subtasks</label> 
-              <input id="edit-subtasks-input" class="form-input task-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput()">
-              <img id="edit-clear-input-btn" class="clear-input-icon dNone" src="./assets/icons/subtask_close.svg" alt="">
+              <input id="edit-subtasks-input" class="form-input task-input edit-subtask-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput()">
+              <img id="edit-clear-input-btn" class="edit-clear-input-icon dNone" src="./assets/icons/subtask_close.svg" alt="">
               <span id="edit-subtasks-vertical-divider" class="edit-subtasks-vertical-divider dNone">|</span>
               <img id="edit-add-subtask-btn" class="edit-add-subtask-icon dNone" src="./assets/icons/subtask_check.svg" alt="">
               <ul id="edit-subtasks-list" class="edit-subtasks-list">

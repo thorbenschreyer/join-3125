@@ -216,16 +216,17 @@
   cursor: pointer;
 }
 
-.edit-task-input {
+.edit-subtask-input {
   position: relative;
+  padding-right: 60px;
 }
 
 .edit-clear-input-icon {
   position: absolute;
-  top: 32px;
-  left: 268px;
-  width: 20px;
-  height: 20px;
+  top: 31px;
+  left: 264px;
+  width: 22px;
+  height: 22px;
   padding: 4px;
   border-radius: 50%;
   cursor: pointer;
@@ -246,10 +247,10 @@
 
 .edit-add-subtask-icon {
   position: absolute;
-  top: 32px;
+  top: 31px;
   left: 296px;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   padding: 4px;
   border-radius: 50%;
   cursor: pointer;

@@ -100,7 +100,7 @@ function prepareAddTaskDialogUI() {
   document.getElementById("add-task-overlay").classList.remove("d-none");
   document.getElementById("close-add-task-dialog-mobile-x-wrapper").style.display = "flex";
   document.getElementById("add-task-dialog-heading").classList.add("padding-none");
-  document.getElementById("add-tasks-dialog-header").classList.remove("dNone");
+  document.getElementById("add-tasks-dialog-header").classList.remove("d-none");
   document.getElementById("add-task-mobile-heading").classList.add("d-none");
 }
 
