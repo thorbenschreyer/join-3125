@@ -60,7 +60,7 @@ function renderDialogTask(task) {
   return `
   <div id="dialog-board-task" class="dialog-board-task">
     <div id="dialog-task-category-and-close-x-container" class="dialog-task-category-and-close-x-container">
-      <p id="dialog-task-category" class="dialog-task-category">${task.category}</p>
+      <p id="dialog-task-category" class="dialog-task-category-${task.categoryColor}">${task.category}</p>
       <div onclick="closeOverlay('task')" id="close-dialog-x-wrapper" class="close-dialog-x-wrapper">
         <img src="./assets/icons/close.png" alt="Close Dialog" class="close-dialog-x-default">
         <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-dialog-x-hover">
@@ -77,7 +77,7 @@ function renderDialogTask(task) {
       <p class="fix-width-120px">Priority:</p>
       <div id="dialog-priority-container" class="dialog-priority-container">
         <p>${task.priority}</p>
-        <img id="task-prio" class="dialog-task-prio-img" src="./assets/icons/${task.priority}_prio_color.png" alt="${task.priority} priority Image">
+        <img id="task-prio" class="dialog-task-prio-img" src="./assets/icons/${task.priority.toLowerCase()}_prio_color.png" alt="${task.priority} priority Image">
       </div>
     </div id="dialog-assigned-to">
       <p class="fix-width-120px dialog-assigned-to-heading" id="dialog-assigned-to-heading">Assigned To:</p>

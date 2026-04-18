@@ -36,12 +36,23 @@
   animation: slideOutToRight 0.2s ease-in forwards;
 }
 
-.dialog-task-category {
+.dialog-task-category-user-story {
   font-size: 23px;
   font-weight: 400;
   font-style: normal;
   color: white;
   background-color: #0038ff;
+  padding: 4px 16px;
+  border-radius: 8px;
+  width: max-content;
+}
+
+.dialog-task-category-technical-task {
+  font-size: 23px;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  background-color: rgba(31, 215, 193, 1);
   padding: 4px 16px;
   border-radius: 8px;
   width: max-content;
