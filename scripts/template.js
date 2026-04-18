@@ -1,3 +1,8 @@
+/**
+ * Generates the navigation HTML for an unauthenticated user.
+ *
+ * @returns {string} The HTML string for the login navigation.
+ */
 function notLoggedInNavigation() {
   return `
           <a class="menu-hover" href="login.html"
@@ -9,6 +14,11 @@ function notLoggedInNavigation() {
       >`;
 }
 
+/**
+ * Generates the navigation HTML for an authenticated user.
+ *
+ * @returns {string} The HTML string for the main menu navigation.
+ */
 function LoggedInNavigation() {
   return `
       <a class="menu-hover" id="summary" onclick="loadSummaryPage(), toggleIsActive('summary', 'summary_img')"><img id="summary_img" src="./assets/icons/summary_grey.png" alt="Summary">Summary</a>
@@ -18,6 +28,11 @@ function LoggedInNavigation() {
     `;
 }
 
+/**
+ * Generates the HTML for the help and logout menu.
+ *
+ * @returns {string} The HTML string containing the help and logout elements.
+ */
 function helpAndLogout() {
   return `
         <img class="help-img display-none" onclick="loadHtmlPage('content','./footerpages/help.html'), removeActiveState()" src='./assets/icons/help.png' alt='Helppage'>
@@ -25,6 +40,14 @@ function helpAndLogout() {
     `;
 }
 
+/**
+ * Generates the HTML for a compact task card displayed on the board.
+ *
+ * @param {Object} element The task object containing details.
+ * @param {number} closedSubtasksLength The number of completed subtasks.
+ * @param {string} id The unique identifier of the task.
+ * @returns {string} The HTML string for the small task card.
+ */
 function smallTask(element, closedSubtasksLength, id) {
   return `
     <div onclick="openTaskDetails('${id}')" draggable="true" ondragstart="startDragging(event, '${id}')" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task" ondrop="dropOnTask(event, '${id}')" ondragover="allowDrop(event)">
@@ -34,11 +57,19 @@ function smallTask(element, closedSubtasksLength, id) {
         ${getSmallSubtasksHtml(element, closedSubtasksLength, id)}
         <div id="small-task-user-badge-and-priority-container-${id}" class="small-task-user-badge-and-priority-container">
             <div id="small-task-user-badges-container-${id}" class="small-task-user-badges-container"></div>
-            <img id="task-prio-image-${id}" class="task-prio-img" src="./assets/icons/${element.priority}_prio_color.png" alt="">
+            <img id="task-prio-image-${id}" class="task-prio-img" src="./assets/icons/${element.priority.toLowerCase()}_prio_color.png" alt="">
         </div>
     </div>`;
 }
 
+/**
+ * Generates the HTML for the subtask progress indicator on a small task card.
+ *
+ * @param {Object} element The task object containing subtasks.
+ * @param {number} closedLength The number of completed subtasks.
+ * @param {string} id The unique identifier of the task.
+ * @returns {string} The HTML string for the subtask progress bar.
+ */
 function getSmallSubtasksHtml(element, closedLength, id) {
   if (!element.subtasks || element.subtasks.length === 0) return "";
   return `
@@ -50,12 +81,25 @@ function getSmallSubtasksHtml(element, closedLength, id) {
     </div>`;
 }
 
+/**
+ * Generates the HTML for a user initials badge.
+ *
+ * @param {string} initials The user's initials.
+ * @param {string} badgeColor The background color for the badge.
+ * @returns {string} The HTML string for the badge.
+ */
 function renderNameBadges(initials, badgeColor) {
   return `
   <div class="dropdown-user-badge small-task-dropdown-user-badge" style="background-color: ${badgeColor}">${initials}</div>
   `;
 }
 
+/**
+ * Generates the HTML for the detailed view dialog of a specific task.
+ *
+ * @param {Object} task The task object containing all details.
+ * @returns {string} The HTML string for the detailed task dialog.
+ */
 function renderDialogTask(task) {
   return `
   <div id="dialog-board-task" class="dialog-board-task">
@@ -108,6 +152,14 @@ function renderDialogTask(task) {
   `;
 }
 
+/**
+ * Generates the HTML for a user badge alongside their full name.
+ *
+ * @param {string} name The user's full name.
+ * @param {string} initials The user's initials.
+ * @param {string} badgeColor The background color for the badge.
+ * @returns {string} The HTML string for the badge and name layout.
+ */
 function renderNameBadgesAndNames(name, initials, badgeColor) {
   return `
   <div id="dialog-dropdown-user-badge-with-name-container" class="dialog-dropdown-user-badge-with-name-container">
@@ -117,6 +169,12 @@ function renderNameBadgesAndNames(name, initials, badgeColor) {
   `;
 }
 
+/**
+ * Generates a placeholder HTML for an empty task category column.
+ *
+ * @param {string} emptyTaskBar The name of the empty task category.
+ * @returns {string} The HTML string for the placeholder element.
+ */
 function renderPlaceholderTemplate(emptyTaskBar) {
   return `
   <div class="placeholder-task">
@@ -125,6 +183,15 @@ function renderPlaceholderTemplate(emptyTaskBar) {
   `;
 }
 
+/**
+ * Generates the HTML for a single subtask item with a toggleable checkbox.
+ *
+ * @param {string} subtask The description of the subtask.
+ * @param {string} currentState The current status (e.g., "closed").
+ * @param {number} index The index of the subtask in the list.
+ * @param {string} taskId The unique identifier of the parent task.
+ * @returns {string} The HTML string for the subtask item.
+ */
 function renderSubtaskDiv(subtask, currentState, index, taskId) {
   const hideDefault = currentState === "closed" ? "d-none" : "";
   const hideChecked = currentState === "closed" ? "" : "d-none";
@@ -137,6 +204,12 @@ function renderSubtaskDiv(subtask, currentState, index, taskId) {
     `;
 }
 
+/**
+ * Generates the full HTML for the task editing form.
+ *
+ * @param {Object} task The task object to be edited.
+ * @returns {string} The HTML string containing the edit form.
+ */
 function buildEditForm(task) {
   return `
     <div class="close-edit-x-container">
@@ -148,7 +221,6 @@ function buildEditForm(task) {
     </div>
     
 
-    <!-- FORMULAR -->
     <form id="edit-add-task-form" class="edit-add-task-form" return false;">
       <div class="task-column left-column">
           <div class="form-group">
@@ -175,26 +247,22 @@ function buildEditForm(task) {
       </div>
       <div class="task-column right-column">
 
-          <!-- PRIORITY-BUTTONS -->
           <div class="form-group">
               <p class="edit-dialog-headings">Priority</p>
               <div class="priority-buttons">
 
-                  <!-- PRIORITY-URGENT -->
                   <button id="edit-task-prio-urgent-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('urgent')">
                       <span class="prio-text">Urgent</span>
                       <img id="edit-task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
                       <img id="edit-task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="">
                   </button>
 
-                  <!-- PRIORITY-MEDIUM -->
                   <button id="edit-task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="highlightSelectedPriority('medium')">
                       <span class="prio-text">Medium</span> 
                       <img id="edit-task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
                       <img id="edit-task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="">
                   </button>
 
-                  <!-- PRIORITY-LOW -->
                   <button id="edit-task-prio-low-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('low')">
                       <span class="prio-text">Low</span>
                       <img id="edit-task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
@@ -237,6 +305,12 @@ function buildEditForm(task) {
   `;
 }
 
+/**
+ * Generates the HTML for the due date and priority edit fields.
+ *
+ * @param {Object} task The task object being edited.
+ * @returns {string} The HTML string for the date and priority inputs.
+ */
 function buildEditDetails(task) {
   return `
         <div class="edit-field-group">
@@ -248,6 +322,12 @@ function buildEditDetails(task) {
     `;
 }
 
+/**
+ * Generates the HTML for the priority selection dropdown.
+ *
+ * @param {string} currentPrio The currently selected priority level.
+ * @returns {string} The HTML string for the priority select element.
+ */
 function buildPrioritySelect(currentPrio) {
   return `
         <select id="edit-prio">
@@ -258,6 +338,16 @@ function buildPrioritySelect(currentPrio) {
     `;
 }
 
+/**
+ * Generates the HTML for a single contact list item.
+ *
+ * @param {number} index The index of the contact.
+ * @param {string} initails The user's initials.
+ * @param {string} name The user's full name.
+ * @param {string} email The user's email address.
+ * @param {string} color The background color for the user's badge.
+ * @returns {string} The HTML string for the contact item.
+ */
 function renderContactTemplate(index, initails, name, email, color) {
   return `
         <div onclick="openContactDetailview('contact-${index}', ${index})" id="contact-${index}" class="contact">
@@ -272,6 +362,16 @@ function renderContactTemplate(index, initails, name, email, color) {
         `;
 }
 
+/**
+ * Generates the HTML for the detailed view of a selected contact.
+ *
+ * @param {string} initials The user's initials.
+ * @param {string} name The user's full name.
+ * @param {string} email The user's email address.
+ * @param {string} phoneNumber The user's phone number.
+ * @param {string} color The background color for the user's badge.
+ * @returns {string} The HTML string for the detailed contact layout.
+ */
 function renderDetailedContactsTemplate(
   initials,
   name,
@@ -282,7 +382,7 @@ function renderDetailedContactsTemplate(
   return `
   <div>
         <div class="contact-edit">
-          <div class="contact-detail-initials" ">
+          <div class="contact-detail-initials">
             <p style="background-color:${color}" class="inital-style">${initials}</p>
           </div>
           <div>
@@ -309,6 +409,12 @@ function renderDetailedContactsTemplate(
   `;
 }
 
+/**
+ * Generates the HTML for an alphabetical grouping separator in the contact list.
+ *
+ * @param {string} letter The alphabetical letter for the breaker.
+ * @returns {string} The HTML string for the separator.
+ */
 function contactBrakerTemplate(letter) {
   return `
         <div class="contact-breaker">
@@ -341,10 +447,11 @@ function renderUsersDropdownTemplate(user, initials, color) {
 /**
  * Returns the HTML string for a selectable user entry in the assignment dropdown.
  *
- * @param {string} user The user's display name.
+ * @param {string} userName The user's display name.
  * @param {string} initials The initials shown in the badge.
  * @param {string} color The badge background color.
- * @returns {string} The HTML string for the dropdown entry.
+ * @param {boolean} isSelected Whether the user is currently selected.
+ * @returns {string} The HTML string for the edit dropdown entry.
  */
 function renderEditUsersDropdownTemplate(
   userName,
@@ -400,24 +507,14 @@ function renderSubtaskItemsTemplate(subtasksInput) {
                     </div>
                 </div>
             </div>
-        </li>
-        <div id="subtask-edit" class="subtask-item-edit dNone">
-            <input class="subtask-edit-input" type="text" name="subtasks" value="${subtasksInput.value}" onkeypress="if(event.key === 'Enter') confirmEditSubtask(this)"></input>
-            <div class="subtask-edit-btns">
-                <img class="edit-input-delete-btn" src="./assets/icons/subtask_delete.svg" alt="" onclick="deleteSubtask(this)">
-                <span class="subtask-edit-input-divider">|</span>
-                <img class="edit-input-check-btn" src="./assets/icons/subtask_check.svg" alt="" onclick="confirmEditSubtask(this)">
-            </div>
-        </div>
-    </div>
   `;
 }
 
 /**
- * Returns the HTML string for a subtask item with both display and inline edit states.
+ * Returns the HTML string for a subtask item within the edit mode.
  *
- * @param {HTMLInputElement} subtasksInput The input element containing the subtask text.
- * @returns {string} The HTML string for the subtask item.
+ * @param {string} text The text content of the subtask.
+ * @returns {string} The HTML string for the editable subtask item.
  */
 function renderEditSubtaskItemsTemplate(text) {
   return `
