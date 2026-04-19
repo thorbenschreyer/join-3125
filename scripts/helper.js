@@ -127,7 +127,7 @@ function initToastElements() {
  */
 function showTitleError() {
     titleInput.classList.add("red-border");
-    titleInputError.classList.remove("dNone");
+    titleInputError.classList.add("input-error-visible");
     titleInputError.textContent = "This field is required";
 }
 
@@ -136,7 +136,7 @@ function showTitleError() {
  */
 function hideTitleError() {
     titleInput.classList.remove("red-border");
-    titleInputError.classList.add("dNone");
+    titleInputError.classList.remove("input-error-visible");
 }
 
 // DUE DATE
@@ -153,7 +153,7 @@ function setMinDate() {
  */
 function showDueDateError() {
     dueDateInput.classList.add("red-border");
-    dueDateInputError.classList.remove("dNone");
+    dueDateInputError.classList.add("input-error-visible");
 }
 
 /**
@@ -161,7 +161,7 @@ function showDueDateError() {
  */
 function hideDueDateError() {
     dueDateInput.classList.remove("red-border");
-    dueDateInputError.classList.add("dNone");
+    dueDateInputError.classList.remove("input-error-visible");
 }
 
 // PRIORITY
@@ -278,7 +278,7 @@ function resetUserSelection() {
  */
 function showCategoryError() {
     categoryInputWrapper.classList.add("red-border");
-    categoryInputError.classList.remove("dNone");
+    categoryInputError.classList.add("input-error-visible");
     categoryInputError.textContent = "This field is required";
 }
 
@@ -287,7 +287,7 @@ function showCategoryError() {
  */
 function hideCategoryError() {
     categoryInputWrapper.classList.remove("red-border");
-    categoryInputError.classList.add("dNone");
+    categoryInputError.classList.remove("input-error-visible");
 }
 
 // SUBTASKS

@@ -22,9 +22,16 @@ body {
 }
 
 .input-error {
-  display: block;
+  position: absolute;
+  bottom: -18px;
+  left: 0;
   color: var(--red);
   font-size: 12px;
+  visibility: hidden;
+}
+
+.input-error-visible {
+  visibility: visible;
 }
 
 .dNone {
@@ -71,7 +78,7 @@ h1 {
 .task-column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 /* === INPUT-FIELDS === */
@@ -647,6 +654,7 @@ fieldset.form-group legend {
   align-items: flex-end;
   width: 690px;
   padding: 0;
+  z-index: 20;
 }
 
 .footer-left {
@@ -806,7 +814,7 @@ fieldset.form-group legend {
   .add-task-form {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 24px;
   }
 
   .vertical-divider {
@@ -836,7 +844,7 @@ fieldset.form-group legend {
 
   .footer-right {
     width: 320px;
-    gap: 20px;
+    gap: 24px;
     padding: 8px 0;
     background: var(--bg-color);
   }
