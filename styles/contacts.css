@@ -306,6 +306,17 @@
   opacity: 1;
 }
 
+.input-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+  display: block;
+}
+
+.input-error:empty {
+  display: none;
+}
+
 
 @media (max-width: 1250px) {
   .contact-haeder-area {
