@@ -1,10 +1,12 @@
 @media (max-width: 1350px) {
   .summary-content-area {
     flex-direction: column-reverse;
+    align-items: center;
   }
 
   .welcome-content {
     align-items: start;
+    width: 100%;
   }
 }
 
@@ -21,6 +23,8 @@
   .summary-header {
     flex-direction: column;
     align-items: start;
+    margin: auto;
+    width: 560px;
   }
 
   .summary-header hr {
@@ -37,8 +41,12 @@
 
   /* =============== Summary Content =============== */
   .summary-page {
-    padding: 0px 8px;
-    padding-top: 64px;
+    padding: unset;
+    padding-top: 32px;
+  }
+
+    .welcome-content {
+    width: 560px;
   }
 }
 
@@ -83,7 +91,16 @@
 @media (max-width: 610px) {
   .summary-content {
     width: 100%;
+    padding: 16px 8px;
   }
+
+  .summary-header p {
+    font-size: 46px;
+}
+
+.summary-header span {
+    font-size: 20px;
+}
 }
 
 @media (max-width: 550px) {
