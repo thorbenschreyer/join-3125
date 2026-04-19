@@ -2,7 +2,8 @@
 
 .all-content-area {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100dvh;
 }
 
 .main-area {
@@ -18,7 +19,7 @@
   background-color: white;
   z-index: 1000;
   height: 96px;
-  width: 100vw;
+  width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
