@@ -56,8 +56,7 @@ function initresetEmailInputStyleListener() {
             getUserData();
             USER_EMAIL.classList.remove("red-border");
             USER_CONFIRM_PASSWORD.classList.remove("red-border");
-            INPUT_ERROR.classList.add("dNone");
-            INPUT_ERROR.classList.remove("input-error");
+            INPUT_ERROR.classList.remove("input-error-visible");
         })
     }
 }
@@ -222,12 +221,10 @@ function initSignupButtonListeners() {
     SIGNUP_BUTTON.addEventListener("mouseover", function() {
         if (SIGNUP_BUTTON.disabled) {
             SIGNUP_BUTTON_HINT_TEXT.textContent = "Fill all fields and accept the privacy policy";
-            SIGNUP_BUTTON_HINT_TEXT.classList.remove("dNone");
-            SIGNUP_BUTTON_HINT_TEXT.classList.add("input-error");
+            SIGNUP_BUTTON_HINT_TEXT.classList.add("input-error-visible");
         }
     });
     SIGNUP_BUTTON.addEventListener("mouseout", function() {
-        SIGNUP_BUTTON_HINT_TEXT.classList.add("dNone");
-        SIGNUP_BUTTON_HINT_TEXT.classList.remove("input-error");
+        SIGNUP_BUTTON_HINT_TEXT.classList.remove("input-error-visible");
     });
 }

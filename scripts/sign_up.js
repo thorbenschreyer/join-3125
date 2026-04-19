@@ -142,8 +142,7 @@ function checkFormRequiredFields() {
 function invalidEmailFeedback() {
     USER_EMAIL.classList.add("red-border");
     INPUT_ERROR.textContent = "Please enter a valid email address."
-    INPUT_ERROR.classList.remove("dNone");
-    INPUT_ERROR.classList.add("input-error");
+    INPUT_ERROR.classList.add("input-error-visible");
 }
 
 /**
@@ -155,8 +154,7 @@ function invalidEmailFeedback() {
 function duplicateUserFeedback() {
     USER_EMAIL.classList.add("red-border");
     INPUT_ERROR.textContent = "This email address is already registered."
-    INPUT_ERROR.classList.remove("dNone");
-    INPUT_ERROR.classList.add("input-error");
+    INPUT_ERROR.classList.add("input-error-visible");
 }
 
 /**
@@ -168,8 +166,7 @@ function duplicateUserFeedback() {
 function passwordMismatchFeedback() {
     USER_CONFIRM_PASSWORD.classList.add("red-border");
     INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
-    INPUT_ERROR.classList.remove("dNone");
-    INPUT_ERROR.classList.add("input-error");
+    INPUT_ERROR.classList.add("input-error-visible");
 }
 
 /**
