@@ -102,6 +102,12 @@
   }
 }
 
+@media (max-height: 640px) {
+  .add-contact-dialog-right-img{
+    display: none;
+  }
+}
+
 @media (max-height: 500px) {
   .add-left-dialog-h1 {
     font-size: 24px;
@@ -111,3 +117,5 @@
     font-size: 16px;
   }
 }
+
+
