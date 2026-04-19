@@ -337,16 +337,6 @@
   animation: showStaticLogo 10ms forwards 1100ms; 
 }
 
-/* Responsive Handling */
-@media (max-height: 730px) and (max-width: 745px) {
-  .login-header {
-    display: none;
-  }
-  .login-body {
-    justify-content: space-around;
-  }
-}
-
 .container-signup-and-privacy-policy {
   display: flex;
   flex-direction: column;
