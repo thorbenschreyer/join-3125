@@ -335,30 +335,30 @@ async function handleSubmit(event) {
   event.preventDefault();
 
   const form = event.target;
-  const error = document.getElementById("form-error");
 
   const name = document.getElementById("contact-name").value.trim();
   const email = document.getElementById("contact-email").value.trim();
   const phone = document.getElementById("contact-phone").value.trim();
-
-  error.textContent = "";
+  const errorText = document.getElementById("add-error-text")
+  
+  errorText.innerText = "";
 
   const nameRegex = /^[A-Za-zÄÖÜäöüß\s\-]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.(de|com|org|net)$/;
   const phoneRegex = /^[0-9+\s()\-]{6,20}$/;
 
   if (!nameRegex.test(name)) {
-    error.textContent = "Name darf nur Buchstaben und Bindestriche enthalten.";
+    errorText.innerText = "Name darf nur Buchstaben und Bindestriche enthalten.";
     return;
   }
 
   if (!emailRegex.test(email)) {
-    error.textContent = "Bitte eine gültige E-Mail (.de, .com, etc.) eingeben.";
+    errorText.innerText = "Bitte eine gültige E-Mail (.de, .com, etc.) eingeben.";
     return;
   }
 
   if (!phoneRegex.test(phone)) {
-    error.textContent = "Telefonnummer darf nur Zahlen enthalten.";
+    errorText.innerText = "Telefonnummer darf nur Zahlen enthalten.";
     return;
   }
 
@@ -372,26 +372,26 @@ async function handleEditSubmit(event) {
   const name = document.getElementById("edit-name").value.trim();
   const email = document.getElementById("edit-email").value.trim();
   const phone = document.getElementById("edit-phone").value.trim();
+  const errorEditText = document.getElementById("edit-error-text")
 
-  const phoneError = document.getElementById("phone-error");
-  phoneError.textContent = "";
+  errorEditText.innerText = "";
 
   const nameRegex = /^[A-Za-zÄÖÜäöüß\s'\-]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.(de|com|org|net)$/;
   const phoneRegex = /^[0-9+\s()\-]{6,20}$/;
 
   if (!nameRegex.test(name)) {
-    phoneError.textContent = "Ungültiger Name.";
+    errorEditText.innerText = "Ungültiger Name.";
     return;
   }
 
   if (!emailRegex.test(email)) {
-    phoneError.textContent = "Ungültige E-Mail.";
+    errorEditText.innerText = "Ungültige E-Mail.";
     return;
   }
 
   if (!phoneRegex.test(phone)) {
-    phoneError.textContent = "Bitte gültige Telefonnummer eingeben!";
+    errorEditText.innerText = "Bitte gültige Telefonnummer eingeben!";
     return;
   }
 

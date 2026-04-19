@@ -59,7 +59,9 @@
         <p class="dialog-input-handler"><input required id="contact-name" pattern="[A-Za-zÄÖÜäöüß\s\-]+" placeholder="Name" class="add-contact-dialog-right-inputfield" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/person.png" alt=""></p>
         <p class="dialog-input-handler"><input required id="contact-email" placeholder="Email" pattern="^[^\s@]+@[^\s@]+\.(de|com|org|net)$" class="add-contact-dialog-right-inputfield" type="email"><img class="add-contact-dialog-right-input-img" src="./assets/icons/mail.png" alt=""></p>
         <p class="dialog-input-handler"><input required id="contact-phone" type="tel" pattern="[0-9+\s()\-]{6,20}" placeholder="Phone" class="add-contact-dialog-right-inputfield"><img class="add-contact-dialog-right-input-img" src="./assets/icons/call.png" alt=""></p>
-        <p id="form-error" class="input-error"></p>
+        <div class="error-container">
+         <span id="add-error-text" class=""></span>
+        </div>
         <div class="dialog-button-handler">
           <button  type="button"  onclick="closeDialog(addDialog, 400)" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="./assets/icons/cancel_dark.png" alt=""></button>
           <button type="submit" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="./assets/icons/check_light.png" alt=""></button>
@@ -96,7 +98,9 @@
         <p class="dialog-input-handler"><input value="Peter Müller" id="edit-name" class="add-contact-dialog-right-inputfield" pattern="[A-Za-zÄÖÜäöüß\s\-]+" type="text"><img class="add-contact-dialog-right-input-img" src="./assets/icons/person.png" alt=""></p>
         <p class="dialog-input-handler"><input required id="edit-email" placeholder="Email" pattern="^[^\s@]+@[^\s@]+\.(de|com|org|net)$" class="add-contact-dialog-right-inputfield" type="email"><img class="add-contact-dialog-right-input-img" src="./assets/icons/mail.png" alt=""></p>
         <p class="dialog-input-handler"><input value="+4912544656456" id="edit-phone" class="add-contact-dialog-right-inputfield" type="tel" pattern="[0-9+\s()\-]{6,20}"><img class="add-contact-dialog-right-input-img" src="./assets/icons/call.png" alt=""></p>
-        <p id="phone-error" class="input-error"></p>
+        <div class="error-container">
+         <span id="edit-error-text" class="error-text"></span>
+        </div>
         <div class="dialog-button-handler">
           <button type="button" class="btn-dialog add-contact-dialog-button-cancel" onclick="deleteUserInEditDialog()">Delete</button>
           <button type="submit" class="btn-dialog add-contact-dialog-button-create">Save<img src="./assets/icons/check_light.png" alt=""></button>
