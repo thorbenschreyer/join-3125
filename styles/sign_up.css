@@ -25,16 +25,17 @@ input {
 
 /* === HEADER === */
 .signup-header {
-  height: 108px;
-  padding: 80px 0 0 72px;
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  padding: 80px 80px 0 77px; 
+  height: auto;
+  margin: 0 auto;
 }
 
 .logo {
-  position: absolute;
-  top: 80px;
-  left: 72px;
-  width: auto;
-  height: 108px;
+  width: 100px;
+  height: auto;
 }
 
 /* === MAIN === */
@@ -343,6 +344,7 @@ input {
 
   .logo {
     position: static;
+    width: auto;
     height: 76px;
   }
 
