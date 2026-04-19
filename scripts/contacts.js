@@ -374,15 +374,14 @@ async function handleEditSubmit(event) {
   await saveEditValues(errorEditText);
 }
 
-
 function validateContact(name, email, phone) {
   const nameRegex = /^[A-Za-zÄÖÜäöüß\s'\-]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.(de|com|org|net)$/;
   const phoneRegex = /^[0-9+\s()\-]{6,20}$/;
 
-  if (!nameRegex.test(name)) return "Ungültiger Name.";
-  if (!emailRegex.test(email)) return "Ungültige E-Mail.";
-  if (!phoneRegex.test(phone)) return "Ungültige Telefonnummer.";
+  if (!nameRegex.test(name)) return "Invalid name. Only letters and hyphens allowed.";
+  if (!emailRegex.test(email)) return "Invalid email. “@” and valid domain required.";
+  if (!phoneRegex.test(phone)) return "Invalid phone number. Digits only.";
 
   return null;
 }
