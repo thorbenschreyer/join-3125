@@ -236,10 +236,18 @@ function getInitials(name) {
 function renderAssignedBadges() {
     let badgeContainer = document.getElementById("assigned-badges");
     badgeContainer.innerHTML = "";
-    for (let i = 0; i < selectedUsers.length; i++) {
+    let maxBadges = 3;
+    let visibleCount = Math.min(selectedUsers.length, maxBadges);
+    for (let i = 0; i < visibleCount; i++) {
         let u = selectedUsers[i];
         badgeContainer.insertAdjacentHTML("beforeend",
             `<div class="assigned-badge" style="background-color: ${u.color}">${u.initials}</div>`
+        );
+    }
+    if (selectedUsers.length > maxBadges) {
+        let remaining = selectedUsers.length - maxBadges;
+        badgeContainer.insertAdjacentHTML("beforeend",
+            `<div class="assigned-badge assigned-badge-counter">+${remaining}</div>`
         );
     }
 }

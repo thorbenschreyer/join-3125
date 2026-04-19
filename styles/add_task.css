@@ -391,6 +391,14 @@ fieldset.form-group legend {
   font-weight: 600;
 }
 
+.assigned-badge:hover {
+  cursor: default;
+}
+
+.assigned-badge-counter {
+    background-color: var(--logo-dark-blue);
+}
+
 /* === CATEGORY === */
 .dropdown-input {
   border: none;
