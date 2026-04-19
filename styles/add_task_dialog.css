@@ -19,7 +19,7 @@
 }
 
 .add-tasks-dialog-header {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -118,5 +118,11 @@
   .add-task-dialog{
     overflow-x: scroll;
     scrollbar-width: none;
+  }
+}
+
+@media (max-width: 1050px) {
+  .add-tasks-dialog-header {
+    display: flex;
   }
 }
