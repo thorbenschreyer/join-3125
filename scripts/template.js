@@ -51,7 +51,10 @@ function helpAndLogout() {
 function smallTask(element, closedSubtasksLength, id) {
   return `
     <div onclick="openTaskDetails('${id}')" draggable="true" ondragstart="startDragging(event, '${id}')" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task" ondrop="dropOnTask(event, '${id}')" ondragover="allowDrop(event)">
-        <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
+        <div class="small-task-category-and-move-to-container">
+          <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
+          <button id="move-to-btn-${id}" class="move-to-btn" onclick="openMoveToDropdown(event, '${id}')"><img src="./assets/icons/move_to_arrows.png" alt="Move to Button"></button>
+        </div>  
         <h3 id="small-task-title-${id}" class="small-task-title">${truncateText(element.title)}</h3>
         <p id="small-task-description-${id}" class="small-task-description">${truncateText(element.description)}</p>
         ${getSmallSubtasksHtml(element, closedSubtasksLength, id)}

@@ -293,6 +293,13 @@
     opacity 0.2s ease;
 }
 
+.small-task-category-and-move-to-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .small-task-category-user-story {
   font-size: 16px;
   font-weight: 400;
