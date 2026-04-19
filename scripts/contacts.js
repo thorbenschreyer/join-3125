@@ -337,6 +337,13 @@ function showSuccessMessage() {
   }, 2000);
 }
 
+/**
+ * 
+ * This function monitors the submission of the form for AddUser() and ensures that all data is correct. 
+ * If this is not the case, a corresponding error message is displayed. 
+ * @param {form submit} event 
+ * @returns the error description
+ */
 async function handleSubmit(event) {
   event.preventDefault();
   const errorText = document.getElementById("add-error-text");
@@ -357,6 +364,12 @@ async function handleSubmit(event) {
   form.reset();
 }
 
+/**
+ * This function monitors the submission of the form for saveEditUser() and ensures that all data is correct. 
+ * If this is not the case, a corresponding error message is displayed. 
+ * @param {form submit} event 
+ * @returns the error description
+ */
 async function handleEditSubmit(event) {
   event.preventDefault();
 
@@ -374,6 +387,14 @@ async function handleEditSubmit(event) {
   await saveEditValues(errorEditText);
 }
 
+/**
+ * This function checks whether 
+ * @param {document.getElementById of handleSubmit or handleEditSubmit} name 
+ * @param {document.getElementById of handleSubmit or handleEditSubmit} email 
+ * @param {document.getElementById of handleSubmit or handleEditSubmit} phone 
+ * have been entered correctly. If not 
+ * @returns the error message 
+ */
 function validateContact(name, email, phone) {
   const nameRegex = /^[A-Za-zÄÖÜäöüß\s'\-]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.(de|com|org|net)$/;
