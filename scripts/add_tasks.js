@@ -91,7 +91,7 @@ async function initAddTaskElements() {
 async function loadUsers() {
     users = [];
     let allUserData = await fetch(`${BASE_URL}users.json`);
-    let allUserDataToJson = await allUserData.json(); 
+    let allUserDataToJson = await allUserData.json();
     let UserKeysArray = Object.keys(allUserDataToJson);
 
     for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
@@ -101,7 +101,7 @@ async function loadUsers() {
                 avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
             }
         )
-    }    
+    }
 }
 
 /**
@@ -157,64 +157,6 @@ function highlightSelectedPriority(priority) {
     }   
 }
 
-function addTask() {
-    const newTask = buildTaskObject();
-    tasks.push(newTask);
-    saveTaskData();
-    addTaskSuccess();
-}
-
-function buildTaskObject() {
-    return {
-        id: generateUniqueId(),
-        title: titleInput.value,
-        description: descInput.value,
-        dueDate: dueDateInput.value,
-        priority: getSelectedPriority(),
-        assignedTo: selectedUsers.map(user => user.name),
-        category: categoryInput.value,
-        categoryColor: categoryInput.value.trim().toLowerCase().split(' ').join('-'),
-        subtasks: getFormattedSubtasks(),
-        currentTask: `${currentTaskBar}`
-    };
-}
-
-function addTaskSuccess() {
-    addTaskBtn.disabled = true;
-    addTaskSuccessToast.classList.add("show");
-    addTaskSuccessOverlay.classList.add("show");
-    setTimeout(() => {
-        loadBoardPage();
-    }, 1500);
-    
-}
-
-async function saveTaskData() {
-    let lastTask = tasks.length - 1;
-    await fetch(`${BASE_URL}tasks.json`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(tasks[lastTask])
-    });
-}
-
-async function loadUsers() {
-    users = [];
-    let allUserData = await fetch(`${BASE_URL}users.json`);
-    let allUserDataToJson = await allUserData.json(); 
-    let UserKeysArray = Object.keys(allUserDataToJson);
-
-    for (let userIndex = 0; userIndex < UserKeysArray.length; userIndex++) {
-        users.push(
-            {
-                name : allUserDataToJson[UserKeysArray[userIndex]].name,
-                avatarColor : allUserDataToJson[UserKeysArray[userIndex]].avatarColor
-            }
-        )
-    }  
-};  
 // ASSIGNED TO
 /**
  * Renders the assignment dropdown from the loaded user list.
@@ -235,13 +177,14 @@ function openAssignedDropdown() {
     let users = document.getElementById("task-assigned-to-users");
     let arrowdown = document.getElementById("dropdown-arrow");
     let arrowup = document.getElementById("dropup-arrow");
-    users.classList.toggle("dNone");
-    users.classList.toggle("dFlex");
-    arrowdown.classList.toggle("dNone");
-    arrowup.classList.toggle("dNone");
+    users.classList.remove("dNone");
+    users.classList.add("dFlex");
+    arrowdown.classList.add("dNone");
+    arrowup.classList.remove("dNone");
     document.getElementById("task-assigned-to-input").focus();
     assignedToInputWrapper.classList.add("blue-border");
     closeCategoryDropdown();
+    filterAssignedUsers();
 }
 
 /**
@@ -263,6 +206,7 @@ function toggleAssignedDropdown(event) {
         assignedToInputWrapper.classList.add("blue-border");
     }
     closeCategoryDropdown();
+    filterAssignedUsers();
 }
 
 /**
@@ -278,7 +222,6 @@ function closeAssignedDropdown() {
     arrowdown.classList.remove("dNone");
     arrowup.classList.add("dNone");
     document.getElementById("task-assigned-to-input").value = "";
-    filterAssignedUsers();
     checkDropdownState();
 }
 
@@ -388,6 +331,7 @@ function clearFormular() {
     dueDateInput.value = "";
     hideTitleError();
     hideDueDateError();
+    hideCategoryError();
     resetPriorityButtons();
     highlightSelectedPriority("medium");
     resetUserSelection();
@@ -411,7 +355,7 @@ function buildTaskObject() {
         category: categoryInput.value,
         categoryColor: categoryInput.value.trim().toLowerCase().split(' ').join('-'),
         subtasks: getFormattedSubtasks(),
-        currentTask: 'to-do'
+        currentTask: `${currentTaskBar}`
     };
 }
 

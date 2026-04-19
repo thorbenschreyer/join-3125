@@ -102,16 +102,15 @@ function initAssignedToListener() {
     assignedToInput.addEventListener("blur", function() {
         assignedToInputWrapper.classList.remove("blue-border");
     });
-    assignedToInputWrapper.addEventListener("keydown", function(event) {
+    assignedToInput.addEventListener("keydown", function(event) {
         if (event.key === 'Escape') {
             closeAssignedDropdown();
         }
     });
-    assignedToInputWrapper.addEventListener("input", function() {
-        if (assignedToInput.value.length == 1) {
+    assignedToInput.addEventListener("input", function() {
+        if (assignedToInput.value.length > 0) {
             openAssignedDropdown();
-        } else if (assignedToInput.value.length == 0) {
-            closeAssignedDropdown();
+            filterAssignedUsers();
         }
     });
 }

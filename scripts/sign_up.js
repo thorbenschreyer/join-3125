@@ -6,6 +6,7 @@ const USER_CONFIRM_PASSWORD = document.getElementById("confirm-password-register
 const SIGNUP_BACK_BUTTON = document.getElementById("signup-back-button");
 const SIGNUP_BUTTON = document.getElementById("signup-button");
 const INPUT_ERROR = document.getElementById("input-error");
+const SIGNUP_BUTTON_HINT_TEXT = document.getElementById("signup-button-hint");
 const PASSWORD_LOCK = document.getElementById("password-lock");
 const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
 const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");
@@ -25,7 +26,7 @@ const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.a
 // FORM INPUT FIELDS
 const FORM_INPUT_FIELDS = [
     USER_NAME,
-    USER_EMAIL,
+    USER_EMAIL,     
     USER_PASSWORD,
     USER_CONFIRM_PASSWORD
 ];
@@ -76,143 +77,7 @@ function resetFormFilledState() {
  */
 function init() {
     getUserData();
-    setupPasswordVisibilityControls();
-    resetEmailInputStyles();
     initAccessibilityListeners();
-}
-
-/**
- * Reveals password interaction controls on first focus.
- *
- * The visibility toggle is only initialized if it has not been set before,
- * preventing unintended state overrides when the user refocuses the field.
- */
-function setupPasswordVisibilityControls() {
-    USER_PASSWORD.addEventListener("focus", function() {
-        PASSWORD_LOCK.classList.add("dNone");
-        if (PASSWORD_VISIBILITY_ON.classList.contains("dNone") && PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-            PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
-            updatePasswordInputType();
-        }
-    })
-    USER_CONFIRM_PASSWORD.addEventListener("focus", function() {
-        CONFIRM_PASSWORD_LOCK.classList.add("dNone");
-        if (CONFIRM_PASSWORD_VISIBILITY_ON.classList.contains("dNone") && CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-            CONFIRM_PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
-            updateConfirmPasswordInputType();
-        } 
-    }) 
-}
-
-/**
- * Clears email-related error styling when the user focuses any input field.
- *
- * This ensures that server-side validation feedback (e.g. duplicate email)
- * is reset as soon as the user starts correcting their input, preventing
- * stale error states from persisting in the UI.
- *
- * Note: The error class is only removed if the message corresponds to the
- * duplicate email case to avoid interfering with unrelated validation errors.
- */
-function resetEmailInputStyles() {
-    for (let inputIndex = 0; inputIndex < FORM_INPUT_FIELDS.length; inputIndex++) {
-        FORM_INPUT_FIELDS[inputIndex].addEventListener("focus", function() {
-            getUserData();
-            USER_EMAIL.classList.remove("red-border");
-            USER_CONFIRM_PASSWORD.classList.remove("red-border");
-            INPUT_ERROR.classList.add("dNone");
-            INPUT_ERROR.classList.remove("input-error");
-        })
-    }
-}
-
-/**
- * Registers the keyboard interaction handlers needed to keep navigation
- * and consent controls accessible across the signup page.
- */
-function initAccessibilityListeners() {
-    initBackButtonKeyboardListener();
-    initPrivacyCheckboxKeyboardListener();
-    initPrivacyLinkKeyboardListener();
-    initPrivacyFooterKeyboardListener();
-    initLegalFooterKeyboardListener();
-    initFormFilledListeners();
-}
-
-/**
- * Enables keyboard-based navigation for the back button by treating Enter and Space
- * like an activation event and returning the user to the login page.
- * @param {KeyboardEvent} event The keyboard event triggered on the back button.
- */
-function initBackButtonKeyboardListener() {
-    SIGNUP_BACK_BUTTON.addEventListener("keydown", function(event) {
-        if (event.key === "Enter" || event.key === " ") {
-            window.location.href = "login.html";
-        }
-    });
-}
-
-/**
- * Allows the privacy checkbox to be toggled with Enter so keyboard users can
- * interact with it consistently across browsers.
- * @param {KeyboardEvent} event The keyboard event triggered on the privacy checkbox.
- */
-function initPrivacyCheckboxKeyboardListener() {
-    PRIVACY_POLICY_CHECKBOX.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            PRIVACY_POLICY_CHECKBOX.checked = !PRIVACY_POLICY_CHECKBOX.checked;
-            PRIVACY_POLICY_CHECKBOX.dispatchEvent(new Event("change"));
-        }
-    });
-}
-
-/**
- * Adds keyboard support for opening the privacy policy link with Space,
- * matching the expected behavior of other interactive elements.
- * @param {KeyboardEvent} event The keyboard event triggered on the privacy policy link.
- */
-function initPrivacyLinkKeyboardListener() {
-    PRIVACY_POLICY_CHECKBOX_LINK.addEventListener("focus", function() {
-        PRIVACY_POLICY_CHECKBOX_LINK.addEventListener("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
-                window.location.href = "index.html?page=privacy";
-            }
-        });
-    });
-}
-
-/**
- * Lets keyboard users open the footer privacy link with Space,
- * aligning its behavior with other keyboard-accessible controls.
- * @param {KeyboardEvent} event The keyboard event triggered on the footer privacy link.
- */
-function initPrivacyFooterKeyboardListener() {
-    PRIVACY_POLICY_FOOTER.addEventListener("focus", function() {
-        PRIVACY_POLICY_FOOTER.addEventListener("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
-                window.location.href = "index.html?page=privacy";
-            }
-        });
-    });
-}
-
-/**
- * Lets keyboard users open the footer legal notice link with Space,
- * keeping footer navigation consistent for non-pointer interaction.
- * @param {KeyboardEvent} event The keyboard event triggered on the footer legal notice link.
- */
-function initLegalFooterKeyboardListener() {
-    LEGAL_NOTICE_FOOTER.addEventListener("focus", function() {
-        LEGAL_NOTICE_FOOTER.addEventListener("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
-                window.location.href = "index.html?page=legal";
-            }
-        });
-    });
 }
 
 // PASSWORD VISIBILITY
@@ -258,15 +123,27 @@ function updateConfirmPasswordInputType() {
 
 // VALIDATION FEEDBACK
 /**
+ * Enables the add-task button only when all required fields are valid.
+ */
+function checkFormRequiredFields() {
+    if (isNameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPrivatePolicyChecked) {
+        SIGNUP_BUTTON.disabled = false;
+        SIGNUP_BUTTON.classList.remove("disabled-btn");
+    } else {
+        SIGNUP_BUTTON.disabled = true;
+        SIGNUP_BUTTON.classList.add("disabled-btn");
+    }
+}
+/**
  * Displays a validation error after form submission if the email format is invalid.
  * This serves as a final check in case the user bypassed real-time validation,
  * ensuring that only properly formatted email addresses are accepted by the system.
  */
 function invalidEmailFeedback() {
-USER_EMAIL.classList.add("red-border");
-        INPUT_ERROR.textContent = "Please enter a valid email address."
-        INPUT_ERROR.classList.remove("dNone");
-        INPUT_ERROR.classList.add("input-error");
+    USER_EMAIL.classList.add("red-border");
+    INPUT_ERROR.textContent = "Please enter a valid email address."
+    INPUT_ERROR.classList.remove("dNone");
+    INPUT_ERROR.classList.add("input-error");
 }
 
 /**
@@ -343,6 +220,19 @@ function addUser() {
 }
 
 /**
+ * Copies the current signup form values into shared state before validation and submission.
+ *
+ * Centralizing this step keeps the signup flow consistent and avoids reading
+ * directly from the DOM in each validation branch.
+ */
+function setUserInput() {
+    userNameSignup = USER_NAME.value;
+    userEmail = USER_EMAIL.value;
+    userPassword = USER_PASSWORD.value;
+    userConfirmPassword = USER_CONFIRM_PASSWORD.value;
+}
+
+/**
  * Assigns the next avatar color in a repeating sequence so new users
  * receive a color even after the predefined palette has been exhausted.
  */
@@ -391,79 +281,3 @@ async function saveUserData() {
 // APP START
 // Initialize the application init() when the window loads
 window.onload = init;
-
-
-
-// NEW
-function setUserInput() {
-    userNameSignup = USER_NAME.value;
-    userEmail = USER_EMAIL.value;
-    userPassword = USER_PASSWORD.value;
-    userConfirmPassword = USER_CONFIRM_PASSWORD.value;
-}
-
-function emailInvalidUserFeedback() {
-    if (!USER_EMAIL.checkValidity())
-        USER_EMAIL.classList.add("red-border");
-        INPUT_ERROR.textContent = "Please enter a valid email address."
-        INPUT_ERROR.classList.remove("dNone");
-        INPUT_ERROR.classList.add("input-error");
-        return;
-}
-
-function initFormFilledListeners() {
-    USER_NAME.addEventListener("input", function() {
-        if (USER_NAME.value.length > 0) {
-            isNameFilled = true;
-        } else if (USER_NAME.value.length == 0) {
-            isNameFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-    USER_EMAIL.addEventListener("input", function() {
-        if (USER_EMAIL.value.length > 0) {
-            isEmailFilled = true;
-        } else if (USER_EMAIL.value.length == 0) {
-            isEmailFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-    USER_PASSWORD.addEventListener("input", function() {
-        if (USER_PASSWORD.value.length > 0) {
-            isPasswordFilled = true;
-        } else if (USER_PASSWORD.value.length == 0) {
-            isPasswordFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-    USER_CONFIRM_PASSWORD.addEventListener("input", function() {
-        if (USER_CONFIRM_PASSWORD.value.length > 0) {
-            isConfirmPasswordFilled = true;
-        } else if (USER_CONFIRM_PASSWORD.value.length == 0) {
-            isConfirmPasswordFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-    PRIVACY_POLICY_CHECKBOX.addEventListener("change", function() {
-        if (PRIVACY_POLICY_CHECKBOX.checked === true) {
-            isPrivatePolicyChecked = true;
-        } else if (PRIVACY_POLICY_CHECKBOX.checked === false) {
-            isPrivatePolicyChecked = false;
-        }
-        checkFormRequiredFields();
-    });
-}
-
-
-/**
- * Enables the add-task button only when all required fields are valid.
- */
-function checkFormRequiredFields() {
-    if (isNameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPrivatePolicyChecked) {
-        SIGNUP_BUTTON.disabled = false;
-        SIGNUP_BUTTON.classList.remove("disabled-btn");
-    } else {
-        SIGNUP_BUTTON.disabled = true;
-        SIGNUP_BUTTON.classList.add("disabled-btn");
-    }
-}

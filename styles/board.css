@@ -131,8 +131,6 @@
   display: flex;
   margin-top: 24px;
   flex: 1;
-  overflow-y: scroll;
-  min-height: 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
   height: 100%;

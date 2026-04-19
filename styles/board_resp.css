@@ -22,6 +22,14 @@
 }
 
 @media (max-width: 1420px) {
+  .board-page {
+    scrollbar-width: none;
+  }
+
+  .page-content {
+    scrollbar-width: none;
+  }
+
   .all-task-bars {
     flex-direction: column;
   }
@@ -34,7 +42,7 @@
   .task-bar {
     width: 100%;
     align-items: baseline;
-    padding: 13px 0;
+    padding: 0;
   }
 
   .board-small-task {

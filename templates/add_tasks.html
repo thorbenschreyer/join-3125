@@ -6,6 +6,8 @@
         <h1>
             Add Task
         </h1>
+
+        <!-- DIALOG HEADER -->
         <div id="close-add-task-dialog-x-wrapper" class="close-add-task-dialog-x-wrapper" onclick="closeAddTaskOverlayEmediatly()">
             <img src="./assets/icons/close.png" alt="Close Dialog" class="close-add-task-dialog-x-default">
             <img src="./assets/icons/close_hover_light.png" alt="Close Dialog" class="close-add-task-dialog-x-hover">
@@ -17,8 +19,13 @@
     <form id="add-task-form" class="add-task-form" onsubmit="addTask(); return false;">
 
         <!-- FORMULAR-HEADER-MOBILE -->
-        <div class="add-tasks-mobile-header dNone">
-            <h1 id="add-task-mobile-heading">
+        <h1 id="add-task-mobile-heading" class="add-tasks-mobile-header dNone">
+            Add Task
+        </h1>
+            
+        <!-- DIALOG FORMULAR-HEADER-MOBILE -->
+        <div id="add-tasks-dialog-header" class="add-tasks-dialog-header d-none">
+            <h1 id="add-task-dialog-heading">
                 Add Task
             </h1>
             <div id="close-add-task-dialog-mobile-x-wrapper" class="close-add-task-dialog-mobile-x-wrapper" onclick="closeAddTaskOverlayEmediatly()">
@@ -107,7 +114,7 @@
             <div id="assigned-to-form" class="form-group">
                 <label for="task-assigned-to-input">Assigned to</label>
                 <div id="task-assigned-to-wrapper" class="custom-dropdown"  onclick="stopEventBubbling(event)">
-                    <div class="custom-dropdown-toggle form-input" onclick="openAssignedDropdown()">
+                    <div class="custom-dropdown-toggle form-input" onclick="toggleAssignedDropdown(event)">
                         <input id="task-assigned-to-input" class="dropdown-search-input" type="text" placeholder="Select contacts to assign" oninput="filterAssignedUsers()">
                         <button id="dropdown-arrow" class="dropdown-arrow" type="button" aria-label="Open assigned dropdown" onclick="toggleAssignedDropdown(event)">
                             <img src="./assets/icons/arrow_drop_down.svg" alt="Down arrow icon">
@@ -172,6 +179,23 @@
         <div class="required-field-mobile dNone">
             <span class="required" aria-hidden="true">*</span><span>This field is required</span>
         </div>
+        <!-- Footer for Dialog Add Task -->
+    <div id="add-task-dialog-footer" class="add-task-dialog-footer d-none">
+        <!-- FOOTER LEFT -->
+        <div class="dialog-footer-left">
+            <span class="required">*</span><span>This field is required</span>
+        </div>
+        <!-- FOOTER RIGHT -->
+        <div class="dialog-footer-right">
+            <button class="clear-task-btn" onclick="clearFormular()">
+                <span>Clear &times</span>
+            </button>
+            <button id="dialog-add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" onclick="closeAddTaskOverlay();" disabled>
+                <span>Create Task</span>
+                <img src="./assets/icons/check_light.svg" alt="Checkmark icon">
+            </button>
+        </div>
+    </div>
 
     </form>
 
@@ -197,6 +221,7 @@
         </div>
 
     </div>
+    
 
     <!-- TOAST -->
         <div id="add-task-success-overlay" class="add-task-success-overlay" aria-hidden="true"></div>
@@ -206,22 +231,4 @@
                 <img src="./assets/icons/board_white.png" alt="Columns icon">
             </div>
         </div>
-
-    <!-- Footer for Dialog Add Task -->
-    <div id="add-task-dialog-footer" class="add-task-dialog-footer d-none">
-        <!-- FOOTER LEFT -->
-        <div class="dialog-footer-left">
-            <span class="required">*</span><span>This field is required</span>
-        </div>
-        <!-- FOOTER RIGHT -->
-        <div class="dialog-footer-right">
-            <button class="clear-task-btn" onclick="clearFormular()">
-                <span>Clear &times</span>
-            </button>
-            <button id="dialog-add-task-btn" class="add-task-btn disabled-btn" form="add-task-form" type="submit" onclick="closeAddTaskOverlay();" disabled>
-                <span>Create Task</span>
-                <img src="./assets/icons/check_light.svg" alt="Checkmark icon">
-            </button>
-        </div>
-    </div>
 </div>

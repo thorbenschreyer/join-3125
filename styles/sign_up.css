@@ -157,7 +157,7 @@ input {
 .input-error {
   display: block;
   margin-top: 6px;
-  color: var(--red);
+  color: var(--red) !important;
   font-size: 12px;
 }
 
@@ -220,6 +220,10 @@ input {
     transform 0.5s ease;
 }
 
+.signup-button span {
+  color: var(--white);
+}
+
 .signup-button:hover {
   background-color: var(--logo-light-blue);
   transform: scale(1.02); 
@@ -242,7 +246,6 @@ input {
   background-color: var(--light-gray);
   color: var(--white);
   box-shadow: none;
-  cursor: default !important;
 }
 
 /* === FOOTER === */
@@ -374,6 +377,38 @@ input {
   /* === FOOTER IM FORMULAR === */
   .signup-form-footer {
     padding-top: 20px;
+  }
+
+}
+
+/* === MOBILE === */
+@media (max-width: 500px) {
+
+   /* === HEADER === */
+  .signup-header {
+    padding: 64px 180px 64px 0px;
+  }
+
+  /* === MAIN === */
+
+  .signup-card {
+    padding: 24px 12px 24px;
+    margin-bottom: 26px;
+  }
+
+  /* === HEADER IM FORMULAR === */
+  .signup-back {
+    top: 40px;
+  }
+
+  /* === FORMULAR === */
+  .signup-form {
+    gap: 20px;
+  }
+
+  /* === FOOTER IM FORMULAR === */
+  .signup-form-footer {
+    padding-top: 0px;
   }
 
 }
