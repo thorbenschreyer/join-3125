@@ -4,9 +4,10 @@ const USER_EMAIL = document.getElementById("email-register");
 const USER_PASSWORD = document.getElementById("password-register");
 const USER_CONFIRM_PASSWORD = document.getElementById("confirm-password-register");
 const SIGNUP_BACK_BUTTON = document.getElementById("signup-back-button");
+const SIGNUP_BUTTON_WRAPPER = document.getElementById("signup-button-wrapper");
 const SIGNUP_BUTTON = document.getElementById("signup-button");
 const INPUT_ERROR = document.getElementById("input-error");
-const SIGNUP_BUTTON_HINT_TEXT = document.getElementById("signup-button-hint");
+const SIGNUP_BUTTON_HINT = document.getElementById("signup-button-hint");
 const PASSWORD_LOCK = document.getElementById("password-lock");
 const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
 const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");
@@ -20,7 +21,7 @@ const PRIVACY_POLICY_CHECKBOX_LINK = document.getElementById("privacy-policy-che
 const PRIVACY_POLICY_FOOTER = document.getElementById("privacy-policy-footer");
 const LEGAL_NOTICE_FOOTER = document.getElementById("legal-notice-footer");
 
-// FIREBASE BACKEDND POINT
+// FIREBASE BACKEND POINT
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
 // FORM INPUT FIELDS

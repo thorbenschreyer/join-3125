@@ -78,14 +78,18 @@
                 <!-- FOOTER IM FORMULAR -->
                     <div class="signup-form-footer">
                         <label>
-                            <input id="privacy-policy-checkbox" type="checkbox" required/>
+                            <div class="privacy-policy-wrapper">
+                                <input id="privacy-policy-checkbox" type="checkbox" required/>
                                 <span>
                                     I accept the <a href="index.html?page=privacy" id="privacy-policy-checkbox-link">Privacy policy</a>
                                 </span>
+                            </div>
                         </label>
-                        <button id="signup-button" class="signup-button disabled-btn" type="submit" formnovalidate disabled>
+                        <div id="signup-button-wrapper" class="signup-button-wrapper">
+                            <button id="signup-button" class="signup-button disabled-btn" type="submit" formnovalidate disabled>
                                 Sign up
-                        </button>
+                            </button>
+                        </div>
                         <span id="signup-button-hint" class="input-error"></span>
                     </div>
                 </form>

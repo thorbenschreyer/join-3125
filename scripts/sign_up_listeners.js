@@ -57,6 +57,7 @@ function initresetEmailInputStyleListener() {
             USER_EMAIL.classList.remove("red-border");
             USER_CONFIRM_PASSWORD.classList.remove("red-border");
             INPUT_ERROR.classList.remove("input-error-visible");
+            SIGNUP_BUTTON_HINT.classList.remove("input-error-visible");
         })
     }
 }
@@ -218,13 +219,10 @@ function initPrivacyPolicyCheckboxListener() {
  * The hint is hidden when the mouse leaves the button area.
  */
 function initSignupButtonListeners() {
-    SIGNUP_BUTTON.addEventListener("mouseover", function() {
+    SIGNUP_BUTTON_WRAPPER.addEventListener("click", function() {
         if (SIGNUP_BUTTON.disabled) {
-            SIGNUP_BUTTON_HINT_TEXT.textContent = "Fill all fields and accept the privacy policy";
-            SIGNUP_BUTTON_HINT_TEXT.classList.add("input-error-visible");
+            SIGNUP_BUTTON_HINT.textContent = "Fill all fields and accept the privacy policy";
+            SIGNUP_BUTTON_HINT.classList.add("input-error-visible");
         }
-    });
-    SIGNUP_BUTTON.addEventListener("mouseout", function() {
-        SIGNUP_BUTTON_HINT_TEXT.classList.remove("input-error-visible");
     });
 }
