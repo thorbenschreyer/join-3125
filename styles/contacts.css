@@ -164,6 +164,7 @@
   width: 352px;
   display: flex;
   align-items: center;
+  margin: 4px 0px;
   padding: 24px 16px;
   border-radius: 10px;
 
@@ -337,6 +338,11 @@
 }
 
 @media (max-width: 975px) {
+
+  .contact-breaker hr {
+  width: 100%;
+}
+
   .contact-detail-area {
     display: none;
   }
