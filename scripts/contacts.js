@@ -294,7 +294,7 @@ function editUser() {
 /**
  * Saves the edited values
  */
-async function saveEditValues() {
+async function saveEditValues(errorEditText) {
   let name = document.getElementById("edit-name").value;
   let email = document.getElementById("edit-email").value;
   let phone = document.getElementById("edit-phone").value;
@@ -321,6 +321,7 @@ async function saveEditValues() {
   closeDialog(editDialog, 400);
   initContacts();
   renderDetailContactInformation(currentID);
+  errorEditText.innerText = "";
 }
 
 /**
@@ -364,17 +365,15 @@ async function handleEditSubmit(event) {
   const phone = document.getElementById("edit-phone").value.trim();
   const errorEditText = document.getElementById("edit-error-text");
 
-  errorEditText.innerText = "";
-
-  const error = validateContact(name, email, phone);
-
-  if (error) {
-    errorText.innerText = error;
+  const editError = validateContact(name, email, phone);
+  if (editError) {
+    errorEditText.innerText = editError;
     return;
   }
 
-  await saveEditValues();
+  await saveEditValues(errorEditText);
 }
+
 
 function validateContact(name, email, phone) {
   const nameRegex = /^[A-Za-zÄÖÜäöüß\s'\-]+$/;
