@@ -330,3 +330,55 @@ function showSuccessMessage() {
     toast.classList.remove("show");
   }, 2000);
 }
+
+async function handleSubmit(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const error = document.getElementById("form-error");
+  const phone = document.getElementById("contact-phone").value;
+
+  error.textContent = ""; // reset
+
+  if (!form.checkValidity()) {
+    error.textContent = "Bitte alle Felder korrekt ausfüllen!";
+    return;
+  }
+
+  const phoneRegex = /^[0-9+\s()\-]{6,20}$/;
+
+  if (!phoneRegex.test(phone)) {
+    error.textContent = "Bitte gültige Daten eingeben!";
+    return;
+  }
+
+  await addNewContact();
+  form.reset();
+}
+
+async function handleEditSubmit(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const phone = document.getElementById("edit-phone");
+  const phoneError = document.getElementById("phone-error");
+
+  phoneError.textContent = ""; // reset
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const phoneRegex = /^[0-9+\s()\-]{6,20}$/;
+
+  if (!phoneRegex.test(phone.value)) {
+    phoneError.textContent = "Bitte gültige Telefonnummer eingeben!";
+    phone.classList.add("input-invalid");
+    return;
+  }
+
+  phone.classList.remove("input-invalid");
+
+  await saveEditValues();
+}

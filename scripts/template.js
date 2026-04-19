@@ -359,7 +359,7 @@ function renderContactTemplate(index, initails, name, email, color) {
           </div>
           <div class="contact-name-email">
             <p>${name}</p>
-            <a href="mailto:${email}">${email}</a>
+            <a>${email}</a>
           </div>
         </div>
         `;
