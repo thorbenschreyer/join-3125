@@ -24,6 +24,9 @@ const LEGAL_NOTICE_FOOTER = document.getElementById("legal-notice-footer");
 // FIREBASE BACKEND POINT
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
+// REGEX PATTERNS
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
 // FORM INPUT FIELDS
 const FORM_INPUT_FIELDS = [
     USER_NAME,
@@ -197,7 +200,7 @@ function signUpsuccess() {
 function addUser() {
     setUserInput();
     assignUserColor();
-    if (!USER_EMAIL.checkValidity()) {
+    if (!EMAIL_REGEX.test(userEmail)) {
         invalidEmailFeedback();
         return;
     }
@@ -224,7 +227,7 @@ function addUser() {
  * directly from the DOM in each validation branch.
  */
 function setUserInput() {
-    userNameSignup = USER_NAME.value;
+    userNameSignup = USER_NAME.value.trim();
     userEmail = USER_EMAIL.value;
     userPassword = USER_PASSWORD.value;
     userConfirmPassword = USER_CONFIRM_PASSWORD.value;

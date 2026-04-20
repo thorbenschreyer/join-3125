@@ -146,7 +146,7 @@ function initLegalFooterKeyboardListener() {
  */
 function initUserNameFormFilledListeners() {
     USER_NAME.addEventListener("input", function() {
-        if (USER_NAME.value.length > 0) {
+        if (USER_NAME.value.trim().length > 0) {
             isNameFilled = true;
         } else if (USER_NAME.value.length == 0) {
             isNameFilled = false;
