@@ -8,6 +8,7 @@ const SIGNUP_BUTTON_WRAPPER = document.getElementById("signup-button-wrapper");
 const SIGNUP_BUTTON = document.getElementById("signup-button");
 const INPUT_ERROR = document.getElementById("input-error");
 const SIGNUP_BUTTON_HINT = document.getElementById("signup-button-hint");
+const SIGNUP_BUTTON_HINT_LINES = SIGNUP_BUTTON_HINT.querySelectorAll(".hint-line");
 const PASSWORD_LOCK = document.getElementById("password-lock");
 const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
 const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");

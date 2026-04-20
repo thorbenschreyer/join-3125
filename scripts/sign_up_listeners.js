@@ -210,6 +210,7 @@ function initPrivacyPolicyCheckboxListener() {
         } else if (PRIVACY_POLICY_CHECKBOX.checked === false) {
             isPrivatePolicyChecked = false;
         }
+        SIGNUP_BUTTON_HINT.classList.remove("input-error-visible");
         checkFormRequiredFields();
     });
 }
@@ -221,7 +222,8 @@ function initPrivacyPolicyCheckboxListener() {
 function initSignupButtonListeners() {
     SIGNUP_BUTTON_WRAPPER.addEventListener("click", function() {
         if (SIGNUP_BUTTON.disabled) {
-            SIGNUP_BUTTON_HINT.textContent = "Fill all fields and accept the privacy policy";
+            SIGNUP_BUTTON_HINT_LINES[0].textContent = "All fields required.";
+            SIGNUP_BUTTON_HINT_LINES[1].textContent = "Accept privacy policy.";
             SIGNUP_BUTTON_HINT.classList.add("input-error-visible");
         }
     });
