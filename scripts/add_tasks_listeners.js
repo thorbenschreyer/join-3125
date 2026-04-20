@@ -41,15 +41,15 @@ function initClickOutsideElementsListener() {
 function initTitleInputListeners() {
     titleInput.addEventListener("focus", function() {
         let titleInputValue = titleInput.value;
-        if (titleInputValue.length == 0) {
+        if (titleInputValue.trim().length == 0) {
             showTitleError();
         }
     }); 
     titleInput.addEventListener("input", function() {
         let titleInputValue = titleInput.value;
-        if (titleInputValue.length == 0) {
+        if (titleInputValue.trim().length == 0) {
             showTitleError();
-        } else if (titleInputValue.length > 0) {
+        } else if (titleInputValue.trim().length > 0) {
             hideTitleError();
         }
     });
@@ -172,11 +172,12 @@ function initClickSubtaskListeners() {
         hideSubtaskInputButtons();
     });
     addSubtaskBtn.addEventListener("click", function() {
-        if (subtasksInput.value.length > 0) {
+        if (subtasksInput.value.trim().length > 0) {
             subtasksList.insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
             subtasksInput.value = "";
             hideSubtaskInputButtons();
         }
+        subtasksInput.value = "";
     });
 }
 
@@ -215,7 +216,7 @@ function initKeyboardSubtaskListeners() {
  */
 function initFormValidationListeners() {
     titleInput.addEventListener("change", function() {
-        titleInput.value.length > 0 ? isTitleValid = true : isTitleValid = false
+        titleInput.value.trim().length > 0 ? isTitleValid = true : isTitleValid = false
         checkFormValidity()
     });
     dueDateInput.addEventListener("change", function() {
@@ -251,7 +252,7 @@ function initClearFormListener() {
 function initAddTaskListener() {
     disabledBtnWrapper.addEventListener("click", function() {
         if (addTaskBtn.classList.contains("disabled-btn")) {
-            titleInput.value.length == 0 ? showTitleError() : "";  
+            titleInput.value.trim().length == 0 ? showTitleError() : "";  
             if (dueDateInput.value.length == 0) {
                 dueDateInputError.textContent = "This field is required";
                 showDueDateError();
