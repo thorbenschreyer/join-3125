@@ -92,7 +92,7 @@
 @media (max-width: 610px) {
   .summary-content {
     width: 100%;
-    padding: 16px 8px;
+    padding: 16px 24px;
   }
 
   .summary-header p {
@@ -102,18 +102,6 @@
 .summary-header span {
     font-size: 20px;
 }
-}
-
-@media (max-width: 550px) {
-  .task-display hr {
-    margin: 0px 16px;
-  }
-}
-
-@media (max-width: 420px) {
-  .task-display hr {
-    margin: 0px 8px;
-  }
 
   .task-text {
     text-align: center;
@@ -133,4 +121,27 @@
   .task-summary-style {
     height: 120px;
   }
+}
+
+@media (max-width: 550px) {
+  .task-display hr {
+    margin: 0px 16px;
+  }
+
+  .checked-img {
+    width: 40px;
+    margin-right: 16px;
+  }
+
+  .edit-img {
+    width: 40px;
+    margin-right: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .task-display hr {
+    margin: 0px 8px;
+  }
+
 }
