@@ -90,7 +90,9 @@ async function initAddTaskElements() {
  */
 async function loadUsers() {
     users = [];
-    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserData = await fetch(`${BASE_URL}users.json`, {
+        cache: "no-store"
+    });
     let allUserDataToJson = await allUserData.json();
     let UserKeysArray = Object.keys(allUserDataToJson);
 

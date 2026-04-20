@@ -53,7 +53,24 @@ function smallTask(element, closedSubtasksLength, id) {
     <div onclick="openTaskDetails('${id}')" draggable="true" ondragstart="startDragging(event, '${id}')" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task" ondrop="dropOnTask(event, '${id}')" ondragover="allowDrop(event)">
         <div class="small-task-category-and-move-to-container">
           <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
-          <button id="move-to-btn-${id}" class="move-to-btn" onclick="openMoveToDropdown(event, '${id}')"><img src="./assets/icons/move_to_arrows.png" alt="Move to Button"></button>
+          <button id="move-to-btn-${id}" class="move-to-btn" onclick="openMoveToDropdown(event, '${id}', '${element.currentTask}')">
+            <img class="move-to-img" src="./assets/icons/move_to_arrows.png" alt="Move to Button">
+          </button>
+          <div id="move-to-dropdown-${id}" class="move-to-dropdown d-none" onclick="event.stopPropagation()">
+            <h4 class="move-to-heading">Move to</h4>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'to-do')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'todo')}"> to do
+            </p>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'in-progress')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'in-progress')}"> in progress
+            </p>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'await-feedback')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'await-feedback')}"> await feedback
+            </p>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'done')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'done')}"> done
+            </p>
+        </div>
         </div>  
         <h3 id="small-task-title-${id}" class="small-task-title">${truncateText(element.title)}</h3>
         <p id="small-task-description-${id}" class="small-task-description">${truncateText(element.description)}</p>
