@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  scrollbar-width: none;
 }
 
 .edit-task-dialog-content {
@@ -24,7 +25,7 @@
 }
 
 .edit-dialog-headings {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: var(--logo-dark-blue);
 }
@@ -38,6 +39,16 @@
 
 .mt-16 {
   margin-top: 16px;
+}
+
+.left-column-edit,
+.right-column-edit {
+  width: 100%;
+  max-width: 320px;
+}
+
+.edit-task-description {
+  resize: none;
 }
 
 .edit-custom-dropdown {
@@ -223,7 +234,7 @@
 
 .edit-clear-input-icon {
   position: absolute;
-  top: 31px;
+  top: 32px;
   left: 264px;
   width: 22px;
   height: 22px;
@@ -239,7 +250,7 @@
 }
 .edit-subtasks-vertical-divider {
   position: absolute;
-  top: 33px;
+  top: 34px;
   left: 288px;
   font-weight: 100;
   color: var(--light-gray);
@@ -247,7 +258,7 @@
 
 .edit-add-subtask-icon {
   position: absolute;
-  top: 31px;
+  top: 32px;
   left: 296px;
   width: 22px;
   height: 22px;
@@ -391,4 +402,32 @@
   line-height: 120%;
   letter-spacing: 0%;
   height: 48px;
+}
+
+/* Validation */
+
+.invalid-border {
+  border: 1px solid red !important;
+}
+
+.edit-input-error {
+  color: red;
+  font-size: 16px;
+  display: block;
+  margin-top: -3.5px;
+  margin-bottom: -24px;
+}
+
+@media (max-width: 375px) {
+  .edit-add-subtask-icon {
+    left: 265px;
+  }
+
+  .edit-subtasks-vertical-divider {
+    left: 257px;
+  }
+
+  .edit-clear-input-icon {
+    left: 233px;
+  }
 }

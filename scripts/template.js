@@ -53,7 +53,24 @@ function smallTask(element, closedSubtasksLength, id) {
     <div onclick="openTaskDetails('${id}')" draggable="true" ondragstart="startDragging(event, '${id}')" ondragend="stopDragging(event)" id="board-small-task-${id}" class="board-small-task" ondrop="dropOnTask(event, '${id}')" ondragover="allowDrop(event)">
         <div class="small-task-category-and-move-to-container">
           <p id="small-task-category-${id}" class="small-task-category-${element.categoryColor}">${element.category}</p>
-          <button id="move-to-btn-${id}" class="move-to-btn" onclick="openMoveToDropdown(event, '${id}')"><img src="./assets/icons/move_to_arrows.png" alt="Move to Button"></button>
+          <button id="move-to-btn-${id}" class="move-to-btn" onclick="openMoveToDropdown(event, '${id}', '${element.currentTask}')">
+            <img class="move-to-img" src="./assets/icons/move_to_arrows.png" alt="Move to Button">
+          </button>
+          <div id="move-to-dropdown-${id}" class="move-to-dropdown d-none" onclick="event.stopPropagation()">
+            <h4 class="move-to-heading">Move to</h4>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'to-do')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'todo')}"> to do
+            </p>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'in-progress')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'in-progress')}"> in progress
+            </p>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'await-feedback')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'await-feedback')}"> await feedback
+            </p>
+            <p class="move-to-text" onclick="moveTaskToCategory('${id}', 'done')">
+                <img src="./assets/icons/move_to_arrow_down.png" class="move-to-arrow ${getArrowDirectionClass(element.currentTask, 'done')}"> done
+            </p>
+        </div>
         </div>  
         <h3 id="small-task-title-${id}" class="small-task-title">${truncateText(element.title)}</h3>
         <p id="small-task-description-${id}" class="small-task-description">${truncateText(element.description)}</p>
@@ -224,30 +241,32 @@ function buildEditForm(task) {
     </div>
     
 
-    <form id="edit-add-task-form" class="edit-add-task-form" return false;">
+    <form id="edit-add-task-form" class="edit-add-task-form" onsubmit="return false;" novalidate>
       <div class="task-column left-column">
           <div class="form-group">
               <label for="edit-task-title">
                   Title
               </label>
-              <input id="edit-task-title" class="task-title form-input" type="text" placeholder="Enter a title" value="${task.title}">
-              <span id="edit-title-input-error" class="input-error dNone"></span>
+              <input id="edit-task-title" class="task-title form-input" type="text" placeholder="Enter a title" value="${task.title}" oninput="validateField('edit-task-title', 'edit-title-input-error')">
+              <span id="edit-title-input-error" class="edit-input-error d-none">Please add title</span>
           </div>
           <div class="form-group">
               <label for="edit-task-description">
                   Description
               </label>
-              <textarea id="edit-task-description" class="task-description form-input" rows="5" placeholder="Enter a Description">${task.description}</textarea>
+              <textarea id="edit-task-description" class="edit-task-description form-input" rows="5" placeholder="Enter a Description" oninput="validateField('edit-task-description', 'edit-description-input-error')">${task.description}</textarea>
+              <span id="edit-description-input-error" class="edit-input-error d-none">Please add description</span>
           </div>  
           <div class="form-group">
               <label for="edit-task-due-date">
                   Due date
               </label>
-              <input id="edit-task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
+              <input id="edit-task-due-date" class="task-due-date form-input" type="date" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}" oninput="validateField('edit-task-due-date', 'edit-due-date-input-error')">
               <img id="edit-calendar-icon" src="./assets/icons/calendar.png" class="task-input-icon" alt="calendar image">
-              <span id="edit-due-date-input-error" class="input-error dNone"></span>
+              <span id="edit-due-date-input-error" class="edit-input-error d-none">Please add Date</span>
           </div>
       </div>
+    </form>
       <div class="task-column right-column">
 
           <div class="form-group">
@@ -299,7 +318,7 @@ function buildEditForm(task) {
           </div>
       </div>
       <div class="edit-succcess-btn-container">
-        <button type="button" class="edit-success-button dark-button" id="success-edit-btn" onclick="saveEditedTask('${task.firebaseId}')">
+        <button type="button" class="edit-success-button dark-button" id="success-edit-btn" onclick="if(validateEditForm()) saveEditedTask('${task.firebaseId}')">
           OK 
           <img id="edit-success-btn-icon" class="add-task-btn-icon" src="./assets/icons/check_light.png" alt="Checkmark icon">
         </button>

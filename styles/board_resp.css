@@ -21,6 +21,86 @@
   margin-top: 44px;
 }
 
+.move-to-btn {
+  width: 24px;
+  height: 26px;
+  background: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+  border: solid 2px rgba(42, 54, 71, 1);
+}
+
+.move-to-btn:hover {
+  border-color: rgb(41, 171, 226);
+}
+
+.move-to-btn:hover .move-to-img {
+  filter: brightness(0) saturate(100%) invert(59%) sepia(61%) saturate(2003%) hue-rotate(166deg) brightness(96%) contrast(92%);
+}
+
+.move-to-btn:active {
+  border-color: rgb(42, 54, 71);
+}
+
+.move-to-btn:active .move-to-img {
+  filter: none; 
+}
+
+.move-to-img {
+  width: 13px;
+  height: 16px;
+}
+
+.move-to-dropdown {
+  position: absolute;
+  top: 16px;
+  right: -80px;
+  background-color: rgba(42, 54, 71, 1);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  border-radius: 0 32px 32px 32px;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.move-to-heading {
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.move-to-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.move-to-text:hover {
+  scale: 1.03;
+}
+
+.move-to-text:hover .move-to-arrow {
+  scale: 1.03;
+}
+
+.move-to-text:active {
+  scale: 0.97;
+}
+
+.move-to-text:active .move-to-arrow {
+  scale: 0.97;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
 @media (max-width: 1420px) {
   .board-page {
     scrollbar-width: none;
@@ -47,6 +127,16 @@
 
   .board-small-task {
     margin: 13px;
+    position: relative;
+    overflow: visible;
+  }
+
+  .board-small-task.dropdown-open {
+  z-index: 10;
+}
+
+  .move-to-btn {
+    display: flex;
   }
 
   .tasks-header-and-plus {

@@ -90,7 +90,9 @@ async function initAddTaskElements() {
  */
 async function loadUsers() {
     users = [];
-    let allUserData = await fetch(`${BASE_URL}users.json`);
+    let allUserData = await fetch(`${BASE_URL}users.json`, {
+        cache: "no-store"
+    });
     let allUserDataToJson = await allUserData.json();
     let UserKeysArray = Object.keys(allUserDataToJson);
 
@@ -301,6 +303,10 @@ function editSubtask(button) {
 function confirmEditSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
     let editInput = wrapper.querySelector(".subtask-edit-input");
+     if (editInput.value.trim().length === 0) {
+        wrapper.remove();
+        return;
+    }
     let subtaskText = wrapper.querySelector(".subtask-text");
     let editDiv = wrapper.querySelector("#subtask-edit");
     subtaskText.textContent = editInput.value;
@@ -325,7 +331,8 @@ function deleteSubtask(button) {
 function clearFormular() {
     dialogAddTaskBtn.classList.add("disabled-btn");
     resetFormValidationState();
-    addTaskBtn.classList.add("disabled-btn"); 
+    addTaskBtn.classList.add("disabled-btn");
+    addTaskBtn.disabled = true; 
     titleInput.value = "";
     descInput.value = "";
     dueDateInput.value = "";
