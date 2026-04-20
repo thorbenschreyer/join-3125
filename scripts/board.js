@@ -805,3 +805,31 @@ function getArrowDirectionClass(currentTask, targetTask) {
   // If target is earlier in the list than current, arrow points UP
   return targetIndex < currentIndex ? 'rotate-180' : '';
 }
+
+/**
+ * Validates a single input field and toggles the error visibility.
+ *
+ * @param {string} inputId The ID of the input element.
+ * @param {string} errorId The ID of the error span element.
+ * @returns {boolean} True if the input is valid, false otherwise.
+ */
+function validateField(inputId, errorId) {
+  let input = document.getElementById(inputId);
+  let error = document.getElementById(errorId);
+  let isValid = input.value.trim() !== "";
+  isValid ? input.classList.remove('invalid-border') : input.classList.add('invalid-border');
+  isValid ? error.classList.add('d-none') : error.classList.remove('d-none');
+  return isValid;
+}
+
+/**
+ * Checks all required fields in the edit form before submission.
+ *
+ * @returns {boolean} True if all required fields are filled, false otherwise.
+ */
+function validateEditForm() {
+  let isTitleValid = validateField('edit-task-title', 'edit-title-input-error');
+  let isDescValid = validateField('edit-task-description', 'edit-description-input-error');
+  let isDateValid = validateField('edit-task-due-date', 'edit-due-date-input-error');
+  return isTitleValid && isDescValid && isDateValid;
+}
