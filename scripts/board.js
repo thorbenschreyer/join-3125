@@ -275,32 +275,27 @@ function closedSubtaskLength(task) {
 }
 
 /**
- * Starts the drag operation for a task.
+ * Starts the drag operation for a task if window is wide enough.
  * @param {Event} event - The drag event.
  * @param {string} id - The task ID.
  */
 function startDragging(event, id) {
+  if (window.innerWidth < 1420) return event.preventDefault();
   currentDraggedElement = id;
-  const columns = [
-    "to-do-tasks",
-    "in-progress-tasks",
-    "await-feedback-tasks",
-    "done-tasks",
-  ];
   event.dataTransfer.setData("text/plain", id.toString());
   applyDragStyles(event.target);
-  columns.forEach((colId) => {
-    const col = document.getElementById(colId);
-    if (col) col.classList.add("drag-area-highlight");
-  });
+  ["to-do-tasks", "in-progress-tasks", "await-feedback-tasks", "done-tasks"]
+    .forEach(col => document.getElementById(col)?.classList.add("drag-area-highlight"));
 }
 
 /**
- * Allows dropping on the target element.
+ * Allows dropping on the target element if window is wide enough.
  * @param {Event} event - The drop event.
  */
 function allowDrop(event) {
-  event.preventDefault();
+  if (window.innerWidth >= 1420) {
+    event.preventDefault();
+  }
 }
 
 /**
@@ -317,24 +312,23 @@ async function movingTo(event, category) {
 }
 
 /**
- * Reorders the tasks in a category after a task has been moved into it,
- * placing the moved task at the top. It then updates the sort order in Firebase.
+ * Reorders tasks locally, saves to Firebase, and then re-renders the board.
  * @param {Object} task - The task object that was moved.
  * @param {string} category - The new category of the task.
  */
 async function reorderAndSaveCategory(task, category) {
-  const col = tasks
-    .filter((t) => t.currentTask === category)
-    .sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
-  const taskIndex = col.indexOf(task);
-  if (taskIndex > -1) {
-    col.splice(taskIndex, 1);
-  }
+  const col = tasks.filter(t => t.currentTask === category).sort((a, b) => (a.sortIndex || 0) - (b.sortIndex || 0));
+  const idx = col.indexOf(task);
+  if (idx > -1) col.splice(idx, 1);
   col.unshift(task);
   col.forEach((t, i) => (t.sortIndex = i));
-  await boardInit();
-  await updateFirebaseCategory(task.firebaseId, category);
-  await updateCategoryOrder(col);
+  try {
+    await updateFirebaseCategory(task.firebaseId, category);
+    await updateCategoryOrder(col);
+    await boardInit(); 
+  } catch (e) {
+    console.error("Error saving to Firebase:", e);
+  }
 }
 
 /**
@@ -373,16 +367,18 @@ async function updateDroppedTaskOrder(drag, target) {
 }
 
 /**
- * Updates the sortIndex for each task in the category in Firebase.
- * @param {Array} col - The array of tasks in the category.
+ * Updates the sortIndex for all tasks in a category concurrently.
+ *
+ * @param {Array} col The array of tasks in the category.
  */
 async function updateCategoryOrder(col) {
-  for (let i = 0; i < col.length; i++) {
-    await fetch(`${BASE_URL}tasks/${col[i].firebaseId}/sortIndex.json`, {
+  const promises = col.map((t, i) =>
+    fetch(`${BASE_URL}tasks/${t.firebaseId}/sortIndex.json`, {
       method: "PUT",
       body: JSON.stringify(i),
-    });
-  }
+    })
+  );
+  await Promise.all(promises);
 }
 
 /**
@@ -405,17 +401,22 @@ async function updateTasksOrder() {
  * @param {Event} event - The drag end event.
  */
 function stopDragging(event) {
-  const columns = [
-    "to-do-tasks",
-    "in-progress-tasks",
-    "await-feedback-tasks",
-    "done-tasks",
-  ];
   event.target.classList.remove("rotate-on-drag");
-  columns.forEach((colId) => {
-    const col = document.getElementById(colId);
-    if (col) col.classList.remove("drag-area-highlight");
-  });
+  ["to-do-tasks", "in-progress-tasks", "await-feedback-tasks", "done-tasks"]
+    .forEach(col => document.getElementById(col)?.classList.remove("drag-area-highlight"));
+}
+
+/**
+ * Moves a task to a new category via the dropdown menu.
+ * @param {string} id - The task ID.
+ * @param {string} category - The target category.
+ */
+async function moveTaskToCategory(id, category) {
+  const task = tasks.find((t) => t.id == id);
+  if (!task || task.currentTask === category) return;
+  task.currentTask = category;
+  closeMoveToDropdown(id); 
+  await reorderAndSaveCategory(task, category);
 }
 
 /**
@@ -756,4 +757,51 @@ async function updateTaskWithPost(taskId, taskData) {
     body: JSON.stringify(taskData),
   });
   return await response.json();
+}
+
+// Move To Dropdown Functions
+
+/**
+ * Opens the move-to dropdown and intercepts the next click to close it securely.
+ *
+ * @param {Event} event The click event object.
+ * @param {string} id The unique identifier of the task.
+ * @param {string} currentTask The current status of the task.
+ */
+function openMoveToDropdown(event, id, currentTask) {
+  event.stopPropagation();
+  let drop = document.getElementById(`move-to-dropdown-${id}`);
+  if (!drop.classList.contains('d-none')) return closeMoveToDropdown(id);
+  drop.classList.remove('d-none');
+  document.getElementById(`board-small-task-${id}`).classList.add('dropdown-open');
+  drop.querySelectorAll('p').forEach(p => p.classList.toggle('d-none', p.getAttribute('onclick').includes(currentTask)));
+  setTimeout(() => document.addEventListener('click', (e) => {
+    if (!drop.contains(e.target)) e.stopPropagation();
+    closeMoveToDropdown(id);
+  }, { capture: true, once: true }), 0);
+}
+
+/**
+ * Closes the move-to dropdown and resets the z-index.
+ *
+ * @param {string} id The unique identifier of the task.
+ */
+function closeMoveToDropdown(id) {
+  document.getElementById(`move-to-dropdown-${id}`).classList.add('d-none');
+  document.getElementById(`board-small-task-${id}`).classList.remove('dropdown-open');
+}
+
+/**
+ * Determines the CSS class for arrow rotation based on task flow.
+ * * @param {string} currentTask The current status of the task.
+ * @param {string} targetTask The target status for the arrow.
+ * @returns {string} The CSS class for rotation if moving upwards.
+ */
+function getArrowDirectionClass(currentTask, targetTask) {
+  const order = ['todo', 'in-progress', 'await-feedback', 'done'];
+  const currentIndex = order.indexOf(currentTask);
+  const targetIndex = order.indexOf(targetTask);
+
+  // If target is earlier in the list than current, arrow points UP
+  return targetIndex < currentIndex ? 'rotate-180' : '';
 }
