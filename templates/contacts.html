@@ -49,7 +49,7 @@
    
   <div class="add-contact-dialog-right">
     <div class="dialoge-close-img-handler">
-    <img onclick="closeDialog(addDialog, 400)" class="add-contact-dialog-right-close" src="./assets/icons/cancel_dark.png" alt="">
+    <img onclick="closeDialog(addDialog, 400), removeText()" class="add-contact-dialog-right-close" src="./assets/icons/cancel_dark.png" alt="">
     </div>
     <div class="add-contact-dialog-right-content">
     <img class="add-contact-dialog-right-img" src="./assets/icons/add_contact_img.png" alt="">
@@ -63,7 +63,7 @@
          <span id="add-error-text" class="error-text"></span>
         </div>
         <div class="dialog-button-handler">
-          <button type="button"  onclick="closeDialog(addDialog, 400)" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="./assets/icons/cancel_dark.png" alt=""></button>
+          <button type="button"  onclick="closeDialog(addDialog, 400), removeText()" class="btn-dialog add-contact-dialog-button-cancel">Cancel <img src="./assets/icons/cancel_dark.png" alt=""></button>
           <button disabled id="add-contact-button"  type="submit" class="btn-dialog add-contact-dialog-button-create">Create Contact <img src="./assets/icons/check_light.png" alt=""></button>
         </div>
       </form>

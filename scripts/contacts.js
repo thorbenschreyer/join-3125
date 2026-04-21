@@ -426,3 +426,9 @@ function checkFormValidity() {
     button.disabled = false;
   }
 }
+
+function removeText() {
+  const name = document.getElementById("contact-name").value = "";
+  const email = document.getElementById("contact-email").value = "";
+  const phone = document.getElementById("contact-phone").value = "";
+}
