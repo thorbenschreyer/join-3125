@@ -165,3 +165,16 @@ function applyDragStyles(element) {
     element.classList.add("rotate-on-drag");
   }, 0);
 }
+
+/**
+ * Moves a task to a new category via the dropdown menu.
+ * @param {string} id - The task ID.
+ * @param {string} category - The target category.
+ */
+async function moveTaskToCategory(id, category) {
+  const task = tasks.find((t) => t.id == id);
+  if (!task || task.currentTask === category) return;
+  task.currentTask = category;
+  closeMoveToDropdown(id); 
+  await reorderAndSaveCategory(task, category);
+}
