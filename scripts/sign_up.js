@@ -8,6 +8,7 @@ const SIGNUP_BUTTON_WRAPPER = document.getElementById("signup-button-wrapper");
 const SIGNUP_BUTTON = document.getElementById("signup-button");
 const INPUT_ERROR = document.getElementById("input-error");
 const SIGNUP_BUTTON_HINT = document.getElementById("signup-button-hint");
+const SIGNUP_BUTTON_HINT_LINES = SIGNUP_BUTTON_HINT.querySelectorAll(".hint-line");
 const PASSWORD_LOCK = document.getElementById("password-lock");
 const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
 const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");
@@ -23,6 +24,9 @@ const LEGAL_NOTICE_FOOTER = document.getElementById("legal-notice-footer");
 
 // FIREBASE BACKEND POINT
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
+
+// REGEX PATTERNS
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
 // FORM INPUT FIELDS
 const FORM_INPUT_FIELDS = [
@@ -197,7 +201,7 @@ function signUpsuccess() {
 function addUser() {
     setUserInput();
     assignUserColor();
-    if (!USER_EMAIL.checkValidity()) {
+    if (!EMAIL_REGEX.test(userEmail)) {
         invalidEmailFeedback();
         return;
     }
@@ -224,7 +228,7 @@ function addUser() {
  * directly from the DOM in each validation branch.
  */
 function setUserInput() {
-    userNameSignup = USER_NAME.value;
+    userNameSignup = USER_NAME.value.trim();
     userEmail = USER_EMAIL.value;
     userPassword = USER_PASSWORD.value;
     userConfirmPassword = USER_CONFIRM_PASSWORD.value;

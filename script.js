@@ -233,8 +233,9 @@ function clickInSummaryBoard() {
  */
 function getNameAndInitials() {
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  userName = currentUser.name;
+  if (!currentUser) return;
 
+  userName = currentUser.name;
   userInitials = userName
     .split(" ")
     .map((word) => word[0])
