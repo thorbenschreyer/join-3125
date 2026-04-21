@@ -34,7 +34,6 @@ function initClickOutsideElementsListener() {
     });
 }
 
-// INPUT FEEDBACK
 /**
  * Keeps the title field error state in sync while the user interacts with the required input.
  */
@@ -91,7 +90,6 @@ function initCalendarIconListener() {
     });
 }           
 
-// ASSIGNED TO
 /**
  * Highlights the assignment input while it is active.
  */
@@ -115,7 +113,6 @@ function initAssignedToListener() {
     });
 }
 
-// CATEGORY
 /**
  * Applies the selected category option on click and triggers the shared change-based validation flow.
  */
@@ -159,7 +156,6 @@ function initKeyboardCategoryListeners()  {
     });
 }
 
-// SUBTASKS
 /**
  * Wires the subtask input to show its controls and handle click-based clear and add actions.
  */
@@ -210,7 +206,6 @@ function initKeyboardSubtaskListeners() {
     });
 }
 
-// FORM VALIDATION
 /**
  * Keeps the required-field validation flags in sync so the submit state can be recalculated after each change.
  */
@@ -236,7 +231,6 @@ function initFormValidationListeners() {
     })
 }
 
-// FORM ACTIONS
 /**
  * Resets the form when the clear button is clicked.
  */

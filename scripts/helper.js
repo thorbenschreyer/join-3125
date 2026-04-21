@@ -11,7 +11,6 @@ function initDOMElements() {
     initToastElements();
 }
 
-// INPUT ELEMENTS
 /**
  * Initializes the DOM references for the main text and date inputs.
  */
@@ -24,7 +23,6 @@ function initInputElements() {
     calendarIcon = document.getElementById("calendar-icon");
 }
 
-// PRIORITY ELEMENTS
 /**
  * Initializes the DOM references used to control priority buttons and their icon states.
  */
@@ -43,7 +41,6 @@ function initPriorityElements() {
     priorityWhiteImages = [urgentWhiteImg, mediumWhiteImg, lowWhiteImg];
 }
 
-// PRIORITY ELEMENTS Edit Dialog
 /**
  * Initializes the DOM references used to control priority buttons and their icon states.
  */
@@ -62,7 +59,6 @@ function initEditPriorityElements() {
     priorityWhiteImages = [urgentWhiteImg, mediumWhiteImg, lowWhiteImg];
 }
 
-// ASSIGNED TO ELEMENTS
 /**
  * Initializes the DOM references for the assignment dropdown and its input state.
  */
@@ -74,7 +70,6 @@ function initAssignedToElements() {
     assignedToUsers = document.getElementById("task-assigned-to-users");
 }
 
-// CATEGORY ELEMENTS
 /**
  * Initializes the DOM references for the category dropdown and its predefined options.
  */
@@ -88,7 +83,6 @@ function initCategoryElements() {
     userStory = document.getElementById("user-story");
 }
 
-// SUBTASK ELEMENTS
 /**
  * Initializes the DOM references for subtask input, controls, and rendered items.
  */
@@ -101,7 +95,6 @@ function initSubtasksElements() {
     subtaskItem = Array.from(document.getElementsByClassName("subtask-item"));
 }
 
-// FORM BUTTON ELEMENTS
 /**
  * Initializes the DOM references for the form action buttons.
  */
@@ -112,7 +105,6 @@ function initFormBtnElements() {
     dialogAddTaskBtn = document.getElementById("dialog-add-task-btn");
 }
 
-// TOAST ELEMENTS
 /**
  * Initializes the DOM references for the success toast and its overlay.
  */
@@ -121,7 +113,6 @@ function initToastElements() {
     addTaskSuccessOverlay = document.getElementById("add-task-success-overlay");
 }
 
-// TITLE
 /**
  * Shows the required-field error state for the title input.
  */
@@ -139,7 +130,6 @@ function hideTitleError() {
     titleInputError.classList.remove("input-error-visible");
 }
 
-// DUE DATE
 /**
  * Prevents selecting a due date earlier than today.
  */
@@ -164,7 +154,6 @@ function hideDueDateError() {
     dueDateInputError.classList.remove("input-error-visible");
 }
 
-// PRIORITY
 /**
  * Restores the neutral priority state before a new selection is highlighted.
  */
@@ -209,7 +198,6 @@ function highlightUrgentPriority() {
     urgentBtn.ariaPressed = "true";
 }
 
-// ASSIGNED TO
 /**
  * Keeps the assignment input highlight in sync with its current focus state.
  */
@@ -280,7 +268,6 @@ function resetUserSelection() {
     selectedUsers = [];
 }
 
-// CATEGORY
 /**
  * Shows the required-field error state for the category input.
  */
@@ -298,7 +285,6 @@ function hideCategoryError() {
     categoryInputError.classList.remove("input-error-visible");
 }
 
-// SUBTASKS
 /**
  * Reveals the subtask action buttons and highlights the active item.
  * @param {HTMLElement} item The subtask item element to show the buttons for.
@@ -337,7 +323,6 @@ function hideSubtaskInputButtons() {
     addSubtaskBtn.classList.add("dNone");
 }
 
-// BUILD TASK OBJECT
 /**
  * Derives the currently selected priority from the active button state.
  * @return {string} The priority level corresponding to the active selection, or an empty string if none is selected.
