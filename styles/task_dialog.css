@@ -251,3 +251,31 @@
   font-size: 16px;
   font-weight: 400;
 }
+
+/* Responsive Handling */
+@media (max-width: 744px) {
+  .dialog-task-title {
+    font-size: 36px;
+  }
+
+  .dialog-task-category-technical-task,
+  .dialog-task-category-user-story,
+  .dialog-task-description,
+  .dialog-due-date,
+  .dialog-task-priority,
+  .dialog-assigned-to-heading,
+  .assigned-to-name,
+  .dialog-task-subtasks-header,
+  .dialog-delete-edit {
+    font-size: 16px;
+  }
+
+  .checkbox-img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .dialog-board-task {
+    width: 320px;
+  }
+}

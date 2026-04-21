@@ -54,33 +54,6 @@ function checkTaskMatch(t) {
 }
 
 /**
- * Opens the add task overlay for the specified task bar.
- * @param {string} selectedTaskBar - The target task category.
- */
-async function openAddTaskOverlay(selectedTaskBar) {
-  await loadHtmlPage("add-task-dialog", "./templates/add_tasks.html");
-  currentTaskBar = selectedTaskBar;
-  prepareAddTaskDialogUI();
-  initAddTaskElements();
-}
-
-/**
- * Updates the DOM elements to correctly display the add task overlay.
- */
-function prepareAddTaskDialogUI() {
-  document.getElementById("add-tasks-page").classList.add("dialog-add-task-page");
-  document.getElementById("add-task-footer").classList.add("d-none");
-  document.getElementById("add-task-dialog-footer").classList.remove("d-none");
-  document.getElementById("close-add-task-dialog-x-wrapper").style.display = "flex";
-  document.getElementById("add-task-overlay").classList.remove("d-none");
-  document.getElementById("close-add-task-dialog-mobile-x-wrapper").style.display = "flex";
-  document.getElementById("add-task-dialog-heading").classList.add("padding-none");
-  document.getElementById("add-tasks-dialog-header").classList.remove("d-none");
-  document.getElementById("add-task-mobile-heading").classList.add("d-none");
-  document.getElementById("task-description").style.height = "34px";
-}
-
-/**
  * Closes the specified overlay with a slide-out animation.
  * @param {string} currentDialog - The dialog type to close.
  */
@@ -91,27 +64,6 @@ function closeOverlay(currentDialog) {
   dialog.classList.add("slide-out");
   resetDialogAfterDelay(overlay, dialog, 200);
   renderAllTasks();
-}
-
-/**
- * Closes the add task overlay.
- */
-function closeAddTaskOverlay() {
-  const overlay = document.getElementById("add-task-overlay");
-  const dialog = document.getElementById("add-task-dialog");
-  if (!overlay) return;
-  setTimeout(() => {
-    dialog.classList.add("slide-out");
-    resetDialogAfterDelay(overlay, dialog, 200);
-  }, 1000);
-}
-
-function closeAddTaskOverlayEmediatly() {
-  const overlay = document.getElementById("add-task-overlay");
-  const dialog = document.getElementById("add-task-dialog");
-  if (!overlay) return;
-    dialog.classList.add("slide-out");
-    resetDialogAfterDelay(overlay, dialog, 200);
 }
 
 /**
@@ -249,18 +201,6 @@ function closedSubtaskLength(task) {
   return subtasks.filter((d) => d.current_state === "closed").length;
 }
 
-/**
- * Moves a task to a new category via the dropdown menu.
- * @param {string} id - The task ID.
- * @param {string} category - The target category.
- */
-async function moveTaskToCategory(id, category) {
-  const task = tasks.find((t) => t.id == id);
-  if (!task || task.currentTask === category) return;
-  task.currentTask = category;
-  closeMoveToDropdown(id); 
-  await reorderAndSaveCategory(task, category);
-}
 
 /**
  * Updates the progress bar for subtasks.
@@ -281,29 +221,6 @@ function fillDoneSubtaskBar(element, closedSubtasksLength, id) {
 function showDialogOverlay(overlayType) {
   const overlay = document.getElementById(`${overlayType}-overlay`);
   overlay.classList.remove("d-none");
-}
-
-/**
- * Opens the task details dialog for the specified task.
- * @param {string} id - The task ID.
- */
-function openTaskDetails(id) {
-  const currentTask = tasks.find((task) => task.id == id);
-  if (currentTask) {
-    showDialogOverlay("task");
-    renderTaskDialog(currentTask);
-    getAssignedToNames(currentTask);
-    getSubtasks(currentTask);
-  }
-}
-
-/**
- * Renders the task dialog with the task details.
- * @param {Object} task - The task object.
- */
-function renderTaskDialog(task) {
-  const dialogContainer = document.getElementById("task-dialog");
-  dialogContainer.innerHTML = renderDialogTask(task);
 }
 
 /**
@@ -338,12 +255,73 @@ function buildAssignedBadgesHtml(assigned) {
 }
 
 /**
- * Hides the assigned to section if no users are assigned.
- * @param {Array} assignedTo - The list of assigned users.
+ * Generates initials from a full name.
+ * @param {string} fullName - The full name.
+ * @returns {string} The initials.
  */
-function checkAssignedTo(assignedTo) {
-  if (!assignedTo) {
-    let container = document.getElementById("dialog-assigned-to");
-    container.classList.add("d-none");
+function getInitials(fullName) {
+  const nameArray = fullName.trim().split(" ");
+  if (nameArray.length === 1) {
+    return nameArray[0][0].toUpperCase();
   }
+  const firstLetter = nameArray[0][0];
+  const lastLetter = nameArray[nameArray.length - 1][0];
+  return (firstLetter + lastLetter).toUpperCase();
+}
+
+/**
+ * Gets the color associated with a user.
+ * @param {string} userName - The user name.
+ * @returns {string} The user color.
+ */
+function getUserColor(userName) {
+  const user = users.find((u) => u.name === userName);
+  return user && user.avatarColor ? user.avatarColor : "rgba(110, 82, 255, 1)";
+}
+
+// Move To Dropdown Functions
+
+/**
+ * Opens the move-to dropdown and intercepts the next click to close it securely.
+ *
+ * @param {Event} event The click event object.
+ * @param {string} id The unique identifier of the task.
+ * @param {string} currentTask The current status of the task.
+ */
+function openMoveToDropdown(event, id, currentTask) {
+  event.stopPropagation();
+  let drop = document.getElementById(`move-to-dropdown-${id}`);
+  if (!drop.classList.contains('d-none')) return closeMoveToDropdown(id);
+  drop.classList.remove('d-none');
+  document.getElementById(`board-small-task-${id}`).classList.add('dropdown-open');
+  drop.querySelectorAll('p').forEach(p => p.classList.toggle('d-none', p.getAttribute('onclick').includes(currentTask)));
+  setTimeout(() => document.addEventListener('click', (e) => {
+    if (!drop.contains(e.target)) e.stopPropagation();
+    closeMoveToDropdown(id);
+  }, { capture: true, once: true }), 0);
+}
+
+/**
+ * Closes the move-to dropdown and resets the z-index.
+ *
+ * @param {string} id The unique identifier of the task.
+ */
+function closeMoveToDropdown(id) {
+  document.getElementById(`move-to-dropdown-${id}`).classList.add('d-none');
+  document.getElementById(`board-small-task-${id}`).classList.remove('dropdown-open');
+}
+
+/**
+ * Determines the CSS class for arrow rotation based on task flow.
+ * * @param {string} currentTask The current status of the task.
+ * @param {string} targetTask The target status for the arrow.
+ * @returns {string} The CSS class for rotation if moving upwards.
+ */
+function getArrowDirectionClass(currentTask, targetTask) {
+  const order = ['todo', 'in-progress', 'await-feedback', 'done'];
+  const currentIndex = order.indexOf(currentTask);
+  const targetIndex = order.indexOf(targetTask);
+
+  // If target is earlier in the list than current, arrow points UP
+  return targetIndex < currentIndex ? 'rotate-180' : '';
 }
