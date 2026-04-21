@@ -346,6 +346,7 @@ function showSuccessMessage() {
  */
 async function handleSubmit(event) {
   event.preventDefault();
+
   const errorText = document.getElementById("add-error-text");
   const form = event.target;
 
@@ -360,9 +361,15 @@ async function handleSubmit(event) {
     return;
   }
 
+  errorText.innerText = "";
+
   await addNewContact(errorText);
   form.reset();
+
+  document.getElementById("add-contact-button").disabled = true;
 }
+
+
 
 /**
  * This function monitors the submission of the form for saveEditUser() and ensures that all data is correct. 
@@ -405,4 +412,17 @@ function validateContact(name, email, phone) {
   if (!phoneRegex.test(phone)) return "Invalid phone number. Digits only.";
 
   return null;
+}
+
+function checkFormValidity() {
+  const name = document.getElementById("contact-name").value.trim();
+  const email = document.getElementById("contact-email").value.trim();
+  const phone = document.getElementById("contact-phone").value.trim();
+  const button = document.getElementById("add-contact-button");
+
+  if (!name || !email || !phone) {
+    button.disabled = true;
+  } else {
+    button.disabled = false;
+  }
 }
