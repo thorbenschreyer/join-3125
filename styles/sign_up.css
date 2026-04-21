@@ -41,7 +41,7 @@ input {
 /* === MAIN === */
 .signup {
   flex: 1;
-  padding-top: 80px;
+  padding: 80px 0 40px;
 }
 
 .signup-card {
