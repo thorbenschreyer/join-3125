@@ -1,0 +1,343 @@
+/* === REQUIRED-FIELD-MOBILE === */
+.required-field-mobile {
+  display: none;
+  width: 320px;
+  font-size: 16px;
+}
+
+/* === FOOTER === */
+.add-task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 690px;
+  padding-top: 24px;
+  z-index: 20;
+}
+
+.footer-left {
+  font-size: 16px;
+  display: flex;
+}
+
+.footer-right {
+  display: flex;
+  gap: 12px;
+}
+
+.clear-task-btn {
+  padding: 10px 12px;
+  border: 1px solid var(--logo-dark-blue);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--logo-dark-blue);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-task-btn:hover {
+  border: 1px solid var(--logo-light-blue);
+  color: var(--logo-light-blue);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.clear-task-btn:focus {
+  outline-offset: 2px;
+}
+
+.add-task-btn {
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--logo-dark-blue);
+  color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-task-btn:focus {
+  outline-offset: 2px;
+} 
+
+.disabled-btn {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+}
+
+.footer-right .disabled-btn:hover {
+  background-color: var(--light-gray);
+  color: var(--white);
+  box-shadow: none;
+  cursor: pointer;;
+}
+
+.add-task-btn:hover {
+  background-color: var(--logo-light-blue);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.add-task-btn span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.add-task-btn img {
+  width: 10px;
+  height: auto;
+}
+
+/* === ADD TASK TOAST === */
+.add-task-success-overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.325s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+.add-task-success-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.add-task-success-toast {
+  position: fixed;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  background: #2f3e4d;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 300;
+  opacity: 0;
+  transition: none;
+  z-index: 9999;
+  animation: none;
+}
+
+.add-task-success-toast.show {
+  animation: toast-flyin 0.325s linear forwards;
+}
+
+@keyframes toast-flyin {
+  0% {
+    top: 100%;
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.add-task-success-content {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.add-task-success-content img {
+  width: auto;
+  height: 24px;
+}
+
+/* === DESKTOP SMALL === */
+@media (max-width: 1050px) {
+
+  /* === PAGE-CONTENT === */
+  .page-content {
+    padding-left: 0px !important;
+  }
+
+  /* === ADD-TASKS-CONTENT === */
+  .add-tasks-page {
+    margin-top:  56px;
+  }
+
+  /* === HEADER === */
+  .add-task-header > h1 {
+    display: none;
+  }
+
+  /* === FORMULAR === */
+  .add-task-form {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .vertical-divider {
+    display: none;
+  }
+
+  /* === FORMULAR-HEADER-MOBILE === */
+  .add-tasks-mobile-header {
+    display: flex;
+    width: 320px;
+    padding: 0 0 4px;
+  }
+
+  /* === RIGHT COLUMN === */
+  .right-column {
+    min-height: auto;
+  }
+
+  /* === LEFT FOOTER AND RIGHT FOOTER === */
+  .add-task-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: static;
+    width: 100%;
+  }
+
+  /* === SUBTASKS === */
+  .subtasks-list {
+    min-height: 78px;
+  }
+
+  .footer-left {
+    width: 320px;
+    padding: 32px 0 4px;
+  }
+
+  .footer-right {
+    width: 320px;
+    gap: 24px;
+    padding: 8px 0;
+    background: var(--bg-color);
+  }
+
+}
+
+/* === TABLET === */
+@media (max-width: 818px) {
+
+  /* === ADD-TASKS-CONTENT === */
+  .add-tasks-page {
+    margin-top:  0;
+    margin-left:  0;
+  }
+
+  /* === FORMULAR-HEADER-MOBILE === */
+  .add-tasks-mobile-header {
+    position: sticky;
+    top: 0;
+    padding: 40px 0 4px;
+    z-index: 10;
+    background: var(--bg-color);
+    font-size: 48px;
+  }
+
+  /* === FORMULAR === */
+  .add-task-form {
+    align-items: center;
+    padding-bottom: 100px;
+  }
+
+  /* === REQUIRED-FIELD-MOBILE === */
+  .required-field-mobile {
+    display: flex;
+  }
+
+   /* === LEFT FOOTER AND RIGHT FOOTER === */
+  .add-task-footer {
+    align-items: center;
+  }
+
+  .footer-right {
+    position: fixed;
+    bottom: 86px;
+    justify-content: flex-end;
+  }
+
+  .footer-left {
+    display: none;
+  }
+  
+}
+
+/* === MOBILE === */
+@media (max-width: 500px) {
+
+  /* === FORMULAR === */
+  .add-task-form {
+    padding-bottom: 100px;
+  }
+
+  /* === LEFT FOOTER AND RIGHT FOOTER === */
+  .footer-right {
+    position: fixed;
+    top: auto;
+    bottom: 86px;
+    padding: 8px 0;
+    background: var(--bg-color);
+  }
+
+}
+
+/* === SMALL MOBILE === */
+@media (max-width: 375px) {
+  
+  /* === FORMULAR-HEADER-MOBILE === */
+  .add-tasks-mobile-header {
+    width: 288px;
+  }
+
+  /* === REQUIRED-FIELD-MOBILE === */
+  .required-field-mobile {
+    width: 288px;
+  }
+
+  /* === LEFT COLUMN & RIGHT COLUMN === */
+  .left-column,
+  .right-column {
+    width: 288px;
+  }
+
+  .footer-right {
+    width: 288px;
+  }
+
+  /* === DUE DATE INPUT === */
+  .task-input-icon {
+    left: 264px;
+  }
+
+  /* === PRIORITY-BUTTONS === */
+  .prio-text {
+    font-size: 14px;
+  }
+  
+/* === ASSIGNED TO === */
+  .dropdown-user-checkbox {
+    left: 240px;
+  }
+
+  .dropdown-user-checkbox:nth-of-type(3) {
+    left: 242px;
+  }
+
+/* === SUBTASKS === */
+  .clear-input-icon {
+    left: 236px;
+  }
+
+  .subtasks-vertical-divider {
+    left: 256px;
+  }
+
+  .add-subtask-icon {
+    left: 264px;
+  }
+
+}
