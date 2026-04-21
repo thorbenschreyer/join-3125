@@ -15,7 +15,6 @@ let time;
  * whether the user is logged in.
  */
 async function init() {
-  console.log("INIT läuft");
   isloggedIn = localStorage.getItem("loginState") === "true";
   const publicPages = ["privacy", "legal"];
 
@@ -36,7 +35,6 @@ async function init() {
  * If the user is logged in, they are greeted with the normal menu and the corresponding page is loaded -> setLoggedinNavigation()
  */
 async function loadSidbarAndContent() {
-  console.log("läuft Sidebar!");
   if (!isloggedIn) {
     const html = document.getElementById("navigation-items");
     html.innerHTML = notLoggedInNavigation();
