@@ -737,6 +737,7 @@ fieldset.form-group legend {
   background-color: var(--light-gray);
   color: var(--white);
   box-shadow: none;
+  cursor: not-allowed;
 }
 
 .footer-right .disabled-btn:hover {

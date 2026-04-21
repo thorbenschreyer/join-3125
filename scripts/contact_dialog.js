@@ -217,7 +217,7 @@ function validateContact(name, email, phone) {
   return null;
 }
 
-function checkFormValidity() {
+function checkContactFormValidity() {
   const name = document.getElementById("contact-name").value.trim();
   const email = document.getElementById("contact-email").value.trim();
   const phone = document.getElementById("contact-phone").value.trim();
