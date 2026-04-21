@@ -1,4 +1,6 @@
-// DOM ELEMENT VARIABLES
+/**
+ * These variables are wired to their respective DOM elements in the `initDOMElements` function and used across the add-task module.
+ */
 let titleInput;
 let descInput;
 let dueDateInput;
@@ -43,7 +45,11 @@ let dialogAddTaskBtn;
 let addTaskSuccessToast;
 let addTaskSuccessOverlay;
 
-// Track the validation state of the required fields so the submit button only becomes available when the form is complete.
+
+/** 
+ * Required field validation state variables. These are toggled by their respective listeners and
+ * checked in the shared `checkFormValidity` function to determine the submit state of the form.
+ */
 let isTitleValid = false;
 let isDueDateValid = false;
 let isCategoryValid = false;
@@ -57,16 +63,24 @@ function resetFormValidationState() {
     isCategoryValid = false;
 }
 
-// Firebase backend endpoint.
+/**
+ * Firebase backend endpoint.
+ */
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
-// Stores all loaded tasks.
+/**
+ * Stores all loaded tasks.
+ */
 let tasks = [];
 
-// Stores the users available for assignment.
+/**
+ * Stores the users available for assignment.
+ */
 let users = [];
 
-// Stores the users currently selected in the assignment dropdown.
+/**
+ * Stores the users currently selected in the assignment dropdown.
+ */
 let selectedUsers = [];
 
 /**
@@ -143,7 +157,6 @@ function checkFormValidity() {
     }
 }
 
-// PRIORITY
 /**
  * Applies the selected priority style after clearing the previous visual state.
  * @param {string} priority The priority level to apply ("urgent", "medium", or "low").
@@ -159,7 +172,6 @@ function highlightSelectedPriority(priority) {
     }   
 }
 
-// ASSIGNED TO
 /**
  * Renders the assignment dropdown from the loaded user list.
  */
@@ -249,7 +261,6 @@ function toggleUserSelection(event, user, initials, color) {
     assignedToInputWrapper.classList.add("blue-border");
 }
 
-// CATEGORY
 /**
  * Toggles the category dropdown without triggering the outside-click handler.
  * @param {Event} event The click event triggered by the user interaction.
@@ -280,7 +291,6 @@ function closeCategoryDropdown() {
     }
 }
 
-// SUBTASKS
 /**
  * Switches a subtask into edit mode and places the cursor at the end of the current text.
  * @param {HTMLElement} button The button element that triggered the edit action.
@@ -324,7 +334,6 @@ function deleteSubtask(button) {
     button.closest(".subtask-item-wrapper").remove();
 }
 
-// FORM ACTIONS
 /**
  * Resets the form inputs and restores the default add-task state.
  */

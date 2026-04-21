@@ -8,7 +8,9 @@ let initialViewportHeight = window.visualViewport.height;
 let wasEmpty = true;
 let userColor = [];
 
-// Initialization of event listeners after the DOM is fully loaded
+/**
+ * Initialization of event listeners after the DOM is fully loaded
+ */
 document.addEventListener("DOMContentLoaded", initializeApp);
 
 function initializeApp() {
@@ -30,7 +32,6 @@ function loginSubmit(event) {
   const errorContainer = document.getElementById("container-error-message");
   const buttonsContainer = document.getElementById("container-login-buttons");
   if (user && user.password == passwordData.value) {
-    // Login erfolgreich
     buttonsContainer.classList.remove("button-margin-top-if-error");
     errorContainer.classList.add("d-none");
     emailData.value = "";

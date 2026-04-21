@@ -1,0 +1,255 @@
+/* === CATEGORY === */
+#task-category-wrapper {
+  z-index: 3;
+}
+
+.dropdown-input {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-dropdown-tasks {
+  flex-direction: column;
+  background-color: var(--white);
+  border-radius: 0 0 8px 8px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-tasks {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.dropdown-tasks:hover {
+  border-radius: 10px;
+  background-color: #eeeeee;
+}
+
+.dropdown-task {
+  flex: 1;
+  font-size: 14px;
+}
+
+/* === SUBTASKS === */
+.task-input {
+  position: relative;
+}
+
+.clear-input-icon {
+  position: absolute;
+  top: 32px;
+  left: 268px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.clear-input-icon img {
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 50%;
+  object-fit: contain;
+  transition: background-color 0.15s ease;
+}
+
+.clear-input-icon:hover img {
+  background-color: #eeeeee;
+}
+.subtasks-vertical-divider {
+  position: absolute;
+  top: 33px;
+  left: 288px;
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.add-subtask-icon {
+  position: absolute;
+  top: 32px;
+  left: 296px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.add-subtask-icon img {
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 50%;
+  object-fit: contain;
+  transition: background-color 0.15s ease;
+}
+
+.add-subtask-icon:hover img {
+  background-color: #eeeeee;
+}
+
+.subtasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 78px;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-gray) transparent;
+  font-size: 12px;
+  list-style: none;
+}
+
+.subtask-item-wrapper {
+  padding: 4px 10px 4px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.subtask-item-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtask-item-content::before {
+  content: "\2022";
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.edit-subtask-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.edit-subtask-btn img {
+  width: auto;
+  height: 14px;
+}
+
+.subtask-edit-divider {
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.delete-subtask-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+}
+
+.delete-subtask-btn img {
+  width: auto;
+  height: 14px;
+}
+
+.subtask-item-btns {
+  margin-left: auto;  
+  gap: 6px;
+}
+
+.subtask-item-edit {
+  position: relative;
+  align-items: center;
+  margin: 0 -10px 0 -18px;
+  border-bottom: 1px solid var(--logo-light-blue);
+}
+
+.subtask-edit-input {
+  width: 100%;
+  padding: 4px 60px 4px 8px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.subtask-edit-btns {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-input-delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+  flex-shrink: 0;
+}
+
+.edit-input-delete-btn img {
+  width: 20px;
+  height: auto;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.edit-input-delete-btn:hover img {
+  background-color: #eeeeee;
+}
+
+.subtask-edit-input-divider {
+  font-weight: 100;
+  color: var(--light-gray);
+}
+
+.edit-input-check-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  line-height: 0;
+  font-size: 0;
+  flex-shrink: 0;
+}
+
+.edit-input-check-btn img {
+  width: 20px;
+  height: auto;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.edit-input-check-btn:hover img {
+  background-color: #eeeeee;
+}

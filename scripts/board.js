@@ -279,8 +279,6 @@ function getUserColor(userName) {
   return user && user.avatarColor ? user.avatarColor : "rgba(110, 82, 255, 1)";
 }
 
-// Move To Dropdown Functions
-
 /**
  * Opens the move-to dropdown and intercepts the next click to close it securely.
  *
@@ -322,6 +320,5 @@ function getArrowDirectionClass(currentTask, targetTask) {
   const currentIndex = order.indexOf(currentTask);
   const targetIndex = order.indexOf(targetTask);
 
-  // If target is earlier in the list than current, arrow points UP
   return targetIndex < currentIndex ? 'rotate-180' : '';
 }
