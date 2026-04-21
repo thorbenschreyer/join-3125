@@ -1,4 +1,6 @@
-// DOM ELEMENT CONSTANTS
+/** 
+ * DOM ELEMENT CONSTANTS
+ */
 const USER_NAME = document.getElementById("name-register");
 const USER_EMAIL = document.getElementById("email-register");
 const USER_PASSWORD = document.getElementById("password-register");
@@ -22,13 +24,19 @@ const PRIVACY_POLICY_CHECKBOX_LINK = document.getElementById("privacy-policy-che
 const PRIVACY_POLICY_FOOTER = document.getElementById("privacy-policy-footer");
 const LEGAL_NOTICE_FOOTER = document.getElementById("legal-notice-footer");
 
-// FIREBASE BACKEND POINT
+/**
+ * FIREBASE BACKEND POINT
+ */
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
 
-// REGEX PATTERNS
+/**
+ * REGEX PATTERNS
+ */
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-// FORM INPUT FIELDS
+/**
+ * FORM INPUT FIELDS
+ */
 const FORM_INPUT_FIELDS = [
     USER_NAME,
     USER_EMAIL,     
@@ -36,7 +44,9 @@ const FORM_INPUT_FIELDS = [
     USER_CONFIRM_PASSWORD
 ];
 
-// FORM STATE
+/**
+ * FORM STATE
+ */
 let users = [];
 let userNameSignup;
 let userEmail;
@@ -55,7 +65,9 @@ const USER_COLOR = [
   "rgba(0, 190, 232, 1)",
 ];
 
-// Track the validation state of the required fields so the signup button only becomes available when the form is filled.
+/**
+ * Track the validation state of the required fields so the signup button only becomes available when the form is filled.
+ */
 let isNameFilled = false;
 let isEmailFilled = false;
 let isPasswordFilled = false;
@@ -70,9 +82,9 @@ function resetFormFilledState() {
     isEmailFilled = false;
     isPasswordFilled = false;
     isConfirmPasswordFilled = false;
+    isPrivatePolicyChecked = false;
 }
 
-// INITIALIZATION
 /**
  * Bootstraps the application by restoring persisted user data
  * and registering all input-related event handlers.
@@ -85,7 +97,6 @@ function init() {
     initAccessibilityListeners();
 }
 
-// PASSWORD VISIBILITY
 /**
  * Toggles password visibility by switching UI icons and updating the input type.
  *
@@ -126,7 +137,6 @@ function updateConfirmPasswordInputType() {
     }
 }
 
-// VALIDATION FEEDBACK
 /**
  * Enables the add-task button only when all required fields are valid.
  */
@@ -190,7 +200,6 @@ function signUpsuccess() {
     }, 1500);
 }
 
-// SIGNUP LOGIC
 /**
  * Adds a new user to the in-memory collection and persists it.
  *
@@ -243,7 +252,6 @@ function assignUserColor() {
     userColor = USER_COLOR[newUserIndex % USER_COLOR.length]
 }
 
-// DATA ACCESS
 /**
  * Retrieves all persisted users from the backend and maps them into the local `users` array.
  *
@@ -268,7 +276,9 @@ async function getUserData() {
     }
 }
 
-// Persists the most recently added user by sending it to the backend API.
+/**
+ * Persists the most recently added user by sending it to the backend API.
+ */
 async function saveUserData() {
     let lastUser = users.length - 1;
     await fetch(`${BASE_URL}users.json`, {
@@ -280,6 +290,7 @@ async function saveUserData() {
     });
 }
 
-// APP START
-// Initialize the application init() when the window loads
+/**
+ * Initializes the application by setting up event listeners and fetching initial data.
+ */
 window.onload = init;
