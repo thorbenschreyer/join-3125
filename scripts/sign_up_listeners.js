@@ -10,9 +10,7 @@ function initAccessibilityListeners() {
     initPrivacyLinkKeyboardListener();
     initPrivacyFooterKeyboardListener();
     initLegalFooterKeyboardListener();
-    initUserNameFormFilledListeners();
-    initUserEmailFormFilledListeners();
-    initUserPasswordFormFilledListeners();
+    initFormFilledListeners();
     initPrivacyPolicyCheckboxListener();
     initSignupButtonListeners();
 }
@@ -24,17 +22,17 @@ function initAccessibilityListeners() {
  * preventing unintended state overrides when the user refocuses the field.
  */
 function initPasswordVisibilityListeners() {
-    USER_PASSWORD.addEventListener("focus", function() {
-        PASSWORD_LOCK.classList.add("dNone");
-        if (PASSWORD_VISIBILITY_ON.classList.contains("dNone") && PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-            PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
+    document.getElementById("password-register").addEventListener("focus", function() {
+        document.getElementById("password-lock").classList.add("dNone");
+        if (document.getElementById("password-visibility-on").classList.contains("dNone") && document.getElementById("password-visibility-off").classList.contains("dNone")) {
+            document.getElementById("password-visibility-off").classList.remove("dNone");
             updatePasswordInputType();
         }
     })
-    USER_CONFIRM_PASSWORD.addEventListener("focus", function() {
-        CONFIRM_PASSWORD_LOCK.classList.add("dNone");
-        if (CONFIRM_PASSWORD_VISIBILITY_ON.classList.contains("dNone") && CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-            CONFIRM_PASSWORD_VISIBILITY_OFF.classList.remove("dNone");
+    document.getElementById("confirm-password-register").addEventListener("focus", function() {
+        document.getElementById("confirm-password-lock").classList.add("dNone");
+        if (document.getElementById("confirm-password-visibility-on").classList.contains("dNone") && document.getElementById("confirm-password-visibility-off").classList.contains("dNone")) {
+            document.getElementById("confirm-password-visibility-off").classList.remove("dNone");
             updateConfirmPasswordInputType();
         } 
     }) 
@@ -51,13 +49,14 @@ function initPasswordVisibilityListeners() {
  * duplicate email case to avoid interfering with unrelated validation errors.
  */
 function initresetEmailInputStyleListener() {
-    for (let inputIndex = 0; inputIndex < FORM_INPUT_FIELDS.length; inputIndex++) {
-        FORM_INPUT_FIELDS[inputIndex].addEventListener("focus", function() {
+    const formInputFields = getFormInputFields();
+    for (let inputIndex = 0; inputIndex < formInputFields.length; inputIndex++) {
+        formInputFields[inputIndex].addEventListener("focus", function() {
             getUserData();
-            USER_EMAIL.classList.remove("red-border");
-            USER_CONFIRM_PASSWORD.classList.remove("red-border");
-            INPUT_ERROR.classList.remove("input-error-visible");
-            SIGNUP_BUTTON_HINT.classList.remove("input-error-visible");
+            document.getElementById("email-register").classList.remove("red-border");
+            document.getElementById("confirm-password-register").classList.remove("red-border");
+            document.getElementById("input-error").classList.remove("input-error-visible");
+            document.getElementById("signup-button-hint").classList.remove("input-error-visible");
         })
     }
 }
@@ -68,7 +67,7 @@ function initresetEmailInputStyleListener() {
  * @param {KeyboardEvent} event The keyboard event triggered on the back button.
  */
 function initBackButtonKeyboardListener() {
-    SIGNUP_BACK_BUTTON.addEventListener("keydown", function(event) {
+    document.getElementById("signup-back-button").addEventListener("keydown", function(event) {
         if (event.key === "Enter" || event.key === " ") {
             window.location.href = "login.html";
         }
@@ -81,11 +80,12 @@ function initBackButtonKeyboardListener() {
  * @param {KeyboardEvent} event The keyboard event triggered on the privacy checkbox.
  */
 function initPrivacyCheckboxKeyboardListener() {
-    PRIVACY_POLICY_CHECKBOX.addEventListener("keydown", function(event) {
+    const privacyPolicyCheckbox = document.getElementById("privacy-policy-checkbox");
+    privacyPolicyCheckbox.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-            PRIVACY_POLICY_CHECKBOX.checked = !PRIVACY_POLICY_CHECKBOX.checked;
-            PRIVACY_POLICY_CHECKBOX.dispatchEvent(new Event("change"));
+            privacyPolicyCheckbox.checked = !privacyPolicyCheckbox.checked;
+            privacyPolicyCheckbox.dispatchEvent(new Event("change"));
         }
     });
 }
@@ -96,13 +96,11 @@ function initPrivacyCheckboxKeyboardListener() {
  * @param {KeyboardEvent} event The keyboard event triggered on the privacy policy link.
  */
 function initPrivacyLinkKeyboardListener() {
-    PRIVACY_POLICY_CHECKBOX_LINK.addEventListener("focus", function() {
-        PRIVACY_POLICY_CHECKBOX_LINK.addEventListener("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
-                window.location.href = "index.html?page=privacy";
-            }
-        });
+    document.getElementById("privacy-policy-checkbox-link").addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault();
+            window.location.href = "index.html?page=privacy";
+        }
     });
 }
 
@@ -112,13 +110,11 @@ function initPrivacyLinkKeyboardListener() {
  * @param {KeyboardEvent} event The keyboard event triggered on the footer privacy link.
  */
 function initPrivacyFooterKeyboardListener() {
-    PRIVACY_POLICY_FOOTER.addEventListener("focus", function() {
-        PRIVACY_POLICY_FOOTER.addEventListener("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
-                window.location.href = "index.html?page=privacy";
-            }
-        });
+    document.getElementById("privacy-policy-footer").addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault();
+            window.location.href = "index.html?page=privacy";
+        }
     });
 }
 
@@ -128,73 +124,24 @@ function initPrivacyFooterKeyboardListener() {
  * @param {KeyboardEvent} event The keyboard event triggered on the footer legal notice link.
  */
 function initLegalFooterKeyboardListener() {
-    LEGAL_NOTICE_FOOTER.addEventListener("focus", function() {
-        LEGAL_NOTICE_FOOTER.addEventListener("keydown", function(event) {
-            if (event.key === " ") {
-                event.preventDefault();
-                window.location.href = "index.html?page=legal";
-            }
-        });
+    document.getElementById("legal-notice-footer").addEventListener("keydown", function(event) {
+        if (event.key === " ") {
+            event.preventDefault();
+            window.location.href = "index.html?page=legal";
+        }
     });
 }
 
 /**
- * Tracks whether the name field is filled and updates the signup button state accordingly.
- *
- * Keeping this check separate allows the form completion state to react immediately
- * when the user starts typing or clears the field again.
+ * Tracks whether the form fields are filled and updates the signup button state on each keystroke.
  */
-function initUserNameFormFilledListeners() {
-    USER_NAME.addEventListener("input", function() {
-        if (USER_NAME.value.trim().length > 0) {
-            isNameFilled = true;
-        } else if (USER_NAME.value.length == 0) {
-            isNameFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-}
-
-/**
- * Tracks whether the email field is filled and keeps the signup button state in sync.
- *
- * This separates basic completion tracking from later format validation
- * so the form can respond immediately without mixing different concerns.
- */
-function initUserEmailFormFilledListeners() {
-    USER_EMAIL.addEventListener("input", function() {
-        if (USER_EMAIL.value.length > 0) {
-            isEmailFilled = true;
-        } else if (USER_EMAIL.value.length == 0) {
-            isEmailFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-}
-
-/**
- * Tracks whether both password fields are filled and updates the signup button state.
- *
- * The listeners only monitor completion so users can receive immediate form feedback
- * before password matching is validated during submission.
- */
-function initUserPasswordFormFilledListeners() {
-    USER_PASSWORD.addEventListener("input", function() {
-        if (USER_PASSWORD.value.length > 0) {
-            isPasswordFilled = true;
-        } else if (USER_PASSWORD.value.length == 0) {
-            isPasswordFilled = false;
-        }
-        checkFormRequiredFields();
-    })
-    USER_CONFIRM_PASSWORD.addEventListener("input", function() {
-        if (USER_CONFIRM_PASSWORD.value.length > 0) {
-            isConfirmPasswordFilled = true;
-        } else if (USER_CONFIRM_PASSWORD.value.length == 0) {
-            isConfirmPasswordFilled = false;
-        }
-        checkFormRequiredFields();
-    })
+function initFormFilledListeners() {
+    const fields = getFormInputFields();
+    fields.forEach(field => {
+        field.addEventListener("input", function () {
+            checkFormRequiredFields();
+        });
+    });
 }
 
 /**
@@ -204,13 +151,9 @@ function initUserPasswordFormFilledListeners() {
  * reflected immediately before submission becomes available.
  */
 function initPrivacyPolicyCheckboxListener() {
-    PRIVACY_POLICY_CHECKBOX.addEventListener("change", function() {
-        if (PRIVACY_POLICY_CHECKBOX.checked === true) {
-            isPrivatePolicyChecked = true;
-        } else if (PRIVACY_POLICY_CHECKBOX.checked === false) {
-            isPrivatePolicyChecked = false;
-        }
-        SIGNUP_BUTTON_HINT.classList.remove("input-error-visible");
+    const privacyPolicyCheckbox = document.getElementById("privacy-policy-checkbox");
+    privacyPolicyCheckbox.addEventListener("change", function() {
+        document.getElementById("signup-button-hint").classList.remove("input-error-visible");
         checkFormRequiredFields();
     });
 }
@@ -220,11 +163,11 @@ function initPrivacyPolicyCheckboxListener() {
  * The hint is hidden when the mouse leaves the button area.
  */
 function initSignupButtonListeners() {
-    SIGNUP_BUTTON_WRAPPER.addEventListener("click", function() {
-        if (SIGNUP_BUTTON.disabled) {
-            SIGNUP_BUTTON_HINT_LINES[0].textContent = "All fields required.";
-            SIGNUP_BUTTON_HINT_LINES[1].textContent = "Accept privacy policy.";
-            SIGNUP_BUTTON_HINT.classList.add("input-error-visible");
+    document.getElementById("signup-button-wrapper").addEventListener("click", function() {
+        if (document.getElementById("signup-button").disabled) {
+            document.getElementById("signup-button-hint").querySelectorAll(".hint-line")[0].textContent = "All fields required.";
+            document.getElementById("signup-button-hint").querySelectorAll(".hint-line")[1].textContent = "Accept privacy policy.";
+            document.getElementById("signup-button-hint").classList.add("input-error-visible");
         }
     });
 }
