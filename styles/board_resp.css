@@ -108,6 +108,7 @@
 
   .page-content {
     scrollbar-width: none;
+    overflow-y: scroll;
   }
 
   .all-task-bars {
