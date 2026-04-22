@@ -1,29 +1,3 @@
-/** 
- * DOM ELEMENT CONSTANTS
- */
-const USER_NAME = document.getElementById("name-register");
-const USER_EMAIL = document.getElementById("email-register");
-const USER_PASSWORD = document.getElementById("password-register");
-const USER_CONFIRM_PASSWORD = document.getElementById("confirm-password-register");
-const SIGNUP_BACK_BUTTON = document.getElementById("signup-back-button");
-const SIGNUP_BUTTON_WRAPPER = document.getElementById("signup-button-wrapper");
-const SIGNUP_BUTTON = document.getElementById("signup-button");
-const INPUT_ERROR = document.getElementById("input-error");
-const SIGNUP_BUTTON_HINT = document.getElementById("signup-button-hint");
-const SIGNUP_BUTTON_HINT_LINES = SIGNUP_BUTTON_HINT.querySelectorAll(".hint-line");
-const PASSWORD_LOCK = document.getElementById("password-lock");
-const PASSWORD_VISIBILITY_ON = document.getElementById("password-visibility-on");
-const PASSWORD_VISIBILITY_OFF = document.getElementById("password-visibility-off");
-const CONFIRM_PASSWORD_LOCK = document.getElementById("confirm-password-lock");
-const CONFIRM_PASSWORD_VISIBILITY_ON = document.getElementById("confirm-password-visibility-on");
-const CONFIRM_PASSWORD_VISIBILITY_OFF = document.getElementById("confirm-password-visibility-off");
-const SIGNUP_SUCCESS_TOAST = document.getElementById("signup-success-toast");
-const SIGNUP_SUCCESS_OVERLAY = document.getElementById("signup-success-overlay");
-const PRIVACY_POLICY_CHECKBOX = document.getElementById("privacy-policy-checkbox");
-const PRIVACY_POLICY_CHECKBOX_LINK = document.getElementById("privacy-policy-checkbox-link");
-const PRIVACY_POLICY_FOOTER = document.getElementById("privacy-policy-footer");
-const LEGAL_NOTICE_FOOTER = document.getElementById("legal-notice-footer");
-
 /**
  * FIREBASE BACKEND POINT
  */
@@ -35,24 +9,8 @@ const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.a
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
 /**
- * FORM INPUT FIELDS
+ * Predefined avatar colors assigned to new users in a repeating sequence.
  */
-const FORM_INPUT_FIELDS = [
-    USER_NAME,
-    USER_EMAIL,     
-    USER_PASSWORD,
-    USER_CONFIRM_PASSWORD
-];
-
-/**
- * FORM STATE
- */
-let users = [];
-let userNameSignup;
-let userEmail;
-let userPassword;
-let userConfirmPassword;
-let userColor;
 const USER_COLOR = [
   "rgba(255, 122, 0, 1)",
   "rgba(147, 39, 255, 1)",
@@ -66,23 +24,21 @@ const USER_COLOR = [
 ];
 
 /**
- * Track the validation state of the required fields so the signup button only becomes available when the form is filled.
+ * Stores all registered users loaded from the backend.
  */
-let isNameFilled = false;
-let isEmailFilled = false;
-let isPasswordFilled = false;
-let isConfirmPasswordFilled = false;
-let isPrivatePolicyChecked = false;
+let users = [];
 
 /**
- * Restores the required-field validation flags to their default state.
+ * Collects the four signup form input fields for shared iteration.
+ * @returns {Array<HTMLElement>} The name, email, password, and confirm password input elements.
  */
-function resetFormFilledState() {
-    isNameFilled = false;
-    isEmailFilled = false;
-    isPasswordFilled = false;
-    isConfirmPasswordFilled = false;
-    isPrivatePolicyChecked = false;
+function getFormInputFields() {
+    return [
+        document.getElementById("name-register"),
+        document.getElementById("email-register"),
+        document.getElementById("password-register"),
+        document.getElementById("confirm-password-register")
+    ];
 }
 
 /**
@@ -99,65 +55,68 @@ function init() {
 
 /**
  * Toggles password visibility by switching UI icons and updating the input type.
- *
- * The visibility state is derived from the icon state instead of being stored
- * separately, ensuring UI and behavior stay in sync.
  */
 function togglePasswordVisibility() {
-    PASSWORD_VISIBILITY_ON.classList.toggle("dNone");
-    PASSWORD_VISIBILITY_OFF.classList.toggle("dNone");
+    document.getElementById("password-visibility-on").classList.toggle("dNone");
+    document.getElementById("password-visibility-off").classList.toggle("dNone");
     updatePasswordInputType();
 }
 
+/**
+ * Toggles confirm-password visibility by switching UI icons and updating the input type.
+ */
 function toggleConfirmPasswordVisibility() {
-    CONFIRM_PASSWORD_VISIBILITY_ON.classList.toggle("dNone");
-    CONFIRM_PASSWORD_VISIBILITY_OFF.classList.toggle("dNone");
+    document.getElementById("confirm-password-visibility-on").classList.toggle("dNone");
+    document.getElementById("confirm-password-visibility-off").classList.toggle("dNone");
     updateConfirmPasswordInputType();
 }
 
 /**
  * Updates the password input type based on the current visibility icon state.
- *
- * Uses the "visibility off" icon as the source of truth to determine
- * whether the password should be masked or visible.
  */
 function updatePasswordInputType() {
-    if (PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-        USER_PASSWORD.type = "text";
+    if (document.getElementById("password-visibility-off").classList.contains("dNone")) {
+        document.getElementById("password-register").type = "text";
     } else {
-        USER_PASSWORD.type = "password";
-    }
-}
-
-function updateConfirmPasswordInputType() {
-    if (CONFIRM_PASSWORD_VISIBILITY_OFF.classList.contains("dNone")) {
-        USER_CONFIRM_PASSWORD.type = "text";
-    } else {
-        USER_CONFIRM_PASSWORD.type = "password";
+        document.getElementById("password-register").type = "password";
     }
 }
 
 /**
- * Enables the add-task button only when all required fields are valid.
+ * Updates the confirm-password input type based on the current visibility icon state.
  */
-function checkFormRequiredFields() {
-    if (isNameFilled && isEmailFilled && isPasswordFilled && isConfirmPasswordFilled && isPrivatePolicyChecked) {
-        SIGNUP_BUTTON.disabled = false;
-        SIGNUP_BUTTON.classList.remove("disabled-btn");
+function updateConfirmPasswordInputType() {
+    if (document.getElementById("confirm-password-visibility-off").classList.contains("dNone")) {
+        document.getElementById("confirm-password-register").type = "text";
     } else {
-        SIGNUP_BUTTON.disabled = true;
-        SIGNUP_BUTTON.classList.add("disabled-btn");
+        document.getElementById("confirm-password-register").type = "password";
     }
 }
+
+/**
+ * Enables the signup button only when all required fields are filled and the privacy policy is accepted.
+ */
+function checkFormRequiredFields() {
+    const isValid =
+        document.getElementById("name-register").value.trim().length > 0 &&
+        document.getElementById("email-register").value.length > 0 &&
+        document.getElementById("password-register").value.length > 0 &&
+        document.getElementById("confirm-password-register").value.length > 0 &&
+        document.getElementById("privacy-policy-checkbox").checked;
+
+    document.getElementById("signup-button").disabled = !isValid;
+    document.getElementById("signup-button").classList.toggle("disabled-btn", !isValid);
+}
+
 /**
  * Displays a validation error after form submission if the email format is invalid.
  * This serves as a final check in case the user bypassed real-time validation,
  * ensuring that only properly formatted email addresses are accepted by the system.
  */
 function invalidEmailFeedback() {
-    USER_EMAIL.classList.add("red-border");
-    INPUT_ERROR.textContent = "Please enter a valid email address."
-    INPUT_ERROR.classList.add("input-error-visible");
+    document.getElementById("email-register").classList.add("red-border");
+    document.getElementById("input-error").textContent = "Please enter a valid email address."
+    document.getElementById("input-error").classList.add("input-error-visible");
 }
 
 /**
@@ -167,9 +126,9 @@ function invalidEmailFeedback() {
  * by enforcing unique email addresses at the final validation step.
  */
 function duplicateUserFeedback() {
-    USER_EMAIL.classList.add("red-border");
-    INPUT_ERROR.textContent = "This email address is already registered."
-    INPUT_ERROR.classList.add("input-error-visible");
+    document.getElementById("email-register").classList.add("red-border");
+    document.getElementById("input-error").textContent = "This email address is already registered."
+    document.getElementById("input-error").classList.add("input-error-visible");
 }
 
 /**
@@ -179,9 +138,9 @@ function duplicateUserFeedback() {
  * by real-time input validation, ensuring the user cannot proceed with inconsistent data.
  */
 function passwordMismatchFeedback() {
-    USER_CONFIRM_PASSWORD.classList.add("red-border");
-    INPUT_ERROR.textContent = "Your passwords don't match. Please try again."
-    INPUT_ERROR.classList.add("input-error-visible");
+    document.getElementById("confirm-password-register").classList.add("red-border");
+    document.getElementById("input-error").textContent = "Your passwords don't match. Please try again."
+    document.getElementById("input-error").classList.add("input-error-visible");
 }
 
 /**
@@ -192,9 +151,9 @@ function passwordMismatchFeedback() {
  * before being navigated away.
  */
 function signUpsuccess() {
-    SIGNUP_BUTTON.disabled = true;
-    SIGNUP_SUCCESS_TOAST.classList.add("show");
-    SIGNUP_SUCCESS_OVERLAY.classList.add("show");
+    document.getElementById("signup-button").disabled = true;
+    document.getElementById("signup-success-toast").classList.add("show");
+    document.getElementById("signup-success-overlay").classList.add("show");
     setTimeout(() => {
         window.location.href = "login.html";
     }, 1500);
@@ -208,48 +167,21 @@ function signUpsuccess() {
  * This avoids duplicated validation logic and inconsistent feedback states.
  */
 function addUser() {
-    setUserInput();
-    assignUserColor();
-    if (!EMAIL_REGEX.test(userEmail)) {
-        invalidEmailFeedback();
-        return;
-    }
-    const isDuplicateUser = users.some(user =>
-        user.email === userEmail
-    );
-    if (isDuplicateUser) {
-        duplicateUserFeedback();
-        return;
-    }
-    if (userPassword != userConfirmPassword) {
-        passwordMismatchFeedback();
-        return;
-    }
-    users.push({ name: userNameSignup, email: userEmail, password: userPassword, avatarColor: userColor });
+    const newUserIndex = users.length;
+
+    const userName = document.getElementById("name-register").value.trim();
+    const email = document.getElementById("email-register").value;
+    const password = document.getElementById("password-register").value;
+    const confirmPassword = document.getElementById("confirm-password-register").value;
+    const color = USER_COLOR[newUserIndex % USER_COLOR.length];
+
+    if (!EMAIL_REGEX.test(email)) { invalidEmailFeedback(); return; }
+    if (users.some(user => user.email === email)) { duplicateUserFeedback(); return; }
+    if (password != confirmPassword) { passwordMismatchFeedback(); return; }
+
+    users.push({ name: userName, email: email, password: password, avatarColor: color });
     saveUserData();
     signUpsuccess();
-}
-
-/**
- * Copies the current signup form values into shared state before validation and submission.
- *
- * Centralizing this step keeps the signup flow consistent and avoids reading
- * directly from the DOM in each validation branch.
- */
-function setUserInput() {
-    userNameSignup = USER_NAME.value.trim();
-    userEmail = USER_EMAIL.value;
-    userPassword = USER_PASSWORD.value;
-    userConfirmPassword = USER_CONFIRM_PASSWORD.value;
-}
-
-/**
- * Assigns the next avatar color in a repeating sequence so new users
- * receive a color even after the predefined palette has been exhausted.
- */
-function assignUserColor() {
-    newUserIndex = users.length
-    userColor = USER_COLOR[newUserIndex % USER_COLOR.length]
 }
 
 /**
