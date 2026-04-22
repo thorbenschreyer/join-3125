@@ -125,3 +125,46 @@
     }
   }
 }
+
+@media (max-height: 720px) {
+  .container-login-inputs {
+    gap: 8px;
+    padding: 0px 8px 24px;
+  }
+
+  .container-login-buttons {
+    gap: 8px;
+  }
+
+  .login-heading {
+    font-size: 40px;
+  }
+
+  .login-form {
+    padding: 8px;
+  }
+
+  .buttons-login {
+    width: 180px;
+    height: 40px;
+    padding: 4px;
+    font-size: 16px;
+  }
+
+  .signup-button {
+    padding: 13px 16px;
+  }
+
+  .bright-login-button:hover {
+    padding: 0px 23px;
+  }
+
+  .error-message {
+    margin-top: 4px;
+}
+
+    .container-signup-and-privacy-policy {
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+}

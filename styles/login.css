@@ -109,7 +109,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 16px 8px;
+  padding: 16px 8px 24px;
 }
 
 .buttons-login {
@@ -143,7 +143,7 @@
 
 .bright-login-button:hover {
   border: solid 2px #29abe2;
-  padding: 14px 23px;
+  padding: 0px 23px;
   color: #29abe2;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -167,6 +167,7 @@
   padding-left: 8px;
   background-color: white;
   margin-top: -10px;
+  height: 16px;
 }
 
 .error-message {
