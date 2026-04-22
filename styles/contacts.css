@@ -113,6 +113,7 @@
   max-width: 352px;
   border-radius: 10px;
   padding: 24px 16px;
+  margin: 4px 0px;
 }
 
 .contact-initials {
@@ -206,9 +207,17 @@
 
 .contact-btn {
   display: flex;
-  align-items: center;
-  margin-right: 16px;
+  justify-content: space-between;
+  width: 135px;
 }
+
+.contact-btn p {
+  display: flex;
+  align-items: center;
+  width: 40%;
+}
+
+
 
 .contact-btn-edit:hover {
   font-weight: bold;
@@ -243,11 +252,6 @@
   font-size: 48px;
   font-weight: 500;
   color: var(--white);
-}
-
-.contact-btn {
-  display: flex;
-  width: 159px;
 }
 
 .contact-detail-name {

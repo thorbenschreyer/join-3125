@@ -368,12 +368,8 @@ function renderDetailedContactsTemplate(
           <div>
             <p class="contact-detail-name">${name}</p>
             <div class="contact-btn">
-              <p onclick="openDialog(editDialog), editUser()" class="contact-btn contact-btn-edit">
-                <img src="./assets/icons/edit.png" alt="" />Edit
-              </p>
-              <p onclick="deleteUser()" class="contact-btn contact-btn-delete">
-                <img src="./assets/icons/delete.png" alt="" />Delete
-              </p>
+              <p onclick="openDialog(editDialog), editUser()" class="contact-btn contact-btn-edit"> <img src="./assets/icons/edit.png" alt="" />Edit </p>
+              <p onclick="deleteUser()" class="contact-btn contact-btn-delete"> <img src="./assets/icons/delete.png" alt="" />Delete </p>
             </div>
           </div>
         </div>
