@@ -149,3 +149,39 @@
   }
 
 }
+
+@media (max-width: 1025px) and (max-height: 721px) {
+  .summary-page {
+    padding-left: 32px;
+    padding-top: 16px;
+}
+
+.task-summary-style {
+    height: 110px;
+}
+
+.summary-header p {
+    font-size: 48px;
+}
+
+.summary-header span {
+    font-size: 16px;
+}
+
+.welcome-time {
+    font-size: 32px;
+}
+
+.task-number {
+    font-size: 40px;
+}
+
+.summary-content {
+    margin-top: 24px;
+    padding-bottom: 8px;
+}
+
+.task-text {
+    font-size: 16px;
+}
+}
