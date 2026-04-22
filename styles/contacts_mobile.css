@@ -28,6 +28,31 @@
   }
 }
 
+@media (max-width: 1025px) and (max-height: 721px) {
+  .contact-haeder-area {
+    margin-top: 24px;
+  }
+
+  .inital-style {
+    width: 80px;
+    height: 80px;
+    font-size: 32px;
+  }
+
+  .contact-detail-name {
+    font-size: 40px;
+    font-weight: 500;
+  }
+
+  .contact-haeder-area p {
+    font-size: 48px;
+  }
+
+  .contact-haeder-area span {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 975px) {
   .contact-detail-area {
     position: fixed;
@@ -67,6 +92,7 @@
 
   .contact-haeder-area p {
     font-size: 48px;
+    margin-top: 32px;
   }
 
   .contact-main-area {
