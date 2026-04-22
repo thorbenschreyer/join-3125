@@ -1,47 +1,4 @@
 /**
- * Initializes all DOM references required by the add-task view.
- */
-function initDOMElements() {
-    initInputElements();
-    initPriorityElements();
-    initAssignedToElements();
-    initCategoryElements();
-    initSubtasksElements();
-    initFormBtnElements();
-    initToastElements();
-}
-
-/**
- * Initializes the DOM references for the main text and date inputs.
- */
-function initInputElements() {
-    titleInput = document.getElementById("task-title");
-    titleInputError = document.getElementById("title-input-error");
-    descInput = document.getElementById("task-description");
-    dueDateInput = document.getElementById("task-due-date");
-    dueDateInputError = document.getElementById("due-date-input-error");
-    calendarIcon = document.getElementById("calendar-icon");
-}
-
-/**
- * Initializes the DOM references used to control priority buttons and their icon states.
- */
-function initPriorityElements() {
-    urgentBtn = document.getElementById("task-prio-urgent-btn");
-    mediumBtn = document.getElementById("task-prio-medium-btn");
-    lowBtn = document.getElementById("task-prio-low-btn");
-    priorityButtons = [urgentBtn, mediumBtn, lowBtn];
-    urgentColorImg = document.getElementById("task-prio-urgent-color");
-    urgentWhiteImg = document.getElementById("task-prio-urgent-white");
-    mediumColorImg = document.getElementById("task-prio-medium-color");
-    mediumWhiteImg = document.getElementById("task-prio-medium-white");
-    lowColorImg = document.getElementById("task-prio-low-color");
-    lowWhiteImg = document.getElementById("task-prio-low-white");
-    priorityColorImages = [urgentColorImg, mediumColorImg, lowColorImg];
-    priorityWhiteImages = [urgentWhiteImg, mediumWhiteImg, lowWhiteImg];
-}
-
-/**
  * Initializes the DOM references used to control priority buttons and their icon states.
  */
 function initEditPriorityElements() {
@@ -60,74 +17,20 @@ function initEditPriorityElements() {
 }
 
 /**
- * Initializes the DOM references for the assignment dropdown and its input state.
- */
-function initAssignedToElements() {
-    assignedToForm = document.getElementById("assigned-to-form");
-    assignedToWrapper = document.getElementById("task-assigned-to-wrapper");
-    assignedToInputWrapper = document.querySelector(".custom-dropdown-toggle");
-    assignedToInput = document.getElementById("task-assigned-to-input");
-    assignedToUsers = document.getElementById("task-assigned-to-users");
-}
-
-/**
- * Initializes the DOM references for the category dropdown and its predefined options.
- */
-function initCategoryElements() {
-    categoryWrapper = document.getElementById("task-category-wrapper");
-    categoryInputWrapper = document.getElementById("category-input-wrapper");
-    categoryInput = document.getElementById("task-category-input");
-    categoryInputError = document.getElementById("category-input-error");
-    categoryTasks = document.getElementById("task-category-tasks");
-    technicalTask = document.getElementById("technical-task");
-    userStory = document.getElementById("user-story");
-}
-
-/**
- * Initializes the DOM references for subtask input, controls, and rendered items.
- */
-function initSubtasksElements() {
-    subtasksInput = document.getElementById("subtasks-input");
-    clearSubtasksBtn = document.getElementById("clear-input-btn");
-    subtaskVerticalDivider = document.getElementById("subtasks-vertical-divider");
-    addSubtaskBtn = document.getElementById("add-subtask-btn");
-    subtasksList = document.getElementById("subtasks-list");
-    subtaskItem = Array.from(document.getElementsByClassName("subtask-item"));
-}
-
-/**
- * Initializes the DOM references for the form action buttons.
- */
-function initFormBtnElements() {
-    clearFormBtn = document.getElementById("clear-task-btn");
-    addTaskBtn = document.getElementById("add-task-btn");
-    disabledBtnWrapper = document.getElementById("disabled-btn-wrapper");
-    dialogAddTaskBtn = document.getElementById("dialog-add-task-btn");
-}
-
-/**
- * Initializes the DOM references for the success toast and its overlay.
- */
-function initToastElements() {
-    addTaskSuccessToast = document.getElementById("add-task-success-toast");
-    addTaskSuccessOverlay = document.getElementById("add-task-success-overlay");
-}
-
-/**
  * Shows the required-field error state for the title input.
  */
 function showTitleError() {
-    titleInput.classList.add("red-border");
-    titleInputError.classList.add("input-error-visible");
-    titleInputError.textContent = "This field is required";
+    document.getElementById("task-title-input").classList.add("red-border");
+    document.getElementById("title-input-error").classList.add("input-error-visible");
+    document.getElementById("title-input-error").textContent = "This field is required";
 }
 
 /**
  * Clears the error state for the title input.
  */
 function hideTitleError() {
-    titleInput.classList.remove("red-border");
-    titleInputError.classList.remove("input-error-visible");
+    document.getElementById("task-title-input").classList.remove("red-border");
+    document.getElementById("title-input-error").classList.remove("input-error-visible");
 }
 
 /**
@@ -135,77 +38,83 @@ function hideTitleError() {
  */
 function setMinDate() {
     const TODAY = new Date().toISOString().split("T")[0];
-    dueDateInput.min = TODAY;
+    document.getElementById("task-due-date-input").min = TODAY;
 }
 
 /**
  * Shows the current error state for the due date input.
  */
 function showDueDateError() {
-    dueDateInput.classList.add("red-border");
-    dueDateInputError.classList.add("input-error-visible");
+    document.getElementById("task-due-date-input").classList.add("red-border");
+    document.getElementById("due-date-input-error").classList.add("input-error-visible");
 }
 
 /**
  * Clears the visible error state for the due date input.
  */
 function hideDueDateError() {
-    dueDateInput.classList.remove("red-border");
-    dueDateInputError.classList.remove("input-error-visible");
+    document.getElementById("task-due-date-input").classList.remove("red-border");
+    document.getElementById("due-date-input-error").classList.remove("input-error-visible");
 }
 
 /**
  * Restores the neutral priority state before a new selection is highlighted.
  */
-function resetPriorityButtons() {
-    priorityColorImages.forEach(img => img.classList.remove("dNone"));
-    priorityWhiteImages.forEach(img => img.classList.add("dNone"));
-    urgentBtn.classList.remove("prio-urgent");
-    mediumBtn.classList.remove("prio-medium");
-    lowBtn.classList.remove("prio-low");
-    urgentBtn.ariaPressed = "false";
-    mediumBtn.ariaPressed = "false";
-    lowBtn.ariaPressed = "false";
+function resetPriorityButtons(colorImgs, whiteImgs, buttons) {
+    colorImgs.forEach(img => img.classList.remove("dNone"));
+    whiteImgs.forEach(img => img.classList.add("dNone"));
+    buttons.forEach(btn => {
+        btn.classList.remove("prio-urgent", "prio-medium", "prio-low");
+        btn.ariaPressed = "false";
+    });
 }
 
 /**
- * Applies the visual active state for the low priority option.
+ * Collects the priority button elements and their icon states from the add-task form.
+ * @returns {Object} An object containing arrays of color images, white images, and buttons.
  */
-function highlightLowPriority() {
-    lowBtn.classList.add("prio-low");
-    lowColorImg.classList.add("dNone");
-    lowWhiteImg.classList.remove("dNone");
-    lowBtn.ariaPressed = "true";
+function getAddTaskPrioElements() {
+    return {
+        colorImgs: [
+            document.getElementById("task-prio-urgent-color"),
+            document.getElementById("task-prio-medium-color"),
+            document.getElementById("task-prio-low-color")
+        ],
+        whiteImgs: [
+            document.getElementById("task-prio-urgent-white"),
+            document.getElementById("task-prio-medium-white"),
+            document.getElementById("task-prio-low-white")
+        ],
+        buttons: [
+            document.getElementById("task-prio-urgent-btn"),
+            document.getElementById("task-prio-medium-btn"),
+            document.getElementById("task-prio-low-btn")
+        ]
+    };
 }
 
 /**
- * Applies the visual active state for the medium priority option.
+ * Applies the active visual state to a single priority button.
+ * @param {HTMLElement} btn The priority button to highlight.
+ * @param {HTMLElement} colorImg The colored icon to hide.
+ * @param {HTMLElement} whiteImg The white icon to show.
+ * @param {string} prioClass The CSS class to apply ("prio-urgent", "prio-medium", or "prio-low").
  */
-function highlightMediumPriority() {
-    mediumBtn.classList.add("prio-medium");
-    mediumColorImg.classList.add("dNone");
-    mediumWhiteImg.classList.remove("dNone");
-    mediumBtn.ariaPressed = "true";
-}
-
-/**
- * Applies the visual active state for the urgent priority option.
- */
-function highlightUrgentPriority() {
-    urgentBtn.classList.add("prio-urgent");
-    urgentColorImg.classList.add("dNone");
-    urgentWhiteImg.classList.remove("dNone");
-    urgentBtn.ariaPressed = "true";
+function highlightPriority(btn, colorImg, whiteImg, prioClass) {
+    btn.classList.add(prioClass);
+    colorImg.classList.add("dNone");
+    whiteImg.classList.remove("dNone");
+    btn.ariaPressed = "true";
 }
 
 /**
  * Keeps the assignment input highlight in sync with its current focus state.
  */
 function checkDropdownState() {
-    if (assignedToInput === document.activeElement) {
-        assignedToInputWrapper.classList.add("blue-border");
+    if (document.getElementById("task-assigned-to-input") === document.activeElement) {
+        document.querySelector(".custom-dropdown-toggle").classList.add("blue-border");
     } else {
-        assignedToInputWrapper.classList.remove("blue-border");
+        document.querySelector(".custom-dropdown-toggle").classList.remove("blue-border");
     }
 }
 
@@ -245,7 +154,7 @@ function renderAssignedBadges() {
  */
 function filterAssignedUsers() {
     let searchText = document.getElementById("task-assigned-to-input").value.toLowerCase();
-    let users = assignedToUsers.querySelectorAll(".dropdown-user");
+    let users = document.getElementById("task-assigned-to-users").querySelectorAll(".dropdown-user");
     for (let i = 0; i < users.length; i++) {
         let name = users[i].querySelector(".dropdown-user-name").textContent.toLowerCase();
         users[i].style.display = name.startsWith(searchText) ? "flex" : "none";
@@ -272,17 +181,17 @@ function resetUserSelection() {
  * Shows the required-field error state for the category input.
  */
 function showCategoryError() {
-    categoryInputWrapper.classList.add("red-border");
-    categoryInputError.classList.add("input-error-visible");
-    categoryInputError.textContent = "This field is required";
+    document.getElementById("category-input-wrapper").classList.add("red-border");
+    document.getElementById("category-input-error").classList.add("input-error-visible");
+    document.getElementById("category-input-error").textContent = "This field is required";
 }
 
 /** 
  * Clears the error state for the category input.
  */
 function hideCategoryError() {
-    categoryInputWrapper.classList.remove("red-border");
-    categoryInputError.classList.remove("input-error-visible");
+    document.getElementById("category-input-wrapper").classList.remove("red-border");
+    document.getElementById("category-input-error").classList.remove("input-error-visible");
 }
 
 /**
@@ -309,18 +218,18 @@ function hideSubtaskButtons(item) {
  * Shows the controls for clearing or adding the current subtask input.
  */
 function showSubtaskInputButtons() {
-    clearSubtasksBtn.classList.remove("dNone");
-    subtaskVerticalDivider.classList.remove("dNone");
-    addSubtaskBtn.classList.remove("dNone");
+    document.getElementById("clear-input-btn").classList.remove("dNone");
+    document.getElementById("subtasks-vertical-divider").classList.remove("dNone");
+    document.getElementById("add-subtask-btn").classList.remove("dNone");
 }
 
 /**
  * Hides the controls for the current subtask input.
  */
 function hideSubtaskInputButtons() {
-    clearSubtasksBtn.classList.add("dNone");
-    subtaskVerticalDivider.classList.add("dNone");
-    addSubtaskBtn.classList.add("dNone");
+    document.getElementById("clear-input-btn").classList.add("dNone");
+    document.getElementById("subtasks-vertical-divider").classList.add("dNone");
+    document.getElementById("add-subtask-btn").classList.add("dNone");
 }
 
 /**
@@ -328,16 +237,20 @@ function hideSubtaskInputButtons() {
  * @return {string} The priority level corresponding to the active selection, or an empty string if none is selected.
  */
 function getSelectedPriority() {
-    if (urgentBtn.classList.contains('prio-urgent')) return 'urgent';
-    if (mediumBtn.classList.contains('prio-medium')) return 'medium';
-    if (lowBtn.classList.contains('prio-low')) return 'low';
+    if (document.getElementById("task-prio-urgent-btn").classList.contains('prio-urgent')) return 'urgent';
+    if (document.getElementById("task-prio-medium-btn").classList.contains('prio-medium')) return 'medium';
+    if (document.getElementById("task-prio-low-btn").classList.contains('prio-low')) return 'low';
     return '';
 }
 
+/**
+ * Derives the currently selected priority from the active button state with capitalized labels.
+ * @returns {string} The priority level with a leading capital letter, or an empty string if none is selected.
+ */
 function getEditSelectedPriority() {
-    if (urgentBtn.classList.contains('prio-urgent')) return 'Urgent';
-    if (mediumBtn.classList.contains('prio-medium')) return 'Medium';
-    if (lowBtn.classList.contains('prio-low')) return 'Low';
+    if (document.getElementById("task-prio-urgent-btn").classList.contains('prio-urgent')) return 'Urgent';
+    if (document.getElementById("task-prio-medium-btn").classList.contains('prio-medium')) return 'Medium';
+    if (document.getElementById("task-prio-low-btn").classList.contains('prio-low')) return 'Low';
     return '';
 }
 

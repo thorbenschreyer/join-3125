@@ -22,13 +22,13 @@ function initAddTaskListeners() {
  */
 function initClickOutsideElementsListener() {
     document.addEventListener("click", function(event) {
-        if (assignedToWrapper && !assignedToWrapper.contains(event.target)) {
+        if (document.getElementById("task-assigned-to-wrapper") && !document.getElementById("task-assigned-to-wrapper").contains(event.target)) {
             closeAssignedDropdown();
         }  
-        if (categoryWrapper && !categoryWrapper.contains(event.target)) {
+        if (document.getElementById("task-category-wrapper") && !document.getElementById("task-category-wrapper").contains(event.target)) {
             closeCategoryDropdown();
         }
-        if (subtasksInput && !subtasksInput.contains(event.target)) {
+        if (document.getElementById("subtasks-input") && !document.getElementById("subtasks-input").contains(event.target)) {
             hideSubtaskInputButtons();
         }
     });
@@ -38,6 +38,7 @@ function initClickOutsideElementsListener() {
  * Keeps the title field error state in sync while the user interacts with the required input.
  */
 function initTitleInputListeners() {
+    const titleInput = document.getElementById("task-title-input");
     titleInput.addEventListener("focus", function() {
         let titleInputValue = titleInput.value;
         if (titleInputValue.trim().length == 0) {
@@ -58,24 +59,23 @@ function initTitleInputListeners() {
  * Updates the due date error state based on whether the field is filled and not set in the past.
  */
 function initDueDateInputListeners() {
+    const dueDateInput = document.getElementById("task-due-date-input");
     dueDateInput.addEventListener("focus", function() {
-        let dueDateInputValue = dueDateInput.value;
-        if (dueDateInputValue.length != 10) {
-            dueDateInputError.textContent = "This field is required";
+        if (dueDateInput.value.length != 10) {
+            document.getElementById("due-date-input-error").textContent = "This field is required";
             showDueDateError();
         }
     }); 
     dueDateInput.addEventListener("input", function() {
-        let dueDateInputValue = dueDateInput.value;
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        if (dueDateInputValue.length == 10 && new Date(dueDateInputValue) >= today) {
+        if (dueDateInput.value.length == 10 && new Date(dueDateInput.value) >= today) {
             hideDueDateError();
-        } else if (dueDateInputValue.length == 10 && new Date(dueDateInputValue) < today) {
-            dueDateInputError.textContent = "Due date cannot be in the past";
+        } else if (dueDateInput.value.length == 10 && new Date(dueDateInput.value) < today) {
+            document.getElementById("due-date-input-error").textContent = "Due date cannot be in the past";
             showDueDateError();
         } else {
-            dueDateInputError.textContent = "This field is required";
+            document.getElementById("due-date-input-error").textContent = "This field is required";
             showDueDateError();
         }
     });
@@ -85,8 +85,8 @@ function initDueDateInputListeners() {
  * Opens the native date picker when the calendar icon is clicked.
  */
 function initCalendarIconListener() {
-    calendarIcon.addEventListener("click", function() {
-        dueDateInput.showPicker();
+    document.getElementById("calendar-icon").addEventListener("click", function() {
+       document.getElementById("task-due-date-input").showPicker();
     });
 }           
 
@@ -94,11 +94,12 @@ function initCalendarIconListener() {
  * Highlights the assignment input while it is active.
  */
 function initAssignedToListener() {
+    const assignedToInput = document.getElementById("task-assigned-to-input");
     assignedToInput.addEventListener("focus", function() {
-        assignedToInputWrapper.classList.add("blue-border");
+        document.querySelector(".custom-dropdown-toggle").classList.add("blue-border");
     });
     assignedToInput.addEventListener("blur", function() {
-        assignedToInputWrapper.classList.remove("blue-border");
+        document.querySelector(".custom-dropdown-toggle").classList.remove("blue-border");
     });
     assignedToInput.addEventListener("keydown", function(event) {
         if (event.key === 'Escape') {
@@ -117,13 +118,14 @@ function initAssignedToListener() {
  * Applies the selected category option on click and triggers the shared change-based validation flow.
  */
 function initClickCategoryListeners() {
-    technicalTask.addEventListener("click", function() {
+    const categoryInput = document.getElementById("task-category-input");
+    document.getElementById("technical-task").addEventListener("click", function() {
         categoryInput.value = "Technical Task";
         categoryInput.dispatchEvent(new Event("change"));
         closeCategoryDropdown();
         hideCategoryError();
     })
-    userStory.addEventListener("click", function() {
+    document.getElementById("user-story").addEventListener("click", function() {
         categoryInput.value = "User Story";
         categoryInput.dispatchEvent(new Event("change"));
         closeCategoryDropdown();
@@ -136,7 +138,8 @@ function initClickCategoryListeners() {
  * @param {KeyboardEvent} event The keydown event triggered on the category option.
  */
 function initKeyboardCategoryListeners()  {
-    technicalTask.parentElement.addEventListener("keydown", function(event) {
+    const categoryInput = document.getElementById("task-category-input");
+    document.getElementById("technical-task").parentElement.addEventListener("keydown", function(event) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             categoryInput.value = "Technical Task";
@@ -145,7 +148,7 @@ function initKeyboardCategoryListeners()  {
             hideCategoryError();
         }
     });
-    userStory.parentElement.addEventListener("keydown", function(event) {
+    document.getElementById("user-story").parentElement.addEventListener("keydown", function(event) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             categoryInput.value = "User Story";
@@ -160,16 +163,17 @@ function initKeyboardCategoryListeners()  {
  * Wires the subtask input to show its controls and handle click-based clear and add actions.
  */
 function initClickSubtaskListeners() {
+    const subtasksInput = document.getElementById("subtasks-input");
     subtasksInput.addEventListener("focus", function() {
         showSubtaskInputButtons();
     });
-    clearSubtasksBtn.addEventListener("click", function() {
+    document.getElementById("clear-input-btn").addEventListener("click", function() {
         subtasksInput.value = "";
         hideSubtaskInputButtons();
     });
-    addSubtaskBtn.addEventListener("click", function() {
+    document.getElementById("add-subtask-btn").addEventListener("click", function() {
         if (subtasksInput.value.trim().length > 0) {
-            subtasksList.insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
+            document.getElementById("subtasks-list").insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
             subtasksInput.value = "";
             hideSubtaskInputButtons();
         }
@@ -182,24 +186,25 @@ function initClickSubtaskListeners() {
  * @param {KeyboardEvent} event The keydown event triggered on the subtask input or buttons.
  */
 function initKeyboardSubtaskListeners() {
+    const subtasksInput = document.getElementById("subtasks-input");
     subtasksInput.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-            addSubtaskBtn.click();
+            document.getElementById("add-subtask-btn").click();
             showSubtaskInputButtons();
         }
     });
-    clearSubtasksBtn.addEventListener("keydown", function(event) {
+    document.getElementById("clear-input-btn").addEventListener("keydown", function(event) {
         if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             subtasksInput.value = "";
             hideSubtaskInputButtons();
         }
     });
-    addSubtaskBtn.addEventListener("keydown", function(event) {
+    document.getElementById("add-subtask-btn").addEventListener("keydown", function(event) {
         if (subtasksInput.value.length > 0 && (event.key === "Enter" || event.key === " ")) {
             event.preventDefault();
-            subtasksList.insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
+            document.getElementById("subtasks-list").insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
             subtasksInput.value = "";
             hideSubtaskInputButtons();
         }
@@ -210,23 +215,16 @@ function initKeyboardSubtaskListeners() {
  * Keeps the required-field validation flags in sync so the submit state can be recalculated after each change.
  */
 function initFormValidationListeners() {
-    titleInput.addEventListener("change", function() {
-        titleInput.value.trim().length > 0 ? isTitleValid = true : isTitleValid = false
+    const titleInput = document.getElementById("task-title-input");
+    const dueDateInput = document.getElementById("task-due-date-input")
+    const categoryInput = document.getElementById("task-category-input");
+    titleInput.addEventListener("input", function() {
         checkFormValidity()
     });
     dueDateInput.addEventListener("change", function() {
-        let dueDateInputValue = dueDateInput.value;
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (dueDateInputValue.length == 10 && new Date(dueDateInputValue) >= today) {
-            isDueDateValid = true;
-        } else {
-            isDueDateValid = false;
-        }
         checkFormValidity()
     });
     categoryInput.addEventListener("change", function() {
-        categoryInput.value == "Technical Task" || categoryInput.value == "User Story" ? isCategoryValid = true : isCategoryValid = false;
         checkFormValidity()
     })
 }
@@ -235,7 +233,7 @@ function initFormValidationListeners() {
  * Resets the form when the clear button is clicked.
  */
 function initClearFormListener() {
-    clearFormBtn.addEventListener("click", function () {
+    document.getElementById("clear-task-btn").addEventListener("click", function () {
         clearFormular();
     });
 }
@@ -244,11 +242,12 @@ function initClearFormListener() {
  * Validates the form and shows error states for invalid fields when the user tries to submit an incomplete form.
  */
 function initAddTaskListener() {
-    disabledBtnWrapper.addEventListener("click", function() {
-        if (addTaskBtn.classList.contains("disabled-btn")) {
-            titleInput.value.trim().length == 0 ? showTitleError() : "";  
-            if (dueDateInput.value.length == 0) {
-                dueDateInputError.textContent = "This field is required";
+    const categoryInput = document.getElementById("task-category-input");
+    document.getElementById("disabled-btn-wrapper").addEventListener("click", function() {
+        if (document.getElementById("add-task-btn").classList.contains("disabled-btn")) {
+            document.getElementById("task-title-input").value.trim().length == 0 ? showTitleError() : "";  
+            if (document.getElementById("task-due-date-input").value.length == 0) {
+                document.getElementById("due-date-input-error").textContent = "This field is required";
                 showDueDateError();
             }
             if (categoryInput.value !== "Technical Task" && categoryInput.value !== "User Story") {

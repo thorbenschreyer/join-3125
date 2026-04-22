@@ -1,69 +1,4 @@
 /**
- * These variables are wired to their respective DOM elements in the `initDOMElements` function and used across the add-task module.
- */
-let titleInput;
-let descInput;
-let dueDateInput;
-let calendarIcon;
-let urgentBtn;
-let mediumBtn;
-let lowBtn;
-let priorityButtons;
-let urgentColorImg;
-let urgentWhiteImg;
-let mediumColorImg;
-let mediumWhiteImg;
-let lowColorImg;
-let lowWhiteImg;
-let titleInputError;
-let dueDateInputError;
-let categoryInputError;
-let priorityColorImages;
-let priorityWhiteImages;
-let assignedToForm;
-let assignedToWrapper;
-let assignedToInputWrapper;
-let assignedToInput;
-let assignedToUsers;
-let categoryWrapper;
-let categoryInputWrapper;
-let categoryInput;
-let categoryTasks;
-let technicalTask;
-let userStory;
-let subtasksInput;
-let clearSubtasksBtn;
-let subtaskVerticalDivider;
-let addSubtaskBtn;
-let subtasksList;
-let subtaskItem;
-let subtasks;
-let clearFormBtn;
-let addTaskBtn;
-let disabledBtnWrapper;
-let dialogAddTaskBtn;
-let addTaskSuccessToast;
-let addTaskSuccessOverlay;
-
-
-/** 
- * Required field validation state variables. These are toggled by their respective listeners and
- * checked in the shared `checkFormValidity` function to determine the submit state of the form.
- */
-let isTitleValid = false;
-let isDueDateValid = false;
-let isCategoryValid = false;
-
-/**
- * Restores the required-field validation flags to their default state.
- */
-function resetFormValidationState() {
-    isTitleValid = false;
-    isDueDateValid = false;
-    isCategoryValid = false;
-}
-
-/**
  * Firebase backend endpoint.
  */
 const BASE_URL = "https://join-3125-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -89,8 +24,6 @@ let selectedUsers = [];
  * Loads users and tasks before rendering the assignment dropdown so the form starts in a consistent state.
  */
 async function initAddTaskElements() {
-    initDOMElements();
-    resetFormValidationState();
     initAddTaskListeners();
     setMinDate();
     await loadUsers();
@@ -144,17 +77,23 @@ async function loadTasks() {
  * Enables the add-task button only when all required fields are valid.
  */
 function checkFormValidity() {
-    if (isTitleValid && isDueDateValid && isCategoryValid) {
-        addTaskBtn.disabled = false;
-        addTaskBtn.classList.remove("disabled-btn");
-        dialogAddTaskBtn.disabled = false;
-        dialogAddTaskBtn.classList.remove("disabled-btn");
-    } else {
-        addTaskBtn.disabled = true;
-        addTaskBtn.classList.add("disabled-btn");
-        dialogAddTaskBtn.disabled = true;
-        dialogAddTaskBtn.classList.add("disabled-btn");
-    }
+    const title = document.getElementById("task-title-input");
+    const dueDate = document.getElementById("task-due-date-input");
+    const category = document.getElementById("task-category-input");
+    const addBtn = document.getElementById("add-task-btn");
+    const dialogBtn = document.getElementById("dialog-add-task-btn");
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isValid =
+        title.value.trim().length > 0 &&
+        dueDate.value.length === 10 && new Date(dueDate.value) >= today &&
+        (category.value === "Technical Task" || category.value === "User Story");
+
+    addBtn.disabled = !isValid;
+    addBtn.classList.toggle("disabled-btn", !isValid);
+    dialogBtn.disabled = !isValid;
+    dialogBtn.classList.toggle("disabled-btn", !isValid);
 }
 
 /**
@@ -162,25 +101,27 @@ function checkFormValidity() {
  * @param {string} priority The priority level to apply ("urgent", "medium", or "low").
  */
 function highlightSelectedPriority(priority) {
-    resetPriorityButtons();
+    const prio = getAddTaskPrioElements();
+    resetPriorityButtons(prio.colorImgs, prio.whiteImgs, prio.buttons);
+
     if (priority === "urgent") {
-        highlightUrgentPriority();
+        highlightPriority(prio.buttons[0], prio.colorImgs[0], prio.whiteImgs[0], "prio-urgent");
     } else if (priority === "medium") {
-        highlightMediumPriority();
+        highlightPriority(prio.buttons[1], prio.colorImgs[1], prio.whiteImgs[1], "prio-medium");
     } else if (priority === "low") {
-        highlightLowPriority();
-    }   
+        highlightPriority(prio.buttons[2], prio.colorImgs[2], prio.whiteImgs[2], "prio-low");
+    }
 }
 
 /**
  * Renders the assignment dropdown from the loaded user list.
  */
 function renderUsersDropdown() {
-    assignedToUsers.innerHTML = "";
+    document.getElementById("task-assigned-to-users").innerHTML = "";
     for (let i = 0; i < users.length; i++) {
         let initials = getInitials(users[i].name);
         let color = users[i].avatarColor;
-        assignedToUsers.insertAdjacentHTML("beforeend", renderUsersDropdownTemplate(users[i].name, initials, color));
+        document.getElementById("task-assigned-to-users").insertAdjacentHTML("beforeend", renderUsersDropdownTemplate(users[i].name, initials, color));
     }
 }
 
@@ -196,7 +137,7 @@ function openAssignedDropdown() {
     arrowdown.classList.add("dNone");
     arrowup.classList.remove("dNone");
     document.getElementById("task-assigned-to-input").focus();
-    assignedToInputWrapper.classList.add("blue-border");
+    document.querySelector(".custom-dropdown-toggle").classList.add("blue-border");
     closeCategoryDropdown();
     filterAssignedUsers();
 }
@@ -217,7 +158,7 @@ function toggleAssignedDropdown(event) {
     document.getElementById("task-assigned-to-input").focus();
     checkDropdownState();
     if (users.classList.contains("dFlex")) {
-        assignedToInputWrapper.classList.add("blue-border");
+        document.querySelector(".custom-dropdown-toggle").classList.add("blue-border");
     }
     closeCategoryDropdown();
     filterAssignedUsers();
@@ -258,7 +199,7 @@ function toggleUserSelection(event, user, initials, color) {
         selectedUsers.push({ name: user, initials: initials, color: color });
     }
     renderAssignedBadges();
-    assignedToInputWrapper.classList.add("blue-border");
+    document.querySelector(".custom-dropdown-toggle").classList.add("blue-border");
 }
 
 /**
@@ -269,8 +210,8 @@ function toggleCategoryDropdown(event) {
     event.stopPropagation();
     let arrowdown = document.getElementById("category-dropdown-arrow");
     let arrowup = document.getElementById("category-dropup-arrow");
-    categoryTasks.classList.toggle("dNone");
-    categoryTasks.classList.toggle("dFlex");
+    document.getElementById("task-category-tasks").classList.toggle("dNone");
+    document.getElementById("task-category-tasks").classList.toggle("dFlex");
     arrowdown.classList.toggle("dNone");
     arrowup.classList.toggle("dNone");
     document.getElementById("task-category-input").focus();
@@ -283,8 +224,8 @@ function toggleCategoryDropdown(event) {
 function closeCategoryDropdown() {
     let arrowdown = document.getElementById("category-dropdown-arrow");
     let arrowup = document.getElementById("category-dropup-arrow");
-    categoryTasks.classList.add("dNone");
-    categoryTasks.classList.remove("dFlex");
+    document.getElementById("task-category-tasks").classList.add("dNone");
+    document.getElementById("task-category-tasks").classList.remove("dFlex");
     if (arrowdown && arrowup) {
         arrowdown.classList.remove("dNone");
         arrowup.classList.add("dNone");
@@ -338,22 +279,20 @@ function deleteSubtask(button) {
  * Resets the form inputs and restores the default add-task state.
  */
 function clearFormular() {
-    dialogAddTaskBtn.classList.add("disabled-btn");
-    resetFormValidationState();
-    addTaskBtn.classList.add("disabled-btn");
-    addTaskBtn.disabled = true; 
-    titleInput.value = "";
-    descInput.value = "";
-    dueDateInput.value = "";
+    document.getElementById("dialog-add-task-btn").classList.add("disabled-btn");
+    document.getElementById("add-task-btn").classList.add("disabled-btn");
+    document.getElementById("add-task-btn").disabled = true; 
+    document.getElementById("task-title-input").value = "";
+    document.getElementById("task-description-input").value = "";
+    document.getElementById("task-due-date-input").value = "";
     hideTitleError();
     hideDueDateError();
     hideCategoryError();
-    resetPriorityButtons();
     highlightSelectedPriority("medium");
     resetUserSelection();
-    categoryInput.value = "";
-    subtasksInput.value = "";
-    subtasksList.innerHTML = "";
+    document.getElementById("task-category-input").value = "";
+    document.getElementById("subtasks-input").value = "";
+    document.getElementById("subtasks-list").innerHTML = "";
 }
 
 /**
@@ -363,13 +302,13 @@ function clearFormular() {
 function buildTaskObject() {
     return {
         id: generateUniqueId(),
-        title: titleInput.value,
-        description: descInput.value,
-        dueDate: dueDateInput.value,
+        title: document.getElementById("task-title-input").value,
+        description: document.getElementById("task-description-input").value,
+        dueDate: document.getElementById("task-due-date-input").value,
         priority: getSelectedPriority(),
         assignedTo: selectedUsers.map(user => user.name),
-        category: categoryInput.value,
-        categoryColor: categoryInput.value.trim().toLowerCase().split(' ').join('-'),
+        category: document.getElementById("task-category-input").value,
+        categoryColor: document.getElementById("task-category-input").value.trim().toLowerCase().split(' ').join('-'),
         subtasks: getFormattedSubtasks(),
         currentTask: `${currentTaskBar}`
     };
@@ -403,9 +342,9 @@ async function saveTaskData() {
  * Shows the success feedback and redirects to the board after a 1.5 second delay.
  */
 function addTaskSuccess() {
-    addTaskBtn.disabled = true;
-    addTaskSuccessToast.classList.add("show");
-    addTaskSuccessOverlay.classList.add("show");
+    document.getElementById("add-task-btn").disabled = true;
+    document.getElementById("add-task-success-toast").classList.add("show");
+    document.getElementById("add-task-success-overlay").classList.add("show");
     setTimeout(() => {
         loadBoardPage();
     }, 1500);
