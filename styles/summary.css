@@ -1,8 +1,8 @@
 .summary-page {
-    padding-left: 64px;
-    padding-top: 110px;
-    padding-bottom: 32px;
-    overflow-y: auto;
+  padding-left: 64px;
+  padding-top: 110px;
+  padding-bottom: 32px;
+  overflow-y: scroll;
 }
 
 /* =============== Header Content =============== */
@@ -190,5 +190,5 @@
 }
 
 .task-summary-style:hover .task-date-text {
-  color: var(--white)
+  color: var(--white);
 }

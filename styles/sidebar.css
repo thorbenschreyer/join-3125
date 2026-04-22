@@ -85,7 +85,6 @@
   flex-direction: column;
   max-width: calc(1440px - 232px);
   max-height: calc(100vh - 96px);
-  overflow-y: auto;
 }
 
 /* =============== Header-Menu ===============*/
@@ -253,7 +252,6 @@
 
   .page-content {
     flex: 1;
-    overflow-y: auto;
     width: 100vw;
     max-height: calc(100vh - 180px);
   }
