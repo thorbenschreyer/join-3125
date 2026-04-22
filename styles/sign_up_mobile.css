@@ -1,0 +1,119 @@
+
+/* === TABLET === */
+@media (max-width: 744px) {
+  /* === HEADER === */
+  .signup-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 180px 80px 0px;
+  }
+
+  .logo {
+    position: static;
+    width: auto;
+    height: 76px;
+  }
+
+  /* === MAIN === */
+  .signup {
+    padding: 0;
+  }
+
+  .signup-card {
+    width: 300px;
+    margin-bottom: 42px;
+  }
+
+  /* === HEADER IM FORMULAR === */
+  .signup-back {
+    left: 32px;
+  }
+
+  .signup-form-header h1 {
+    font-size: 32px;
+  }
+
+  .signup-form-header h1::after {
+    height: 3px;
+  }
+
+  /* === FORMULAR === */
+  .signup-form {
+    padding-bottom: 0;
+  }
+
+  /* === FOOTER IM FORMULAR === */
+  .signup-form-footer {
+    padding-top: 20px;
+  }
+}
+
+/* === MOBILE === */
+@media (max-width: 500px) {
+  /* === HEADER === */
+  .signup-header {
+    padding: 20px 180px 20px 0px;
+  }
+
+  /* === MAIN === */
+
+  .signup-card {
+    padding: 24px 12px 16px;
+    margin-bottom: 26px;
+  }
+
+  /* === HEADER IM FORMULAR === */
+  .signup-back {
+    top: 40px;
+  }
+
+  /* === FORMULAR === */
+  .signup-form {
+    gap: 20px;
+  }
+
+  /* === FOOTER IM FORMULAR === */
+  .signup-form-footer {
+    padding-top: 0px;
+  }
+}
+
+/* === SMALL MOBILE === */
+@media (max-width: 375px) {
+  /* === MAIN === */
+  .signup-card {
+    width: 284px;
+  }
+}
+
+@media (max-height: 855px) {
+  .signup-header {
+    padding: 40px 180px 40px 0px;
+  }
+
+  .privacy-policy-wrapper {
+    padding-bottom: 16px;
+  }
+
+  .signup-card {
+    padding: 16px 12px 16px;
+  }
+  .signup-form-footer {
+    padding-top: 0px;
+  }
+
+  .signup-form {
+    gap: 8px;
+  }
+}
+
+@media (max-height: 650px) {
+  .logo {
+    height: 60px;
+  }
+
+  .signup-header {
+    padding: 16px 180px 16px 0px;
+  }
+}
