@@ -189,7 +189,7 @@
 
 .subtask-edit-input {
   width: 100%;
-  padding: 4px 60px 4px 8px;
+  padding: 4px 60px 4px 33px;
   border: none;
   outline: none;
   font-size: 12px;
@@ -197,9 +197,14 @@
   box-sizing: border-box;
 }
 
+.subtask-text {
+  max-width: 225px;
+  overflow: auto;
+}
+
 .subtask-edit-btns {
   position: absolute;
-  right: 4px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -210,7 +215,7 @@
 .edit-input-delete-btn {
   background: none;
   border: none;
-  padding: 0;
+  padding: 0 0 20px 0;
   margin: 0;
   cursor: pointer;
   line-height: 0;

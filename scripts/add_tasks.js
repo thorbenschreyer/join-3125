@@ -235,48 +235,49 @@ function closeCategoryDropdown() {
 }
 
 /**
- * Switches a subtask into edit mode and places the cursor at the end of the current text.
- * @param {HTMLElement} button The button element that triggered the edit action.
+ * Switches a subtask into edit mode and places the cursor at the end.
+ * Adds a bottom margin to the wrapper for better visibility.
+ * * @param {HTMLElement} button The button element that triggered the edit action.
  */
 function editSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
     let editDiv = wrapper.querySelector("#subtask-edit");
-    let inputLength = editDiv.querySelector(".subtask-edit-input").value.length;
+    let input = editDiv.querySelector(".subtask-edit-input");
     editDiv.classList.remove("dNone");
     editDiv.style.display = "flex";
-    editDiv.querySelector(".subtask-edit-input").focus();  
-    editDiv.querySelector(".subtask-edit-input").setSelectionRange(inputLength, inputLength);
+    input.focus();  
+    input.setSelectionRange(input.value.length, input.value.length);
     wrapper.querySelector("#subtask-item").classList.add("dNone");
+    wrapper.style.marginBottom = "-1px";
+    wrapper.style.padding = "0 10px 0 18px";
 }
 
 /**
  * Applies the edited subtask text and restores the default display state.
- * @param {HTMLElement} button The button element that triggered the confirm action.
+ * Removes the previously added bottom margin from the wrapper.
+ * * @param {HTMLElement} button The button element that triggered the confirm action.
  */
 function confirmEditSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
     let editInput = wrapper.querySelector(".subtask-edit-input");
-     if (editInput.value.trim().length === 0) {
-        wrapper.remove();
-        return;
-    }
-    let subtaskText = wrapper.querySelector(".subtask-text");
-    let editDiv = wrapper.querySelector("#subtask-edit");
-    subtaskText.textContent = editInput.value;
+    if (editInput.value.trim() === "") return wrapper.remove();
+    wrapper.querySelector(".subtask-text").textContent = editInput.value;
     wrapper.querySelector("#subtask-item").classList.remove("dNone");
-    wrapper.querySelector("#subtask-edit").classList.add("dNone");
+    let editDiv = wrapper.querySelector("#subtask-edit");
     editDiv.classList.add("dNone");
     editDiv.style.display = "none";
+    wrapper.style.marginBottom = "";
+    wrapper.style.padding = "4px 10px 4px 18px";
 }
 
 /**
  * Removes the selected subtask from the current form state.
- * @param {HTMLElement} button The button element that triggered the delete action.
+ * The margin is automatically removed since the element is destroyed.
+ * * @param {HTMLElement} button The button element that triggered the delete action.
  */
 function deleteSubtask(button) {
     button.closest(".subtask-item-wrapper").remove();
 }
-
 /**
  * Resets the form inputs and restores the default add-task state.
  */
