@@ -193,39 +193,47 @@ function checkEditSubtaskInput() {
 }
 
 /**
- * Switches a subtask into edit mode and places the cursor at the end of the current text.
+ * Switches a subtask into edit mode and places the cursor at the end.
+ * Adds a bottom margin to the wrapper for better visibility.
+ * @param {HTMLElement} button The button element that triggered the edit action.
  */
 function editEditSubtask(button) {
-  let wrapper = button.closest(".edit-subtask-item-wrapper");
-  let editDiv = wrapper.querySelector(".edit-subtask-edit");
-  let inputField = editDiv.querySelector(".edit-subtask-edit-input");
-  let inputLength = inputField.value.length;
-  editDiv.classList.remove("dNone");
-  editDiv.style.display = "flex";
-  inputField.focus();
-  inputField.setSelectionRange(inputLength, inputLength);
-  wrapper.querySelector(".edit-subtask-item").classList.add("dNone");
+    let wrapper = button.closest(".edit-subtask-item-wrapper");
+    let editDiv = wrapper.querySelector(".edit-subtask-edit");
+    let input = editDiv.querySelector(".edit-subtask-edit-input");
+    editDiv.classList.remove("dNone");
+    editDiv.style.display = "flex";
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+    wrapper.querySelector(".edit-subtask-item").classList.add("dNone");
+    wrapper.style.marginBottom = "-1px";
+    // wrapper.style.padding = "0 10px 0 18px";
 }
 
 /**
- * Applies the edited subtask text and restores the default display state.
+ * Applies the edited text, removes the margin, and restores default state.
+ * Deletes the subtask automatically if the input is left empty.
+ * @param {HTMLElement} button The button element that triggered the confirm action.
  */
 function confirmEditEditSubtask(button) {
-  let wrapper = button.closest(".edit-subtask-item-wrapper");
-  let editInput = wrapper.querySelector(".edit-subtask-edit-input");
-  let subtaskText = wrapper.querySelector(".edit-subtask-text");
-  let editDiv = wrapper.querySelector(".edit-subtask-edit");
-  subtaskText.textContent = editInput.value;
-  wrapper.querySelector(".edit-subtask-item").classList.remove("dNone");
-  editDiv.classList.add("dNone");
-  editDiv.style.display = "none";
+    let wrapper = button.closest(".edit-subtask-item-wrapper");
+    let editInput = wrapper.querySelector(".edit-subtask-edit-input");
+    if (editInput.value.trim() === "") return wrapper.remove();
+    wrapper.querySelector(".edit-subtask-text").textContent = editInput.value;
+    wrapper.querySelector(".edit-subtask-item").classList.remove("dNone");
+    let editDiv = wrapper.querySelector(".edit-subtask-edit");
+    editDiv.classList.add("dNone");
+    editDiv.style.display = "none";
+    wrapper.style.marginBottom = "";
+    wrapper.style.padding = "4px 10px 4px 18px";
 }
 
 /**
  * Removes the selected subtask from the current form state.
+ * @param {HTMLElement} button The button element that triggered the delete action.
  */
 function deleteEditSubtask(button) {
-  button.closest(".edit-subtask-item-wrapper").remove();
+    button.closest(".edit-subtask-item-wrapper").remove();
 }
 
 /**

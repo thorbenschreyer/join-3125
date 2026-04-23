@@ -314,7 +314,7 @@
   gap: 6px;
 }
 
-.edit-subtask-item-edit {
+.edit-subtask-edit {
   position: relative;
   align-items: center;
   margin: 0 -10px 0 -18px;
@@ -323,7 +323,7 @@
 
 .edit-subtask-edit-input {
   width: 100%;
-  padding: 0 50px 0 15px;
+  padding: 0 50px 0 33px;
   border: none;
   outline: none;
   font-size: 12px;
@@ -337,12 +337,13 @@
 
 .edit-subtask-edit-btns {
   position: absolute;
-  right: 4px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 4px;
+  padding-bottom: 7px;
 }
 
 .edit-edit-input-delete-btn,
