@@ -197,7 +197,7 @@ function buildEditForm(task) {
           <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
       </div>
     </div>
-    <form id="edit-add-task-form" class="edit-add-task-form" onsubmit="return false;" novalidate>
+    <form id="edit-add-task-form" class="edit-add-task-form" onsubmit="return false;" novalidate onclick="hideEditSubtaskInputButtons()">
       <div class="task-column left-column">
           <div class="form-group">
               <label for="edit-task-title">
@@ -222,7 +222,7 @@ function buildEditForm(task) {
               <span id="edit-due-date-input-error" class="edit-input-error d-none">Please add Date</span>
           </div>
       </div>
-    </form>
+    
       <div class="task-column">
 
           <div class="form-group">
@@ -267,15 +267,16 @@ function buildEditForm(task) {
               <div id="edit-subtasks-input-container" class="subtasks-input-container  cursor-text" onclick="stopEventBubbling(event)">    
                     <input id="edit-subtasks-input" class="form-input task-input edit-subtask-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput()">
                     <div class="subtasks-input-icons">
-                        <button id="edit-clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
+                        <button id="edit-clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input" onclick="hideEditSubtaskInputButtons()">
                             <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
                         </button>
                         <span id="edit-subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
-                        <button id="edit-add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask">
+                        <button id="edit-add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask" onclick="validateAndAddEditSubtask()">
                             <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                         </button>
                     </div>
               </div>
+              <div id="edit-subtask-error" class="edit-input-error dNone">Subtasks can not be empty</div>
               <ul id="edit-subtasks-list" class="edit-subtasks-list">
 
               </ul>

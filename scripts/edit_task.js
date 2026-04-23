@@ -354,4 +354,5 @@ function hideEditSubtaskInputButtons() {
   editClearSubtasksBtn.classList.add("dNone");
   editSubtaskVerticalDivider.classList.add("dNone");
   editAddSubtaskBtn.classList.add("dNone");
+  clearEditSubtaskInput();
 }

@@ -243,3 +243,25 @@ function deleteEditSubtaskInput() {
   editSubtasksInput.value = "";
   hideEditSubtaskInputButtons();
 }
+
+/**
+ * Validates the subtask input field on button click.
+ * Shows an error if empty or only spaces, otherwise hides it.
+ */
+function validateAndAddEditSubtask() {
+    let input = document.getElementById("edit-subtasks-input");
+    let errorMsg = document.getElementById("edit-subtask-error");
+    if (input.value.trim() === "") {
+        errorMsg.classList.remove("dNone");
+        return;
+    }
+    errorMsg.classList.add("dNone");
+}
+
+/**
+ * Hides the empty subtask error message and clears the input field.
+ */
+function clearEditSubtaskInput() {
+    document.getElementById("edit-subtask-error").classList.add("dNone");
+    document.getElementById("edit-subtasks-input").value = "";
+}
