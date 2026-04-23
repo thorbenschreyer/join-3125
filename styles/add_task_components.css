@@ -121,6 +121,7 @@
   scrollbar-color: var(--light-gray) transparent;
   font-size: 12px;
   list-style: none;
+  margin-top: -10px;
 }
 
 .subtask-item-wrapper {
@@ -275,6 +276,7 @@
   color: var(--red);
   font-size: 16px;
   visibility: hidden;
+  margin-top: -5px;
 }
 
 .subtask-input-error-visible {

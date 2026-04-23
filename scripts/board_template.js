@@ -283,7 +283,7 @@ function buildEditForm(task) {
           </div>
       </div>
       <div class="edit-succcess-btn-container">
-        <button type="button" class="edit-success-button dark-button" id="success-edit-btn" onclick="if(validateEditForm()) saveEditedTask('${task.firebaseId}')">
+        <button type="button" class="edit-success-button dark-button" id="success-edit-btn" onclick="event.stopPropagation(); submitEditTask('${task.firebaseId}')">
           OK 
           <img id="edit-success-btn-icon" class="add-task-btn-icon" src="./assets/icons/check_light.png" alt="Checkmark icon">
         </button>

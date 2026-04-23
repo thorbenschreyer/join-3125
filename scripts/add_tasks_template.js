@@ -104,13 +104,13 @@ function renderEditSubtaskItemsTemplate(text) {
             </div>
         </li>
         <div class="edit-subtask-edit dNone">
-            <input class="edit-subtask-edit-input" type="text" name="subtasks" value="${text}" onkeypress="if(event.key === 'Enter') confirmEditEditSubtask(this)">
+            <input class="edit-subtask-edit-input" type="text" name="subtasks" value="${text}" onkeypress="if(event.key === 'Enter') confirmEditEditSubtask(this)" oninput="resetEditSubtaskError(this)" onclick="event.stopPropagation()">
             <div class="edit-subtask-edit-btns">
                 <button class="edit-input-delete-btn" type="button" aria-label="Delete subtask" onclick="deleteEditSubtask(this)">
                     <img src="./assets/icons/subtask_delete.svg" alt="Trash bin icon">
                 </button>
                 <span class="subtask-edit-input-divider" aria-hidden="true">|</span>
-                <button class="edit-input-check-btn" type="button" aria-label="Confirm edit" onclick="confirmEditEditSubtask(this)">
+                <button class="edit-input-check-btn" type="button" aria-label="Confirm edit" onclick="event.stopPropagation(); confirmEditEditSubtask(this)">
                     <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                 </button>
             </div>

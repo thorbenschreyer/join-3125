@@ -211,17 +211,19 @@ function editEditSubtask(button) {
 }
 
 /**
- * Applies the edited text, removes the margin, and restores default state.
- * Deletes the subtask automatically if the input is left empty.
+ * Applies edited text or shows an error if the input is empty.
  * @param {HTMLElement} button The button element that triggered the confirm action.
  */
 function confirmEditEditSubtask(button) {
     let wrapper = button.closest(".edit-subtask-item-wrapper");
-    let editInput = wrapper.querySelector(".edit-subtask-edit-input");
-    if (editInput.value.trim() === "") return wrapper.remove();
+    let editDiv = wrapper.querySelector(".edit-subtask-edit");
+    let editInput = editDiv.querySelector(".edit-subtask-edit-input");
+    if (editInput.value.trim() === "") {
+        document.getElementById("edit-subtask-error").classList.remove("dNone");
+        return editDiv.style.borderBottom = "1px solid red";
+    }
     wrapper.querySelector(".edit-subtask-text").textContent = editInput.value;
     wrapper.querySelector(".edit-subtask-item").classList.remove("dNone");
-    let editDiv = wrapper.querySelector(".edit-subtask-edit");
     editDiv.classList.add("dNone");
     editDiv.style.display = "none";
     wrapper.style.marginBottom = "";
@@ -246,22 +248,94 @@ function deleteEditSubtaskInput() {
 
 /**
  * Validates the subtask input field on button click.
- * Shows an error if empty or only spaces, otherwise hides it.
+ * Shows an error and adds a red border if empty or only spaces.
  */
 function validateAndAddEditSubtask() {
     let input = document.getElementById("edit-subtasks-input");
     let errorMsg = document.getElementById("edit-subtask-error");
     if (input.value.trim() === "") {
         errorMsg.classList.remove("dNone");
+        input.classList.add("input-error-border");
         return;
     }
     errorMsg.classList.add("dNone");
+    input.classList.remove("input-error-border");
 }
 
 /**
  * Hides the empty subtask error message and clears the input field.
+ * Removes the red error border from the input.
  */
 function clearEditSubtaskInput() {
+    let input = document.getElementById("edit-subtasks-input");
     document.getElementById("edit-subtask-error").classList.add("dNone");
-    document.getElementById("edit-subtasks-input").value = "";
+    input.classList.remove("input-error-border");
+    input.value = "";
+}
+
+/**
+ * Checks input while typing to remove error states dynamically.
+ * Triggered by the oninput event in the HTML.
+ */
+function checkEditSubtaskInput() {
+    let input = document.getElementById("edit-subtasks-input");
+    let errorMsg = document.getElementById("edit-subtask-error");
+    if (input.value.trim() !== "") {
+        errorMsg.classList.add("dNone");
+        input.classList.remove("input-error-border");
+    }
+}
+
+/**
+ * Removes the error styling and hides the error message when typing.
+ * @param {HTMLElement} input The inline edit input field.
+ */
+function resetEditSubtaskError(input) {
+    input.closest(".edit-subtask-edit").style.borderBottom = "1px solid var(--logo-light-blue)";
+    document.getElementById("edit-subtask-error").classList.add("dNone");
+}
+
+/**
+ * Checks if the main subtask input or any active inline edits are empty.
+ * @returns {boolean} True if all are valid, false to block form submission.
+ */
+function validateAllSubtasks() {
+    let valid = true;
+    let main = document.getElementById("edit-subtasks-input");
+    if (main.value.trim() === "") valid = false, main.classList.add("input-error-border");
+    document.querySelectorAll(".edit-subtask-edit:not(.dNone)").forEach(e => {
+        if (e.querySelector("input").value.trim() === "") valid = false, e.style.borderBottom = "1px solid red";
+    });
+    if (!valid) document.getElementById("edit-subtask-error").classList.remove("dNone");
+    return valid;
+}
+
+/**
+ * Orchestrates the validation and saving process for the edit form.
+ * Ensures both main form and subtasks are validated independently.
+ * @param {string} taskId The ID of the task to save.
+ */
+function submitEditTask(taskId) {
+    let formValid = validateEditForm();
+    let subValid = validateAllSubtasks();
+    if (formValid && subValid) {
+        saveEditedTask(taskId);
+    }
+}
+
+/**
+ * Checks if any active inline edited subtasks are left empty.
+ * @returns {boolean} True if all valid, false otherwise.
+ */
+function validateAllSubtasks() {
+    let valid = true;
+    let edits = document.querySelectorAll(".edit-subtask-edit:not(.dNone) input");
+    edits.forEach(input => {
+        if (input.value.trim() === "") {
+            valid = false;
+            input.parentNode.style.borderBottom = "1px solid red";
+        }
+    });
+    if (!valid) document.getElementById("edit-subtask-error").classList.remove("dNone");
+    return valid;
 }
