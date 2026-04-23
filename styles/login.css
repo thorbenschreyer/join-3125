@@ -13,7 +13,6 @@
   position: relative;
 }
 
-
 .container-login-form {
   display: flex;
   align-items: center;
@@ -139,6 +138,7 @@
 .bright-login-button {
   background-color: white;
   border: solid 1px black;
+  padding: 0px 23px;
 }
 
 .bright-login-button:hover {
@@ -158,6 +158,7 @@
   display: flex;
   gap: 35px;
   background-color: white;
+  width: 300px;
 }
 
 .container-error-message {
@@ -229,9 +230,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 274px;
-  animation: 
+  animation:
     glideAndShrinkSpecific 500ms ease-in-out 600ms forwards,
-    hideDynamicLogo 10ms forwards 1400ms; 
+    hideDynamicLogo 10ms forwards 1400ms;
 }
 
 .main-logo {
@@ -317,7 +318,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 80px 80px 0 77px; 
+  padding: 80px 80px 0 77px;
   height: auto;
 }
 
@@ -334,8 +335,8 @@
 .static-header-logo {
   width: 100px;
   height: auto;
-  opacity: 0; 
-  animation: showStaticLogo 10ms forwards 1100ms; 
+  opacity: 0;
+  animation: showStaticLogo 10ms forwards 1100ms;
 }
 
 .container-signup-and-privacy-policy {
