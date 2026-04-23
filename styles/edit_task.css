@@ -224,6 +224,12 @@
   padding: 4px 10px 4px 18px;
   border-radius: 8px;
   cursor: pointer;
+  max-width: 345px;
+}
+
+.edit-subtask-text {
+  max-width: 300px;
+  overflow-wrap: break-word;
 }
 
 .edit-subtask-input {

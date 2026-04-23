@@ -223,7 +223,7 @@ function buildEditForm(task) {
           </div>
       </div>
     </form>
-      <div class="task-column right-column">
+      <div class="task-column">
 
           <div class="form-group">
               <p class="edit-dialog-headings">Priority</p>

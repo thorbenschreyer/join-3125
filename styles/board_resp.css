@@ -275,3 +275,9 @@
     left: 233px;
   }
 }
+
+@media (max-width: 410px) {
+  .edit-subtask-text {
+  max-width: 145px;
+}
+}
