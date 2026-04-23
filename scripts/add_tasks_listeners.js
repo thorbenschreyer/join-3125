@@ -24,12 +24,23 @@ function initClickOutsideElementsListener() {
     document.addEventListener("click", function(event) {
         if (document.getElementById("task-assigned-to-wrapper") && !document.getElementById("task-assigned-to-wrapper").contains(event.target)) {
             closeAssignedDropdown();
+            hideSubtaskInputButtons();
+            document.getElementById("subtasks-input").classList.remove("red-border");
+            document.getElementById("subtasks-input").classList.remove("blue-border");
+            hideSubtaskError();
         }  
         if (document.getElementById("task-category-wrapper") && !document.getElementById("task-category-wrapper").contains(event.target)) {
             closeCategoryDropdown();
+            hideSubtaskInputButtons();
+            document.getElementById("subtasks-input").classList.remove("red-border");
+            document.getElementById("subtasks-input").classList.remove("blue-border");
+            hideSubtaskError();
         }
         if (document.getElementById("subtasks-input-container") && !document.getElementById("subtasks-input-container").contains(event.target)) {
             hideSubtaskInputButtons();
+            document.getElementById("subtasks-input").classList.remove("red-border");
+            document.getElementById("subtasks-input").classList.remove("blue-border");
+            hideSubtaskError();
         }
         let subtaskContainer = document.getElementById("subtasks-input-container");
         let subtasksList = document.getElementById("subtasks-list");
@@ -37,10 +48,13 @@ function initClickOutsideElementsListener() {
                                 (subtasksList && subtasksList.contains(event.target));
         if (!clickedInSubtasks) {
             hideSubtaskError();
-            if (subtaskContainer) subtaskContainer.classList.remove("subtask-red-border");
+            if (subtaskContainer) document.getElementById("subtasks-input").classList.remove("red-border");
         }
         if (subtasksList && !subtasksList.contains(event.target)) {
             closeAllSubtaskEdits();
+            document.getElementById("subtasks-input").classList.remove("red-border");
+            document.getElementById("subtasks-input").classList.remove("blue-border");
+            hideSubtaskError();
         }
     });
 }
@@ -178,12 +192,14 @@ function initClickSubtaskListeners() {
     subtasksInput.addEventListener("focus", function() {
         showSubtaskInputButtons();
         hideSubtaskError();
-        subtasksInput.parentElement.classList.remove("subtask-red-border");
+        subtasksInput.classList.remove("red-border");
+        subtasksInput.classList.add("blue-border");
         closeAllSubtaskEdits();
     });
     subtasksInput.addEventListener("input", function() {
     if (subtasksInput.value.length > 0) {
-        subtasksInput.parentElement.classList.remove("subtask-red-border");
+        subtasksInput.classList.remove("red-border");
+        subtasksInput.classList.add("blue-border");
         hideSubtaskError();
     }
     });
@@ -191,7 +207,8 @@ function initClickSubtaskListeners() {
         subtasksInput.value = "";
         hideSubtaskInputButtons();
         hideSubtaskError();
-        subtasksInput.parentElement.classList.remove("subtask-red-border");
+        subtasksInput.classList.remove("red-border");
+        subtasksInput.classList.remove("blue-border");
 });
     document.getElementById("add-subtask-btn").addEventListener("click", function() {
         if (subtasksInput.value.trim().length > 0) {
@@ -199,9 +216,11 @@ function initClickSubtaskListeners() {
             subtasksInput.value = "";
             hideSubtaskInputButtons();
             hideSubtaskError();
+            subtasksInput.classList.remove("blue-border");
         } else {
         showSubtaskError();
-        subtasksInput.parentElement.classList.add("subtask-red-border");
+        subtasksInput.classList.add("red-border");
+        subtasksInput.classList.remove("blue-border");
         }
         subtasksInput.value = "";
     });
@@ -220,7 +239,8 @@ function initKeyboardSubtaskListeners() {
             document.getElementById("add-subtask-btn").click();
         } else {
             showSubtaskError();
-            subtasksInput.parentElement.classList.add("subtask-red-border");
+            subtasksInput.classList.add("red-border");
+            subtasksInput.classList.remove("blue-border");
         }
         showSubtaskInputButtons();
     }
@@ -230,6 +250,8 @@ function initKeyboardSubtaskListeners() {
             event.preventDefault();
             subtasksInput.value = "";
             hideSubtaskInputButtons();
+            subtasksInput.classList.remove("red-border");
+            subtasksInput.classList.remove("blue-border");
         }
     });
     document.getElementById("add-subtask-btn").addEventListener("keydown", function(event) {
@@ -242,7 +264,8 @@ function initKeyboardSubtaskListeners() {
             hideSubtaskError();
         } else {
             showSubtaskError();
-            subtasksInput.parentElement.classList.add("subtask-red-border");
+            subtasksInput.classList.add("red-border");
+            subtasksInput.classList.remove("blue-border");
         }
     }
 });

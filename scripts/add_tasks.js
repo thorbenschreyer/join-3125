@@ -150,6 +150,7 @@ function openAssignedDropdown() {
  */
 function toggleAssignedDropdown(event) {
     event.stopPropagation();
+    resetSubtaskInputState();
     let users = document.getElementById("task-assigned-to-users");
     let arrowdown = document.getElementById("dropdown-arrow");
     let arrowup = document.getElementById("dropup-arrow");
@@ -210,6 +211,7 @@ function toggleUserSelection(event, user, initials, color) {
  */
 function toggleCategoryDropdown(event) {
     event.stopPropagation();
+    resetSubtaskInputState();
     let arrowdown = document.getElementById("category-dropdown-arrow");
     let arrowup = document.getElementById("category-dropup-arrow");
     document.getElementById("task-category-tasks").classList.toggle("dNone");
@@ -242,7 +244,7 @@ function closeCategoryDropdown() {
 function editSubtask(button) {
     closeAllSubtaskEdits();
     hideSubtaskError();
-    document.getElementById("subtasks-input-container").classList.remove("subtask-red-border");
+    document.getElementById("subtasks-input").classList.remove("red-border");
     let wrapper = button.closest(".subtask-item-wrapper");
     let editDiv = wrapper.querySelector("#subtask-edit");
     let input = editDiv.querySelector(".subtask-edit-input");
@@ -309,7 +311,7 @@ function clearFormular() {
     document.getElementById("subtasks-input").value = "";
     document.getElementById("subtasks-list").innerHTML = "";
     hideSubtaskError();
-    document.getElementById("subtasks-input-container").classList.remove("subtask-red-border");
+    document.getElementById("subtasks-input").classList.remove("red-border");
 }
 
 /**

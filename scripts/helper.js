@@ -230,6 +230,17 @@ function hideSubtaskError() {
 }
 
 /**
+ * Resets the subtask input area to its default visual state.
+ */
+function resetSubtaskInputState() {
+    hideSubtaskError();
+    document.getElementById("subtasks-input").classList.remove("red-border");
+    document.getElementById("subtasks-input").classList.remove("blue-border");
+    hideSubtaskInputButtons();
+    closeAllSubtaskEdits();
+}
+
+/**
  * Closes all open subtask edits and reverts their inputs to the original text.
  */
 function closeAllSubtaskEdits() {
