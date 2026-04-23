@@ -137,7 +137,6 @@ function toggleEditUserSelection(event, user, initials, color) {
  */
 function renderEditAssignedBadges() {
   let badgeContainer = document.getElementById("edit-assigned-badges");
-  badgeContainer.classList.add("mt-16");
   badgeContainer.innerHTML = "";
   selectedUsers.forEach((u) => {
     let bgColor = getUserColor(u.name);

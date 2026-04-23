@@ -28,3 +28,7 @@ a{
 .mt-16 {
   margin-top: 16px;
 }
+
+.dNone {
+  display: none;
+}
