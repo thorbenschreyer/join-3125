@@ -15,7 +15,7 @@
 }
 
 .padding-none {
-  padding: 0 !important;
+  padding: 0;
 }
 
 .add-tasks-dialog-header {
@@ -31,8 +31,15 @@
   padding: 64px;
   box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
   animation: slideInFromRight 0.2s ease-out forwards;
-  max-height: 100%;
+  max-height: 95%;
   scrollbar-width: none;
+}
+
+.add-tasks-dialog-heading {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: 0%;
 }
 
 
@@ -74,7 +81,6 @@
 
 .add-task-dialog-footer {
   padding: 0;
-  margin-top: 64px;
   display: flex;
   width: 100%;
   align-items: center;
@@ -116,14 +122,16 @@
 /* responsive */
 
 @media (max-height: 750px) {
-  .add-task-dialog{
-    overflow-x: scroll;
-    scrollbar-width: none;
-  }
+  
 }
 
 @media (max-width: 1050px) {
   .add-tasks-dialog-header {
     display: flex;
+  }
+
+  .add-task-dialog{
+    overflow: scroll;
+    scrollbar-width: none;
   }
 }

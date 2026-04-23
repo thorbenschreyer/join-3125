@@ -5,7 +5,7 @@
 async function openAddTaskOverlay(selectedTaskBar) {
   await loadHtmlPage("add-task-dialog", "./templates/add_tasks.html");
   currentTaskBar = selectedTaskBar;
-  prepareAddTaskDialogUI();
+  await prepareAddTaskDialogUI();
   initAddTaskElements();
 }
 
@@ -22,7 +22,7 @@ function prepareAddTaskDialogUI() {
   document.getElementById("add-task-dialog-heading").classList.add("padding-none");
   document.getElementById("add-tasks-dialog-header").classList.remove("d-none");
   document.getElementById("add-task-mobile-heading").classList.add("d-none");
-  document.getElementById("task-description").style.height = "34px";
+  document.getElementById("task-description-input").style.height = "34px";
 }
 
 /**

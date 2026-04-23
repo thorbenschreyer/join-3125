@@ -67,8 +67,10 @@ async function loadTasks() {
     if (data) {
         for (let key in data) {
             let singleTask = data[key];
-            singleTask.firebaseId = key;
-            tasks.push(singleTask);
+            if (singleTask) {
+                singleTask.firebaseId = key;
+                tasks.push(singleTask);
+            }
         }
     }
 }
@@ -331,7 +333,7 @@ async function saveTaskData() {
     let lastTaskIndex = tasks.length - 1;
     await fetch(`${BASE_URL}tasks.json`, {
         method: "POST",
-        header: {
+        headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(tasks[lastTaskIndex])

@@ -25,7 +25,7 @@
             
         <!-- DIALOG FORMULAR-HEADER-MOBILE -->
         <div id="add-tasks-dialog-header" class="add-tasks-dialog-header d-none">
-            <h1 id="add-task-dialog-heading">
+            <h1 id="add-task-dialog-heading" class="add-tasks-dialog-heading">
                 Add Task
             </h1>
             <div id="close-add-task-dialog-mobile-x-wrapper" class="close-add-task-dialog-mobile-x-wrapper" onclick="closeAddTaskOverlayEmediatly()">
@@ -160,14 +160,18 @@
             <!-- SUBTASKS -->
             <div class="form-group">
                 <label for="subtasks-input">Subtasks</label> 
-                <input id="subtasks-input" class="form-input task-input cursor-text" type="text" placeholder="Add new subtask">
-                <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
-                    <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
-                </button>
-                <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
-                <button id="add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask">
-                    <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
-                </button>
+                <div id="subtasks-input-container" class="subtasks-input-container  cursor-text" onclick="stopEventBubbling(event)">    
+                    <input id="subtasks-input" class="task-input form-input" type="text" placeholder="Add new subtask">
+                    <div class="subtasks-input-icons">
+                        <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
+                            <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
+                        </button>
+                        <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
+                        <button id="add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask">
+                            <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
+                        </button>
+                    </div>
+                </div>
                 <ul id="subtasks-list" class="subtasks-list">
                     <!-- dynamic content: subtasks will be populated here -->
                 </ul>

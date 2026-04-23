@@ -37,10 +37,6 @@
   align-items: center;
 }
 
-.mt-16 {
-  margin-top: 16px;
-}
-
 .left-column-edit,
 .right-column-edit {
   width: 100%;
@@ -65,16 +61,7 @@
   padding: 4px 10px;
 }
 
-.edit-dropdown-arrow {
-  width: 24px;
-  height: 24px;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-  object-fit: contain;
-}
-
+.edit-dropdown-arrow,
 .edit-dropup-arrow {
   width: 24px;
   height: 24px;
@@ -105,17 +92,26 @@
   font-weight: 300;
 }
 
+.edit-assigned-to-container {
+  padding-bottom: 20px;
+  z-index: 5;
+}
+
 .edit-custom-dropdown-users {
   flex-direction: column;
   gap: 2px;
-  position: relative;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   max-height: 200px;
   overflow-y: auto;
   background-color: var(--white);
   border-radius: 0 0 8px 8px;
-  z-index: 10;
+  z-index: 20;
   scrollbar-width: thin;
   scrollbar-color: var(--light-gray) transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .edit-custom-dropdown-users::-webkit-scrollbar {
@@ -195,11 +191,14 @@
 }
 
 .edit-assigned-badges {
-  display: flex;
+   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  position: relative;
+  position: absolute;
+  top: 100%;
+  left: 0;
   z-index: 1;
+  margin-top: 4px;
 }
 
 .edit-assigned-badges:has(.edit-assigned-badge) {
@@ -232,10 +231,10 @@
   padding-right: 60px;
 }
 
-.edit-clear-input-icon {
+.edit-clear-input-icon,
+.edit-add-subtask-icon {
   position: absolute;
   top: 32px;
-  left: 264px;
   width: 22px;
   height: 22px;
   padding: 4px;
@@ -245,9 +244,19 @@
   object-fit: contain;
 }
 
-.edit-clear-input-icon:hover {
+.edit-clear-input-icon {
+  left: 264px;
+}
+
+.edit-add-subtask-icon {
+  left: 296px;
+}
+
+.edit-clear-input-icon:hover,
+.edit-add-subtask-icon:hover {
   background-color: #eeeeee;
 }
+
 .edit-subtasks-vertical-divider {
   position: absolute;
   top: 34px;
@@ -256,30 +265,14 @@
   color: var(--light-gray);
 }
 
-.edit-add-subtask-icon {
-  position: absolute;
-  top: 32px;
-  left: 296px;
-  width: 22px;
-  height: 22px;
-  padding: 4px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-  object-fit: contain;
-}
-
-.edit-add-subtask-icon:hover {
-  background-color: #eeeeee;
-}
-
 .edit-subtasks-list {
   display: flex;
   flex-direction: column;
-  max-height: 60px;
+  max-height: 65px;
+  min-height: 65px;
   overflow-y: auto;
   border-radius: 0 0 8px 8px;
-  z-index: 10;
+  z-index: 4;
   scrollbar-width: thin;
   scrollbar-color: var(--light-gray) transparent;
   font-size: 12px;
@@ -298,7 +291,8 @@
   flex-shrink: 0;
 }
 
-.edit-edit-subtask-btn {
+.edit-edit-subtask-btn,
+.edit-delete-subtask-btn {
   width: auto;
   height: 14px;
   cursor: pointer;
@@ -307,12 +301,6 @@
 .edit-subtask-edit-divider {
   font-weight: 100;
   color: var(--light-gray);
-}
-
-.edit-delete-subtask-btn {
-  width: auto;
-  height: 14px;
-  cursor: pointer;
 }
 
 .edit-subtask-item-btns {
@@ -329,7 +317,7 @@
 
 .edit-subtask-edit-input {
   width: 100%;
-  padding: 4px 60px 4px 8px;
+  padding: 0 50px 0 15px;
   border: none;
   outline: none;
   font-size: 12px;
@@ -351,25 +339,7 @@
   gap: 4px;
 }
 
-.edit-edit-input-delete-btn {
-  width: 20px;
-  height: auto;
-  cursor: pointer;
-  flex-shrink: 0;
-  padding: 4px;
-  border-radius: 50%;
-  transition: background-color 0.15s ease;
-}
-
-.edit-edit-input-delete-btn:hover {
-  background-color: #eeeeee;
-}
-
-.edit-subtask-edit-input-divider {
-  font-weight: 100;
-  color: var(--light-gray);
-}
-
+.edit-edit-input-delete-btn,
 .edit-edit-input-check-btn {
   width: 20px;
   height: auto;
@@ -380,8 +350,14 @@
   transition: background-color 0.15s ease;
 }
 
+.edit-edit-input-delete-btn:hover,
 .edit-edit-input-check-btn:hover {
   background-color: #eeeeee;
+}
+
+.edit-subtask-edit-input-divider {
+  font-weight: 100;
+  color: var(--light-gray);
 }
 
 .edit-succcess-btn-container {
@@ -404,8 +380,6 @@
   height: 48px;
 }
 
-/* Validation */
-
 .invalid-border {
   border: 1px solid red !important;
 }
@@ -416,18 +390,4 @@
   display: block;
   margin-top: -3.5px;
   margin-bottom: -24px;
-}
-
-@media (max-width: 375px) {
-  .edit-add-subtask-icon {
-    left: 265px;
-  }
-
-  .edit-subtasks-vertical-divider {
-    left: 257px;
-  }
-
-  .edit-clear-input-icon {
-    left: 233px;
-  }
 }

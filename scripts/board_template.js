@@ -197,8 +197,6 @@ function buildEditForm(task) {
           <img src="./assets/icons/close_hover_blue.png" alt="Close Dialog" class="close-dialog-x-active">
       </div>
     </div>
-    
-
     <form id="edit-add-task-form" class="edit-add-task-form" onsubmit="return false;" novalidate>
       <div class="task-column left-column">
           <div class="form-group">
@@ -231,26 +229,26 @@ function buildEditForm(task) {
               <p class="edit-dialog-headings">Priority</p>
               <div class="priority-buttons">
 
-                  <button id="edit-task-prio-urgent-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('urgent')">
+                  <button id="edit-task-prio-urgent-btn" class="priority-btn" type="button" onclick="editHighlightSelectedPriority('urgent')">
                       <span class="prio-text">Urgent</span>
                       <img id="edit-task-prio-urgent-color" class="task-prio-img" src="./assets/icons/high_prio_color.svg" alt="">
                       <img id="edit-task-prio-urgent-white" class="task-prio-img dNone" src="./assets/icons/high_prio_white.svg" alt="">
                   </button>
 
-                  <button id="edit-task-prio-medium-btn" class="priority-btn prio-medium" type="button" onclick="highlightSelectedPriority('medium')">
+                  <button id="edit-task-prio-medium-btn" class="priority-btn" type="button" onclick="editHighlightSelectedPriority('medium')">
                       <span class="prio-text">Medium</span> 
                       <img id="edit-task-prio-medium-color" class="task-prio-img dNone" src="./assets/icons/medium_prio_color.svg" alt="">
                       <img id="edit-task-prio-medium-white" class="task-prio-img" src="./assets/icons/medium_prio_white.svg" alt="">
                   </button>
 
-                  <button id="edit-task-prio-low-btn" class="priority-btn" type="button" onclick="highlightSelectedPriority('low')">
+                  <button id="edit-task-prio-low-btn" class="priority-btn" type="button" onclick="editHighlightSelectedPriority('low')">
                       <span class="prio-text">Low</span>
                       <img id="edit-task-prio-low-color" class="task-prio-img" src="./assets/icons/low_prio_color.svg" alt="">
                       <img id="edit-task-prio-low-white" class="task-prio-img dNone" src="./assets/icons/low_prio_white.svg" alt="">
                   </button>
               </div>
           </div>
-          <div id="edit-assigned-to-form" class="form-group">
+          <div id="edit-assigned-to-form" class="form-group edit-assigned-to-container">
               <p class="edit-dialog-headings">Assigned to</p>
               <div id="edit-task-assigned-to-wrapper" class="edit-custom-dropdown"  onclick="stopEventBubbling(event)">
                   <div class="edit-custom-dropdown-toggle form-input" onclick="openEditAssignedDropdown()">

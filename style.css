@@ -24,3 +24,7 @@ a{
     text-decoration: none;
     cursor: pointer;
 }
+
+.mt-16 {
+  margin-top: 16px;
+}
