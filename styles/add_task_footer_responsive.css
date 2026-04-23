@@ -32,7 +32,7 @@
   background-color: var(--bg-color);
   color: var(--logo-dark-blue);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -54,7 +54,7 @@
   background-color: var(--logo-dark-blue);
   color: var(--white);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -82,7 +82,7 @@
 }
 
 .add-task-btn span {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -312,10 +312,9 @@
   .task-input-icon {
     left: 264px;
   }
-
-  /* === PRIORITY-BUTTONS === */
+  
   .prio-text {
-    font-size: 14px;
+    font-size: 16px;
   }
   
 /* === ASSIGNED TO === */
