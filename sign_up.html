@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- FORMULAR -->
-                <form id="signup-form" class="signup-form" onsubmit="addUser(); return false;">
+                <form id="signup-form" class="signup-form" onsubmit="addUser(); return false;" novalidate>
                     <div class="input-wrapper">
                         <input id="name-register" type="text" placeholder="Name" aria-label="Name" required>
                         <img class="input-icon" src="./assets/icons/person.png" alt="Person icon">
@@ -52,7 +52,7 @@
                         <img class="input-icon" src="./assets/icons/mail.png" alt="Envelope icon">
                     </div>
                     <div class="input-wrapper">
-                        <input id="password-register" type="password" minlength="8" maxlength="16" placeholder="Password" aria-label="Password" required>
+                        <input id="password-register" type="password" placeholder="Password" aria-label="Password" required>
                         <img id="password-lock" class="input-icon" src="./assets/icons/lock.png" alt="Padlock icon">
                         <button type="button" id="password-visibility-on" class="visibility-btn input-icon input-icon-visibility dNone" aria-label="show password"
                          onclick="togglePasswordVisibility('password-visibility-on')">
@@ -64,7 +64,7 @@
                         </button>
                     </div>
                     <div class="input-wrapper">
-                        <input id="confirm-password-register" type="password" minlength="8" maxlength="16" placeholder="Confirm Password" aria-label="Confirm Password" required>
+                        <input id="confirm-password-register" type="password" placeholder="Confirm Password" aria-label="Confirm Password" required>
                         <span id="input-error" class="input-error"></span>
                         <img id="confirm-password-lock" class="input-icon" src="./assets/icons/lock.png" alt="Padlock icon">
                         <button type="button" id="confirm-password-visibility-on" class="visibility-btn input-icon input-icon-visibility dNone" aria-label="show confirm password"
