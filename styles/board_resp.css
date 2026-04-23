@@ -254,9 +254,24 @@
 
   .dialog-footer-right {
     margin-top: -75px;
+    margin-right: 16px;
   }
 
   .add-task-dialog {
     padding-top: 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  .edit-add-subtask-icon {
+    left: 265px;
+  }
+
+  .edit-subtasks-vertical-divider {
+    left: 257px;
+  }
+
+  .edit-clear-input-icon {
+    left: 233px;
   }
 }

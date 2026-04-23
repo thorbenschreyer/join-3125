@@ -1,20 +1,3 @@
-/**
- * Initializes the DOM references used to control priority buttons and their icon states.
- */
-function initEditPriorityElements() {
-    urgentBtn = document.getElementById("edit-task-prio-urgent-btn");
-    mediumBtn = document.getElementById("edit-task-prio-medium-btn");
-    lowBtn = document.getElementById("edit-task-prio-low-btn");
-    priorityButtons = [urgentBtn, mediumBtn, lowBtn];
-    urgentColorImg = document.getElementById("edit-task-prio-urgent-color");
-    urgentWhiteImg = document.getElementById("edit-task-prio-urgent-white");
-    mediumColorImg = document.getElementById("edit-task-prio-medium-color");
-    mediumWhiteImg = document.getElementById("edit-task-prio-medium-white");
-    lowColorImg = document.getElementById("edit-task-prio-low-color");
-    lowWhiteImg = document.getElementById("edit-task-prio-low-white");
-    priorityColorImages = [urgentColorImg, mediumColorImg, lowColorImg];
-    priorityWhiteImages = [urgentWhiteImg, mediumWhiteImg, lowWhiteImg];
-}
 
 /**
  * Shows the required-field error state for the title input.
@@ -248,9 +231,9 @@ function getSelectedPriority() {
  * @returns {string} The priority level with a leading capital letter, or an empty string if none is selected.
  */
 function getEditSelectedPriority() {
-    if (document.getElementById("task-prio-urgent-btn").classList.contains('prio-urgent')) return 'Urgent';
-    if (document.getElementById("task-prio-medium-btn").classList.contains('prio-medium')) return 'Medium';
-    if (document.getElementById("task-prio-low-btn").classList.contains('prio-low')) return 'Low';
+    if (document.getElementById("edit-task-prio-urgent-btn").classList.contains('prio-urgent')) return 'Urgent';
+    if (document.getElementById("edit-task-prio-medium-btn").classList.contains('prio-medium')) return 'Medium';
+    if (document.getElementById("edit-task-prio-low-btn").classList.contains('prio-low')) return 'Low';
     return '';
 }
 

@@ -106,6 +106,7 @@ label {
   border-radius: 6px;
   cursor: pointer;
   scrollbar-width: none;
+  resize: none;
 }
 
 .form-input:hover {
@@ -121,6 +122,11 @@ label {
 .form-input:focus {
   border: solid 1px var(--logo-light-blue);
   outline: none;
+}
+
+.subtasks-input-container {
+  position: relative;
+  width: 100%;
 }
 
 /* === DUE DATE INPUT === */

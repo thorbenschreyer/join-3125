@@ -43,13 +43,20 @@
 
 /* === SUBTASKS === */
 .task-input {
-  position: relative;
+  padding-right: 60px;
+}
+
+.subtasks-input-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .clear-input-icon {
-  position: absolute;
-  top: 32px;
-  left: 268px;
   background: none;
   border: none;
   padding: 0;
@@ -72,17 +79,11 @@
   background-color: #eeeeee;
 }
 .subtasks-vertical-divider {
-  position: absolute;
-  top: 33px;
-  left: 288px;
   font-weight: 100;
   color: var(--light-gray);
 }
 
 .add-subtask-icon {
-  position: absolute;
-  top: 32px;
-  left: 296px;
   background: none;
   border: none;
   padding: 0;
@@ -108,7 +109,6 @@
 .subtasks-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   max-height: 78px;
   overflow-y: auto;
   border-radius: 0 0 8px 8px;
@@ -212,6 +212,7 @@
   line-height: 0;
   font-size: 0;
   flex-shrink: 0;
+  height: 14px;
 }
 
 .edit-input-delete-btn img {
@@ -240,6 +241,8 @@
   line-height: 0;
   font-size: 0;
   flex-shrink: 0;
+  height: 14px;
+  width: 14px;
 }
 
 .edit-input-check-btn img {

@@ -74,8 +74,10 @@ function validateField(inputId, errorId) {
   let input = document.getElementById(inputId);
   let error = document.getElementById(errorId);
   let isValid = input.value.trim() !== "";
-  isValid ? input.classList.remove('invalid-border') : input.classList.add('invalid-border');
-  isValid ? error.classList.add('d-none') : error.classList.remove('d-none');
+  isValid
+    ? input.classList.remove("invalid-border")
+    : input.classList.add("invalid-border");
+  isValid ? error.classList.add("d-none") : error.classList.remove("d-none");
   return isValid;
 }
 
@@ -85,8 +87,151 @@ function validateField(inputId, errorId) {
  * @returns {boolean} True if all required fields are filled, false otherwise.
  */
 function validateEditForm() {
-  let isTitleValid = validateField('edit-task-title', 'edit-title-input-error');
-  let isDescValid = validateField('edit-task-description', 'edit-description-input-error');
-  let isDateValid = validateField('edit-task-due-date', 'edit-due-date-input-error');
+  let isTitleValid = validateField("edit-task-title", "edit-title-input-error");
+  let isDescValid = validateField(
+    "edit-task-description",
+    "edit-description-input-error",
+  );
+  let isDateValid = validateField(
+    "edit-task-due-date",
+    "edit-due-date-input-error",
+  );
   return isTitleValid && isDescValid && isDateValid;
+}
+
+/**
+ * Collects the priority button elements and their icon states from the add-task form.
+ * @returns {Object} An object containing arrays of color images, white images, and buttons.
+ */
+function getEditTaskPrioElements() {
+  return {
+    colorImgs: [
+      document.getElementById("edit-task-prio-urgent-color"),
+      document.getElementById("edit-task-prio-medium-color"),
+      document.getElementById("edit-task-prio-low-color"),
+    ],
+    whiteImgs: [
+      document.getElementById("edit-task-prio-urgent-white"),
+      document.getElementById("edit-task-prio-medium-white"),
+      document.getElementById("edit-task-prio-low-white"),
+    ],
+    buttons: [
+      document.getElementById("edit-task-prio-urgent-btn"),
+      document.getElementById("edit-task-prio-medium-btn"),
+      document.getElementById("edit-task-prio-low-btn"),
+    ],
+  };
+}
+
+/**
+ * Applies the selected priority style after clearing the previous visual state.
+ * @param {string} priority The priority level to apply ("urgent", "medium", or "low").
+ */
+function editHighlightSelectedPriority(priority) {
+  const prio = getEditTaskPrioElements();
+  resetPriorityButtons(prio.colorImgs, prio.whiteImgs, prio.buttons);
+  if (priority === "urgent") {
+    editHighlightPriority(
+      prio.buttons[0],
+      prio.colorImgs[0],
+      prio.whiteImgs[0],
+      "prio-urgent",
+    );
+  } else if (priority === "medium") {
+    editHighlightPriority(
+      prio.buttons[1],
+      prio.colorImgs[1],
+      prio.whiteImgs[1],
+      "prio-medium",
+    );
+  } else if (priority === "low") {
+    editHighlightPriority(
+      prio.buttons[2],
+      prio.colorImgs[2],
+      prio.whiteImgs[2],
+      "prio-low",
+    );
+  }
+}
+
+/**
+ * Restores the neutral priority state before a new selection is highlighted.
+ */
+function resetPriorityButtons(colorImgs, whiteImgs, buttons) {
+  colorImgs.forEach((img) => img.classList.remove("dNone"));
+  whiteImgs.forEach((img) => img.classList.add("dNone"));
+  buttons.forEach((btn) => {
+    btn.classList.remove("prio-urgent", "prio-medium", "prio-low");
+    btn.ariaPressed = "false";
+  });
+}
+
+/**
+ * Applies the active visual state to a single priority button.
+ * @param {HTMLElement} btn The priority button to highlight.
+ * @param {HTMLElement} colorImg The colored icon to hide.
+ * @param {HTMLElement} whiteImg The white icon to show.
+ * @param {string} prioClass The CSS class to apply ("prio-urgent", "prio-medium", or "prio-low").
+ */
+function editHighlightPriority(btn, colorImg, whiteImg, prioClass) {
+  btn.classList.add(prioClass);
+  colorImg.classList.add("dNone");
+  whiteImg.classList.remove("dNone");
+  btn.ariaPressed = "true";
+}
+
+/**
+ * Checks the value of the subtask input and toggles the visibility of the action buttons.
+ */
+function checkEditSubtaskInput() {
+  let input = document.getElementById("edit-subtasks-input");
+  if (input.value.length > 0) {
+    showEditSubtaskInputButtons();
+  } else {
+    hideEditSubtaskInputButtons();
+  }
+}
+
+/**
+ * Switches a subtask into edit mode and places the cursor at the end of the current text.
+ */
+function editEditSubtask(button) {
+  let wrapper = button.closest(".edit-subtask-item-wrapper");
+  let editDiv = wrapper.querySelector(".edit-subtask-edit");
+  let inputField = editDiv.querySelector(".edit-subtask-edit-input");
+  let inputLength = inputField.value.length;
+  editDiv.classList.remove("dNone");
+  editDiv.style.display = "flex";
+  inputField.focus();
+  inputField.setSelectionRange(inputLength, inputLength);
+  wrapper.querySelector(".edit-subtask-item").classList.add("dNone");
+}
+
+/**
+ * Applies the edited subtask text and restores the default display state.
+ */
+function confirmEditEditSubtask(button) {
+  let wrapper = button.closest(".edit-subtask-item-wrapper");
+  let editInput = wrapper.querySelector(".edit-subtask-edit-input");
+  let subtaskText = wrapper.querySelector(".edit-subtask-text");
+  let editDiv = wrapper.querySelector(".edit-subtask-edit");
+  subtaskText.textContent = editInput.value;
+  wrapper.querySelector(".edit-subtask-item").classList.remove("dNone");
+  editDiv.classList.add("dNone");
+  editDiv.style.display = "none";
+}
+
+/**
+ * Removes the selected subtask from the current form state.
+ */
+function deleteEditSubtask(button) {
+  button.closest(".edit-subtask-item-wrapper").remove();
+}
+
+/**
+ * Clears the value of the subtask input field and hides the related control buttons.
+ */
+function deleteEditSubtaskInput() {
+  editSubtasksInput.value = "";
+  hideEditSubtaskInputButtons();
 }

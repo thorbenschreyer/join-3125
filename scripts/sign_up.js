@@ -139,7 +139,7 @@ function duplicateUserFeedback() {
  */
 function passwordMismatchFeedback() {
     document.getElementById("confirm-password-register").classList.add("red-border");
-    document.getElementById("input-error").textContent = "Your passwords don't match. Please try again."
+    document.getElementById("input-error").textContent = "Your passwords don't match."
     document.getElementById("input-error").classList.add("input-error-visible");
 }
 
