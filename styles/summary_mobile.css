@@ -10,7 +10,14 @@
   }
 }
 
-@media (max-width: 1024px) and (max-height: 768px) {
+@media (max-width: 1770px) and (max-height: 900px) {
+  .summary-page {
+    padding-left: 32px;
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 1280px) and (max-height: 800px) {
   .summary-page {
     padding-left: 32px;
     padding-top: 16px;
