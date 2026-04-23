@@ -103,6 +103,7 @@ label {
   cursor: pointer;
   scrollbar-width: none;
   resize: none;
+  font-size: 16px;
 }
 
 .form-input:hover {
@@ -111,7 +112,7 @@ label {
 
 .form-input::placeholder {
   color: var(--light-gray);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
 }
 
@@ -277,14 +278,14 @@ fieldset.form-group legend {
   border: none;
   outline: none;
   flex: 1;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   cursor: pointer;
 }
 
 .dropdown-search-input::placeholder {
   color: var(--black);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
 }
 
@@ -359,7 +360,7 @@ fieldset.form-group legend {
 
 .dropdown-user-name {
   flex: 1;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .dropdown-user-checkbox {
