@@ -266,3 +266,32 @@
 .edit-input-check-btn:hover img {
   background-color: #eeeeee;
 }
+
+/* === SUBTASK ERROR === */
+.subtask-input-error {
+  display: block;
+  min-height: 24px;
+  line-height: 24px;
+  color: var(--red);
+  font-size: 16px;
+  visibility: hidden;
+}
+
+.subtask-input-error-visible {
+  visibility: visible;
+}
+
+.subtask-red-border {
+  border: solid 1px var(--red) !important;
+  border-radius: 6px;
+  outline: none;
+}
+
+.subtask-red-border .form-input,
+.subtask-red-border .form-input:focus {
+  border-color: transparent !important;
+}
+
+.subtask-edit-red-border {
+  border-bottom: 1px solid var(--red) !important;
+}

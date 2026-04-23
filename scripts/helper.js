@@ -216,6 +216,44 @@ function hideSubtaskInputButtons() {
 }
 
 /**
+ * Shows the error state for the subtask input when attempting to add an empty subtask.
+ */
+function showSubtaskError() {
+    document.getElementById("subtask-input-error").classList.add("subtask-input-error-visible");
+}
+
+/**
+ * Clears the error state for the subtask input.
+ */
+function hideSubtaskError() {
+    document.getElementById("subtask-input-error").classList.remove("subtask-input-error-visible");
+}
+
+/**
+ * Closes all open subtask edits and reverts their inputs to the original text.
+ */
+function closeAllSubtaskEdits() {
+    let wrappers = document.querySelectorAll(".subtask-item-wrapper");
+    wrappers.forEach(wrapper => {
+        let editDiv = wrapper.querySelector("#subtask-edit");
+        let itemDiv = wrapper.querySelector("#subtask-item");
+        if (editDiv && !editDiv.classList.contains("dNone")) {
+            let originalText = wrapper.querySelector(".subtask-text").textContent;
+            editDiv.querySelector(".subtask-edit-input").value = originalText;
+            editDiv.classList.add("dNone");
+            editDiv.style.display = "none";
+            wrapper.querySelector(".subtask-item-edit").classList.remove("subtask-edit-red-border");
+            wrapper.style.marginBottom = "";
+            wrapper.style.padding = "4px 10px 4px 18px";
+            if (itemDiv) {
+                itemDiv.classList.remove("dNone");
+            }
+        }
+    });
+    hideSubtaskError();
+}
+
+/**
  * Derives the currently selected priority from the active button state.
  * @return {string} The priority level corresponding to the active selection, or an empty string if none is selected.
  */
