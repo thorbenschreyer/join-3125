@@ -31,8 +31,9 @@
   padding: 64px;
   box-shadow: 0px 0 4px rgba(0, 0, 0, 0.1);
   animation: slideInFromRight 0.2s ease-out forwards;
-  max-height: 95%;
+  max-height: 90%;
   scrollbar-width: none;
+  overflow: auto;
 }
 
 .add-tasks-dialog-heading {
