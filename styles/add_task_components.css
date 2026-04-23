@@ -51,12 +51,8 @@
   align-items: center;
   gap: 2px;
   position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.clear-input-icon {
+  top: 34px;
+  left: 268px;
   background: none;
   border: none;
   padding: 0;
@@ -79,11 +75,17 @@
   background-color: #eeeeee;
 }
 .subtasks-vertical-divider {
+  position: absolute;
+  top: 34px;
+  left: 288px;
   font-weight: 100;
   color: var(--light-gray);
 }
 
 .add-subtask-icon {
+  position: absolute;
+  top: 33px;
+  left: 296px;
   background: none;
   border: none;
   padding: 0;

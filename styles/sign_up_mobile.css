@@ -1,4 +1,11 @@
 
+@media (max-width: 1024px) and (max-height: 768px) {
+  .signup {
+    padding: 24px 0 10px;
+}
+  
+}
+
 /* === TABLET === */
 @media (max-width: 744px) {
   /* === HEADER === */
@@ -88,6 +95,10 @@
 }
 
 @media (max-height: 855px) {
+  .logo {
+    margin-left: 32px;
+  }
+
   .signup-header {
     padding: 40px 180px 40px 0px;
   }
@@ -111,6 +122,7 @@
 @media (max-height: 650px) {
   .logo {
     height: 60px;
+    width: auto;
   }
 
   .signup-header {

@@ -127,7 +127,7 @@ function invalidEmailFeedback() {
  */
 function duplicateUserFeedback() {
     document.getElementById("email-register").classList.add("red-border");
-    document.getElementById("input-error").textContent = "This email address is already registered."
+    document.getElementById("input-error").textContent = "Email already registered."
     document.getElementById("input-error").classList.add("input-error-visible");
 }
 
