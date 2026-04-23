@@ -28,8 +28,19 @@ function initClickOutsideElementsListener() {
         if (document.getElementById("task-category-wrapper") && !document.getElementById("task-category-wrapper").contains(event.target)) {
             closeCategoryDropdown();
         }
-        if (document.getElementById("subtasks-input") && !document.getElementById("subtasks-input").contains(event.target)) {
+        if (document.getElementById("subtasks-input-container") && !document.getElementById("subtasks-input-container").contains(event.target)) {
             hideSubtaskInputButtons();
+        }
+        let subtaskContainer = document.getElementById("subtasks-input-container");
+        let subtasksList = document.getElementById("subtasks-list");
+        let clickedInSubtasks = (subtaskContainer && subtaskContainer.contains(event.target)) ||
+                                (subtasksList && subtasksList.contains(event.target));
+        if (!clickedInSubtasks) {
+            hideSubtaskError();
+            if (subtaskContainer) subtaskContainer.classList.remove("subtask-red-border");
+        }
+        if (subtasksList && !subtasksList.contains(event.target)) {
+            closeAllSubtaskEdits();
         }
     });
 }
@@ -166,16 +177,31 @@ function initClickSubtaskListeners() {
     const subtasksInput = document.getElementById("subtasks-input");
     subtasksInput.addEventListener("focus", function() {
         showSubtaskInputButtons();
+        hideSubtaskError();
+        subtasksInput.parentElement.classList.remove("subtask-red-border");
+        closeAllSubtaskEdits();
+    });
+    subtasksInput.addEventListener("input", function() {
+    if (subtasksInput.value.length > 0) {
+        subtasksInput.parentElement.classList.remove("subtask-red-border");
+        hideSubtaskError();
+    }
     });
     document.getElementById("clear-input-btn").addEventListener("click", function() {
         subtasksInput.value = "";
         hideSubtaskInputButtons();
-    });
+        hideSubtaskError();
+        subtasksInput.parentElement.classList.remove("subtask-red-border");
+});
     document.getElementById("add-subtask-btn").addEventListener("click", function() {
         if (subtasksInput.value.trim().length > 0) {
             document.getElementById("subtasks-list").insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
             subtasksInput.value = "";
             hideSubtaskInputButtons();
+            hideSubtaskError();
+        } else {
+        showSubtaskError();
+        subtasksInput.parentElement.classList.add("subtask-red-border");
         }
         subtasksInput.value = "";
     });
@@ -188,11 +214,16 @@ function initClickSubtaskListeners() {
 function initKeyboardSubtaskListeners() {
     const subtasksInput = document.getElementById("subtasks-input");
     subtasksInput.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
+    if (event.key === "Enter") {
+        event.preventDefault();
+        if (subtasksInput.value.trim().length > 0) {
             document.getElementById("add-subtask-btn").click();
-            showSubtaskInputButtons();
+        } else {
+            showSubtaskError();
+            subtasksInput.parentElement.classList.add("subtask-red-border");
         }
+        showSubtaskInputButtons();
+    }
     });
     document.getElementById("clear-input-btn").addEventListener("keydown", function(event) {
         if (event.key === "Enter" || event.key === " ") {
@@ -202,13 +233,19 @@ function initKeyboardSubtaskListeners() {
         }
     });
     document.getElementById("add-subtask-btn").addEventListener("keydown", function(event) {
-        if (subtasksInput.value.length > 0 && (event.key === "Enter" || event.key === " ")) {
-            event.preventDefault();
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (subtasksInput.value.trim().length > 0) {
             document.getElementById("subtasks-list").insertAdjacentHTML("beforeend", renderSubtaskItemsTemplate(subtasksInput));
             subtasksInput.value = "";
             hideSubtaskInputButtons();
+            hideSubtaskError();
+        } else {
+            showSubtaskError();
+            subtasksInput.parentElement.classList.add("subtask-red-border");
         }
-    });
+    }
+});
 }
 
 /**

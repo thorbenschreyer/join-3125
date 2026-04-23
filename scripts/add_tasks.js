@@ -240,6 +240,9 @@ function closeCategoryDropdown() {
  * * @param {HTMLElement} button The button element that triggered the edit action.
  */
 function editSubtask(button) {
+    closeAllSubtaskEdits();
+    hideSubtaskError();
+    document.getElementById("subtasks-input-container").classList.remove("subtask-red-border");
     let wrapper = button.closest(".subtask-item-wrapper");
     let editDiv = wrapper.querySelector("#subtask-edit");
     let input = editDiv.querySelector(".subtask-edit-input");
@@ -260,7 +263,15 @@ function editSubtask(button) {
 function confirmEditSubtask(button) {
     let wrapper = button.closest(".subtask-item-wrapper");
     let editInput = wrapper.querySelector(".subtask-edit-input");
-    if (editInput.value.trim() === "") return wrapper.remove();
+    if (editInput.value.trim() === "") {
+        showSubtaskError();
+        wrapper.querySelector(".subtask-item-edit").classList.add("subtask-edit-red-border");
+        editInput.addEventListener("focus", function() {
+            wrapper.querySelector(".subtask-item-edit").classList.remove("subtask-edit-red-border");
+            hideSubtaskError();
+        }, { once: true });
+        return;
+    }
     wrapper.querySelector(".subtask-text").textContent = editInput.value;
     wrapper.querySelector("#subtask-item").classList.remove("dNone");
     let editDiv = wrapper.querySelector("#subtask-edit");
@@ -268,6 +279,7 @@ function confirmEditSubtask(button) {
     editDiv.style.display = "none";
     wrapper.style.marginBottom = "";
     wrapper.style.padding = "4px 10px 4px 18px";
+    hideSubtaskError();
 }
 
 /**
@@ -296,6 +308,8 @@ function clearFormular() {
     document.getElementById("task-category-input").value = "";
     document.getElementById("subtasks-input").value = "";
     document.getElementById("subtasks-list").innerHTML = "";
+    hideSubtaskError();
+    document.getElementById("subtasks-input-container").classList.remove("subtask-red-border");
 }
 
 /**
