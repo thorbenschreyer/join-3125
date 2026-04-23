@@ -9,7 +9,6 @@
   }
 }
 
-
 @media (max-width: 744px) {
   .intro-overlay {
     position: fixed;
@@ -67,6 +66,8 @@
 
   .container-login-buttons {
     flex-direction: column;
+    align-items: center;
+    width: unset;
     gap: 21px;
   }
 
@@ -145,7 +146,9 @@
   }
 
   .container-login-buttons {
-    gap: 8px;
+    display: flex;
+    justify-content: space-between;
+    width: unset;
   }
 
   .login-heading {
@@ -169,14 +172,15 @@
 
   .bright-login-button:hover {
     padding: 0px 23px;
+    width: 175px;
   }
 
   .error-message {
     margin-top: 4px;
-}
+  }
 
-    .container-signup-and-privacy-policy {
-        gap: 16px;
-        margin-bottom: 30px;
-    }
+  .container-signup-and-privacy-policy {
+    gap: 16px;
+    margin-bottom: 30px;
+  }
 }
