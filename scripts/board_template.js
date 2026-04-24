@@ -271,7 +271,7 @@ function buildEditForm(task) {
                             <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
                         </button>
                         <span id="edit-subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
-                        <button id="edit-add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask" onclick="validateAndAddEditSubtask(); hideNotSavedError(); hideEditSubtaskInputButtons()">
+                        <button id="edit-add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask" onclick="if(validateAndAddEditSubtask()) { hideNotSavedError(); hideEditSubtaskInputButtons(); }">
                             <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                         </button>
                     </div>

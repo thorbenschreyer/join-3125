@@ -281,7 +281,7 @@ function resetEditSubtaskError(input) {
 
 /**
  * Validates the subtask input field on button click.
- * Removes empty spaces automatically and shows an error if empty.
+ * Returns false if empty to block further execution, otherwise true.
  */
 function validateAndAddEditSubtask() {
     let input = document.getElementById("edit-subtasks-input");
@@ -289,10 +289,12 @@ function validateAndAddEditSubtask() {
     let errorMsg = document.getElementById("edit-subtask-error");
     if (input.value === "") {
         errorMsg.classList.remove("dNone");
-        return input.classList.add("input-error-border");
+        input.classList.add("input-error-border");
+        return false;
     }
     errorMsg.classList.add("dNone");
     input.classList.remove("input-error-border");
+    return true;
 }
 
 /**
