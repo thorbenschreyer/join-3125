@@ -303,7 +303,10 @@ function submitEditTask(taskId) {
     let mainText = document.getElementById("edit-subtasks-input").value.trim();
     let openEdits = document.querySelector(".edit-subtask-edit:not(.dNone)");
     if (mainText !== "" || openEdits) {
-        return document.getElementById("not-saved-error").classList.remove("dNone");
+        document.getElementById("not-saved-error").classList.remove("dNone");
+        document.getElementById("edit-subtasks-input").classList.add("input-error-border");
+        if (openEdits) openEdits.style.borderBottom = "1px solid red";
+        return;
     }
     let formValid = validateEditForm();
     let subValid = validateAllSubtasks();
@@ -331,5 +334,8 @@ function validateAllSubtasks() {
  * Hides the error message for unsaved subtask inputs.
  */
 function hideNotSavedError() {
+  let openEdits = document.querySelector(".edit-subtask-edit:not(.dNone)");
+    if (openEdits) openEdits.style.borderBottom = "1px solid var(--logo-light-blue)";
     document.getElementById("not-saved-error").classList.add("dNone");
+    document.getElementById("edit-subtasks-input").classList.remove("input-error-border");
 }

@@ -265,7 +265,7 @@ function buildEditForm(task) {
           <div class="form-group">
               <label for="edit-subtasks-input">Subtasks</label>   
               <div id="edit-subtasks-input-container" class="subtasks-input-container  cursor-text" onclick="stopEventBubbling(event)">    
-                    <input id="edit-subtasks-input" class="form-input task-input edit-subtask-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput()">
+                    <input id="edit-subtasks-input" class="form-input task-input edit-subtask-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput(); hideNotSavedError()">
                     <div class="subtasks-input-icons">
                         <button id="edit-clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input" onclick="hideEditSubtaskInputButtons(); hideNotSavedError()">
                             <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
@@ -277,7 +277,7 @@ function buildEditForm(task) {
                     </div>
               </div>
               <div id="edit-subtask-error" class="edit-input-error dNone">Subtasks can not be empty</div>
-              <div id="not-saved-error" class="edit-input-error dNone">Please save Subtask</div>
+              <div id="not-saved-error" class="edit-input-error dNone">Subtask is not saved</div>
               <ul id="edit-subtasks-list" class="edit-subtasks-list">
 
               </ul>

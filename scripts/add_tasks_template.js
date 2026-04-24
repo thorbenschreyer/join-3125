@@ -104,7 +104,7 @@ function renderEditSubtaskItemsTemplate(text) {
             </div>
         </li>
         <div class="edit-subtask-edit dNone">
-            <input class="edit-subtask-edit-input" type="text" name="subtasks" value="${text}" onkeypress="if(event.key === 'Enter') confirmEditEditSubtask(this)" oninput="resetEditSubtaskError(this)" onclick="event.stopPropagation()">
+            <input class="edit-subtask-edit-input" type="text" name="subtasks" value="${text}" onkeypress="if(event.key === 'Enter') confirmEditEditSubtask(this)" oninput="resetEditSubtaskError(this); hideNotSavedError()" onclick="event.stopPropagation()">
             <div class="edit-subtask-edit-btns">
                 <button class="edit-input-delete-btn" type="button" aria-label="Delete subtask" onclick="deleteEditSubtask(this); hideNotSavedError()">
                     <img src="./assets/icons/subtask_delete.svg" alt="Trash bin icon">

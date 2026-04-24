@@ -163,16 +163,17 @@
                 <div id="subtasks-input-container" class="subtasks-input-container" onclick="stopEventBubbling(event)">    
                     <input id="subtasks-input" class="task-input form-input cursor-text" type="text" placeholder="Add new subtask">
                     <div class="subtasks-input-icons">
-                        <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input">
+                        <button id="clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input" onclick="hideUnsavedInputError()">
                             <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
                         </button>
                         <span id="subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
-                        <button id="add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask">
+                        <button id="add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask" onclick="hideUnsavedInputError()">
                             <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                         </button>
                     </div>
                 </div>
-                <span id="subtask-input-error" class="subtask-input-error dNone">Subtask can not be empty</span>
+                <span id="subtask-input-error" class="subtask-input-error">Subtask can not be empty</span>
+                <span id="unsaved-input-error" class="subtask-input-error">Subtask is not saved</span>
                 <ul id="subtasks-list" class="subtasks-list">
                     <!-- dynamic content: subtasks will be populated here -->
                 </ul>

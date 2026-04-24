@@ -337,6 +337,7 @@ function buildTaskObject() {
  * Adds the current form data as a new task and starts the save flow.
  */
 function addTask() {
+    if (!validateUnsavedSubtasks()) return;
     const newTask = buildTaskObject();
     tasks.push(newTask);
     saveTaskData();
@@ -367,4 +368,27 @@ function addTaskSuccess() {
     setTimeout(() => {
         loadBoardPage();
     }, 1500);
+}
+
+/**
+ * Checks for unsaved subtask inputs and shows an error if found.
+ * @returns {boolean} True if inputs are clear/saved, false if blocked.
+ */
+function validateUnsavedSubtasks() {
+    let mainText = document.getElementById("subtasks-input").value.trim();
+    if (mainText !== "") {
+        document.getElementById("unsaved-input-error").style.visibility = "visible";
+        document.getElementById("unsaved-input-error").style.marginTop = "-34px";
+        document.getElementById("subtasks-input").classList.add("red-border");
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Hides the error message for unsaved subtasks.
+ */
+function hideUnsavedInputError() {
+    document.getElementById("unsaved-input-error").style.visibility = "hidden";
+    document.getElementById("subtasks-input").classList.remove("red-border");
 }
