@@ -219,6 +219,7 @@ function hideSubtaskInputButtons() {
  * Shows the error state for the subtask input when attempting to add an empty subtask.
  */
 function showSubtaskError() {
+    hideUnsavedInputError();
     document.getElementById("subtask-input-error").classList.add("subtask-input-error-visible");
 }
 

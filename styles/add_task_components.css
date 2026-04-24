@@ -270,25 +270,25 @@
 }
 
 /* === SUBTASK ERROR === */
+.subtask-error-wrapper {
+  position: relative;
+  height: 26px;
+  margin-top: -5px;
+}
+
 .subtask-input-error {
-  display: block;
-  min-height: 26px;
+  position: absolute;
+  top: 0;
+  left: 0;
   line-height: 24px;
   color: var(--red);
   font-size: 16px;
   visibility: hidden;
-  margin-top: -5px;
 }
 
 .subtask-input-error-visible {
   visibility: visible;
 }
-
-/* .subtask-red-border {
-  border: solid 1px var(--red) !important;
-  border-radius: 6px;
-  /* outline: none; */
-
 
 .subtask-edit-red-border {
   border-bottom: 1px solid var(--red) !important;

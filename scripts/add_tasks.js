@@ -312,6 +312,7 @@ function clearFormular() {
     document.getElementById("subtasks-list").innerHTML = "";
     hideSubtaskError();
     document.getElementById("subtasks-input").classList.remove("red-border");
+    hideUnsavedInputError();
 }
 
 /**
@@ -377,8 +378,8 @@ function addTaskSuccess() {
 function validateUnsavedSubtasks() {
     let mainText = document.getElementById("subtasks-input").value.trim();
     if (mainText !== "") {
-        document.getElementById("unsaved-input-error").style.visibility = "visible";
-        document.getElementById("unsaved-input-error").style.marginTop = "-34px";
+        hideSubtaskError();
+        document.getElementById("unsaved-input-error").classList.add("subtask-input-error-visible");
         document.getElementById("subtasks-input").classList.add("red-border");
         return false;
     }
@@ -389,6 +390,6 @@ function validateUnsavedSubtasks() {
  * Hides the error message for unsaved subtasks.
  */
 function hideUnsavedInputError() {
-    document.getElementById("unsaved-input-error").style.visibility = "hidden";
+    document.getElementById("unsaved-input-error").classList.remove("subtask-input-error-visible");
     document.getElementById("subtasks-input").classList.remove("red-border");
 }
