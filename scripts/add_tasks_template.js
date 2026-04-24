@@ -92,7 +92,7 @@ function renderSubtaskItemsTemplate(subtasksInput) {
  */
 function renderEditSubtaskItemsTemplate(text) {
   return `
-    <div class="edit-subtask-item-wrapper" ondblclick="editEditSubtask(this.querySelector('.edit-subtask-btn'))">   
+    <div class="edit-subtask-item-wrapper" ondblclick="editEditSubtask(this.querySelector('.edit-edit-subtask-btn'))">   
         <li class="edit-subtask-item" onmouseenter="showEditSubtaskButtons(this)" onmouseleave="hideEditSubtaskButtons(this)">
             <div class="edit-subtask-item-content">
                 <span class="edit-subtask-text">${text}</span>
