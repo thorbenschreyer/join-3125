@@ -46,10 +46,6 @@ function initClickOutsideElementsListener() {
         let subtasksList = document.getElementById("subtasks-list");
         let clickedInSubtasks = (subtaskContainer && subtaskContainer.contains(event.target)) ||
                                 (subtasksList && subtasksList.contains(event.target));
-        if (!clickedInSubtasks) {
-            hideSubtaskError();
-            if (subtaskContainer) document.getElementById("subtasks-input").classList.remove("red-border");
-        }
         if (subtasksList && !subtasksList.contains(event.target)) {
             closeAllSubtaskEdits();
             document.getElementById("subtasks-input").classList.remove("red-border");

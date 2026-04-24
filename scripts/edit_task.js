@@ -275,14 +275,6 @@ function initEditSubtaskListeners() {
 }
 
 /**
- * Clears the subtask input field and hides the related controls.
- */
-function clearEditSubtaskInput() {
-  editSubtasksInput.value = "";
-  hideEditSubtaskInputButtons();
-}
-
-/**
  * Adds a new subtask to the list if the input is not empty.
  */
 function addEditSubtask() {
@@ -348,11 +340,21 @@ function showEditSubtaskInputButtons() {
 }
 
 /**
- * Hides the controls for the current subtask input.
+ * Hides the controls for the main subtask input without deleting text.
  */
 function hideEditSubtaskInputButtons() {
-  editClearSubtasksBtn.classList.add("dNone");
-  editSubtaskVerticalDivider.classList.add("dNone");
-  editAddSubtaskBtn.classList.add("dNone");
-  clearEditSubtaskInput();
+    document.getElementById("edit-clear-input-btn").classList.add("dNone");
+    document.getElementById("edit-subtasks-vertical-divider").classList.add("dNone");
+    document.getElementById("edit-add-subtask-btn").classList.add("dNone");
+}
+
+/**
+ * Clears the subtask input field, removes errors, and hides controls.
+ */
+function clearEditSubtaskInput() {
+    let input = document.getElementById("edit-subtasks-input");
+    input.value = "";
+    input.classList.remove("input-error-border");
+    document.getElementById("edit-subtask-error").classList.add("dNone");
+    hideEditSubtaskInputButtons();
 }

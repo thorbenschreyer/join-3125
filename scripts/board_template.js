@@ -267,16 +267,17 @@ function buildEditForm(task) {
               <div id="edit-subtasks-input-container" class="subtasks-input-container  cursor-text" onclick="stopEventBubbling(event)">    
                     <input id="edit-subtasks-input" class="form-input task-input edit-subtask-input" type="text" placeholder="Add new subtask" oninput="checkEditSubtaskInput()">
                     <div class="subtasks-input-icons">
-                        <button id="edit-clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input" onclick="hideEditSubtaskInputButtons()">
+                        <button id="edit-clear-input-btn" class="clear-input-icon dNone" type="button" aria-label="Clear subtask input" onclick="hideEditSubtaskInputButtons(); hideNotSavedError()">
                             <img src="./assets/icons/subtask_close.svg" alt="Cross icon">
                         </button>
                         <span id="edit-subtasks-vertical-divider" class="subtasks-vertical-divider dNone" aria-hidden="true">|</span>
-                        <button id="edit-add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask" onclick="validateAndAddEditSubtask()">
+                        <button id="edit-add-subtask-btn" class="add-subtask-icon dNone" type="button" aria-label="Add subtask" onclick="validateAndAddEditSubtask(); hideNotSavedError(); hideEditSubtaskInputButtons()">
                             <img src="./assets/icons/subtask_check.svg" alt="Checkmark icon">
                         </button>
                     </div>
               </div>
               <div id="edit-subtask-error" class="edit-input-error dNone">Subtasks can not be empty</div>
+              <div id="not-saved-error" class="edit-input-error dNone">Please save Subtask</div>
               <ul id="edit-subtasks-list" class="edit-subtasks-list">
 
               </ul>
